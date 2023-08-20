@@ -174,7 +174,7 @@ public class GameObject extends AnimatedSprite {
 			onEndCollisionCheckX(hasCollided, direction, entityCollidedWith);
 		}
 
-		// returns the amount actually moved -- this isn't really used by the game, but I have it here for debug purposes
+		// returns the amount actually moved
 		return amountMoved * direction.getVelocity();
 	}
 
@@ -242,7 +242,7 @@ public class GameObject extends AnimatedSprite {
 			onEndCollisionCheckY(hasCollided, direction, entityCollidedWith);
 		}
 
-		// returns the amount actually moved -- this isn't really used by the game, but I have it here for debug purposes
+		// returns the amount actually moved
 		return amountMoved * direction.getVelocity();
 	}
 
