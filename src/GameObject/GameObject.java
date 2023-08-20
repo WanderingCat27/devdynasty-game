@@ -137,7 +137,7 @@ public class GameObject extends AnimatedSprite {
 				hasCollided = true;
 				entityCollidedWith = collisionCheckResult.getEntityCollidedWith();
 				if (!(entityCollidedWith instanceof Trigger)) {
-					setX(collisionCheckResult.getAdjustedLocation());
+					setX(collisionCheckResult.getAdjustedLocation().x);
 				}
 				break;
 			}
@@ -156,7 +156,7 @@ public class GameObject extends AnimatedSprite {
 				hasCollided = true;
 				entityCollidedWith = collisionCheckResult.getEntityCollidedWith();
 				if (!(entityCollidedWith instanceof Trigger)) {
-					setX(collisionCheckResult.getAdjustedLocation());
+					setX(collisionCheckResult.getAdjustedLocation().x);
 				}
 			}
 		}
@@ -200,7 +200,7 @@ public class GameObject extends AnimatedSprite {
 				hasCollided = true;
 				entityCollidedWith = collisionCheckResult.getEntityCollidedWith();
 				if (!(entityCollidedWith instanceof Trigger)) {
-					setY(collisionCheckResult.getAdjustedLocation());
+					setY(collisionCheckResult.getAdjustedLocation().y);
 				}
 				break;
 			}
@@ -219,7 +219,7 @@ public class GameObject extends AnimatedSprite {
 				hasCollided = true;
 				entityCollidedWith = collisionCheckResult.getEntityCollidedWith();
 				if (!(entityCollidedWith instanceof Trigger)) {
-					setY(collisionCheckResult.getAdjustedLocation());
+					setY(collisionCheckResult.getAdjustedLocation().y);
 				}
 			}
 		}
@@ -295,11 +295,11 @@ public class GameObject extends AnimatedSprite {
 					currentFrame.getImageEffect());
 
 			// Uncomment this to draw player's bounds to screen -- useful for debugging
-
+			/*
 			if (this instanceof Player) {
 				drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
 			}
-
+			*/
 		} else {
 			super.draw(graphicsHandler);
 		}

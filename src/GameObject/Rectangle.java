@@ -9,7 +9,7 @@ import java.awt.*;
 // it has some properties, rectangle math methods, and draw logic
 // the methods here are pretty self explanatory
 public class Rectangle implements IntersectableRectangle {
-    protected float x;
+	protected float x;
 	protected float y;
 	protected int width;
 	protected int height;
@@ -40,22 +40,22 @@ public class Rectangle implements IntersectableRectangle {
 		this.borderThickness = 0;
 	}
 
-    public float getX() {
-        return x;
-    }
-
-    public float getX1() {
-        return x;
-    }
-
-    public float getX2() {
-		return x + getWidth();
+	public float getX() {
+		return x;
 	}
-	
+
+	public float getX1() {
+		return x;
+	}
+
+	public float getX2() {
+		return (x + getWidth()) - 1;
+	}
+
 	public void setX(float x) {
 		this.x = x;
 	}
-	
+
 	public void moveX(float dx) {
 		this.x += dx;
 	}
@@ -63,35 +63,35 @@ public class Rectangle implements IntersectableRectangle {
 	public void moveRight(float dx) {
 		this.x += dx;
 	}
-	
+
 	public void moveLeft(float dx) {
 		this.x -= dx;
 	}
 
-    public float getY() {
-        return y;
-    }
+	public float getY() {
+		return y;
+	}
 
-    public float getY1() {
-        return y;
-    }
+	public float getY1() {
+		return y;
+	}
 
 	public float getY2() {
-		return y + getHeight();
+		return (y + getHeight()) - 1;
 	}
 
-    public void setY(float y) {
+	public void setY(float y) {
 		this.y = y;
 	}
-	
+
 	public void moveY(float dy) {
 		this.y += dy;
 	}
-	
+
 	public void moveDown(float dy) {
 		this.y += dy;
 	}
-	
+
 	public void moveUp(float dy) {
 		this.y -= dy;
 	}
@@ -99,8 +99,8 @@ public class Rectangle implements IntersectableRectangle {
 	public Point getLocation() { return new Point(x, y); }
 
 	public void setLocation(float x, float y) {
-        this.x = x;
-        this.y = y;
+		this.x = x;
+		this.y = y;
 	}
 
 	public int getWidth() {
@@ -124,7 +124,7 @@ public class Rectangle implements IntersectableRectangle {
 	public void setScale(float scale) {
 		this.scale = scale;
 	}
-	
+
 	public Color getColor() {
 		return color;
 	}
@@ -164,26 +164,28 @@ public class Rectangle implements IntersectableRectangle {
 	public boolean intersects(IntersectableRectangle other) {
 		Rectangle intersectRectangle = getIntersectRectangle();
 		Rectangle otherIntersectRectangle = other.getIntersectRectangle();
-		return Math.round(intersectRectangle.getX1()) < Math.round(otherIntersectRectangle.getX2()) && Math.round(intersectRectangle.getX2()) > Math.round(otherIntersectRectangle.getX1()) &&
-				Math.round(intersectRectangle.getY1()) < Math.round(otherIntersectRectangle.getY2()) && Math.round(intersectRectangle.getY2()) > Math.round(otherIntersectRectangle.getY1());
+		return Math.round(intersectRectangle.getX1()) < Math.round(otherIntersectRectangle.getX2() + 1) && Math.round(intersectRectangle.getX2() + 1) > Math.round(otherIntersectRectangle.getX1()) &&
+				Math.round(intersectRectangle.getY1()) < Math.round(otherIntersectRectangle.getY2() + 1) && Math.round(intersectRectangle.getY2() + 1) > Math.round(otherIntersectRectangle.getY1());
 	}
 
 	// check if this overlaps with another rectangle
 	public boolean overlaps(IntersectableRectangle other) {
 		Rectangle intersectRectangle = getIntersectRectangle();
 		Rectangle otherIntersectRectangle = other.getIntersectRectangle();
-		return Math.round(intersectRectangle.getX1()) <= Math.round(otherIntersectRectangle.getX2()) && Math.round(intersectRectangle.getX2()) >= Math.round(otherIntersectRectangle.getX1()) &&
-				Math.round(intersectRectangle.getY1()) <= Math.round(otherIntersectRectangle.getY2()) && Math.round(intersectRectangle.getY2()) >= Math.round(otherIntersectRectangle.getY1());
+		return Math.round(intersectRectangle.getX1()) <= Math.round(otherIntersectRectangle.getX2() + 1) && Math.round(intersectRectangle.getX2() + 1) >= Math.round(otherIntersectRectangle.getX1()) &&
+				Math.round(intersectRectangle.getY1()) <= Math.round(otherIntersectRectangle.getY2() + 1) && Math.round(intersectRectangle.getY2() + 1) >= Math.round(otherIntersectRectangle.getY1());
 	}
 
+	// calculates the area that a rectangle is overlapping another rectangle by
+	// and returns the total number of pixels
 	public float getAreaOverlapped(IntersectableRectangle other) {
 		Rectangle intersectRectangle = getIntersectRectangle();
 		Rectangle otherIntersectRectangle = other.getIntersectRectangle();
 		if (!overlaps(other)) {
 			return 0;
 		}
-		float width = Math.abs(Math.min(intersectRectangle.getX2(), otherIntersectRectangle.getX2()) - Math.max(intersectRectangle.getX1(), otherIntersectRectangle.getX1()));
-		float height = Math.abs(Math.min(intersectRectangle.getY2(), otherIntersectRectangle.getY2()) - Math.max(intersectRectangle.getY1(), otherIntersectRectangle.getY1()));
+		float width = Math.abs(Math.min(intersectRectangle.getX2() + 1, otherIntersectRectangle.getX2() + 1) - Math.max(intersectRectangle.getX1(), otherIntersectRectangle.getX1()));
+		float height = Math.abs(Math.min(intersectRectangle.getY2() + 1, otherIntersectRectangle.getY2() + 1) - Math.max(intersectRectangle.getY1(), otherIntersectRectangle.getY1()));
 		return width * height;
 	}
 }
