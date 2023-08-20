@@ -141,7 +141,7 @@ public class GameObject extends AnimatedSprite {
 				}
 				break;
 			}
-			amountMoved = (i + 1) * direction.getVelocity();
+			amountMoved = i + 1;
 		}
 
 		// if no collision occurred in the above steps, this deals with the decimal remainder from the original move amount (stored in moveAmountXRemainder)
@@ -156,7 +156,9 @@ public class GameObject extends AnimatedSprite {
 				hasCollided = true;
 				entityCollidedWith = collisionCheckResult.getEntityCollidedWith();
 				if (!(entityCollidedWith instanceof Trigger)) {
+					float xLocationBeforeAdjustment = getX();
 					setX(collisionCheckResult.getAdjustedLocation().x);
+					amountMoved += Math.abs(xLocationBeforeAdjustment - getX());
 				}
 			}
 		}
@@ -173,7 +175,7 @@ public class GameObject extends AnimatedSprite {
 		}
 
 		// returns the amount actually moved -- this isn't really used by the game, but I have it here for debug purposes
-		return amountMoved + (moveAmountXRemainder * direction.getVelocity());
+		return amountMoved * direction.getVelocity();
 	}
 
 	// performs collision check logic for moving along the y axis against the map's tiles
@@ -204,7 +206,7 @@ public class GameObject extends AnimatedSprite {
 				}
 				break;
 			}
-			amountMoved = (i + 1) * direction.getVelocity();
+			amountMoved = i + 1;
 		}
 
 		// if no collision occurred in the above steps, this deals with the decimal remainder from the original move amount (stored in moveAmountYRemainder)
@@ -219,8 +221,13 @@ public class GameObject extends AnimatedSprite {
 				hasCollided = true;
 				entityCollidedWith = collisionCheckResult.getEntityCollidedWith();
 				if (!(entityCollidedWith instanceof Trigger)) {
+					float yLocationBeforeAdjustment = getY();
 					setY(collisionCheckResult.getAdjustedLocation().y);
+					amountMoved += Math.abs(yLocationBeforeAdjustment - getY());
 				}
+			}
+			else {
+				amountMoved += moveAmountYRemainder;
 			}
 		}
 
@@ -236,7 +243,7 @@ public class GameObject extends AnimatedSprite {
 		}
 
 		// returns the amount actually moved -- this isn't really used by the game, but I have it here for debug purposes
-		return amountMoved + (moveAmountYRemainder * direction.getVelocity());
+		return amountMoved * direction.getVelocity();
 	}
 
 	// game object subclass can override this method to listen for x axis collision events and react accordingly after calling "moveXHandleCollision"
