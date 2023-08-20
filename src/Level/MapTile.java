@@ -7,6 +7,8 @@ import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Utils.Point;
 
+import java.awt.*;
+
 // Represents a map tile in a Map's tile map
 public class MapTile extends MapEntity {
     // this determines a tile's properties, like if it's passable or not
@@ -94,15 +96,28 @@ public class MapTile extends MapEntity {
         if (topLayer != null) {
             topLayer.draw(graphicsHandler);
         }
-        //drawBounds(graphicsHandler, new Color(0, 0, 255, 100));
     }
 
     public void drawBottomLayer(GraphicsHandler graphicsHandler) {
         bottomLayer.draw(graphicsHandler);
+
+        // uncomment this to draw bounds of all non passable tiles (useful for debugging)
+        /*
+        if (tileType == TileType.NOT_PASSABLE) {
+            drawBounds(graphicsHandler, new Color(0, 0, 255, 100));
+        }
+        */
     }
 
     public void drawTopLayer(GraphicsHandler graphicsHandler) {
         topLayer.draw(graphicsHandler);
+
+        // uncomment this to draw bounds of all non passable tiles (useful for debugging)
+        /*
+        if (tileType == TileType.NOT_PASSABLE) {
+            drawBounds(graphicsHandler, new Color(0, 0, 255, 100));
+        }
+        */
     }
 
     @Override
