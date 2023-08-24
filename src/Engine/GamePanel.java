@@ -27,7 +27,10 @@ public class GamePanel extends JPanel {
 	private Thread gameLoop;
 
 	// if true, the game's actual FPS will be printed to the console every so often
-	private boolean printFPS = false;
+	private Key showFPSKey = Key.G;
+	private SpriteFont fpsDisplayLabel;
+	private boolean showFPS = false;
+	private int currentFPS;
 
 	// The JPanel and various important class instances are setup here
 	public GamePanel() {
@@ -45,6 +48,10 @@ public class GamePanel extends JPanel {
 		pauseLabel.setOutlineColor(Color.black);
 		pauseLabel.setOutlineThickness(2.0f);
 
+		fpsDisplayLabel = new SpriteFont("FPS", 4, 16, "Comic Sans", 12, Color.black);
+
+		currentFPS = Config.TARGET_FPS;
+
 		// this game loop code will run in a separate thread from the rest of the program
 		// will continually update the game's logic and repaint the game's graphics
 		gameLoop = new Thread(new Runnable() {
@@ -52,14 +59,14 @@ public class GamePanel extends JPanel {
 			public void run() {
 				// Notch's game loop
 				long previousTime = System.nanoTime();
-				double FPS = 1000000000 / Config.FPS;
+				double targetTickRate = 1000000000 / (float)Config.TARGET_FPS;
 				double delta = 0;
 				int frames = 0;
 				double lastCycleTime = System.currentTimeMillis();
 
 				while (true) {
 					long currentTime = System.nanoTime();
-					delta += (currentTime - previousTime) / FPS;
+					delta += (currentTime - previousTime) / targetTickRate;
 					previousTime = currentTime;
 
 					if (delta >= 1) {
@@ -68,10 +75,10 @@ public class GamePanel extends JPanel {
 						frames++;
 						delta--;
 
-						if (printFPS && System.currentTimeMillis() - lastCycleTime >= 1000) {
+						if (System.currentTimeMillis() - lastCycleTime >= 1000) {
+							currentFPS = frames;
 							lastCycleTime += 1000;
 							frames = 0;
-							System.out.println("FPS:" + frames);
 						}
 					}
 				}
@@ -97,18 +104,36 @@ public class GamePanel extends JPanel {
 	}
 
 	public void update() {
-		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
-			isGamePaused = !isGamePaused;
-			keyLocker.lockKey(pauseKey);
-		}
-		
-		if (Keyboard.isKeyUp(pauseKey)) {
-			keyLocker.unlockKey(pauseKey);
-		}
+		updatePauseState();
+		updateShowFPSState();
 
 		if (!isGamePaused) {
 			screenManager.update();
 		}
+	}
+
+	private void updatePauseState() {
+		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
+			isGamePaused = !isGamePaused;
+			keyLocker.lockKey(pauseKey);
+		}
+
+		if (Keyboard.isKeyUp(pauseKey)) {
+			keyLocker.unlockKey(pauseKey);
+		}
+	}
+
+	private void updateShowFPSState() {
+		if (Keyboard.isKeyDown(showFPSKey) && !keyLocker.isKeyLocked(showFPSKey)) {
+			showFPS = !showFPS;
+			keyLocker.lockKey(showFPSKey);
+		}
+
+		if (Keyboard.isKeyUp(showFPSKey)) {
+			keyLocker.unlockKey(showFPSKey);
+		}
+
+		fpsDisplayLabel.setText("FPS: " + currentFPS);
 	}
 
 	public void draw() {
@@ -118,6 +143,10 @@ public class GamePanel extends JPanel {
 		if (isGamePaused) {
 			pauseLabel.draw(graphicsHandler);
 			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
+		}
+
+		if (showFPS) {
+			fpsDisplayLabel.draw(graphicsHandler);
 		}
 	}
 
