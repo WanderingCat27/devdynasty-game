@@ -1,6 +1,6 @@
 package Maps;
 
-import EnhancedMapTiles.Rock;
+import EnhancedMapTiles.PushableRock;
 import Level.EnhancedMapTile;
 import Level.Map;
 import Level.NPC;
@@ -27,7 +27,10 @@ public class TestMap extends Map {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-        enhancedMapTiles.add(new Rock(getMapTile(2, 7).getLocation()));
+
+        PushableRock pushableRock = new PushableRock(getMapTile(2, 7).getLocation());
+        enhancedMapTiles.add(pushableRock);
+
         return enhancedMapTiles;
     }
 
