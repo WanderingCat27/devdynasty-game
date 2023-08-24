@@ -20,8 +20,8 @@ public class Textbox {
     protected final int bottomY = 460;
     protected final int topY = 22;
     protected final int fontX = 35;
-    protected final int fontBottomY = 500;
-    protected final int fontTopY = 62;
+    protected final int fontBottomY = 472;
+    protected final int fontTopY = 34;
     protected final int width = 750;
     protected final int height = 100;
 
