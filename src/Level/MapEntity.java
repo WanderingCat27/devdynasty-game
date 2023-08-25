@@ -23,6 +23,10 @@ public class MapEntity extends GameObject {
     // script that executes when entity is interacted with by the player
     protected Script interactScript;
 
+    // set to true if you do not want this entity to be able to be collided with by other entities
+    // example of why you would use this: this is an entity that you want to overlap the player, but you do not want the player to be blocked by/have to worry about this entity's collision bounds when trying to move
+    protected boolean isUncollidable = false;
+
     public MapEntity(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(spriteSheet, x, y, startingAnimation);
     }
@@ -87,5 +91,13 @@ public class MapEntity extends GameObject {
 
     public void setExistenceFlag(String existenceFlag) {
         this.existenceFlag = existenceFlag;
+    }
+
+    public boolean isUncollidable() {
+        return isUncollidable;
+    }
+
+    public void setIsUncollidable(boolean isUncollidable) {
+        this.isUncollidable = isUncollidable;
     }
 }

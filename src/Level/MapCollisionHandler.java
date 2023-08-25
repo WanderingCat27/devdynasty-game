@@ -30,7 +30,7 @@ public class MapCollisionHandler {
         }
 
         for (EnhancedMapTile enhancedMapTile : map.getActiveEnhancedMapTiles()) {
-            if (!gameObject.equals(enhancedMapTile) && hasCollidedWithMapEntity(gameObject, enhancedMapTile, direction)) {
+            if (!gameObject.equals(enhancedMapTile) && !enhancedMapTile.isUncollidable() && hasCollidedWithMapEntity(gameObject, enhancedMapTile, direction)) {
                 entityCollidedWith = enhancedMapTile;
                 float adjustedPositionX = gameObject.getX();
                 if (direction == Direction.RIGHT) {
@@ -45,7 +45,7 @@ public class MapCollisionHandler {
         }
 
         for (NPC npc : map.getActiveNPCs()) {
-            if (!gameObject.equals(npc) && hasCollidedWithMapEntity(gameObject, npc, direction)) {
+            if (!gameObject.equals(npc) && !npc.isUncollidable() && hasCollidedWithMapEntity(gameObject, npc, direction)) {
                 entityCollidedWith = npc;
                 float adjustedPositionX = gameObject.getX();
                 if (direction == Direction.RIGHT) {
@@ -61,7 +61,7 @@ public class MapCollisionHandler {
 
         if (gameObject.isAffectedByTriggers()) {
             for (Trigger trigger : map.getActiveTriggers()) {
-                if (!gameObject.equals(trigger) && trigger.exists() && hasCollidedWithMapEntity(gameObject, trigger, direction)) {
+                if (!gameObject.equals(trigger) && !trigger.isUncollidable() && trigger.exists() && hasCollidedWithMapEntity(gameObject, trigger, direction)) {
                     entityCollidedWith = trigger;
                     float adjustedPositionX = gameObject.getX();
                     if (direction == Direction.RIGHT) {
@@ -102,7 +102,7 @@ public class MapCollisionHandler {
         }
 
         for (EnhancedMapTile enhancedMapTile : map.getActiveEnhancedMapTiles()) {
-            if (!gameObject.equals(enhancedMapTile) && hasCollidedWithMapEntity(gameObject, enhancedMapTile, direction)) {
+            if (!gameObject.equals(enhancedMapTile) && !enhancedMapTile.isUncollidable() && hasCollidedWithMapEntity(gameObject, enhancedMapTile, direction)) {
                 entityCollidedWith = enhancedMapTile;
                 float adjustedPositionY = gameObject.getY();
                 if (direction == Direction.DOWN) {
@@ -117,7 +117,7 @@ public class MapCollisionHandler {
         }
 
         for (NPC npc : map.getActiveNPCs()) {
-            if (!gameObject.equals(npc) && hasCollidedWithMapEntity(gameObject, npc, direction)) {
+            if (!gameObject.equals(npc) && !npc.isUncollidable() && hasCollidedWithMapEntity(gameObject, npc, direction)) {
                 entityCollidedWith = npc;
                 float adjustedPositionY = gameObject.getY();
                 if (direction == Direction.DOWN) {
@@ -133,7 +133,7 @@ public class MapCollisionHandler {
 
         if (gameObject.isAffectedByTriggers()) {
             for (Trigger trigger : map.getActiveTriggers()) {
-                if (!gameObject.equals(trigger) && trigger.exists() && hasCollidedWithMapEntity(gameObject, trigger, direction)) {
+                if (!gameObject.equals(trigger) && !trigger.isUncollidable() && trigger.exists() && hasCollidedWithMapEntity(gameObject, trigger, direction)) {
                     entityCollidedWith = trigger;
                     float adjustedPositionY = gameObject.getY();
                     if (direction == Direction.DOWN) {
