@@ -14,7 +14,7 @@ public class MapCollisionHandler {
         Point tileIndex = map.getTileIndexByPosition(edgeBoundX, gameObject.getBounds().getY1());
         MapEntity entityCollidedWith = null;
         for (int i = -1; i <= numberOfTilesToCheck + 1; i++) {
-            MapTile mapTile = map.getMapTile(Math.round(tileIndex.x), Math.round(tileIndex.y + j));
+            MapTile mapTile = map.getMapTile(Math.round(tileIndex.x), Math.round(tileIndex.y + i));
             if (mapTile != null && hasCollidedWithMapEntity(gameObject, mapTile, direction)) {
                 entityCollidedWith = mapTile;
                 float adjustedPositionX = gameObject.getX();
