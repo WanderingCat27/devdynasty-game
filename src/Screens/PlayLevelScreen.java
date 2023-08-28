@@ -33,7 +33,6 @@ public class PlayLevelScreen extends Screen {
 
         // define/setup map
         this.map = new TestMap();
-        map.reset();
         map.setFlagManager(flagManager);
 
         // setup player
