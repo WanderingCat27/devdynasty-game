@@ -91,7 +91,7 @@ The background of the menu screen uses a `Map` specifically made for it (`TitleS
 While any image could have been used, I thought it'd be more fun to use a map as the background.
 
 The little blue square moves based on the value of `currentMenuItemHovered` (which changes value when up or down is pressed) to be in front of the currently hovered item's text. 
-The text that is hovered over will also change color to gold while the one not hovered will change color to black.
+The text that is hovered over will also change color to gold while the one not hovered will change color to blue.
 
 The menu item labels ("Play Game" and "Credits") use the `SpriteFont` class and are defined in the `initialize` method (variables `playGame` and `credits`).
 

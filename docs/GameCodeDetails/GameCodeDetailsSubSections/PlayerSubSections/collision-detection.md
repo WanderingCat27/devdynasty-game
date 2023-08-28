@@ -19,37 +19,35 @@ permalink: /GameCodeDetails/Player/CollisionDetection
 
 ## What is collision detection?
 
-Collision detection is the ability for entities in the game, such as the player, to be able to detect "collisions" with other map entities,
-such as map tiles, NPCs, etc. This is generally done through checking if two entities "intersect" each other, at which point a collision
-has occurred. Games are built around collision detection -- think of any of your favorite video games and tell me if the game would still work
-if entities could not detect and react to colliding with other entities, and I guarantee you it cannot.
+Collision detection is the ability for entities in the game, such as the player, to be able to detect "collisions" with other map entities, such as map tiles, NPCs, etc. 
+This is achieved through checking if two entities "intersect" each other, at which point a collision has occurred. 
+Games are built around collision detection -- think of any video game and tell me if the game would still work if entities could not detect and react to colliding with other entities, and I guarantee you it cannot.
 
 The hard part about collision detection is there are A LOT of different "scenarios" where a collision can occur between two entities,
-and each entity needs to react accordingly to the collision. All map entities in this game engine are rectangles (x, y, width, height) under the hood,
-which thankfully lessens a lot of the complexity that other shapes would introduce. Rectangles are the easiest shape to work with by far due to
-"rectangle math" being relatively simple and it works out very nicely in a 2D space where only the x and y axis exist.
+and each entity needs to react accordingly to the collision. 
+All map entities in this game engine are rectangles (x, y, width, height) under the hood,
+which thankfully lessens a lot of the complexity that other shapes would introduce. 
+Rectangles are the easiest shape to work with by far due to "rectangle math" being relatively simple, and it works out very nicely in a 2D space where only the x and y axis exist.
 
-Also, collision detection is always the hardest part about creating a game, and anyone will tell you that writing your own collision detection is the WORST when it comes to platformers.
+Also, collision detection is always the hardest part about creating a game, and anyone will tell you that writing your own collision detection is the WORST..
 This is especially true when it comes to 3D games -- it is difficult, complex math can be involved, and tiny errors randomly creep up just when you finally think you've gotten everything down pact.
-Luckily, with 2D games, things are a lot simpler, but still can be a real painpoint.
-In this game's case, getting proper decimal movement caused me a whole lot of trouble -- and I've even written code like this before for another game!
-It's just hard stuff, but I believe this game's collision detection is in a good state right now (it better be after all the time I put into it).
-I know it doesn't sound difficult, but trust me...there's a lot of problems that rear their ugly heads when you work on implementing it.
+Luckily, with 2D games, things are a lot simpler, but still can be a real PITA.
 
 ## Player collision detection with Map Tiles
 
-**tl;dr**: This is probably the most complicated part of this game. Each frame the player moves by a specified amount unless it collides
-with a solid map tile, in which case it is told to stop moving. Use the `moveXHandleCollision` and `moveYHandleCollision` methods when moving an entity that needs to
-detect collision. An entity's generic `moveX` and `moveY` methods do not account for collision.
+**tl;dr**: This is probably the most complicated part of this game. 
+Each frame the player moves by a specified amount unless it collides with a solid map tile, in which case it is told to stop moving. 
+Use the `moveXHandleCollision` and `moveYHandleCollision` methods when moving an entity that needs to detect collision. 
+An entity's generic `moveX` and `moveY` methods do not account for collision.
 
-The main reason for needing extremely precise collision detecting in a platformer game is for the player to be able to traverse the map
-without being able to fall through the floor or run through obstacles.
+The reason for needing extremely precise collision detection in a game is for the player to be able to traverse the map without being able to run through obstacles or map entities.
 
-The `GameObject` class contains two special move methods named `moveXHandleCollisions` and `moveYHandleCollision`. These methods
-will move the player by a specified amount, and the `Player` calls these methods each frame to move it by a set amount based on which
-actions the player took (such as walking forward). Unlike the plain `moveX` and `moveY` methods which simply move a player by a specified amount with no questions asked,
+The `GameObject` class contains two special move methods named `moveXHandleCollisions` and `moveYHandleCollision`. 
+These methods will move the player by a specified amount, and the `Player` calls these methods each frame to move it by a set amount based on which actions the player took (such as walking forward). 
+Unlike the plain `moveX` and `moveY` methods which simply move a player by a specified amount with no questions asked,
 the `moveXHandleCollision` and `moveYHandleCollision` methods will stop the player from moving if it collides with a "solid" entity,
-such as a `NOT_PASSABLE` ("solid") map tile. Each `MapTile` has an assigned [tile type](../MapSubSections/map-tiles-and-tilesets.md#tile-types), and the move handle collisions
+such as a `NOT_PASSABLE` ("solid") map tile. 
+Each `MapTile` has an assigned [tile type](../MapSubSections/map-tiles-and-tilesets.md#tile-types), and the move handle collisions
 methods will take these into account when moving the player to determine if a player is allowed to move to the new location or not.
 
 Decimal movement makes this a bit more complex. While a player can be at a decimal location in game logic, in draw logic it cannot
@@ -117,7 +115,7 @@ are treated like regular map tiles in terms of collision detection. So for examp
 the game's green horizontal moving platform would also be checked against for possible collisions during this area of the code.
 
 Although standard collision detection on enhanced map tiles is done here, `EnhancedMapTile` classes can run their own
-`update` logic to do other actions when intersecting with a player. For example, the `Rock` class carries out
+`update` logic to do other actions when intersecting with a player. For example, the `PushableRock` class carries out
 its own logic upon determining that the player walked into it, so it can move itself to make it appear like it is being pushed.
 
 ![pushing-rock.gif](../../../assets/images/pushing-rock.gif)
@@ -129,7 +127,7 @@ This makes collision detection very easy -- the player is not allowed to walk th
 
 ## Player collision detection with Triggers
 
-If a player walks on top of a trigger, the player will be stopped in its tracks and the trigger script will be set to active
+If a player walks on top of a trigger, the player will be stopped in its tracks, and the trigger script will be set to active
 and begin executing.
 
 ## Player class reacting to a collision
@@ -139,7 +137,7 @@ After a collision check has occurred, the collision methods will let the `Player
 while checking for collisions) know if a collision occurred and what direction the collision happened from (left, right, up, or down).
 
 At the moment, these aren't being used in the `Player` class (or any other entity), but they can be really useful for other future features.. 
-Here's how they would be used
+Here's how they would be used:
 
 ```java
 @Override
