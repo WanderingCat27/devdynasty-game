@@ -28,7 +28,7 @@ public class DinoScript extends Script<NPC> {
                 addTextToTextboxQueue("Isn't my garden so lovely?");
             }
             else if (sequence == 1) {
-                setWaitTime(1000);
+                setWaitTime(70);
             }
             else if (sequence == 2) {
                 entity.facePlayer(player);

@@ -1,7 +1,6 @@
 package Level;
 import GameObject.Rectangle;
 import Utils.Direction;
-import Utils.Stopwatch;
 
 // This class is a base class for all scripts in the game -- all scripts should extend from it
 // Scripts can be used to interact with map entities
@@ -20,10 +19,11 @@ public abstract class Script<T extends MapEntity> {
 
     // reference to the map instance which can be used in any script
     protected Map map;
+
     // reference to the player instance which can be used in any script
     protected Player player;
 
-    protected Stopwatch stopwatch = new Stopwatch();
+    protected int frameDelayCounter = 0;
 
     public Map getMap() { return map; }
     public void setMap(Map map) { this.map = map; }
@@ -48,6 +48,10 @@ public abstract class Script<T extends MapEntity> {
     public void update() {
         // Runs an execute cycle of the Script
         ScriptState scriptState = execute();
+
+        if (frameDelayCounter > 0) {
+            frameDelayCounter--;
+        }
 
         // If Script is completed, set it to inactive to allow game to carry on
         if (scriptState == ScriptState.COMPLETED) {
@@ -175,14 +179,14 @@ public abstract class Script<T extends MapEntity> {
         map.getFlagManager().unsetFlag(flagName);
     }
 
-    // sets time to wait
-    protected void setWaitTime(int milliseconds) {
-        stopwatch.setWaitTime(milliseconds);
+    // sets amount of frames to wait before moving on
+    protected void setWaitTime(int frames) {
+        frameDelayCounter = frames;
     }
 
     // checks if wait time is completed (use in conjunction with setWaitTime)
     protected boolean isWaitTimeUp() {
-        return stopwatch.isTimeUp();
+        return frameDelayCounter == 0;
     }
 
     // gets a specified map tile instance by index from the map

@@ -8,8 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /*
- * This is where the game loop starts
- * The JPanel uses a timer to continually call cycles of update and draw
+ * This is where the game loop process and render back buffer is setup
  */
 public class GamePanel extends JPanel {
 	// loads Screens on to the JPanel
@@ -24,9 +23,8 @@ public class GamePanel extends JPanel {
 	private SpriteFont pauseLabel;
 	private KeyLocker keyLocker = new KeyLocker();
 	private final Key pauseKey = Key.P;
-	private Thread gameLoop;
+	private Thread gameLoopProcess;
 
-	// if true, the game's actual FPS will be printed to the console every so often
 	private Key showFPSKey = Key.G;
 	private SpriteFont fpsDisplayLabel;
 	private boolean showFPS = false;
@@ -43,7 +41,7 @@ public class GamePanel extends JPanel {
 		graphicsHandler = new GraphicsHandler();
 
 		screenManager = new ScreenManager();
-		
+
 		pauseLabel = new SpriteFont("PAUSE", 365, 280, "Comic Sans", 24, Color.white);
 		pauseLabel.setOutlineColor(Color.black);
 		pauseLabel.setOutlineThickness(2.0f);
@@ -54,41 +52,8 @@ public class GamePanel extends JPanel {
 
 		// this game loop code will run in a separate thread from the rest of the program
 		// will continually update the game's logic and repaint the game's graphics
-		gameLoop = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				long previousTime = System.nanoTime();
-				double targetTickRate = 1000000000 / (float)Config.TARGET_FPS;
-				double delta = 0;
-				int frames = 0;
-				double lastCycleTime = System.currentTimeMillis();
-
-				while (true) {
-					long currentTime = System.nanoTime();
-					delta += (currentTime - previousTime) / targetTickRate;
-					previousTime = currentTime;
-
-					if (delta >= 1) {
-						update();
-						repaint();
-						frames++;
-						delta--;
-
-						if (System.currentTimeMillis() - lastCycleTime >= 1000) {
-							currentFPS = frames;
-							lastCycleTime += 1000;
-							frames = 0;
-						}
-					}
-					else {
-						try {
-							Thread.sleep(1);
-						} catch(InterruptedException e) {}
-					}
-					
-				}
-			}
-		});
+		GameLoop gameLoop = new GameLoop(this);
+		gameLoopProcess = new Thread(gameLoop.getGameLoopProcess());
 	}
 
 	// this is called later after instantiation, and will initialize screenManager
@@ -101,11 +66,15 @@ public class GamePanel extends JPanel {
 
 	// this starts the timer (the game loop is started here
 	public void startGame() {
-		gameLoop.start();
+		gameLoopProcess.start();
 	}
 
 	public ScreenManager getScreenManager() {
 		return screenManager;
+	}
+
+	public void setCurrentFPS(int currentFPS) {
+		this.currentFPS = currentFPS;
 	}
 
 	public void update() {

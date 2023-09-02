@@ -6,7 +6,7 @@ import java.awt.*;
 
 /*
  * This class holds some constants like window width/height and resource folder locations
- * Tweak these as needed, they shouldn't break anything (keyword shouldn't).
+ * Tweak these as needed prior to running the application
  */
 public class Config {
     public static final int TARGET_FPS = 60;
@@ -16,6 +16,10 @@ public class Config {
     public static final int GAME_WINDOW_HEIGHT = 605;
     public static final Color TRANSPARENT_COLOR = Colors.MAGENTA;
 
-    // prevents Config from being instantiated -- it's my way of making a "static" class like C# has
+    // POWER_SAVER does not hog CPU as much, but can potentially stutter/lag on lower end computers if they cannot handle reaching the target FPS
+    // MAX_PERFORMANCE will have the game do whatever it takes to reach the target FPS, even if that means hogging the CPU
+    public static final GameLoopType GAME_LOOP_TYPE = GameLoopType.POWER_SAVER;
+
+    // prevents Config from being instantiated
     private Config() { }
 }
