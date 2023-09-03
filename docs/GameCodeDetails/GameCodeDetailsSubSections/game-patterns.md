@@ -87,56 +87,53 @@ This is especially true due to how quickly (in real time) each game loop iterati
 can easily count as multiple key presses due to the game loop iterating quicker than a human can lift their finger off the key. Sometimes this is fine,
 like when moving a player throughout the level, but sometimes this is not desired which is what this pattern resolves.
 
-## Stopwatch
+## Frame Timers
 
-The `Stopwatch` class, located in the `Utils` folder, will act as a stopwatch in game to allow for timed events. This is used
-in several different classes, and is also used for the game's overall animation process to move from frame to frame based on a set delay time.
-
-Like the `KeyLocker`, `Stopwatch` classes tend to be instantiated as an instance variable, and many of them can be used in the same class
-if there are multiple processes that need to be timed.
-
-```java
-Stopwatch timer = new Stopwatch();
-```
-
-Upon initializing a `Stopwatch` class, the method `setWaitTime` is where the number of milliseconds to time is specified. 1000 milliseconds in a second
-in case you forgot.
+Across the game, there are many situations where something is being "waited for".
+For example, the game may want to wait x number of frames after a certain event has taken place before another event can take place.
+To do this, the game often uses a simple int variable to keep track of how many frames have passed.
+It usually looks like this:
 
 ```java
-timer.setWaitTime(1000); // wait for 1 second
-```
+int frameTimer = 0;
 
-The `isTimeUp` method will return true or false based on if wait time set by the `setWaitTime` method has completed.
-```java
-if (timer.isTimeUp()) {
-    
-}
-```
+public void update() { 
+    if (...something happened) {
+        frameTimer = 20;
+    }
 
-The `reset` method will reset the timer:
-
-```java
-timer.reset();
-```
-
-Sometimes, the `Stopwatch` class will be used in a way similar to `KeyLocker`, but instead of forcing a key to be pressed and released each time, it will
-"delay" how often key detection will take place while a key is held down. Below is an example of that:
-
-```java
-
-// some constructor somewhere
-timer.setWaitTime(1000);
-
-public void update() {
-    if (Keyboard.isKeyDown(Key.SPACE) && timer.isTimeUp()) {
-        timer.reset();
-        // other action logic...
+    if (frameTimer > 0) {
+        // tick timer down
+        frameTimer--;
+    }       
+    else {
+        // time is up
+        ... do something
     }
 }
 ```
 
-The above forces 1 second to pass by each time for the space key detection to cause an action to occur even if it is held down.
-This pattern is common in games that include a shooting mechanic to prevent the player from being able to continuously spam projectiles even when holding down the "shoot" key input.
+An example of this can be see in the `MenuScreen` class.
+The code that allows for the menu selection to change when up or down is pressed looks like this:
+
+```java
+if (Keyboard.isKeyDown(Key.DOWN) && keyPressTimer == 0) {
+    keyPressTimer = 14;
+    currentMenuItemHovered++;
+} else if (Keyboard.isKeyDown(Key.UP) && keyPressTimer == 0) {
+    keyPressTimer = 14;
+    currentMenuItemHovered--;
+} else {
+    if (keyPressTimer > 0) {
+        keyPressTimer--;
+    }
+}
+```
+
+Due to how fast the game loop runs, one key press can often register as many key presses,
+as the game may register that a press is still happening before the user had a chance to take their finger off of a key.
+This would be an issue in the menu screen, as pressing an arrow key up or down should only move one selection for a good user experience.
+This code solves the issue by implementing a simple "keyPressTimer" that forces 14 frames to pass after each time either the up or down key is pressed before it can check again for another key press.
 
 ## Builder Pattern
 
