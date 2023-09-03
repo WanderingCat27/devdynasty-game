@@ -449,8 +449,8 @@ The following methods are included in the `Script` base class:
 - `isFlagSet` -- checks if a flag is currently set
 - `setFlag` -- sets a flag (sets it to `true`)
 - `unsetFlag` -- unsets a flag (sets it to `false`)
-- `setWaitTime` -- specify number of miliseconds script should wait for before moving on
-- `isWaitTimeUp` -- used after a call to `setWaitTime` to check if the script's waiting period is done so it can move on
+- `setWaitTime` -- specify number of frames script should wait for before moving on
+- `isWaitTimeUp` -- used after a call to `setWaitTime` to check if the script's waiting period is done
 
 **Map Related**
 - `getMapTile` -- gets a map tile at a specified index

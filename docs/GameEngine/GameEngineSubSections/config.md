@@ -32,6 +32,7 @@ The following variable values are defined in the `Config` class:
 - **GAME_WINDOW_WIDTH** -- width of the game's JFrame window
 - **GAME_WINDOW_HEIGHT** -- height of the game's JFrame window
 - **TRANSPARENT_COLOR** -- default transparent color the `ImageLoader` class will use when loading an image into the game
+- **GAME_LOOP_TYPE** -- changes the game loop process based on performance needs
 
 ## How do you access a `Config` class variable from other classes?
 

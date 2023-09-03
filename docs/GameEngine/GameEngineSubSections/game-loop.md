@@ -18,9 +18,11 @@ permalink: /GameEngine/GameLoop
 
 ## What is a game loop?
 
-A game loop is the overall flow control for a game. To put it simply, it's an infinite loop that exists while the game application is
-running, and therefore will continually perform the same actions over and over again while the game is being played. Each game loop iteration is known as a frame. 
-The number of game loop iterations that are completed per second is how frames per second (FPS) is calculated. For example, 60 FPS means that the game loop iterated 60 times in one second (seems a lot more impressive now, huh?).
+A game loop is the overall flow control for a game. To put it simply, it's an infinite loop that exists while the game application is running, 
+and therefore will continually perform the same actions over and over again while the game is being played. 
+Each game loop iteration is known as a frame. 
+The number of game loop iterations that are completed per second is how frames per second (FPS) is calculated. 
+For example, 60 FPS means that the game loop iterated 60 times in one second.
 
 ## How does this engine's game loop work?
 
@@ -29,8 +31,14 @@ The thread contains an infinite loop that continually updates game logic and the
 The game currently targets 60 FPS, and will achieve it as long as the computer running it can handle that (which most can, this is a simple 2D Java game).
 The target FPS can be changed by modifying the `TARGET_FPS` configuration properly in the `Config` class, however I've found that 60 FPS is the "sweet spot" on every computer I've tested this game out on. 
 
-For each "tick" of the game loop (each time the loop iterates, i.e. one frame), it does two things: updates game logic, and then updates the graphics
-that are rendered to the screen based on the updated game logic. That's it. Here is a very detailed diagram illustrating the game loop:
+Note that the game loop ties FPS and UPS (updates per second) together, so there is always one update call per draw call.
+This was done for simplicity, however it does mean the game will slow down if the FPS drops too much.
+Considering this is a simple Java Swing game, I haven't found a computer in my testing that was unable to run it at 60 FPS, so this shouldn't be an issue...
+
+For each "tick" of the game loop (each time the loop iterates, i.e. one frame), it does two things: updates game logic, 
+and then updates the graphics that are rendered to the screen based on the updated game logic. 
+That's it. 
+Here is a very detailed diagram illustrating the game loop:
 
 ![game-loop-diagram.png](../../assets/images/game-loop-diagram.png)
 
@@ -40,8 +48,8 @@ Each iteration of the game loop will wipe the screen and completely re-render al
 ## What code belongs in the update cycle?
 
 Game logic is any code that has to do with the game being carried out, which includes anything from detecting key presses, moving an entity to a new location,
-collision detection, etc. All game logic belongs in the `update` section of the game loop. Each iteration of the game loop will
-force the game to re-run its game logic. 
+collision detection, etc. 
+All game logic belongs in the `update` section of the game loop. Each iteration of the game loop will force the game to re-run its game logic. 
 An example of logic that belongs in the update cycle is moving a player character based off of a user's key inputs.
 When a user holds the right key down, the `update` cycle will continually check for the
 right arrow key being pressed and, if so, move the player to the right one pixel each time. 
@@ -160,3 +168,14 @@ function moveCat() {
 
 window.setInterval(moveCat, 10);
 </script>
+
+## Game Loop Type
+
+In the `Config` class, there is a flag `GAME_LOOP_TYPE` that can be set between two values: `GameLoopType.POWER_SAVER` and `GameLoopType.MAX_PERFORMANCE`.
+By default, it is set to `GameLoopType.POWER_SAVER`.
+Due to the nature of this game being created with Java Swing, which is NOT a true game framework, it has to "fight" to run at a reasonable performance.
+Power saver mode will make the game loop process run well enough, but will prioritize not hogging CPU cyles too much to ensure other apps that need it will have access to it,
+which in turn lowers its power consumption.
+Max performance mode will cause the game to do whatever it takes to run at the target FPS -- it will take all the CPU cycles it needs.
+I recommend leaving it in power saver mode if your computer's CPU is on the lower-end spec-wise.
+If you are experiencing any stuttering/lag, switching to max performance mode will likely eliminate it.

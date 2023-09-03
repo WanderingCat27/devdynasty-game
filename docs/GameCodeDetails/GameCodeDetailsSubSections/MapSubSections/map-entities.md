@@ -46,6 +46,12 @@ Setting a map entity's `isHidden` attribute to true will prevent its update and 
 At any time, the entity can be "brought back" by setting its `isHidden` attribute back to false. 
 It's an alternative to setting an entity's status to `REMOVED` that keeps the entity as a part of the map, so that it can be brought back whenever needed.
 
+### Uncollidable
+
+Setting a map entity's `isUncollidable` attribute to true will prevent other entities from being able to collide with it.
+Other entities will just ignore it when doing collision logic.
+However, the map entity that is set to `isUncolliable` can still perform collision logic against other entities if desired.
+
 ### Existence Flag
 
 A map entity can optionally define an `existenceFlag`. 

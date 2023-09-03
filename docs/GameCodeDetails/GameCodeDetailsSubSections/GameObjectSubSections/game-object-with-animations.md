@@ -128,19 +128,19 @@ public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
     
         // add WALK_RIGHT animation
         put("WALK_RIGHT", new Frame[] {
-            new FrameBuilder(spriteSheet.getSprite(1, 0), 200)
+            new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                     .withScale(3)
                     .withBounds(6, 12, 12, 7)
                     .build(),
-            new FrameBuilder(spriteSheet.getSprite(1, 1), 200)
+            new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
                     .withScale(3)
                     .withBounds(6, 12, 12, 7)
                     .build(),
-            new FrameBuilder(spriteSheet.getSprite(1, 2), 200)
+            new FrameBuilder(spriteSheet.getSprite(1, 2), 14)
                     .withScale(3)
                     .withBounds(6, 12, 12, 7)
                     .build(),
-            new FrameBuilder(spriteSheet.getSprite(1, 3), 200)
+            new FrameBuilder(spriteSheet.getSprite(1, 3), 14)
                     .withScale(3)
                     .withBounds(6, 12, 12, 7)
                     .build()
@@ -153,8 +153,8 @@ public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 
 That's it! 
 A `Frame` array is used, and multiple `FrameBuilders` are then used to build each `Frame`. 
-Notice there is an additional `delay` parameter added for each `Frame`, which here are set to 200.
-This means that if "WALK_RIGHT" is the current animation, every 200 milliseconds the game will change the current frame to the next frame in the array. 
+Notice there is an additional `delay` parameter added for each `Frame`, which here are set to 14.
+This means that if "WALK_RIGHT" is the current animation, every 14 frames (game loop iterations) the game will change the current frame to the next frame in the array. 
 Once the last frame is reached and completed, it will wrap back around to the first. 
 The result in game would look like this:
 
