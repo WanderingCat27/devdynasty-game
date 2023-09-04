@@ -31,7 +31,7 @@ This is because there is no collision bounds stopping the player from falling.
 
 A possible solution for this is to block the edge of every map with solid tiles, but this would look really ugly and is a band-aid rather than a fix. 
 A better solution would be to prevent the player from actually moving off the edge, as if there is an invisible collision wall there. 
-It could be as simple as preventing the player's x location from being less than 0, and preventing the player's x2 location from being greater than the map's length in pixels.
+It could be as simple as preventing the player's x location from being less than 0, and preventing the player's x2 location from being greater than the map's length in pixels (and ditto for the player's y locatoin and the map's height in pixels).
 
 ## Pausing the game works from any screen
 

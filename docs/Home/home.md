@@ -12,7 +12,7 @@ search_exclude: true
     <img id="cat-gif" src="/SER-225-Game-RPG/assets/images/cat-walking-right.gif" alt="cat-walking-right.gif" style="padding-left:0px;">
 </div>
 
-Welcome to the website for the unnamed SER225 RPG game! Here you can find information on the game, documentation on how the code works, 
+Welcome to the website for the unnamed SER225 RPG (role-playing-game)! Here you can find information on the game, documentation on how the code works, 
 and other miscellaneous notes.
 
 GitHub Repo: [https://github.com/a-r-t/SER-225-Game-RPG](https://github.com/a-r-t/SER-225-Game-RPG)
@@ -27,6 +27,7 @@ GitHub Repo: [https://github.com/a-r-t/SER-225-Game-RPG](https://github.com/a-r-
 - [Map Editor](../MapEditor/map-editor.md)
 - [Bug Report](../BugReport/bug-report.md)
 - [Enhancement Ideas](../EnhancementIdeas/enhancement-ideas.md)
+- [FAQs](../FAQs/faqs.md)
 - [Advice](../Advice/advice.md)
 
 <script>

@@ -78,6 +78,6 @@ public class InstructionsScreen extends Screen {
 From there, the code added to those methods should handle setting up the instructions screen resources,
 the game logic for the instructions screen, and finally what graphics should be shown on the JPanel while the instruction screen is loaded.
 
-A way for this screen to be loaded will also need to be added to the game logic, by either adding it to the `ScreenCoordinator` class, or by having an existing screen use it as a "sub" screen.
+A way for this screen to be loaded will also need to be added to the game logic, by either adding it to the `ScreenCoordinator` class, or by having an existing screen load it as a "sub" screen.
 For an example of a screen loading a "sub" screen, the `PlayLevelScreen` will load up the `WinScreen` after the player has won the game. 
 Understanding the screen system will make it much easier to separate out pieces of game logic and allow for more complex features to be built.

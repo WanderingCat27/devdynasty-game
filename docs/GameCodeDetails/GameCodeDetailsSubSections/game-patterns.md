@@ -141,9 +141,9 @@ I use the Builder Pattern around the code base, and all builder classes are defi
 into detail on what the Builder Pattern is and how it makes Java programming life easier.
 
 The Builder Pattern is a code pattern that is used in the Java programming language a lot out of necessity because there are no
-default parameters in the language. Java is one of the only modern day programming languages to not have default parameters. Default parameters (also often called
-named parameters or optional parameters) are the ability to specify a method parameter and give it a default value, 
-and allow any class to optionally pass in an argument for that value -- if no value is passed in, that parameter will just use its default value. 
+named parameters in the language. Java is one of the only modern day programming languages to not have named parameters. Named parameters (also often called
+default parameters or optional parameters) are the ability to specify an optional method parameter and give it a default value, 
+and allow any class to pass in an argument for that value if needed -- if no value is passed in, that parameter will just use its default value. 
 An example of how this looks in the C# programming language is below:
 
 ```cs
@@ -165,7 +165,7 @@ which is "Hello".
 printMessage();
 ```
 
-Such a nice powerful tool but Java does not have it. This causes a lot of problems, mostly because there are A LOT of situations where
+Named parameters are such a nice language feature...but Java does not have it. This causes a lot of problems, mostly because there are A LOT of situations where
 default parameters really help make code more clear, and also prevent having to make 1000 of the same named methods with one parameter difference
 each. Lastly, when constructors in Java get really long, the lack of being able to specify the parameter name to the value when calling it
 makes it REALLY hard to know which value goes well. For example:
@@ -186,7 +186,7 @@ Cat cat = new Cat("Callie", "Beeboo", 2, "tortoiseshell", 7, true, true);
 
 Which argument is age and which one is weight? Name vs nickname? Rabies shot vs distemper shot?
 It's hard to tell without looking back at the `Cat` class, and even then lining each argument up is a pain. Imagine
-if these were all more complicated data types as well...it really is a huge issue with this programming language. Add on the fact that there is no ability to create objects or dictionaries "on the fly" to make creating a param grouping easier (which languages like JavaScript and Python have), class constrcutors can quickly become bloated and difficult to read/manage.
+if these were all more complicated data types as well...it really is a huge issue with the Java programming language in my opinion. Add on the fact that there is no ability to create objects or dictionaries "on the fly" to make creating a param grouping easier (which languages like JavaScript and Python have), class constrcutors can quickly become bloated and difficult to read/manage.
 
 The builder pattern attempts to alleviate this issue by creating a class called a "builder" class which will "build" and then
 instantiate/initialize a class for you. For my `Cat` class example above, I would create a `CatBuilder` class SEPARATE from the `Cat` class.
@@ -255,7 +255,7 @@ public class CatBuilder {
 }
 ```
 
-Whew, what a weird looking class. What is going on here? Well, the result is that the actual call to the `Cat` class's
+What is going on here? Well, the result is that the actual call to the `Cat` class's
 constructor is now abstracted away behind the builder's `build` method. This class as a result of its structure allows us to create a new
 `Cat` in a much cleaner way:
 
@@ -270,7 +270,7 @@ Cat cat = new CatBuilder("Callie", 2)
 ```
 
 With this pattern, it's very obvious which argument goes to which parameter. Additionally, the actual call to the `Cat` constructor is abstracted
-away behind the `build` method, so the messy call is hidden. Finally, default parameters now exist -- if I left off `hasRabiesShot(true)`,
+away behind the `build` method, so the messy object instantiation is hidden. Finally, default parameters now exist -- if I left off `hasRabiesShot(true)`,
 the `CatBuilder` class will just default it to false and construct the `Cat` using that. Even just immediately doing a `build` without
 any of the other optional parameters works, as all of them have default values (e.g. `nickname` would be "N/A", `weight` would be -1, etc.).
 
@@ -281,12 +281,11 @@ Cat cat = new CatBuilder("Callie", 2).build();
 One more thing this pattern does is removes the need for multiple constructors. The `GameObject` class and its subclasses that they have A LOT of constructors due to Java's limitations. Unfortunately it wasn't feasible to make a builder class for every single subclass that extends from `GameObject`, so as a result, constructor hell exists over there.
 
 The builder pattern is used in the code base where the constructor for a class was getting too crazy, which commonly happens
-with game code due to how much setup is required for resources like graphics. It really isn't scary once you know what it's doing.
+with game code due to how much setup is required for resources like graphics.
 
-A nice side effect of the bulider pattern also is it allows an object's instantiation to be delayed, as the `build` method
+A nice side effect of the bulider pattern is it allows an object's instantiation to be delayed, as the `build` method
 can be called at any point in time to actually instantiate the object. This technique is used in the `Map` class when loading a map file -- the `Tileset` defines
-all tiles using the `MapTileBuilder`, but it doesn't `build` them and instead lets the `Map` class build them since they require additional information from the `Map` class
-to finish their creation.
+all tiles using the `MapTileBuilder`, but it doesn't `build` them -- it instead lets the `Map` class build them since they require additional information from the `Map` class to finish their creation.
 
 In the `Builders` package, there are two builders defined: `FrameBuilder` (for creating a `Frame` object instance) and `MapTileBuilder` (for creating a `MapTile` object instance). Both are used heavily in the `CommonTileset` class to construct `MapTile` class instances, and the `FrameBuilder` is used in nearly every game object's `loadAnimations` method (such as the player, NPCs, etc.).
 

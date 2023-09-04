@@ -32,15 +32,15 @@ Upon selecting an option, `MenuScreen` will change `ScreenCoordinator's` game st
 // if down key is pressed, add one to current menu item hovered
 // "Play Game" option is menu item 0, pressing down will add 1 to the current menu item hovered, 
 // which changes it to the "Credits" option
-if (Keyboard.isKeyDown(Key.DOWN) && keyTimer.isTimeUp()) {
-    keyTimer.reset();
+if (Keyboard.isKeyDown(Key.DOWN) && keyPressTimer == 0) {
+    keyPressTimer = 14;
     currentMenuItemHovered++;
-}
+} 
 // if up key is pressed, subtract one to current menu item hovered
 // "Credits" option is menu item 1, pressing up will sbutract 1 to the current menu item hovered, 
 // which changes it to the "Play Game" option
-} else if (Keyboard.isKeyDown(Key.UP) && keyTimer.isTimeUp()) {
-    keyTimer.reset();
+else if (Keyboard.isKeyDown(Key.UP) && keyPressTimer == 0) {
+    keyPressTimer = 14;
     currentMenuItemHovered--;
 }
 ```
@@ -65,23 +65,27 @@ if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
 }
 ```
 
-Additionally, a `Timer` is used (from the `Utils` package) to limit time between key presses.
+Additionally, there is code in place force a certain amount of time to pass between pressing up or down to move the menu selection..
 Key presses are very sensitive -- if the game is running at 60 FPS, it is running the key press detection 60 times per second.
 As a result, pressing the down key or up key just one time would move the selection MANY times, since the next `update` cycle would come so fast it would still think the key was held down as the user did not have any time to release the key yet. 
-To prevent this, the `keyTimer` variable is used to force 200ms to go by before either the up or down key can be detected again after it has already been pressed, which makes the key input a lot more user friendly.
-The milliseconds for the `keyTimer` to wait is set in the screen's `initialize` method. 
-The above code already showed how the `keyTimer` integrates with the checks for the up or down keys being pressed, but here is a snippet of it again just to illustrate its functionality:
+To prevent this, the `keyPressTimer` variable is used to force 14 frames to go by before either the up or down key can be detected again after it has already been pressed, which makes the menu navigation a lot more user friendly.
 
 ```java
-// if down key is pressed 
-// and 200 milliseconds have passed by since the last down key press
-if (Keyboard.isKeyDown(Key.DOWN) && keyTimer.isTimeUp()) {
-    // reset keyTimer to wait out its set wait time,
-    // which in this class is set to 200ms
-    keyTimer.reset(); 
-
-    // move currentMenuItemHovered to the next option
+// if down or up is pressed, and key press timer is up
+// change menu item "hovered" over
+if (Keyboard.isKeyDown(Key.DOWN) && keyPressTimer == 0) {
+    // change menu selection, reset key press timer to wait 14 frames
+    keyPressTimer = 14;
     currentMenuItemHovered++;
+} else if (Keyboard.isKeyDown(Key.UP) && keyPressTimer == 0) {
+    // change menu selection, reset key press timer to wait 14 frames
+    keyPressTimer = 14;
+    currentMenuItemHovered--;
+} else {
+    // if key press timer is not up yet, decrement it
+    if (keyPressTimer > 0) {
+        keyPressTimer--;
+    }
 }
 ```
 

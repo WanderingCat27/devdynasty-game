@@ -36,8 +36,8 @@ All of these subclasses (and their subclasses) include all functionality of the 
 
 The `GameObject` class provides the following features for every subclass:
 
-1. **Sprite logic**: loading in images, scaling images, flipping images, defining a bounding box which can be thought of as a "hurtbox")
-2. **Animation support**: the ability to switch between different animations)
+1. **Sprite logic**: loading in images, scaling images, flipping images, defining a bounding box which can be thought of as a "hurtbox"
+2. **Animation support**: the ability to switch between different animations
 3. **Graphical support**: will automatically handle drawing graphics at the correct screen location based on map/camera position
 4. **Collision detection**: can detect collision with other GameObjects
 

@@ -29,7 +29,7 @@ You can only do as much as you can, and coding is really hard, so my biggest pie
 
 Start by playing around with the code and changing minor things. 
 Running the game and seeing your changes in action will help you identify and confirm where different pieces of game logic is located. 
-Maybe head over to the `Cat` class and change its `jumpHeight` instance variable, or play around in the map editor. 
+Maybe head over to the `Cat` class and change its `walkSpeed` instance variable, or play around in the map editor. 
 Just get a feel for the project and what you're going to be working with. 
 Also, don't be afraid to consult your peers, search with google, or use this site to get answers to your questions.
 
@@ -83,6 +83,6 @@ There's no "right" or "wrong" way for you to expand upon this game, just choose 
 I remember when I took this class back when I was a student at Quinnipiac and was given some random codebase to work on...my team and I had so much fun with it. 
 My team added sprites of the CS Professors as enemies into our game because it was hilarious, and we ended up just continually trying to add more whacky things to the game to make each other laugh while improving our overall coding skills.
 
-These were the professor graphics in case you were wondering (I miraculously found them on my old google drive account).
+These were the professor graphics in case you were wondering:
 
 ![judgement-professor-graphics.png](../assets/images/judgement-professor-graphics.png)

@@ -40,12 +40,14 @@ The grass is green, the flowers dance, and a bright color palette is used ~~whic
 
 The menu screen can be navigated using the arrow keys, and an option can be selected with the space bar.
 
-The player character (cat) can walk left, right, up, and down using the arrow keys. The space key can be used to tell the player to interact with an entity. 
+The player character (cat) can walk left, right, up, and down using the arrow keys. 
+The space key can be used to tell the player to interact with an entity. 
 If you complete the story and find the cat's ball, the level will be completed.
 
-Clearly, this game is not finished -- it's pretty much just the "start" of an RPG. There is one level, a couple of entities that can be interacted with,
-and the player can only walk around and interact. There are many different directions the game can be taken in from here,
-and the backing game engine was built to be as flexible as possible in order to support a wide variety of features that could be feasibly implemented.
+Clearly, this game is not finished -- it's pretty much just the "start" of an RPG. 
+There is one level, a couple of entities that can be interacted with,
+and the player can only walk around and interact. 
+There are many different directions the game can be taken in from here, and the backing game engine was built to be as flexible as possible in order to support a wide variety of features that could be feasibly implemented.
 
 # Tools used to make this game
 
@@ -53,7 +55,7 @@ This game was written in Java and utilizes Java Swing for UI/rendering.
 
 No external libraries were used; it's made entirely with what Java supplies out of the box.
 
-All the game's art was created from scratch using the almighty Microsoft Paint.
+All the game's art was created from scratch using Microsoft Paint.
 
 # Running the game
 

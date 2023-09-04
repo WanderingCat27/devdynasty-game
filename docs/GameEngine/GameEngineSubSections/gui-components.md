@@ -24,10 +24,10 @@ is a JFrame for the application's UI window and a JPanel inside the JFrame which
 ## Game Window
 
 The `GameWindow` class in the `Engine` package extends the Java Swing `JFrame` class and just sets up the application window
-as needed. Otherwise, it's pretty uneventful. This JFrame does hold the all-important `GamePanel` class, but otherwise
-it's only job is just to exist.
+as needed. Otherwise, it's pretty uneventful. 
+This JFrame does hold the all-important `GamePanel` class, but otherwise it's only job is just to exist.
 
-Essentially, this is all the `GameWindow` brings up on its own:
+This is all the `GameWindow` brings up on its own:
 
 ![jframe.png](../../assets/images/jframe.png)
 
