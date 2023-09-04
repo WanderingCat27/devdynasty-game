@@ -186,16 +186,16 @@ The code for this animated tile looks like this:
 ```java
 // purple flower
 Frame[] purpleFlowerFrames = new Frame[] {
-        new FrameBuilder(getSubImage(0, 2), 500)
+        new FrameBuilder(getSubImage(0, 2), 65)
                 .withScale(tileScale)
                 .build(),
-        new FrameBuilder(getSubImage(0, 3), 500)
+        new FrameBuilder(getSubImage(0, 3), 65)
                 .withScale(tileScale)
                 .build(),
-        new FrameBuilder(getSubImage(0, 2), 500)
+        new FrameBuilder(getSubImage(0, 2), 65)
                 .withScale(tileScale)
                 .build(),
-        new FrameBuilder(getSubImage(0, 4), 500)
+        new FrameBuilder(getSubImage(0, 4), 65)
                 .withScale(tileScale)
                 .build()
 };
