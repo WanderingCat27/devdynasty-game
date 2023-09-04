@@ -48,11 +48,10 @@ This is good.
 This is not good.
 ![pause-game-2](../assets/images/pause-game-2.PNG)
 
-The reason for this is that I originally made a simple version of this game engine that I later built off of to create this game engine (which can be found [here](https://github.com/a-r-t/Simple-2D-Game-Engine) that essentially had only one screen, so having the pause functionality be in that "global" space made sense. 
+The reason for this is that I originally made a simple version of this game engine that I later built off of to create this game engine (which can be found [here](https://github.com/a-r-t/Simple-2D-Game-Engine)) that essentially had only one screen, so having the pause functionality be in that "global" space made sense. 
 I never fixed it as I scaled the engine up, which is why the pause functionality now works everywhere.
 
 I think the best course of action is moving the pause logic from the `GamePanel` over to something like the `PlayLevelScreen` which handles the running of the actual level. 
-Or maybe a better pause solution exists that I'm not thinking of.
 
 ## Moving the player with arrow keys doesn't override previous key press properly
 
