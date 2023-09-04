@@ -1,5 +1,5 @@
 remote_theme: just-the-docs/just-the-docs
-title: "SER225 RPG Game"
+title: "SER225 RPG"
 relative_links:
   enabled: true
   collections: true
