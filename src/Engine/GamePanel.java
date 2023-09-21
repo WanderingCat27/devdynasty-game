@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
 	private boolean isGamePaused = false;
 	private SpriteFont pauseLabel;
 	private KeyLocker keyLocker = new KeyLocker();
-	private final Key pauseKey = Key.P;
+	private final Key pauseKey = Key.ESC;
 	private Thread gameLoopProcess;
 
 	private Key showFPSKey = Key.G;
