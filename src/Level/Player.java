@@ -46,6 +46,7 @@ public abstract class Player extends GameObject {
     protected Key MOVE_UP_KEY = Key.W;
     protected Key MOVE_DOWN_KEY = Key.S;
     protected Key INTERACT_KEY = Key.ENTER;
+    protected Key SPRINT_KEY = Key.SHIFT;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -128,7 +129,12 @@ public abstract class Player extends GameObject {
         // if walk left key is pressed, move player to the left
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
             if (this.getX() > 0) {
-                moveAmountX -= walkSpeed;
+                if(Keyboard.isKeyDown(SPRINT_KEY)){
+                    moveAmountX -= walkSpeed*1.8;
+                }else{
+                    moveAmountX -= walkSpeed;
+                }
+                
                 facingDirection = Direction.LEFT;
                 currentWalkingXDirection = Direction.LEFT;
                 lastWalkingXDirection = Direction.LEFT;
@@ -143,7 +149,11 @@ public abstract class Player extends GameObject {
         // if walk right key is pressed, move player to the right
         else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY) && Keyboard.isKeyUp(MOVE_LEFT_KEY)) {
             if(this.getX2() < map.getWidthPixels()){
-                moveAmountX += walkSpeed;
+                if(Keyboard.isKeyDown(SPRINT_KEY)){
+                    moveAmountX += walkSpeed*1.8;
+                }else{
+                    moveAmountX += walkSpeed;
+                }
                 facingDirection = Direction.RIGHT;
                 currentWalkingXDirection = Direction.RIGHT;
                 lastWalkingXDirection = Direction.RIGHT;
@@ -160,7 +170,11 @@ public abstract class Player extends GameObject {
 
         if (Keyboard.isKeyDown(MOVE_UP_KEY) && Keyboard.isKeyUp(MOVE_DOWN_KEY)) {
             if(this.getY() > 0){
-                moveAmountY -= walkSpeed;
+                if(Keyboard.isKeyDown(SPRINT_KEY)){
+                    moveAmountY -= walkSpeed*1.8;
+                }else{
+                    moveAmountY -= walkSpeed;
+                }
                 currentWalkingYDirection = Direction.UP;
                 lastWalkingYDirection = Direction.UP;
             }
@@ -174,7 +188,11 @@ public abstract class Player extends GameObject {
         }
         else if (Keyboard.isKeyDown(MOVE_DOWN_KEY) && Keyboard.isKeyUp(MOVE_UP_KEY)) {
             if(this.getY2() < map.getHeightPixels()){
-                moveAmountY += walkSpeed;
+                if(Keyboard.isKeyDown(SPRINT_KEY)){
+                    moveAmountY += walkSpeed*1.8;
+                }else{
+                    moveAmountY += walkSpeed;
+                }
                 currentWalkingYDirection = Direction.DOWN;
                 lastWalkingYDirection = Direction.DOWN;
             }
