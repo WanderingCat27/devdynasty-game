@@ -111,7 +111,7 @@ public abstract class Player extends GameObject {
         // ^ = Xor
         // will pass if any of the movement keys are pressed but not if both of either
         // pair are pressed
-        return (Keyboard.isKeyDown(MOVE_LEFT_KEY) ^ Keyboard.isKeyDown(MOVE_RIGHT_KEY)) || (Keyboard.isKeyDown(MOVE_UP_KEY) ^ Keyboard.isKeyDown(MOVE_DOWN_KEY));
+        return (Keyboard.isKeyDown(MOVE_LEFT_KEY) ^ Keyboard.isKeyDown(MOVE_RIGHT_KEY) || (Keyboard.isKeyDown(MOVE_UP_KEY)) ^ Keyboard.isKeyDown(MOVE_DOWN_KEY));
     }
 
     // player WALKING state logic
@@ -127,27 +127,31 @@ public abstract class Player extends GameObject {
 
         // if walk left key is pressed, move player to the left
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
-            if (player.getX() > 0) {
+            if (this.getX() > 0) {
                 moveAmountX -= walkSpeed;
                 facingDirection = Direction.LEFT;
                 currentWalkingXDirection = Direction.LEFT;
                 lastWalkingXDirection = Direction.LEFT;
             }
             else{
-                walkSpeed = 0;
+                moveAmountX = 0;
+                moveAmountY = 0;
+                playerState = PlayerState.STANDING;
             }
         }
 
         // if walk right key is pressed, move player to the right
         else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY) && Keyboard.isKeyUp(MOVE_LEFT_KEY)) {
-            if(player.getX2() < map.getWidthPixels()){
+            if(this.getX2() < map.getWidthPixels()){
                 moveAmountX += walkSpeed;
                 facingDirection = Direction.RIGHT;
                 currentWalkingXDirection = Direction.RIGHT;
                 lastWalkingXDirection = Direction.RIGHT;
             }
             else{
-                walkSpeed = 0;
+                moveAmountX = 0;
+                moveAmountY = 0;
+                playerState = PlayerState.STANDING;
             }
         }
         else {
@@ -155,14 +159,30 @@ public abstract class Player extends GameObject {
         }
 
         if (Keyboard.isKeyDown(MOVE_UP_KEY) && Keyboard.isKeyUp(MOVE_DOWN_KEY)) {
-            moveAmountY -= walkSpeed;
-            currentWalkingYDirection = Direction.UP;
-            lastWalkingYDirection = Direction.UP;
+            if(this.getY() > 0){
+                moveAmountY -= walkSpeed;
+                currentWalkingYDirection = Direction.UP;
+                lastWalkingYDirection = Direction.UP;
+            }
+            else{
+                moveAmountY = 0;
+                moveAmountX = 0;
+                playerState = PlayerState.STANDING;
+            }
+            
+            
         }
         else if (Keyboard.isKeyDown(MOVE_DOWN_KEY) && Keyboard.isKeyUp(MOVE_UP_KEY)) {
-            moveAmountY += walkSpeed;
-            currentWalkingYDirection = Direction.DOWN;
-            lastWalkingYDirection = Direction.DOWN;
+            if(this.getY2() < map.getHeightPixels()){
+                moveAmountY += walkSpeed;
+                currentWalkingYDirection = Direction.DOWN;
+                lastWalkingYDirection = Direction.DOWN;
+            }
+            else{
+                moveAmountY = 0;
+                moveAmountX = 0;
+                playerState = PlayerState.STANDING;
+            }
         }
         else {
             currentWalkingYDirection = Direction.NONE;
