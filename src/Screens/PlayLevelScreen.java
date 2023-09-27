@@ -1,22 +1,27 @@
 package Screens;
 
 import Engine.GraphicsHandler;
+import Engine.ImageLoader;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
+import GameObject.Sprite;
 import Level.*;
 import Maps.NewMap;
 //import Maps.TestMap;
 import Players.Cat;
 import Players.PlayerPlayer;
+import Utils.Colors;
 import Utils.Direction;
 import Utils.Point;
+import Tilesets.CommonTileset;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
     protected Player player;
+    protected Sprite hud;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
     protected FlagManager flagManager;
@@ -44,6 +49,13 @@ public class PlayLevelScreen extends Screen {
         this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
         this.player.setFacingDirection(Direction.LEFT);
+
+        //setup hud (maybe???)
+        //This works for now, but once we begin adding more functionality we will need to change how a hud is defined (probably going to be a gameObject)
+        Point hudLocation = this.map.getMapTile(1, 2).getLocation().subtractX(6).subtractY(7);
+        this.hud = new Sprite(ImageLoader.load("HUDForGame.png", Colors.WHITE));
+        this.hud.setScale(1.5f);
+        this.hud.setLocation(hudLocation.x, hudLocation.y);
 
         // let pieces of map know which button to listen for as the "interact" button
         map.getTextbox().setInteractKey(player.getInteractKey());
@@ -102,6 +114,7 @@ public class PlayLevelScreen extends Screen {
         switch (playLevelScreenState) {
             case RUNNING:
                 map.draw(player, graphicsHandler);
+                hud.draw(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
