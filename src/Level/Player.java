@@ -9,6 +9,11 @@ import GameObject.GameObject;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Utils.Direction;
+import Utils.Point;
+import Maps.NewMap;
+import Maps.TitleScreenMap;
+import Level.Map;
+import Level.Player;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -23,6 +28,7 @@ public abstract class Player extends GameObject {
     // values used to handle player movement
     protected float moveAmountX, moveAmountY;
     protected float lastAmountMovedX, lastAmountMovedY;
+    protected GameObject player;
 
     // values used to keep track of player's current state
     protected PlayerState playerState;
@@ -67,7 +73,6 @@ public abstract class Player extends GameObject {
         }
 
         handlePlayerAnimation();
-
         updateLockedKeys();
 
         // update player's animation
@@ -122,18 +127,28 @@ public abstract class Player extends GameObject {
 
         // if walk left key is pressed, move player to the left
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
-            moveAmountX -= walkSpeed;
-            facingDirection = Direction.LEFT;
-            currentWalkingXDirection = Direction.LEFT;
-            lastWalkingXDirection = Direction.LEFT;
+            if (player.getX() > 0) {
+                moveAmountX -= walkSpeed;
+                facingDirection = Direction.LEFT;
+                currentWalkingXDirection = Direction.LEFT;
+                lastWalkingXDirection = Direction.LEFT;
+            }
+            else{
+                walkSpeed = 0;
+            }
         }
 
         // if walk right key is pressed, move player to the right
-        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)&& Keyboard.isKeyUp(MOVE_LEFT_KEY)) {
-            moveAmountX += walkSpeed;
-            facingDirection = Direction.RIGHT;
-            currentWalkingXDirection = Direction.RIGHT;
-            lastWalkingXDirection = Direction.RIGHT;
+        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY) && Keyboard.isKeyUp(MOVE_LEFT_KEY)) {
+            if(player.getX2() < map.getWidthPixels()){
+                moveAmountX += walkSpeed;
+                facingDirection = Direction.RIGHT;
+                currentWalkingXDirection = Direction.RIGHT;
+                lastWalkingXDirection = Direction.RIGHT;
+            }
+            else{
+                walkSpeed = 0;
+            }
         }
         else {
             currentWalkingXDirection = Direction.NONE;
@@ -272,4 +287,19 @@ public abstract class Player extends GameObject {
             moveX(speed);
         }
     }
+
+    public void setMoveAmountX(float moveAmountX2) {
+    }
+
+    public void setMoveAmountY(float moveAmountY2) {
+    }
+
+    public float getMoveAmountX() {
+        return 0;
+    }
+
+    public float getMoveAmountY() {
+        return 0;
+    }
+
 }
