@@ -53,8 +53,8 @@ public class PlayLevelScreen extends Screen {
         //setup hud (maybe???)
         //This works for now, but once we begin adding more functionality we will need to change how a hud is defined (probably going to be a gameObject)
         Point hudLocation = this.map.getMapTile(1, 2).getLocation().subtractX(6).subtractY(7);
-        this.hud = new Sprite(ImageLoader.load("HUDForGame.png", Colors.WHITE));
-        this.hud.setScale(1.5f);
+        this.hud = new Sprite(ImageLoader.load("BetterHUD.png", Colors.MAGENTA));
+        this.hud.setScale(2);
         this.hud.setLocation(hudLocation.x, hudLocation.y);
 
         // let pieces of map know which button to listen for as the "interact" button
