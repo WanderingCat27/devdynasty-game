@@ -49,6 +49,28 @@ public class AnimatedTileset extends Tileset
 
         MapTileBuilder flowerTile = new MapTileBuilder(flowerFrames);
         mapTiles.add(flowerTile);
+
+        //left side dirt path
+        Frame leftSideDirthPathFrame = new FrameBuilder(getSubImage(1, 0))
+            .withScale(tileScale)
+            .build();
+        MapTileBuilder leftSideDirtPathTile = new MapTileBuilder(leftSideDirthPathFrame);
+        mapTiles.add(leftSideDirtPathTile);
+
+        //right side dirt path
+        Frame rightSideDirtPathFrame = new FrameBuilder(getSubImage(1, 2))
+            .withScale(tileScale)
+            .build();
+        MapTileBuilder rightSideDirtPathTile = new MapTileBuilder(rightSideDirtPathFrame);
+        mapTiles.add(rightSideDirtPathTile);
+
+        //middle dirt path
+        Frame middleDirtPath = new FrameBuilder(getSubImage(1, 1))
+            .withScale(tileScale)
+            .build();
+        MapTileBuilder middleDirtPathTile = new MapTileBuilder(middleDirtPath);
+        mapTiles.add(middleDirtPathTile);
+
         return mapTiles;
     }
 }
