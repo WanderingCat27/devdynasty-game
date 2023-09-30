@@ -15,13 +15,15 @@ import Utils.Colors;
 import Utils.Direction;
 import Utils.Point;
 import Tilesets.CommonTileset;
+import GameObject.Inventory;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
     protected Player player;
-    protected Sprite hud;
+    //protected Sprite hud;
+    protected Inventory inventory;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
     protected FlagManager flagManager;
@@ -50,13 +52,10 @@ public class PlayLevelScreen extends Screen {
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
         this.player.setFacingDirection(Direction.LEFT);
 
-        //setup hud (maybe???)
-        //This works for now, but once we begin adding more functionality we will need to change how a hud is defined (probably going to be a gameObject)
-        Point hudLocation = this.map.getMapTile(1, 2).getLocation().subtractX(6).subtractY(7);
-        this.hud = new Sprite(ImageLoader.load("BetterHUD.png", Colors.MAGENTA));
-        this.hud.setScale(2);
-        this.hud.setLocation(hudLocation.x, hudLocation.y);
+        //setup inventory
+        this.inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png", "fourSlotHUD.png");
 
+        
         // let pieces of map know which button to listen for as the "interact" button
         map.getTextbox().setInteractKey(player.getInteractKey());
 
@@ -113,8 +112,9 @@ public class PlayLevelScreen extends Screen {
         // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
             case RUNNING:
+                Inventory.keyCheck();
                 map.draw(player, graphicsHandler);
-                hud.draw(graphicsHandler);
+                inventory.drawHud(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
