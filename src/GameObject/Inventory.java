@@ -9,6 +9,7 @@ import Engine.KeyLocker;
 import Engine.Keyboard;
 import Utils.Point;
 import Maps.NewMap;
+import Level.Map;
 
 public class Inventory extends Sprite
 {
@@ -19,8 +20,7 @@ public class Inventory extends Sprite
     Sprite twoSlot;
     Sprite threeSlot;
     Sprite fourSlot;
-    NewMap map = new NewMap(); //Later I will figure out a way to do this so we dont have to create an instance of the map all the time but works for now
-    Point location = this.map.getMapTile(1, 2).getLocation().subtractX(6).subtractY(7);
+    Point location;
 
     //Keeps track of which inventory key is pressed and draws the correct image
     protected static String keyNumber = "`";
@@ -35,7 +35,7 @@ public class Inventory extends Sprite
     protected static Key BACK_QUOTE = Key.BACK_QUOTE;
 
     
-    public Inventory(String noSelection, String oneSlot, String twoSlot, String threeSlot, String fourSlot)
+    public Inventory(String noSelection, String oneSlot, String twoSlot, String threeSlot, String fourSlot, Map map)
     {
         super(ImageLoader.load("noSelectionHUD.png", Colors.MAGENTA));
         this.noSelection = new Sprite(ImageLoader.load(noSelection, Colors.MAGENTA));
@@ -43,6 +43,7 @@ public class Inventory extends Sprite
         this.twoSlot = new Sprite(ImageLoader.load(twoSlot, Colors.MAGENTA));
         this.threeSlot = new Sprite(ImageLoader.load(threeSlot, Colors.MAGENTA));
         this.fourSlot = new Sprite(ImageLoader.load(fourSlot, Colors.MAGENTA));
+        this.location = map.getMapTile(1, 2).getLocation().subtractX(6).subtractY(7);
     }
 
     //This will track which key is pressed and set the keyNumber to the corresponding number to be used in the draw function
