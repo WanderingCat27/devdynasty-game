@@ -125,6 +125,8 @@ public class Keyboard {
 				 put(Key.ZERO, 48);
 				 put(Key.SPACE, 32);
 				 put(Key.ESC, 27);
+				 put(Key.TAB, 9);
+				 put(Key.BACK_QUOTE, 192);
 			}};
     }
 }

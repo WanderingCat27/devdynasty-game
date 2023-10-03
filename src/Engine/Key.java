@@ -45,5 +45,7 @@ public enum Key {
     NINE,
     ZERO,
     SPACE,
-    ESC
+    ESC,
+    BACK_QUOTE,
+    TAB
 }

@@ -16,7 +16,7 @@ search_exclude: true
 
 # Why was this game made?
 
-Quinnipiac University has a course named SER225 Intro to Software Development.
+Quinnipiac University has a course named SER225 Intro to Software Development!!!
 In this course, students are broken up into teams and are tasked with expanding upon an already existing open-source codebase.
 The codebase chosen is typically a game created by an upperclassman Quinnipiac student/alumni, and there have been several games used before this one including Tank Wars, Judgement, and the Wave Game.
 This game was created to be a used for the course. The game is an intentionally simple RPG (role-playing game) engine that can be built upon.
