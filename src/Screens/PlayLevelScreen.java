@@ -28,6 +28,10 @@ public class PlayLevelScreen extends Screen {
     protected WinScreen winScreen;
     protected FlagManager flagManager;
 
+        // sound for level
+        protected SoundPlayer soundPlayer;
+        protected String soundPath;
+
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
@@ -86,6 +90,15 @@ public class PlayLevelScreen extends Screen {
         }
 
         winScreen = new WinScreen(this);
+
+        if (!SoundPlayer.musicPlaying) {
+            System.out.println(SoundPlayer.musicPlaying);
+            this.soundPath = this.map.soundPath;
+            System.out.println("Current song file path is " + this.soundPath);
+            this.soundPlayer = new SoundPlayer(this.soundPath);
+            SoundPlayer.musicPlaying = true;
+            System.out.println("flag is set");
+        }
     }
 
     public void update() {
