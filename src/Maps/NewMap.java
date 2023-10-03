@@ -16,5 +16,8 @@ public class NewMap extends Map
        //My naming of this will be better in the future (I hope, but I doubt it)
         super("proof_map.txt", new AnimatedTileset());
         this.playerStartPosition = getMapTile(10, 10).getLocation();
+        // Links background sound to map
+        this.soundPath = "Resources/Audio/AmTronic_-_Caribbean_Dub.wav";
+        System.out.println(this.soundPath);
     }    
 }
