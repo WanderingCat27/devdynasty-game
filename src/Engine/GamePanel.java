@@ -1,11 +1,15 @@
 package Engine;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.MouseMotionListener;
+
+import javax.swing.JPanel;
+
 import GameObject.Rectangle;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
-
-import javax.swing.*;
-import java.awt.*;
 
 /*
  * This is where the game loop process and render back buffer is setup
@@ -36,6 +40,10 @@ public class GamePanel extends JPanel {
 
 		// attaches Keyboard class's keyListener to this JPanel
 		this.addKeyListener(Keyboard.getKeyListener());
+
+		// adds listeners for mouse events from the static Mouse class
+		this.addMouseListener(Mouse.getMouseListener());
+		this.addMouseMotionListener((MouseMotionListener)Mouse.getMouseListener());
 
 		graphicsHandler = new GraphicsHandler();
 

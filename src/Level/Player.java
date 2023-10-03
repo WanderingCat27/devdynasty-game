@@ -120,6 +120,8 @@ public abstract class Player extends GameObject {
             map.entityInteract(this);
         }
 
+
+        System.out.println(this.getX());
         // if walk left key is pressed, move player to the left
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
             moveAmountX -= walkSpeed;
