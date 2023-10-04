@@ -16,7 +16,7 @@ public class GameWindow {
 		gamePanel.setFocusable(true);
 		gamePanel.requestFocusInWindow();
 		gameWindow.setContentPane(gamePanel);
-		gameWindow.setResizable(false);
+		gameWindow.setResizable(true);
 		gameWindow.setSize(Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
 		gameWindow.setLocationRelativeTo(null);
 		gameWindow.setVisible(true);
