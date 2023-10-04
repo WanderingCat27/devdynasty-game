@@ -1,4 +1,5 @@
 package Level;
+import GameObject.Item;
 import GameObject.Rectangle;
 import Utils.Direction;
 
@@ -126,6 +127,24 @@ public abstract class Script<T extends MapEntity> {
             }
         }
         return null;
+    }
+
+    protected Item getItem(int itemId) {
+        for (Item item : map.getItems()) {
+            if (item.getId() == itemId) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    protected void removeItem(int itemId) {
+        for (Item item : map.getItems()) {
+            if (item.getId() == itemId) {
+                map.getItems().remove(item);
+                return;
+            }
+        }
     }
 
     // force an npc instance to face the player

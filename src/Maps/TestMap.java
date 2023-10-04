@@ -1,6 +1,8 @@
 package Maps;
 
 import EnhancedMapTiles.PushableRock;
+import GameObject.Item;
+import Items.Sword;
 import Level.EnhancedMapTile;
 import Level.Map;
 import Level.NPC;
@@ -41,6 +43,10 @@ public class TestMap extends Map {
         Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
         walrus.setInteractScript(new WalrusScript());
         npcs.add(walrus);
+        System.out.println(walrus.isUncollidable());
+
+        Sword sword = new Sword(3, getMapTile(10, 10).getLocation());
+        npcs.add(sword);
 
         Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
         dinosaur.setExistenceFlag("hasTalkedToDinosaur");
