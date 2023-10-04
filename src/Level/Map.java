@@ -3,6 +3,7 @@ package Level;
 import Engine.Config;
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
+import GameObject.Item;
 import GameObject.Rectangle;
 import Utils.Direction;
 import Utils.Point;
@@ -57,6 +58,9 @@ public abstract class Map {
     protected ArrayList<EnhancedMapTile> enhancedMapTiles;
     protected ArrayList<NPC> npcs;
     protected ArrayList<Trigger> triggers;
+    protected ArrayList<Item> items;
+
+    
 
     protected Script activeInteractScript;
 
@@ -99,6 +103,11 @@ public abstract class Map {
         this.enhancedMapTiles = loadEnhancedMapTiles();
         for (EnhancedMapTile enhancedMapTile: this.enhancedMapTiles) {
             enhancedMapTile.setMap(this);
+        }
+
+        this.items = loadItems();
+        for(Item item: this.items) {
+            item.setMap(this);
         }
 
         this.npcs = loadNPCs();
@@ -286,6 +295,11 @@ public abstract class Map {
         return new ArrayList<>();
     }
 
+    // list of npcs defined to be a part of the map, should be overridden in a subclass
+    protected ArrayList<Item> loadItems() {
+        return new ArrayList<>();
+    }
+
     protected ArrayList<Trigger> loadTriggers() {
         return new ArrayList<>();
     }
@@ -300,6 +314,10 @@ public abstract class Map {
 
     public ArrayList<NPC> getNPCs() {
         return npcs;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
     }
     public ArrayList<Trigger> getTriggers() { return triggers; }
 
@@ -335,6 +353,10 @@ public abstract class Map {
         return camera.getActiveNPCs();
     }
 
+    public ArrayList<Item> getActiveItems() {
+        return camera.getActiveItems();
+    }
+
     public ArrayList<Trigger> getActiveTriggers() {
         return camera.getActiveTriggers();
     }
@@ -349,6 +371,12 @@ public abstract class Map {
     public void addNPC(NPC npc) {
         npc.setMap(this);
         this.npcs.add(npc);
+    }
+
+    //add an item to the map's list of items
+    public void addItem(Item item) {
+        item.setMap(this);
+        this.items.add(item);
     }
 
     // add a trigger to the map's list of triggers

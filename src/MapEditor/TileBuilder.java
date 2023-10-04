@@ -1,6 +1,7 @@
 package MapEditor;
 
 import Engine.GraphicsHandler;
+import GameObject.Item;
 import Level.*;
 import Utils.Colors;
 
@@ -19,6 +20,7 @@ public class TileBuilder extends JPanel {
     private boolean showNPCs;
     private boolean showEnhancedMapTiles;
     private boolean showTriggers;
+    private boolean showItems;
 
     public TileBuilder(SelectedTileIndexHolder controlPanelHolder, JLabel hoveredTileIndexLabel) {
         setBackground(Colors.MAGENTA);
@@ -83,6 +85,12 @@ public class TileBuilder extends JPanel {
         if (showNPCs) {
             for (NPC npc : map.getNPCs()) {
                 npc.draw(graphicsHandler);
+            }
+        }
+
+        if(showItems){
+            for(Item item: map.getItems()){
+                item.draw(graphicsHandler);
             }
         }
 
@@ -163,6 +171,15 @@ public class TileBuilder extends JPanel {
 
     public void setShowNPCs(boolean showNPCs) {
         this.showNPCs = showNPCs;
+        repaint();
+    }
+
+    public boolean getShowItems() {
+        return showItems;
+    }
+
+    public void setShowItems(boolean showItems) {
+        this.showItems = showItems;
         repaint();
     }
 

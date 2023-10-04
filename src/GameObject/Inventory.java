@@ -1,6 +1,8 @@
 package GameObject;
 
 
+import java.util.ArrayList;
+
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Utils.Colors;
@@ -13,6 +15,8 @@ import Level.Map;
 
 public class Inventory extends Sprite
 {
+    //Sets the max size that the inventory can be
+    protected static final int MAX_SIZE = 4;
 
     //Each will be a different image
     Sprite noSelection;
@@ -21,6 +25,7 @@ public class Inventory extends Sprite
     Sprite threeSlot;
     Sprite fourSlot;
     Point location;
+
 
     //Keeps track of which inventory key is pressed and draws the correct image
     protected static String keyNumber = "`";
@@ -104,5 +109,10 @@ public class Inventory extends Sprite
             this.noSelection.setScale(2);
             this.noSelection.draw(graphicsHandler);
         }
+    }
+
+    public void displayItems(ArrayList<Item> items)
+    {
+        //This will be used to display the items in the inventory
     }
 }

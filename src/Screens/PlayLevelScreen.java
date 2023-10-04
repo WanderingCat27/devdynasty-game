@@ -8,6 +8,7 @@ import Game.ScreenCoordinator;
 import GameObject.Sprite;
 import Level.*;
 import Maps.NewMap;
+import Maps.TestMap;
 //import Maps.TestMap;
 import Players.Cat;
 import Players.PlayerPlayer;
@@ -16,6 +17,7 @@ import Utils.Direction;
 import Utils.Point;
 import Tilesets.CommonTileset;
 import GameObject.Inventory;
+import GameObject.Item;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
@@ -27,6 +29,7 @@ public class PlayLevelScreen extends Screen {
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
     protected FlagManager flagManager;
+    protected Item sword;
 
         // sound for level
         protected SoundPlayer soundPlayer;
@@ -59,7 +62,6 @@ public class PlayLevelScreen extends Screen {
         //setup inventory
         this.inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png", "fourSlotHUD.png",this.map);
 
-        
         // let pieces of map know which button to listen for as the "interact" button
         map.getTextbox().setInteractKey(player.getInteractKey());
 
