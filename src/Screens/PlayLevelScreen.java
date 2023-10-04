@@ -31,6 +31,10 @@ public class PlayLevelScreen extends Screen {
     protected FlagManager flagManager;
     protected Item sword;
 
+        // sound for level
+        protected SoundPlayer soundPlayer;
+        protected String soundPath;
+
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
@@ -56,7 +60,7 @@ public class PlayLevelScreen extends Screen {
         this.player.setFacingDirection(Direction.LEFT);
 
         //setup inventory
-        this.inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png", "fourSlotHUD.png");
+        this.inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png", "fourSlotHUD.png",this.map);
 
         // let pieces of map know which button to listen for as the "interact" button
         map.getTextbox().setInteractKey(player.getInteractKey());
@@ -88,6 +92,15 @@ public class PlayLevelScreen extends Screen {
         }
 
         winScreen = new WinScreen(this);
+
+        if (!SoundPlayer.musicPlaying) {
+            System.out.println(SoundPlayer.musicPlaying);
+            this.soundPath = this.map.soundPath;
+            System.out.println("Current song file path is " + this.soundPath);
+            this.soundPlayer = new SoundPlayer(this.soundPath);
+            SoundPlayer.musicPlaying = true;
+            System.out.println("flag is set");
+        }
     }
 
     public void update() {

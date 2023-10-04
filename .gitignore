@@ -9,3 +9,5 @@ out/
 TestResources/
 _site
 .DS_Store
+eclipse-formatter.xml
+.vscode/settings.json

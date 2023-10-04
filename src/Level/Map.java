@@ -76,6 +76,9 @@ public abstract class Map {
     // map's textbox instance
     protected Textbox textbox;
 
+    // map's sound path
+    public String soundPath;
+
     public Map(String mapFileName, Tileset tileset) {
         this.mapFileName = mapFileName;
         this.tileset = tileset;
