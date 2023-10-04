@@ -52,6 +52,6 @@ public class ClickableRect {
         else // not pressed or hovering
             color = defColor;
 
-        g.drawFilledRectangle(Math.round(x), Math.round(y), Math.round(width), Math.round(height), color);
+        g.drawFilledRectangle(x, y, width, height, color);
     }
 }
