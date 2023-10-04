@@ -44,7 +44,9 @@ public class Mouse {
         public void mouseExited(java.awt.event.MouseEvent e) {}
 
         @Override
-        public void mouseDragged(java.awt.event.MouseEvent e) {}
+        public void mouseDragged(java.awt.event.MouseEvent e) {
+            mouseLocation = e.getPoint();
+        }
 
     };
 
@@ -70,6 +72,7 @@ public class Mouse {
     public static boolean isButtonUp(int button) {
         return !isButtonDown(button);
     }
+    
 
 
 }
