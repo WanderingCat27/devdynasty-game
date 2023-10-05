@@ -12,11 +12,12 @@ import Engine.Keyboard;
 import Utils.Point;
 import Maps.NewMap;
 import Level.Map;
+import Screens.PlayLevelScreen;
 
 public class Inventory extends Sprite
 {
     //Sets the max size that the inventory can be
-    protected static final int MAX_SIZE = 4;
+    protected static final int MAX_SIZE = 8;
 
     //Each will be a different image
     Sprite noSelection;
@@ -24,7 +25,19 @@ public class Inventory extends Sprite
     Sprite twoSlot;
     Sprite threeSlot;
     Sprite fourSlot;
+
+    Sprite item1;
+    Sprite item2;
+    Sprite item3;
+    Sprite item4;
     Point location;
+
+    //Map being used
+    protected Map map;
+
+    //This will be used to keep track of the items in the inventory
+    protected static ArrayList<Item> itemsInInventory = new ArrayList<Item>();
+    public static ArrayList<Sprite> itemsInInventorySprites = new ArrayList<Sprite>();
 
 
     //Keeps track of which inventory key is pressed and draws the correct image
@@ -49,6 +62,7 @@ public class Inventory extends Sprite
         this.threeSlot = new Sprite(ImageLoader.load(threeSlot, Colors.MAGENTA));
         this.fourSlot = new Sprite(ImageLoader.load(fourSlot, Colors.MAGENTA));
         this.location = map.getMapTile(1, 2).getLocation().subtractX(6).subtractY(7);
+        this.map = map;
     }
 
     //This will track which key is pressed and set the keyNumber to the corresponding number to be used in the draw function
@@ -109,10 +123,58 @@ public class Inventory extends Sprite
             this.noSelection.setScale(2);
             this.noSelection.draw(graphicsHandler);
         }
+
+        displayItems(graphicsHandler);
+        //System.out.println(map.getMapTile(1, 2).getLocation().subtractX(6).subtractY(7));
+        // this.item1 = new Sprite(ImageLoader.load(itemsInInventory.get(0).getPathToImage(), Colors.MAGENTA));
+            // Point item1Location = new Point(57f, 105f);
+            // this.item1.setLocation(item1Location.x, item1Location.y);
+            // this.item1.setScale(2);
+            // this.item1.draw(graphicsHandler);
     }
 
-    public void displayItems(ArrayList<Item> items)
+    public void displayItems(GraphicsHandler graphicsHandler)
     {
-        //This will be used to display the items in the inventory
+        // Point item1Location = new Point(57f, 105f);
+        float yLocation = 135f;
+        float xLocation = 72f;
+        // for(Sprite item : itemsInInventorySprites)
+        // {
+        //     Point spriteLocation = new Point(xLocation, yLocation);
+        //     item.setLocation(spriteLocation.x, spriteLocation.y);
+        //     item.setScale(2);
+        //     item.draw(graphicsHandler);
+        //     yLocation += 70f;
+        // }
+
+        for(int i = 0; i < itemsInInventorySprites.size(); i++)
+        {
+            Point spriteLocation = new Point(xLocation, yLocation);
+            if(i % 2 == 0)
+            {
+                Sprite item = itemsInInventorySprites.get(i);
+                item.setLocation(spriteLocation.x, spriteLocation.y);
+                item.setScale(2);
+                item.draw(graphicsHandler);
+                yLocation += 70f;
+            }
+        }
+        
+    }
+
+    public static void addItem(Item item)
+    {
+        //This will be used to add an item to the inventory
+        if(canAdd())
+        {
+            itemsInInventory.add(item);
+            itemsInInventorySprites.add(new Sprite(ImageLoader.load(item.getPathToImage(), Colors.MAGENTA)));
+
+        }
+    }
+
+    public static boolean canAdd()
+    {
+        return itemsInInventory.size() < MAX_SIZE;
     }
 }

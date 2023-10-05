@@ -11,25 +11,32 @@ import GameObject.SpriteSheet;
 
 public class Sword extends Item
 {
+    String pathToImage = "sword.png";
+
     public Sword(int id, Utils.Point point)
     {
         super(id,point,"sword.png");
     }
 
-    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)
-    {
-        return new HashMap<String, Frame[]>() {{
-            put("STILL", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(3)
-                            .withBounds(14, 10, 18, 18)
-                            .build()
-            });
-        }};
-    }
+    // public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)
+    // {
+    //     return new HashMap<String, Frame[]>() {{
+    //         put("STILL", new Frame[] {
+    //                 new FrameBuilder(spriteSheet.getSprite(1, 0))
+    //                         .withScale(3)
+    //                         .withBounds(14, 10, 18, 18)
+    //                         .build()
+    //         });
+    //     }};
+    // }
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
+    }
+
+    public String getPathToImage()
+    {
+        return pathToImage;
     }
 }

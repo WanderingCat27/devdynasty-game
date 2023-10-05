@@ -72,6 +72,16 @@ public class PlayLevelScreen extends Screen {
                 mapTile.getInteractScript().setPlayer(player);
             }
         }
+
+        for(Item item : map.getItems())
+        {
+            if(item.getInteractScript() != null)
+            {
+                item.getInteractScript().setMap(map);
+                item.getInteractScript().setPlayer(player);
+            }
+        }
+
         for (NPC npc : map.getNPCs()) {
             if (npc.getInteractScript() != null) {
                 npc.getInteractScript().setMap(map);

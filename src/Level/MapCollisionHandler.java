@@ -1,6 +1,7 @@
 package Level;
 
 import GameObject.GameObject;
+import GameObject.Item;
 import Utils.Direction;
 import Utils.Point;
 
@@ -54,6 +55,21 @@ public class MapCollisionHandler {
                 } else if (direction == Direction.LEFT) {
                     float boundsDifference = gameObject.getBoundsX1() - gameObject.getX();
                     adjustedPositionX = (npc.getBoundsX2() + 1) - boundsDifference;
+                }
+                return new MapCollisionCheckResult(new Point(adjustedPositionX, gameObject.getY()), entityCollidedWith);
+            }
+        }
+
+        for(Item item : map.getActiveItems()){
+            if(!gameObject.equals(item) && !item.isUncollidable() && hasCollidedWithMapEntity(gameObject, item, direction)){
+                entityCollidedWith = item;
+                float adjustedPositionX = gameObject.getX();
+                if(direction == Direction.RIGHT){
+                    float boundsDifference = gameObject.getX2() - gameObject.getBoundsX2();
+                    adjustedPositionX = item.getBoundsX1() - gameObject.getWidth() + boundsDifference;
+                }else if(direction == Direction.LEFT){
+                    float boundsDifference = gameObject.getBoundsX1() - gameObject.getX();
+                    adjustedPositionX = (item.getBoundsX2() + 1) - boundsDifference;
                 }
                 return new MapCollisionCheckResult(new Point(adjustedPositionX, gameObject.getY()), entityCollidedWith);
             }

@@ -60,8 +60,6 @@ public abstract class Map {
     protected ArrayList<Trigger> triggers;
     protected ArrayList<Item> items;
 
-    
-
     protected Script activeInteractScript;
 
     // if set to false, camera will not move as player moves
@@ -296,7 +294,7 @@ public abstract class Map {
     }
 
     // list of npcs defined to be a part of the map, should be overridden in a subclass
-    protected ArrayList<Item> loadItems() {
+    public ArrayList<Item> loadItems() {
         return new ArrayList<>();
     }
 
@@ -338,6 +336,15 @@ public abstract class Map {
         for (NPC npc : npcs) {
             if (npc.getId() == id) {
                 return npc;
+            }
+        }
+        return null;
+    }
+
+    public Item getItemById(int id) {
+        for (Item item : items) {
+            if (item.getId() == id) {
+                return item;
             }
         }
         return null;
@@ -406,6 +413,7 @@ public abstract class Map {
         // gets active surrounding npcs
         surroundingMapEntities.addAll(getActiveNPCs());
         surroundingMapEntities.addAll(getActiveEnhancedMapTiles());
+        surroundingMapEntities.addAll(getActiveItems());
         return surroundingMapEntities;
     }
 

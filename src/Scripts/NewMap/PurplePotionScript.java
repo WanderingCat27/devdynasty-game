@@ -1,16 +1,13 @@
 package Scripts.NewMap;
 
+import GameObject.Inventory;
+import GameObject.Item;
 import Level.MapEntityStatus;
 import Level.Script;
 import Level.ScriptState;
-import GameObject.Inventory;
-import Maps.NewMap; //since we will need to access the map's inventory
-import GameObject.Item; //since we will need to access the item class
 
-public class SwordScript extends Script<Item>
+public class PurplePotionScript extends Script<Item>
 {
-    public static boolean hasBeenRan = false;
-
     @Override
     protected void setup()
     {
@@ -40,6 +37,4 @@ public class SwordScript extends Script<Item>
         end();
         return ScriptState.COMPLETED;
     }
-
 }
-

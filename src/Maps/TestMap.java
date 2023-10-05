@@ -2,6 +2,8 @@ package Maps;
 
 import EnhancedMapTiles.PushableRock;
 import GameObject.Item;
+import Items.PurplePotion;
+import Items.RedPotion;
 import Items.Sword;
 import Level.EnhancedMapTile;
 import Level.Map;
@@ -10,6 +12,9 @@ import Level.Trigger;
 import NPCs.Dinosaur;
 import NPCs.Walrus;
 import Scripts.SimpleTextScript;
+import Scripts.NewMap.PurplePotionScript;
+import Scripts.NewMap.RedPotionScript;
+import Scripts.NewMap.SwordScript;
 import Scripts.TestMap.DinoScript;
 import Scripts.TestMap.LostBallScript;
 import Scripts.TestMap.TreeScript;
@@ -43,15 +48,23 @@ public class TestMap extends Map {
         Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
         walrus.setInteractScript(new WalrusScript());
         npcs.add(walrus);
-        System.out.println(walrus.isUncollidable());
 
         Sword sword = new Sword(3, getMapTile(10, 10).getLocation());
+        sword.setInteractScript(new SwordScript());
         npcs.add(sword);
 
         Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
         dinosaur.setExistenceFlag("hasTalkedToDinosaur");
         dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
+
+        RedPotion redPotion = new RedPotion(4, getMapTile(9, 9).getLocation());
+        redPotion.setInteractScript(new RedPotionScript());
+        npcs.add(redPotion);
+
+        PurplePotion purplePotion = new PurplePotion(5, getMapTile(10, 9).getLocation());
+        purplePotion.setInteractScript(new PurplePotionScript());
+        npcs.add(purplePotion);
 
         return npcs;
     }
