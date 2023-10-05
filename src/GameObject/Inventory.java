@@ -138,28 +138,14 @@ public class Inventory extends Sprite
         // Point item1Location = new Point(57f, 105f);
         float yLocation = 135f;
         float xLocation = 72f;
-        // for(Sprite item : itemsInInventorySprites)
-        // {
-        //     Point spriteLocation = new Point(xLocation, yLocation);
-        //     item.setLocation(spriteLocation.x, spriteLocation.y);
-        //     item.setScale(2);
-        //     item.draw(graphicsHandler);
-        //     yLocation += 70f;
-        // }
-
-        for(int i = 0; i < itemsInInventorySprites.size(); i++)
+        for(Sprite item : itemsInInventorySprites)
         {
             Point spriteLocation = new Point(xLocation, yLocation);
-            if(i % 2 == 0)
-            {
-                Sprite item = itemsInInventorySprites.get(i);
-                item.setLocation(spriteLocation.x, spriteLocation.y);
-                item.setScale(2);
-                item.draw(graphicsHandler);
-                yLocation += 70f;
-            }
-        }
-        
+            item.setLocation(spriteLocation.x, spriteLocation.y);
+            item.setScale(2);
+            item.draw(graphicsHandler);
+            yLocation += 70f;
+        }        
     }
 
     public static void addItem(Item item)
@@ -175,6 +161,6 @@ public class Inventory extends Sprite
 
     public static boolean canAdd()
     {
-        return itemsInInventory.size() < MAX_SIZE;
+        return itemsInInventory.size() < 4;
     }
 }

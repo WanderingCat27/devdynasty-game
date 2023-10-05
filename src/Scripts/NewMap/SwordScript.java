@@ -9,7 +9,6 @@ import GameObject.Item; //since we will need to access the item class
 
 public class SwordScript extends Script<Item>
 {
-    public static boolean hasBeenRan = false;
 
     @Override
     protected void setup()

@@ -98,7 +98,7 @@ public class GamePanel extends JPanel {
 	public void update() {
 		updatePauseState();
 		updateShowFPSState();
-		screenCoordinator.update();
+		//screenCoordinator.update();
 
 		if (!isGamePaused) {
 			screenManager.update();
