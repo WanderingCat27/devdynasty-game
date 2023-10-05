@@ -1,5 +1,12 @@
 package Level;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import Engine.Config;
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
@@ -7,13 +14,6 @@ import GameObject.Item;
 import GameObject.Rectangle;
 import Utils.Direction;
 import Utils.Point;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /*
     This class is for defining a map that is used for a specific level
@@ -65,7 +65,8 @@ public abstract class Map {
     protected Script activeInteractScript;
 
     // if set to false, camera will not move as player moves
-    protected boolean adjustCamera = true;
+    public enum CameraFollowState { NONE, ADJUST_TO_PLAYER, CENTER}
+    protected CameraFollowState cameraFollowState = CameraFollowState.NONE;
 
     // map tiles in map that are animated
     protected ArrayList<MapTile> animatedMapTiles;
@@ -391,8 +392,14 @@ public abstract class Map {
         this.triggers.add(trigger);
     }
 
-    public void setAdjustCamera(boolean adjustCamera) {
-        this.adjustCamera = adjustCamera;
+    public void setAdjustCamera() {
+        this.cameraFollowState = CameraFollowState.ADJUST_TO_PLAYER;
+    }
+
+
+    // centers camera on middle of map
+    public void setCenterCamera() {
+        this.cameraFollowState = CameraFollowState.CENTER;
     }
 
 
@@ -507,9 +514,14 @@ public abstract class Map {
     }
 
     public void update(Player player) {
-        if (adjustCamera) {
+        if (cameraFollowState == CameraFollowState.ADJUST_TO_PLAYER) {
             adjustMovementY(player);
             adjustMovementX(player);
+        } else if(cameraFollowState == CameraFollowState.CENTER ) {
+            camera.setY(getHeightPixels()/2 - ScreenManager.getScreenHeight()/2);
+            camera.setX(getWidthPixels()/2 - ScreenManager.getScreenWidth() /2);
+
+            
         }
         camera.update(player);
         if (textbox.isActive()) {
@@ -520,55 +532,15 @@ public abstract class Map {
     // based on the player's current X position (which in a level can potentially be updated each frame),
     // adjust the player's and camera's positions accordingly in order to properly create the map "scrolling" effect
     private void adjustMovementX(Player player) {
-        // if player goes past center screen (on the right side) and there is more map to show on the right side, push player back to center and move camera forward
-        if (player.getCalibratedXLocation() > getMidPointX()&& camera.getEndBoundX() < endBoundX) {
-            float xMidPointDifference = getMidPointX()- player.getCalibratedXLocation();
-            camera.moveX(-xMidPointDifference);
-
-            // if camera moved past the right edge of the map as a result from the move above, move camera back and push player forward
-            if (camera.getEndBoundX() > endBoundX) {
-                float cameraDifference = camera.getEndBoundX() - endBoundX;
-                camera.moveX(-cameraDifference);
-            }
-        }
-        // if player goes past center screen (on the left side) and there is more map to show on the left side, push player back to center and move camera backwards
-        else if (player.getCalibratedXLocation() < getMidPointX()&& camera.getX() > startBoundX) {
-            float xMidPointDifference = getMidPointX()- player.getCalibratedXLocation();
-            camera.moveX(-xMidPointDifference);
-
-            // if camera moved past the left edge of the map as a result from the move above, move camera back and push player backward
-            if (camera.getX() < startBoundX) {
-                float cameraDifference = startBoundX - camera.getX();
-                camera.moveX(cameraDifference);
-            }
-        }
+        // positon player in center of screen, but clamp camera to edges of map
+        camera.setX(Math.max(Math.min(player.getX() - getMidPointX(),endBoundX - ScreenManager.getScreenWidth()),startBoundX));
     }
 
     // based on the player's current Y position (which in a level can potentially be updated each frame),
     // adjust the player's and camera's positions accordingly in order to properly create the map "scrolling" effect
     private void adjustMovementY(Player player) {
-        // if player goes past center screen (below) and there is more map to show below, push player back to center and move camera upward
-        if (player.getCalibratedYLocation() > getMidPointY()&& camera.getEndBoundY() < endBoundY) {
-            float yMidPointDifference = getMidPointY()- player.getCalibratedYLocation();
-            camera.moveY(-yMidPointDifference);
-
-            // if camera moved past the bottom of the map as a result from the move above, move camera upwards and push player downwards
-            if (camera.getEndBoundY() > endBoundY) {
-                float cameraDifference = camera.getEndBoundY() - endBoundY;
-                camera.moveY(-cameraDifference);
-            }
-        }
-        // if player goes past center screen (above) and there is more map to show above, push player back to center and move camera upwards
-        else if (player.getCalibratedYLocation() < getMidPointY()&& camera.getY() > startBoundY) {
-            float yMidPointDifference = getMidPointY()- player.getCalibratedYLocation();
-            camera.moveY(-yMidPointDifference);
-
-            // if camera moved past the top of the map as a result from the move above, move camera downwards and push player upwards
-            if (camera.getY() < startBoundY) {
-                float cameraDifference = startBoundY - camera.getY();
-                camera.moveY(cameraDifference);
-            }
-        }
+        // positon player in center of screen, but clamp camera to edges of map
+        camera.setY(Math.max(Math.min(player.getY() - getMidPointY(),endBoundY - ScreenManager.getScreenHeight()),startBoundY));
     }
 
     public void reset() {

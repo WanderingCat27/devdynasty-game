@@ -1,13 +1,13 @@
 package Level;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
 import GameObject.GameObject;
 import GameObject.Item;
 import GameObject.Rectangle;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 // This class represents a Map's "Camera", aka a piece of the map that is currently included in a level's update/draw logic based on what should be shown on screen.
 // A majority of its job is just determining which map tiles, enemies, npcs, and enhanced map tiles are "active" each frame (active = included in update/draw cycle)
