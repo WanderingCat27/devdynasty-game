@@ -14,20 +14,19 @@ public class PurplePotion extends Item
     public PurplePotion(int id, Point point)
     {
         super(id,point,"PurplePotion.png");
-        System.out.println(isUncollidable);
     }    
 
-    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)
-    {
-        return new HashMap<String, Frame[]>() {{
-            put("STILL", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(3)
-                            .withBounds(14, 10, 18, 18)
-                            .build()
-            });
-        }};
-    }
+    // public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)
+    // {
+    //     return new HashMap<String, Frame[]>() {{
+    //         put("STILL", new Frame[] {
+    //                 new FrameBuilder(spriteSheet.getSprite(0, 0))
+    //                         .withScale(3)
+    //                         .withBounds(2, 2, 2, 2)
+    //                         .build()
+    //         });
+    //     }};
+    // }
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {

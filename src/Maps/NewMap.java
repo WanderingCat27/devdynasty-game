@@ -12,6 +12,9 @@ import Level.Map;
 import Level.NPC;
 import NPCs.Dinosaur;
 import NPCs.Walrus;
+import Scripts.NewMap.PurplePotionScript;
+import Scripts.NewMap.RedPotionScript;
+import Scripts.NewMap.SwordScript;
 import Scripts.TestMap.DinoScript;
 import Scripts.TestMap.WalrusScript;
 import Tilesets.AnimatedTileset;
@@ -32,22 +35,47 @@ public class NewMap extends Map
 
     } 
     
-    public ArrayList<Item> loadItems() {
-        ArrayList<Item> items = new ArrayList<>();
+    // public ArrayList<Item> loadItems() {
+    //     ArrayList<Item> items = new ArrayList<>();
 
-        Sword sword = new Sword(1, getMapTile(7, 7).getLocation());
-        sword.setScale(2f);
-        items.add(sword);
+    //     Sword sword = new Sword(1, getMapTile(7, 7).getLocation());
+    //     sword.setScale(2);
+    //     //System.out.println(sword.isAffectedByTriggers());
+    //     sword.setInteractScript(new SwordScript());
+    //     System.out.println(sword.getPathToImage());
+    //     items.add(sword);
 
-        RedPotion redPotion = new RedPotion(2, getMapTile(15, 15).getLocation());
-        redPotion.setScale(2f);
-        items.add(redPotion);
+    //     RedPotion redPotion = new RedPotion(2, getMapTile(15, 15).getLocation());
+    //     redPotion.setScale(3);
+    //     //redPotion.setInteractScript();
+    //     items.add(redPotion);
 
-        PurplePotion purplePotion = new PurplePotion(3, getMapTile(7, 10).getLocation());
-        purplePotion.setScale(2f);
-        items.add(purplePotion);
+    //     PurplePotion purplePotion = new PurplePotion(3, getMapTile(7, 10).getLocation());
+    //     purplePotion.setScale(3);
+    //     //purplePotion.setInteractScript(new SwordScript());
+    //     items.add(purplePotion);
 
-        return items;
+    //     return items;
+    // }
+
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
+
+
+        Sword sword = new Sword(3, getMapTile(10, 10).getLocation());
+        sword.setInteractScript(new SwordScript());
+        npcs.add(sword);
+
+        RedPotion redPotion = new RedPotion(4, getMapTile(4, 4).getLocation());
+        redPotion.setInteractScript(new RedPotionScript());
+        npcs.add(redPotion);
+
+        PurplePotion purplePotion = new PurplePotion(5, getMapTile(10, 9).getLocation());
+        purplePotion.setInteractScript(new PurplePotionScript());
+        npcs.add(purplePotion);
+
+        return npcs;
     }
 
 }

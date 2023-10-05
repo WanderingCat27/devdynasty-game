@@ -9,6 +9,7 @@ public class WalrusScript extends Script<NPC> {
 
     @Override
     protected void setup() {
+        System.out.println("Walrus script started");
         lockPlayer();
         showTextbox();
 
