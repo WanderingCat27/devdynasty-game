@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 
 import Button.TextButton;
-import Engine.Config;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
@@ -29,8 +28,8 @@ public class CreditsScreen extends Screen {
     public void initialize() {
         // setup graphics on screen (background map, spritefont text)
         background = new TitleScreenMap();
-        creditsLabel = new SpriteFont("Credits", Config.GAME_WINDOW_WIDTH/2, 7, "Times New Roman", 30, Color.white);
-        createdByLabel = new SpriteFont("Created by devDynasty", Config.GAME_WINDOW_WIDTH/2, 121, "Times New Roman", 20, Color.white);
+        creditsLabel = new SpriteFont("Credits", 200, 7, "Times New Roman", 30, Color.white);
+        createdByLabel = new SpriteFont("Created by devDynasty", 200, 121, "Times New Roman", 20, Color.white);
 
         this.exitButton = new TextButton(20, 20, 100, 50, Color.gray, "Menu", new Font("Comic Sans", Font.PLAIN, 20), Color.WHITE, new Runnable() {
 
