@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Engine.ImageLoader;
 import GameObject.Item;
 import GameObject.Sprite;
+import Items.FireStaff;
 import Items.PurplePotion;
 import Items.RedPotion;
 import Items.Sword;
@@ -12,6 +13,7 @@ import Level.Map;
 import Level.NPC;
 import NPCs.Dinosaur;
 import NPCs.Walrus;
+import Scripts.NewMap.FireStaffScript;
 import Scripts.NewMap.PurplePotionScript;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.NewMap.SwordScript;
@@ -73,6 +75,10 @@ public class NewMap extends Map
         PurplePotion purplePotion = new PurplePotion(5, getMapTile(10, 9).getLocation());
         purplePotion.setInteractScript(new PurplePotionScript());
         npcs.add(purplePotion);
+
+        FireStaff fireStaff = new FireStaff(6, getMapTile(7, 2).getLocation());
+        fireStaff.setInteractScript(new FireStaffScript());
+        npcs.add(fireStaff);
 
         return npcs;
     }
