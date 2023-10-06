@@ -21,6 +21,7 @@ public class TitleScreenMap extends Map {
         player.setScale(3);
         player.setImageEffect(ImageEffect.FLIP_HORIZONTAL);
         updatePlayerSprite();
+        setCenterCamera();
         //Hud Test code, this wiil load the hud for the title screen as proof of concept
         //  Point hudLocation = getMapTile(8, 6).getLocation().subtractX(6).subtractY(7);
         //  hud = new Sprite(ImageLoader.load("HUDForGame.png"));

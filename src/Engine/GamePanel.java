@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Rectangle;
-import SpriteFont.SpriteFont;
 import Utils.Colors;
+import ui.SpriteFont.SpriteFont;
 
 /*
  * This is where the game loop process and render back buffer is setup

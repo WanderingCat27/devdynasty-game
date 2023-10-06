@@ -1,31 +1,22 @@
-package Button;
+package ui.Button;
 
 import java.awt.Color;
 import java.awt.Point;
 
 import Engine.GraphicsHandler;
 import Engine.Mouse;
-import Engine.ScreenManager;
+import ui.Container.UIContainer;
 
-public class ClickableRect {
-    protected int width, height;
-    private int x, y;
+public class ClickableRect extends UIContainer{
     protected Color defColor, color;
     protected boolean pressed = false;
     protected Runnable onClick;
 
-    protected boolean relativeCenter = false;
 
     // for extending classes to do their own thing with variables
-    protected ClickableRect() {
-
-    }
 
     public ClickableRect(int x, int y, int width, int height, Color color, Runnable onClick) {
-        this.width = width;
-        this.height = height;
-        this.x = x;
-        this.y = y;
+        super(x, y, width, height);
         this.defColor = color;
         this.onClick = onClick;
     }
@@ -42,18 +33,9 @@ public class ClickableRect {
             pressed = false;
 
     }
-
-    protected int getX() {
-        return relativeCenter ? ScreenManager.getScreenWidth()/2 + x -width /2: x;
-    }
-
-    protected int getY() {
-        return relativeCenter ? ScreenManager.getScreenHeight()/2 + y - height/2 : y;
-    }
-
     protected boolean isMouseOver() {
         Point p = Mouse.getMouseLoction();
-        return p.x > getX() && p.x < getX() + width && p.y > getY() && p.y < getY() + height;
+        return p.x > getXAbs() && p.x < getXAbs() + getWidth() && p.y > getYAbs() && p.y < getYAbs() + getHeight();
     }
 
     public void draw(GraphicsHandler g) {
@@ -64,18 +46,7 @@ public class ClickableRect {
         else // not pressed or hovering
             color = defColor;
 
-        g.drawFilledRectangle(getX(), getY(), width, height, color);
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setRelativeCenter(boolean relative) { 
-        this.relativeCenter = relative;
+        g.drawFilledRectangle(getXAbs(), getYAbs(), getWidth(), getHeight(), color);
+        super.draw(g);
     }
 }

@@ -1,4 +1,4 @@
-package Button;
+package ui.Button;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -13,12 +13,13 @@ public class SpriteButton extends ClickableRect {
     protected Point origin;
 
     public SpriteButton(int x, int y, float scale, BufferedImage spriteImage, Runnable onClick) {
+        super(x, y, x, y, null, onClick);
         spriteImage = scaleImage(spriteImage, scale);
-        super.setX(x);
-        super.setY(y);
+        super.setXOrigin(x);
+        super.setYOrigin(y);
         this.origin = new Point(x, y);
-        this.width = spriteImage.getWidth();
-        this.height = spriteImage.getHeight();
+        setWidth(spriteImage.getWidth());
+        setHeight(spriteImage.getHeight());
         this.onClick = onClick;
 
         this.sprite = new Sprite(spriteImage, x, y);
@@ -36,28 +37,18 @@ public class SpriteButton extends ClickableRect {
         return scaleOp.filter(image, scaledImage);
     }
 
-    // manually set the click hitbox width
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    // manually set the click hitbox height
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     // if you manually set width and height you might want to center the hitbox of
     // the button to the center of the sprite image because the imaage has white
     // space around it
     // you dont want to click the whitespace
     public void centerClickBox() {
         // get differences between sprite dimensions and button dimensions
-        int heightDiff = this.sprite.getHeight() - this.height;
-        int widthDiff = this.sprite.getWidth() - this.width;
+        int heightDiff = this.sprite.getHeight() - getHeight();
+        int widthDiff = this.sprite.getWidth() - getWidth();
 
         // offset by half the diff
-        super.setX((int) origin.x + widthDiff / 2);
-        super.setY((int) origin.y + heightDiff / 2);
+        super.setXOrigin((int) origin.x + widthDiff / 2);
+        super.setYOrigin((int) origin.y + heightDiff / 2);
     }
 
     public Sprite getSprite() {
