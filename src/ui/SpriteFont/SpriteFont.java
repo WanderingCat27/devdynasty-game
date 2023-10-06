@@ -1,32 +1,32 @@
-package SpriteFont;
+package ui.SpriteFont;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Toolkit;
 
 import Engine.GraphicsHandler;
-
-import java.awt.*;
+import ui.Container.UIContainer;
 
 // This class represents a sprite font, which is graphic text (text drawn to the screen as if it were an image)
-public class SpriteFont {
+public class SpriteFont extends UIContainer{
 	protected String text;
 	protected Font font;
-	protected float x;
-	protected float y;
 	protected Color color;
 	protected Color outlineColor;
 	protected float outlineThickness = 1f;
 
-	public SpriteFont(String text, float x, float y, String fontName, int fontSize, Color color) {
-		this.text = text;
-		font = new Font(fontName, Font.PLAIN, fontSize);
-		this.x = x;
-		this.y = y;
-		this.color = color;
+	public SpriteFont(String text, int x, int y, String fontName, int fontSize, Color color) {
+		this(text, x, y,new Font(fontName, Font.PLAIN, fontSize), color);
 	}
 
-	public SpriteFont(String text, float x, float y, Font font, Color color) {
+	public SpriteFont(String text, int x, int y, Font font, Color color) {
+		super(x, y, 0, 0);
+
 		this.text = text;
 		this.font = font;
-		this.x = x;
-		this.y = y;
 		this.color = color;
 	}
 
@@ -66,49 +66,35 @@ public class SpriteFont {
 		this.outlineThickness = outlineThickness;
 	}
 
-	public float getX() {
-		return x;
+	
+
+	public void setLocation(int x, int y) {
+		setXOrigin(x);
+		setYOrigin(y);
 	}
 
-	public void setX(float x) {
-		this.x = x;
+	public void moveX(int dx) {
+		setXOrigin(getXOrigin() + dx);
 	}
 
-	public float getY() {
-		return y;
+	public void moveY(int dy) {
+		setYOrigin(getYOrigin() + dy);
 	}
 
-	public void setY(float y) {
-		this.y = y;
+	public void moveRight(int dx) {
+		moveX(dx);
 	}
 
-	public void setLocation(float x, float y) {
-		this.x = x;
-		this.y = y;
+	public void moveLeft(int dx) {
+		moveX(-dx);
 	}
 
-	public void moveX(float dx) {
-		x += dx;
+	public void moveDown(int dy) {
+		moveY(dy);
 	}
 
-	public void moveY(float dy) {
-		y += dy;
-	}
-
-	public void moveRight(float dx) {
-		x += dx;
-	}
-
-	public void moveLeft(float dx) {
-		x -= dx;
-	}
-
-	public void moveDown(float dy) {
-		y += dy;
-	}
-
-	public void moveUp(float dy) {
-		y -= dy;
+	public void moveUp(int dy) {
+		moveY(-dy);
 	}
 
 	private int getAscent(Graphics2D graphics) {
@@ -119,23 +105,44 @@ public class SpriteFont {
 	public void draw(GraphicsHandler graphicsHandler) {
 		int ascent = getAscent(graphicsHandler.getGraphics());
 		if (outlineColor != null && !outlineColor.equals(color)) {
-			graphicsHandler.drawStringWithOutline(text, Math.round(x), Math.round(y) + ascent, font, color, outlineColor, outlineThickness);
+			graphicsHandler.drawStringWithOutline(text, getXAbs(), getYAbs() + ascent, font, color, outlineColor, outlineThickness);
 		} else {
-			graphicsHandler.drawString(text, Math.round(x), Math.round(y) + ascent, font, color);
+			graphicsHandler.drawString(text, getXAbs(), getYAbs() + ascent, font, color);
 		}
+
+		super.draw(graphicsHandler);
 	}
 
 	// this can be called instead of regular draw to have the text drop to the next line in graphics space on a new line character
 	public void drawWithParsedNewLines(GraphicsHandler graphicsHandler, int gapBetweenLines) {
 		int ascent = getAscent(graphicsHandler.getGraphics());
-		int drawLocationY = Math.round(this.y) + ascent;
+		int drawLocationY = Math.round(getYAbs()) + ascent;
 		for (String line: text.split("\n")) {
 			if (outlineColor != null && !outlineColor.equals(color)) {
-				graphicsHandler.drawStringWithOutline(line, Math.round(x), drawLocationY, font, color, outlineColor, outlineThickness);
+				graphicsHandler.drawStringWithOutline(line, getXAbs(), drawLocationY, font, color, outlineColor, outlineThickness);
 			} else {
-				graphicsHandler.drawString(line, Math.round(x), drawLocationY, font, color);
+				graphicsHandler.drawString(line, getXAbs(), drawLocationY, font, color);
 			}
 			drawLocationY += font.getSize() + gapBetweenLines;
 		}
+
+		super.draw(graphicsHandler);
+	}
+
+	@Override
+	public int getWidth() {
+		return getTextDimensions().width;
+	}
+
+	@Override
+	public int getHeight() {
+		return getTextDimensions().height;
+	}
+
+	// method is deprecated, but the alternative method requires a
+	// "FontRendererContext" which is unclear how to create or find or anything
+	public Dimension getTextDimensions() {
+		FontMetrics metric = Toolkit.getDefaultToolkit().getFontMetrics(font);
+		return new Dimension(metric.stringWidth(text), metric.getHeight());
 	}
 }
