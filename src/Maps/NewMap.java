@@ -62,9 +62,9 @@ public class NewMap extends Map
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-
         Sword sword = new Sword(3, getMapTile(10, 10).getLocation());
         sword.setInteractScript(new SwordScript());
+        sword.setIsUncollidable(true);
         npcs.add(sword);
 
         RedPotion redPotion = new RedPotion(4, getMapTile(4, 4).getLocation());

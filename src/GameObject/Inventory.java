@@ -12,12 +12,15 @@ import Engine.Keyboard;
 import Utils.Point;
 import Maps.NewMap;
 import Level.Map;
+import Level.MapEntityStatus;
+import Level.NPC;
+import Level.Player;
 import Screens.PlayLevelScreen;
 
 public class Inventory extends Sprite
 {
     //Sets the max size that the inventory can be
-    protected static final int MAX_SIZE = 8;
+    protected static final int MAX_SIZE = 4;
 
     //Each will be a different image
     Sprite noSelection;
@@ -31,9 +34,13 @@ public class Inventory extends Sprite
     Sprite item3;
     Sprite item4;
     Point location;
+    Player player;
 
     //Map being used
-    protected Map map;
+    protected Map map = new NewMap();
+
+    //List of items in the map
+    protected ArrayList<NPC> itemsInMap = map.loadNPCs();
 
     //This will be used to keep track of the items in the inventory
     protected static ArrayList<Item> itemsInInventory = new ArrayList<Item>();
@@ -51,9 +58,10 @@ public class Inventory extends Sprite
     protected static Key FOUR = Key.FOUR;
     //protected static Key TAB = Key.TAB;
     protected static Key BACK_QUOTE = Key.BACK_QUOTE;
+    protected static Key REMOVE = Key.R;
 
     
-    public Inventory(String noSelection, String oneSlot, String twoSlot, String threeSlot, String fourSlot, Map map)
+    public Inventory(String noSelection, String oneSlot, String twoSlot, String threeSlot, String fourSlot, Map map, Player player)
     {
         super(ImageLoader.load("noSelectionHUD.png", Colors.MAGENTA));
         this.noSelection = new Sprite(ImageLoader.load(noSelection, Colors.MAGENTA));
@@ -63,6 +71,7 @@ public class Inventory extends Sprite
         this.fourSlot = new Sprite(ImageLoader.load(fourSlot, Colors.MAGENTA));
         this.location = map.getMapTile(1, 2).getLocation().subtractX(6).subtractY(7);
         this.map = map;
+        this.player = player;
     }
 
     //This will track which key is pressed and set the keyNumber to the corresponding number to be used in the draw function
@@ -123,7 +132,7 @@ public class Inventory extends Sprite
             this.noSelection.setScale(2);
             this.noSelection.draw(graphicsHandler);
         }
-
+        remove();
         displayItems(graphicsHandler);
         //System.out.println(map.getMapTile(1, 2).getLocation().subtractX(6).subtractY(7));
         // this.item1 = new Sprite(ImageLoader.load(itemsInInventory.get(0).getPathToImage(), Colors.MAGENTA));
@@ -157,6 +166,55 @@ public class Inventory extends Sprite
             itemsInInventorySprites.add(new Sprite(ImageLoader.load(item.getPathToImage(), Colors.MAGENTA)));
 
         }
+    }
+
+    public void remove()
+    {   try
+        {
+            if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("1") && itemsInInventory.size() > 0)
+            {
+                Item item = itemsInInventory.remove(0);
+                String pathToImage = item.getPathToImage();
+                itemsInInventorySprites.remove(0);
+                System.out.println(item.getPathToImage());
+                itemsInInventorySprites.remove(0);
+                item.setMapEntityStatus(MapEntityStatus.ACTIVE);
+                Point playerLocation = this.player.getLocation();
+                item.setLocation(playerLocation.x, playerLocation.y);
+
+        }
+        else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("2") && itemsInInventory.size() > 1)
+        {
+            Item item = itemsInInventory.remove(1);
+            itemsInInventorySprites.remove(1);
+            item.setMapEntityStatus(MapEntityStatus.ACTIVE);
+            Point playerLocation = this.player.getLocation();
+            item.setLocation(playerLocation.x, playerLocation.y);
+
+        }
+        else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("3") && itemsInInventory.size() > 2)
+        {
+            Item item = itemsInInventory.remove(1);
+            itemsInInventorySprites.remove(1);
+            item.setMapEntityStatus(MapEntityStatus.ACTIVE);
+            Point playerLocation = this.player.getLocation();
+            item.setLocation(playerLocation.x, playerLocation.y);
+        }
+        else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("4") && itemsInInventory.size() > 3)
+        {
+            Item item = itemsInInventory.remove(1);
+            itemsInInventorySprites.remove(1);
+            item.setMapEntityStatus(MapEntityStatus.ACTIVE);
+            Point playerLocation = this.player.getLocation();
+            item.setLocation(playerLocation.x, playerLocation.y);
+        }
+        }
+        catch(Exception e)
+        {
+            System.out.println("No item in that slot");
+        }
+       
+
     }
 
     public static boolean canAdd()
