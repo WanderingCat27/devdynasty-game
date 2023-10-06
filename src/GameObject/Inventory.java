@@ -37,10 +37,10 @@ public class Inventory extends Sprite
     Player player;
 
     //Map being used
-    protected Map map = new NewMap();
+    protected Map map;  //new NewMap();
 
     //List of items in the map
-    protected ArrayList<NPC> itemsInMap = map.loadNPCs();
+    //protected ArrayList<NPC> itemsInMap = map.loadNPCs();
 
     //This will be used to keep track of the items in the inventory
     protected static ArrayList<Item> itemsInInventory = new ArrayList<Item>();
