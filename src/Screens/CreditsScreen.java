@@ -1,11 +1,11 @@
 package Screens;
 
 import java.awt.Color;
+import java.awt.Font;
 
+import Button.TextButton;
+import Engine.Config;
 import Engine.GraphicsHandler;
-import Engine.Key;
-import Engine.KeyLocker;
-import Engine.Keyboard;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
@@ -17,10 +17,9 @@ import SpriteFont.SpriteFont;
 public class CreditsScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected Map background;
-    protected KeyLocker keyLocker = new KeyLocker();
     protected SpriteFont creditsLabel;
     protected SpriteFont createdByLabel;
-    protected SpriteFont returnInstructionsLabel;
+    protected TextButton exitButton;
 
     public CreditsScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -30,29 +29,29 @@ public class CreditsScreen extends Screen {
     public void initialize() {
         // setup graphics on screen (background map, spritefont text)
         background = new TitleScreenMap();
-        creditsLabel = new SpriteFont("Credits", 15, 7, "Times New Roman", 30, Color.white);
-        createdByLabel = new SpriteFont("Created by devDynasty", 130, 121, "Times New Roman", 20, Color.white);
-        returnInstructionsLabel = new SpriteFont("Press Space to return to the menu", 20, 532, "Times New Roman", 30, Color.white);
-        keyLocker.lockKey(Key.SPACE);
+        creditsLabel = new SpriteFont("Credits", Config.GAME_WINDOW_WIDTH/2, 7, "Times New Roman", 30, Color.white);
+        createdByLabel = new SpriteFont("Created by devDynasty", Config.GAME_WINDOW_WIDTH/2, 121, "Times New Roman", 20, Color.white);
+
+        this.exitButton = new TextButton(20, 20, 100, 50, Color.gray, "Menu", new Font("Comic Sans", Font.PLAIN, 20), Color.WHITE, new Runnable() {
+
+            @Override
+            public void run() {
+                screenCoordinator.setGameState(GameState.MENU);
+            }
+            
+        });
     }
 
     public void update() {
         background.update(null);
+        exitButton.update();
 
-        if (Keyboard.isKeyUp(Key.SPACE)) {
-            keyLocker.unlockKey(Key.SPACE);
-        }
-
-        // if space is pressed, go back to main menu
-        if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
-            screenCoordinator.setGameState(GameState.MENU);
-        }
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
         creditsLabel.draw(graphicsHandler);
         createdByLabel.draw(graphicsHandler);
-        returnInstructionsLabel.draw(graphicsHandler);
+        exitButton.draw(graphicsHandler);
     }
 }
