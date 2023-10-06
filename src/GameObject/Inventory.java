@@ -49,6 +49,7 @@ public class Inventory extends Sprite
 
     //Keeps track of which inventory key is pressed and draws the correct image
     protected static String keyNumber = "`";
+    //protected static Key removeCheck = Key.P;
 
     //Define keyboard buttons
     protected KeyLocker keyLocker = new KeyLocker();
@@ -169,45 +170,54 @@ public class Inventory extends Sprite
     }
 
     public void remove()
-    {   try
+    {   
+        try
         {
-            if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("1") && itemsInInventory.size() > 0)
+            if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("1") && itemsInInventory.size() > 0 && !keyLocker.isKeyLocked(REMOVE))
             {
+                keyLocker.lockKey(REMOVE);
                 Item item = itemsInInventory.remove(0);
-                String pathToImage = item.getPathToImage();
                 itemsInInventorySprites.remove(0);
-                System.out.println(item.getPathToImage());
-                itemsInInventorySprites.remove(0);
-                item.setMapEntityStatus(MapEntityStatus.ACTIVE);
                 Point playerLocation = this.player.getLocation();
                 item.setLocation(playerLocation.x, playerLocation.y);
+                this.map.addNPC(item);
+                item.setMapEntityStatus(MapEntityStatus.ACTIVE);
+            }
+            else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("2") && itemsInInventory.size() > 1 && !keyLocker.isKeyLocked(REMOVE))
+            {
+                keyLocker.lockKey(REMOVE);
+                Item item = itemsInInventory.remove(1);
+                itemsInInventorySprites.remove(1);
+                Point playerLocation = this.player.getLocation();
+                item.setLocation(playerLocation.x, playerLocation.y);
+                this.map.addNPC(item);
+                item.setMapEntityStatus(MapEntityStatus.ACTIVE);
 
-        }
-        else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("2") && itemsInInventory.size() > 1)
-        {
-            Item item = itemsInInventory.remove(1);
-            itemsInInventorySprites.remove(1);
-            item.setMapEntityStatus(MapEntityStatus.ACTIVE);
-            Point playerLocation = this.player.getLocation();
-            item.setLocation(playerLocation.x, playerLocation.y);
-
-        }
-        else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("3") && itemsInInventory.size() > 2)
-        {
-            Item item = itemsInInventory.remove(1);
-            itemsInInventorySprites.remove(1);
-            item.setMapEntityStatus(MapEntityStatus.ACTIVE);
-            Point playerLocation = this.player.getLocation();
-            item.setLocation(playerLocation.x, playerLocation.y);
-        }
-        else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("4") && itemsInInventory.size() > 3)
-        {
-            Item item = itemsInInventory.remove(1);
-            itemsInInventorySprites.remove(1);
-            item.setMapEntityStatus(MapEntityStatus.ACTIVE);
-            Point playerLocation = this.player.getLocation();
-            item.setLocation(playerLocation.x, playerLocation.y);
-        }
+            }
+            else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("3") && itemsInInventory.size() > 2 && !keyLocker.isKeyLocked(REMOVE))
+            {
+                keyLocker.lockKey(REMOVE);
+                Item item = itemsInInventory.remove(2);
+                itemsInInventorySprites.remove(2);
+                Point playerLocation = this.player.getLocation();
+                item.setLocation(playerLocation.x, playerLocation.y);
+                this.map.addNPC(item);
+                item.setMapEntityStatus(MapEntityStatus.ACTIVE);
+            }
+            else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("4") && itemsInInventory.size() > 3 && !keyLocker.isKeyLocked(REMOVE))
+            {
+                keyLocker.lockKey(REMOVE);
+                Item item = itemsInInventory.remove(3);
+                itemsInInventorySprites.remove(3);
+                Point playerLocation = this.player.getLocation();
+                item.setLocation(playerLocation.x, playerLocation.y);
+                this.map.addNPC(item);
+                item.setMapEntityStatus(MapEntityStatus.ACTIVE);
+            }
+            if(Keyboard.isKeyUp(REMOVE))
+            {
+                keyLocker.unlockKey(REMOVE);
+            }
         }
         catch(Exception e)
         {
