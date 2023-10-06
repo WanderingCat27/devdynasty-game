@@ -1,23 +1,23 @@
 package Screens;
 
 import Engine.GraphicsHandler;
-import Engine.ImageLoader;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
-import GameObject.Sprite;
-import Level.*;
-import Maps.NewMap;
-import Maps.TestMap;
-//import Maps.TestMap;
-import Players.Cat;
-import Players.PlayerPlayer;
-import Utils.Colors;
-import Utils.Direction;
-import Utils.Point;
-import Tilesets.CommonTileset;
 import GameObject.Inventory;
 import GameObject.Item;
+import Level.EnhancedMapTile;
+import Level.FlagManager;
+import Level.Map;
+import Level.MapTile;
+import Level.NPC;
+import Level.Player;
+import Level.SoundPlayer;
+import Level.Trigger;
+import Maps.NewMap;
+import Players.PlayerPlayer;
+import Utils.Direction;
+import Utils.Point;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
@@ -50,6 +50,7 @@ public class PlayLevelScreen extends Screen {
         // define/setup map
         this.map = new NewMap();
         map.setFlagManager(flagManager);
+        map.setAdjustCamera();
 
         // setup player
         this.player = new PlayerPlayer(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);

@@ -3,27 +3,25 @@ package Engine;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
+import Game.GameState;
+import Game.ScreenCoordinator;
 import GameObject.Rectangle;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
-
-import javax.swing.*;
-
-import Game.GameState;
-import Game.ScreenCoordinator;
-
-import java.awt.*;
 
 /*
  * This is where the game loop process and render back buffer is setup
  */
 public class GamePanel extends JPanel {
 	// loads Screens on to the JPanel
-	// each screen has its own update and draw methods defined to handle a "section" of the game.
+	// each screen has its own update and draw methods defined to handle a "section"
+	// of the game.
 	private ScreenManager screenManager;
 
 	// used to draw graphics to the panel
@@ -52,14 +50,13 @@ public class GamePanel extends JPanel {
 
 		// adds listeners for mouse events from the static Mouse class
 		this.addMouseListener(Mouse.getMouseListener());
-		this.addMouseMotionListener((MouseMotionListener)Mouse.getMouseListener());
+		this.addMouseMotionListener((MouseMotionListener) Mouse.getMouseListener());
 
 		graphicsHandler = new GraphicsHandler();
 
 		screenManager = new ScreenManager();
 		screenCoordinator = new ScreenCoordinator();
 		screenCoordinator.initialize();
-
 
 		pauseLabel = new SpriteFont("PAUSE", 365, 280, "Comic Sans", 24, Color.white);
 		pauseLabel.setOutlineColor(Color.black);
@@ -69,14 +66,24 @@ public class GamePanel extends JPanel {
 
 		currentFPS = Config.TARGET_FPS;
 
-		// this game loop code will run in a separate thread from the rest of the program
+		// this game loop code will run in a separate thread from the rest of the
+		// program
 		// will continually update the game's logic and repaint the game's graphics
 		GameLoop gameLoop = new GameLoop(this);
 		gameLoopProcess = new Thread(gameLoop.getGameLoopProcess());
+
+		// resize screen when window resizes
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				ScreenManager.resize(getWidth(), getHeight());
+			}
+		});
 	}
 
 	// this is called later after instantiation, and will initialize screenManager
-	// this had to be done outside of the constructor because it needed to know the JPanel's width and height, which aren't available in the constructor
+	// this had to be done outside of the constructor because it needed to know the
+	// JPanel's width and height, which aren't available in the constructor
 	public void setupGame() {
 		setBackground(Colors.CORNFLOWER_BLUE);
 		screenManager.initialize(new Rectangle(getX(), getY(), getWidth(), getHeight()));
@@ -107,7 +114,7 @@ public class GamePanel extends JPanel {
 
 	private void updatePauseState() {
 		gameState = screenCoordinator.getGameState();
-		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey) && (gameState == GameState.LEVEL) ) {
+		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey) && (gameState == GameState.LEVEL)) {
 			isGamePaused = !isGamePaused;
 			keyLocker.lockKey(pauseKey);
 		}
@@ -148,7 +155,8 @@ public class GamePanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// every repaint call will schedule this method to be called
-		// when called, it will setup the graphics handler and then call this class's draw method
+		// when called, it will setup the graphics handler and then call this class's
+		// draw method
 		graphicsHandler.setGraphics((Graphics2D) g);
 		draw();
 	}

@@ -1,14 +1,12 @@
 package Button;
 
-import Engine.GraphicsHandler;
-import GameObject.Sprite;
-import SpriteFont.SpriteFont;
-import Utils.Point;
-
-import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+
+import Engine.GraphicsHandler;
+import GameObject.Sprite;
+import Utils.Point;
 
 public class SpriteButton extends ClickableRect {
     Sprite sprite;
@@ -16,8 +14,8 @@ public class SpriteButton extends ClickableRect {
 
     public SpriteButton(int x, int y, float scale, BufferedImage spriteImage, Runnable onClick) {
         spriteImage = scaleImage(spriteImage, scale);
-        this.x = x;
-        this.y = y;
+        super.setX(x);
+        super.setY(y);
         this.origin = new Point(x, y);
         this.width = spriteImage.getWidth();
         this.height = spriteImage.getHeight();
@@ -58,8 +56,8 @@ public class SpriteButton extends ClickableRect {
         int widthDiff = this.sprite.getWidth() - this.width;
 
         // offset by half the diff
-        this.x = (int) origin.x + widthDiff / 2;
-        this.y = (int) origin.y + heightDiff / 2;
+        super.setX((int) origin.x + widthDiff / 2);
+        super.setY((int) origin.y + heightDiff / 2);
     }
 
     public Sprite getSprite() {

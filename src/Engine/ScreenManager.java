@@ -45,4 +45,9 @@ public class ScreenManager {
     public static Rectangle getScreenBounds() {
         return screenBounds;
     }
+
+    public static void resize(int width, int height) {
+        screenBounds.setHeight(height);
+        screenBounds.setWidth(width);
+    }
 }
