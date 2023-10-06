@@ -19,7 +19,6 @@ public class SwordScript extends Script<Item>
             Inventory.addItem(this.entity);
             this.entity.setMapEntityStatus(MapEntityStatus.REMOVED);
             
-            this.isActive = false;
             System.out.println(this.entity.getMapEntityStatus().toString());
             System.out.println(Inventory.itemsInInventorySprites.size());
             

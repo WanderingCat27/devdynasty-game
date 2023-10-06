@@ -47,6 +47,7 @@ public class TestMap extends Map {
 
         Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
         walrus.setInteractScript(new WalrusScript());
+        walrus.setIsUncollidable(true);
         npcs.add(walrus);
 
         Sword sword = new Sword(3, getMapTile(10, 10).getLocation());

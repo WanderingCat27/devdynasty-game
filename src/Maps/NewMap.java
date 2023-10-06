@@ -62,7 +62,6 @@ public class NewMap extends Map
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-
         Sword sword = new Sword(3, getMapTile(10, 10).getLocation());
         sword.setInteractScript(new SwordScript());
         npcs.add(sword);
