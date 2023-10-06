@@ -6,9 +6,9 @@ import Level.MapEntityStatus;
 import Level.Script;
 import Level.ScriptState;
 
-public class PurplePotionScript extends Script<Item>
+public class FireStaffScript extends Script<Item>
 {
-    @Override
+     @Override
     protected void setup()
     {
         //if the sword has been picked up, then we will set the map entity status to removed
