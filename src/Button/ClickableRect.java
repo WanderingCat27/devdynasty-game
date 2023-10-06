@@ -53,7 +53,8 @@ public class ClickableRect {
 
     protected boolean isMouseOver() {
         Point p = Mouse.getMouseLoction();
-        return p.x > getX() && p.x < getY() + width && p.y > getY() && p.y < getY() + height;
+        System.out.println(p + "  " + getX() + "   " + getY() + "  " + width  + "  " + height);
+        return p.x > getX() && p.x < getX() + width && p.y > getY() && p.y < getY() + height;
     }
 
     public void draw(GraphicsHandler g) {
