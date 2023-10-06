@@ -27,6 +27,10 @@ public class ScreenManager {
         currentScreen.update();
     }
 
+    
+
+
+
     public void draw(GraphicsHandler graphicsHandler) {
         currentScreen.draw(graphicsHandler);
     }
@@ -44,5 +48,5 @@ public class ScreenManager {
     // gets bounds of currentScreen -- can be called from anywhere in an application
     public static Rectangle getScreenBounds() {
         return screenBounds;
-    }
+    } 
 }
