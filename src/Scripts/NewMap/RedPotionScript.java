@@ -14,12 +14,11 @@ public class RedPotionScript extends Script<Item>
         //if the sword has been picked up, then we will set the map entity status to removed
         if(Inventory.canAdd() && this.entity.getMapEntityStatus() == MapEntityStatus.ACTIVE)
         {
-            Inventory.addItem(this.entity);
+            Inventory.addNPC(this.entity);
             this.entity.setMapEntityStatus(MapEntityStatus.REMOVED);
             
-            this.isActive = false;
+            //this.isActive = false;
             System.out.println(this.entity.getMapEntityStatus().toString());
-            System.out.println(Inventory.itemsInInventorySprites.size());
             
         }
     }
@@ -27,6 +26,7 @@ public class RedPotionScript extends Script<Item>
     @Override
     protected void cleanup()
     {
+        System.out.println("Red Potion script cleaned up");
     }
 
     @Override

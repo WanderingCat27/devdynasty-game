@@ -3,10 +3,11 @@ package Scripts.NewMap;
 import GameObject.Inventory;
 import GameObject.Item;
 import Level.MapEntityStatus;
+import Level.NPC;
 import Level.Script;
 import Level.ScriptState;
 
-public class FireStaffScript extends Script<Item>
+public class FireStaffScript extends Script<NPC>
 {
      @Override
     protected void setup()
@@ -14,12 +15,11 @@ public class FireStaffScript extends Script<Item>
         //if the sword has been picked up, then we will set the map entity status to removed
         if(Inventory.canAdd() && this.entity.getMapEntityStatus() == MapEntityStatus.ACTIVE)
         {
-            Inventory.addItem(this.entity);
+            Inventory.addNPC(this.entity);
             this.entity.setMapEntityStatus(MapEntityStatus.REMOVED);
             
-            this.isActive = false;
+            //this.isActive = false;
             System.out.println(this.entity.getMapEntityStatus().toString());
-            System.out.println(Inventory.itemsInInventorySprites.size());
             
         }
     }
@@ -27,7 +27,7 @@ public class FireStaffScript extends Script<Item>
     @Override
     protected void cleanup()
     {
-        
+        System.out.println("Fire Staff script cleaned up");
     }
 
     @Override

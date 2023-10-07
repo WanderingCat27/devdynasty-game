@@ -131,6 +131,7 @@ public class PlayLevelScreen extends Screen {
         if (doReload) {
             System.out.println("initialized");
             mapType = new WildWestMap();
+            this.inventory.setMap(changeMapType);
             soundPlayer.pause();
             System.out.println("pausing");
             initialize();

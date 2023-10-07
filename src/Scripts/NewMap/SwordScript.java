@@ -15,12 +15,11 @@ public class SwordScript extends Script<Item>
         //if the sword has been picked up, then we will set the map entity status to removed
         if(Inventory.canAdd() && this.entity.getMapEntityStatus() == MapEntityStatus.ACTIVE)
         {
-            Inventory.addItem(this.entity);
+            Inventory.addNPC(this.entity);
             this.entity.setMapEntityStatus(MapEntityStatus.REMOVED);
             
-            this.isActive = false;
+            //this.isActive = false;
             System.out.println(this.entity.getMapEntityStatus().toString());
-            System.out.println(Inventory.itemsInInventorySprites.size());
             
         }
     }
@@ -33,6 +32,7 @@ public class SwordScript extends Script<Item>
 
     @Override
     protected ScriptState execute() {
+        System.out.println("Sword script executed");
         start();
         end();
         return ScriptState.COMPLETED;
