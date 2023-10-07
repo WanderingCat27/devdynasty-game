@@ -15,7 +15,14 @@ import Level.Player;
 import Level.SoundPlayer;
 import Level.Trigger;
 import Maps.NewMap;
+
+import Maps.TestMap;
+import Maps.WildWestMap;
+
+import Players.Cat;
+
 import Players.PlayerAsh;
+
 import Players.PlayerPlayer;
 import Utils.Direction;
 import Utils.Point;
@@ -23,7 +30,7 @@ import Utils.Point;
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
-    protected Map map;
+    protected static Map map;
     protected Player player;
     //protected Sprite hud;
     protected Inventory inventory;
@@ -31,6 +38,7 @@ public class PlayLevelScreen extends Screen {
     protected WinScreen winScreen;
     protected FlagManager flagManager;
     protected Item sword;
+    public static boolean doReload = false;
 
         // sound for level
         protected SoundPlayer soundPlayer;
@@ -39,6 +47,9 @@ public class PlayLevelScreen extends Screen {
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
+
+    Map mapType = new NewMap();
+    public static Map changeMapType = new WildWestMap();
 
     public void initialize() {
         // setup state
@@ -49,7 +60,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasFoundBall", false);
 
         // define/setup map
-        this.map = new NewMap();
+        this.map = mapType;
         map.setFlagManager(flagManager);
         map.setAdjustCamera();
 
@@ -105,18 +116,26 @@ public class PlayLevelScreen extends Screen {
         }
 
         winScreen = new WinScreen(this);
+        
 
-        // if (!SoundPlayer.musicPlaying) {
-        //     System.out.println(SoundPlayer.musicPlaying);
-        //     this.soundPath = this.map.soundPath;
-        //     System.out.println("Current song file path is " + this.soundPath);
-        //     this.soundPlayer = new SoundPlayer(this.soundPath);
-        //     SoundPlayer.musicPlaying = true;
-        //     System.out.println("flag is set");
-        // }
+
+            System.out.println(SoundPlayer.musicPlaying);
+            this.soundPath = this.map.soundPath;
+            System.out.println("Current song file path is " + this.soundPath);
+            SoundPlayer.musicPlaying = true;
+            this.soundPlayer = new SoundPlayer(this.soundPath);
+                
     }
 
     public void update() {
+        if (doReload) {
+            System.out.println("initialized");
+            mapType = new WildWestMap();
+            soundPlayer.pause();
+            System.out.println("pausing");
+            initialize();
+            doReload = false;
+        }
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
@@ -130,10 +149,11 @@ public class PlayLevelScreen extends Screen {
                 break;
         }
 
-        // if flag is set at any point during gameplay, game is "won"
-        if (map.getFlagManager().isFlagSet("hasFoundBall")) {
-            playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-        }
+        
+    }
+    public static void changeMap() {
+        System.out.println("test changing map");
+        map = new WildWestMap();
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
@@ -148,6 +168,11 @@ public class PlayLevelScreen extends Screen {
                 winScreen.draw(graphicsHandler);
                 break;
         }
+    }
+
+    public static Map getMap() {
+        Map currentMap = map;
+        return currentMap;
     }
 
     public PlayLevelScreenState getPlayLevelScreenState() {

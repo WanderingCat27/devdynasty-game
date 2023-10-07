@@ -70,7 +70,7 @@ public abstract class Map {
     protected ArrayList<MapTile> animatedMapTiles;
 
     // flag manager instance to keep track of flags set while map is loaded
-    protected FlagManager flagManager;
+    public FlagManager flagManager;
 
     // map's textbox instance
     protected Textbox textbox;
