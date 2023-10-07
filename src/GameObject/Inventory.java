@@ -187,6 +187,7 @@ public class Inventory extends Sprite
             {
                 keyLocker.lockKey(REMOVE);
                 Item item = itemsInInventory.remove(2);
+                itemsInInventorySprites.remove(2);
                 Point playerLocation = this.player.getLocation();
                 item.setLocation(playerLocation.x, playerLocation.y);
                 this.map.addNPC(item);
