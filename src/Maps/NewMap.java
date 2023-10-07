@@ -51,7 +51,6 @@ public class NewMap extends Map
         purplePotion.setInteractScript(new PurplePotionScript());
         npcs.add(purplePotion);
 
-
         TimeMachine timeMachine = new TimeMachine(6, getMapTile(4, 5).getLocation());
         timeMachine.setInteractScript(new ChangeMapScript());
         npcs.add(timeMachine);
@@ -59,7 +58,6 @@ public class NewMap extends Map
         FireStaff fireStaff = new FireStaff(6, getMapTile(7, 2).getLocation());
         fireStaff.setInteractScript(new FireStaffScript());
         npcs.add(fireStaff);
-
 
         return npcs;
     }
