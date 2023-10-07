@@ -10,11 +10,11 @@ import Utils.Point;
 
 public class TimeMachine extends Item
 {
-    String pathToImage = "RedPotion.png";
+    String pathToImage = "TimeMachine.png";
 
     public TimeMachine(int id, Point point)
     {
-        super(id,point,"RedPotion.png");
+        super(id,point,"TimeMachine.png");
     }    
     
     @Override
