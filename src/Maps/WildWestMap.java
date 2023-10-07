@@ -1,5 +1,7 @@
 package Maps;
 
+import java.util.ArrayList;
+
 import EnhancedMapTiles.PushableRock;
 import Level.EnhancedMapTile;
 import Level.Map;
@@ -7,16 +9,7 @@ import Level.NPC;
 import Level.Trigger;
 import NPCs.Dinosaur;
 import NPCs.Walrus;
-import Scripts.SimpleTextScript;
-import Scripts.TestMap.DinoScript;
-import Scripts.TestMap.LostBallScript;
-import Scripts.TestMap.TreeScript;
-import Scripts.TestMap.WalrusScript;
-import Tilesets.CommonTileset;
 import Tilesets.WestTileset;
-import Scripts.ChangeMapScript;
-
-import java.util.ArrayList;
 
 // Represents a test map to be used in a level
 public class WildWestMap extends Map {
@@ -24,16 +17,17 @@ public class WildWestMap extends Map {
     public WildWestMap() {
         super("west_map.txt", new WestTileset());
         System.out.println("creating map");
-        this.playerStartPosition = getMapTile(12, 2).getLocation();
+        this.playerStartPosition = getMapTile(22, 24).getLocation();
         this.soundPath = "Resources/Audio/2021-08-26_-_Outlaw_Beginnings_-_www.FesliyanStudios.com.wav";
         this.setFlagManager(flagManager);
+        setAdjustCamera();
     }
 
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        PushableRock pushableRock = new PushableRock(getMapTile(2, 7).getLocation());
+        PushableRock pushableRock = new PushableRock(getMapTile(24, 30).getLocation());
         enhancedMapTiles.add(pushableRock);
 
         return enhancedMapTiles;
@@ -43,11 +37,11 @@ public class WildWestMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
+        Walrus walrus = new Walrus(1, getMapTile(19, 23).getLocation().subtractY(40));
         //walrus.setInteractScript(new WalrusScript());
        // npcs.add(walrus);
 
-        Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
+        Dinosaur dinosaur = new Dinosaur(2, getMapTile(25, 24).getLocation());
         //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
        // dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
