@@ -9,6 +9,7 @@ import GameObject.Sprite;
 import Level.*;
 import Maps.NewMap;
 import Maps.TestMap;
+import Maps.WildWestMap;
 //import Maps.TestMap;
 import Players.Cat;
 import Players.PlayerPlayer;
@@ -22,7 +23,7 @@ import GameObject.Item;
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
-    protected Map map;
+    protected static Map map;
     protected Player player;
     //protected Sprite hud;
     protected Inventory inventory;
@@ -39,6 +40,8 @@ public class PlayLevelScreen extends Screen {
         this.screenCoordinator = screenCoordinator;
     }
 
+    Map mapType = new NewMap();
+
     public void initialize() {
         // setup state
         flagManager = new FlagManager();
@@ -48,7 +51,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasFoundBall", false);
 
         // define/setup map
-        this.map = new NewMap();
+        this.map = mapType;
         map.setFlagManager(flagManager);
 
         // setup player
@@ -127,10 +130,11 @@ public class PlayLevelScreen extends Screen {
                 break;
         }
 
-        // if flag is set at any point during gameplay, game is "won"
-        if (map.getFlagManager().isFlagSet("hasFoundBall")) {
-            playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-        }
+        
+    }
+    public static void changeMap() {
+        System.out.println("test changing map");
+        map = new WildWestMap();
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
@@ -145,6 +149,11 @@ public class PlayLevelScreen extends Screen {
                 winScreen.draw(graphicsHandler);
                 break;
         }
+    }
+
+    public static Map getMap() {
+        Map currentMap = map;
+        return currentMap;
     }
 
     public PlayLevelScreenState getPlayLevelScreenState() {

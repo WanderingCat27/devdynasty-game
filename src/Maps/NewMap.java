@@ -8,10 +8,12 @@ import GameObject.Sprite;
 import Items.PurplePotion;
 import Items.RedPotion;
 import Items.Sword;
+import Items.TimeMachine;
 import Level.Map;
 import Level.NPC;
 import NPCs.Dinosaur;
 import NPCs.Walrus;
+import Scripts.ChangeMapScript;
 import Scripts.NewMap.PurplePotionScript;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.NewMap.SwordScript;
@@ -32,6 +34,7 @@ public class NewMap extends Map
         // Links background sound to map
         this.soundPath = "Resources/Audio/AmTronic_-_Caribbean_Dub.wav";
         System.out.println(this.soundPath);
+        this.setFlagManager(flagManager);
 
     } 
     
@@ -74,6 +77,10 @@ public class NewMap extends Map
         PurplePotion purplePotion = new PurplePotion(5, getMapTile(10, 9).getLocation());
         purplePotion.setInteractScript(new PurplePotionScript());
         npcs.add(purplePotion);
+
+        TimeMachine timeMachine = new TimeMachine(6, getMapTile(4, 5).getLocation());
+        timeMachine.setInteractScript(new ChangeMapScript());
+        npcs.add(timeMachine);
 
         return npcs;
     }

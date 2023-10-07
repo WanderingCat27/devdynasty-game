@@ -12,9 +12,9 @@ import Scripts.TestMap.DinoScript;
 import Scripts.TestMap.LostBallScript;
 import Scripts.TestMap.TreeScript;
 import Scripts.TestMap.WalrusScript;
-import Scripts.WildWestMap.ChangeMapScript;
 import Tilesets.CommonTileset;
 import Tilesets.WestTileset;
+import Scripts.ChangeMapScript;
 
 import java.util.ArrayList;
 
@@ -57,7 +57,7 @@ public class WildWestMap extends Map {
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(Math.round(getMapTile(12, 2).getX()), Math.round(getMapTile(12, 2).getY()), 10, 10, new ChangeMapScript(), "hasInteracted"));
+        triggers.add(new Trigger(Math.round(getMapTile(12, 2).getX()), Math.round(getMapTile(12, 2).getY()), 10, 10, new ChangeMapScript(), "changeMap"));
         //triggers.add(new Trigger(790, 1030, 100, 10, new LostBallScript(), "hasLostBall"));
         //triggers.add(new Trigger(790, 960, 10, 80, new LostBallScript(), "hasLostBall"));
         //triggers.add(new Trigger(890, 960, 10, 80, new LostBallScript(), "hasLostBall"));
@@ -67,7 +67,8 @@ public class WildWestMap extends Map {
     @Override
     public void loadScripts() {
         getMapTile(12, 22).setInteractScript(new SimpleTextScript("Cat's house"));
-       getMapTile(12, 2).setInteractScript(new ChangeMapScript());
+        getMapTile(12, 2).setInteractScript(new ChangeMapScript());
+        System.out.println("changeMapScript");
     }
 }
 
