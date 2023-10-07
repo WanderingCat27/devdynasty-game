@@ -15,6 +15,7 @@ import Level.Player;
 import Level.SoundPlayer;
 import Level.Trigger;
 import Maps.NewMap;
+import Players.PlayerAsh;
 import Players.PlayerPlayer;
 import Utils.Direction;
 import Utils.Point;
@@ -53,12 +54,13 @@ public class PlayLevelScreen extends Screen {
         map.setAdjustCamera();
 
         // setup player
-        this.player = new PlayerPlayer(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        //this.player = new PlayerPlayer(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        this.player = new PlayerAsh(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.player.setMap(map);
         Point playerStartPosition = map.getPlayerStartPosition();
         this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-        this.player.setFacingDirection(Direction.LEFT);
+        this.player.setFacingDirection(Direction.DOWN);
 
         //setup inventory
         this.inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png", "fourSlotHUD.png",this.map,this.player);

@@ -39,9 +39,6 @@ public class Inventory extends Sprite
     //Map being used
     protected Map map;  //new NewMap();
 
-    //List of items in the map
-    //protected ArrayList<NPC> itemsInMap = map.loadNPCs();
-
     //This will be used to keep track of the items in the inventory
     protected static ArrayList<Item> itemsInInventory = new ArrayList<Item>();
     public static ArrayList<Sprite> itemsInInventorySprites = new ArrayList<Sprite>();
@@ -49,7 +46,6 @@ public class Inventory extends Sprite
 
     //Keeps track of which inventory key is pressed and draws the correct image
     protected static String keyNumber = "`";
-    //protected static Key removeCheck = Key.P;
 
     //Define keyboard buttons
     protected KeyLocker keyLocker = new KeyLocker();
@@ -57,7 +53,6 @@ public class Inventory extends Sprite
     protected static Key TWO = Key.TWO;
     protected static Key THREE = Key.THREE;
     protected static Key FOUR = Key.FOUR;
-    //protected static Key TAB = Key.TAB;
     protected static Key BACK_QUOTE = Key.BACK_QUOTE;
     protected static Key REMOVE = Key.R;
 
@@ -135,12 +130,6 @@ public class Inventory extends Sprite
         }
         remove();
         displayItems(graphicsHandler);
-        //System.out.println(map.getMapTile(1, 2).getLocation().subtractX(6).subtractY(7));
-        // this.item1 = new Sprite(ImageLoader.load(itemsInInventory.get(0).getPathToImage(), Colors.MAGENTA));
-            // Point item1Location = new Point(57f, 105f);
-            // this.item1.setLocation(item1Location.x, item1Location.y);
-            // this.item1.setScale(2);
-            // this.item1.draw(graphicsHandler);
     }
 
     public void displayItems(GraphicsHandler graphicsHandler)
@@ -198,7 +187,6 @@ public class Inventory extends Sprite
             {
                 keyLocker.lockKey(REMOVE);
                 Item item = itemsInInventory.remove(2);
-                itemsInInventorySprites.remove(2);
                 Point playerLocation = this.player.getLocation();
                 item.setLocation(playerLocation.x, playerLocation.y);
                 this.map.addNPC(item);

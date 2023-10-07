@@ -10,6 +10,7 @@ public class FireStaff extends Item
     public FireStaff(int id, Point point)
     {
         super(id,point,"FireStaff.png");
+        this.setIsUncollidable(true);
     }    
 
     @Override

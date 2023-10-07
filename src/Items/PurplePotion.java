@@ -14,6 +14,7 @@ public class PurplePotion extends Item
     public PurplePotion(int id, Point point)
     {
         super(id,point,"PurplePotion.png");
+        this.setIsUncollidable(true);
     }    
 
     // public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)

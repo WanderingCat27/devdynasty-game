@@ -2,27 +2,19 @@ package Maps;
 
 import java.util.ArrayList;
 
-import Engine.ImageLoader;
-import GameObject.Item;
-import GameObject.Sprite;
 import Items.FireStaff;
 import Items.PurplePotion;
 import Items.RedPotion;
 import Items.Sword;
 import Level.Map;
 import Level.NPC;
-import NPCs.Dinosaur;
-import NPCs.Walrus;
 import Scripts.NewMap.FireStaffScript;
 import Scripts.NewMap.PurplePotionScript;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.NewMap.SwordScript;
-import Scripts.TestMap.DinoScript;
-import Scripts.TestMap.WalrusScript;
 import Tilesets.AnimatedTileset;
 //import Tilesets.CommonTileset;
-import Tilesets.TestTileset;
-import Utils.Point;
+
 
 public class NewMap extends Map
 {   
@@ -37,29 +29,7 @@ public class NewMap extends Map
 
     } 
     
-    // public ArrayList<Item> loadItems() {
-    //     ArrayList<Item> items = new ArrayList<>();
-
-    //     Sword sword = new Sword(1, getMapTile(7, 7).getLocation());
-    //     sword.setScale(2);
-    //     //System.out.println(sword.isAffectedByTriggers());
-    //     sword.setInteractScript(new SwordScript());
-    //     System.out.println(sword.getPathToImage());
-    //     items.add(sword);
-
-    //     RedPotion redPotion = new RedPotion(2, getMapTile(15, 15).getLocation());
-    //     redPotion.setScale(3);
-    //     //redPotion.setInteractScript();
-    //     items.add(redPotion);
-
-    //     PurplePotion purplePotion = new PurplePotion(3, getMapTile(7, 10).getLocation());
-    //     purplePotion.setScale(3);
-    //     //purplePotion.setInteractScript(new SwordScript());
-    //     items.add(purplePotion);
-
-    //     return items;
-    // }
-
+    //No real reason to call the load Item function here since it seems to be oddly buggy
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();

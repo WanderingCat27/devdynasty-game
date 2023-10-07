@@ -440,7 +440,7 @@ public abstract class Map {
         }
         MapEntity interactedEntity = null;
         if (playerTouchingMapEntities.size() == 1) {
-            if (isInteractedEntityValid(playerTouchingMapEntities.get(0), player)) {
+            if(playerTouchingMapEntities.get(0).isUncollidable() || isInteractedEntityValid(playerTouchingMapEntities.get(0), player)) {
                 interactedEntity = playerTouchingMapEntities.get(0);
             }
         }
@@ -448,7 +448,7 @@ public abstract class Map {
             MapEntity currentLargestAreaOverlappedEntity = null;
             float currentLargestAreaOverlapped = 0;
             for (MapEntity mapEntity : playerTouchingMapEntities) {
-                if (isInteractedEntityValid(mapEntity, player)) {
+                if (mapEntity.isUncollidable() || isInteractedEntityValid(mapEntity, player)) {
                     float areaOverlapped = mapEntity.getAreaOverlapped(player.getInteractionRange());
                     if (areaOverlapped > currentLargestAreaOverlapped) {
                         currentLargestAreaOverlappedEntity = mapEntity;

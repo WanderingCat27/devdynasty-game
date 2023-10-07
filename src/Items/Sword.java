@@ -16,6 +16,7 @@ public class Sword extends Item
     public Sword(int id, Utils.Point point)
     {
         super(id,point,"sword.png");
+        this.setIsUncollidable(true);
     }
 
     // public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)
