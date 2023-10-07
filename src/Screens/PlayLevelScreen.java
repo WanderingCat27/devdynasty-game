@@ -31,6 +31,7 @@ public class PlayLevelScreen extends Screen {
     protected WinScreen winScreen;
     protected FlagManager flagManager;
     protected Item sword;
+    public static boolean doReload = false;
 
         // sound for level
         protected SoundPlayer soundPlayer;
@@ -41,6 +42,7 @@ public class PlayLevelScreen extends Screen {
     }
 
     Map mapType = new NewMap();
+    public static Map changeMapType = new WildWestMap();
 
     public void initialize() {
         // setup state
@@ -105,18 +107,26 @@ public class PlayLevelScreen extends Screen {
         }
 
         winScreen = new WinScreen(this);
+        
 
-        if (!SoundPlayer.musicPlaying) {
             System.out.println(SoundPlayer.musicPlaying);
             this.soundPath = this.map.soundPath;
             System.out.println("Current song file path is " + this.soundPath);
-            this.soundPlayer = new SoundPlayer(this.soundPath);
             SoundPlayer.musicPlaying = true;
+            this.soundPlayer = new SoundPlayer(this.soundPath);
+                
             System.out.println("flag is set");
-        }
     }
 
     public void update() {
+        if (doReload) {
+            System.out.println("initialized");
+            mapType = new WildWestMap();
+            soundPlayer.pause();
+            System.out.println("pausing");
+            initialize();
+            doReload = false;
+        }
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going

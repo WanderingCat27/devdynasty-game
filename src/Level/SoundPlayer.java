@@ -40,11 +40,9 @@ package Level;
          status = "play";
      }
      public void pause() {
-         if (status.equals("paused")) {
-             return;
-         }
      this.currentFrame = this.clip.getMicrosecondPosition();
      clip.stop();
+     System.out.println("paused");
      status = "paused";
      }
      public void resume() {
