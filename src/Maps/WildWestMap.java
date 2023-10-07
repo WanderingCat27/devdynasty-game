@@ -23,6 +23,7 @@ public class WildWestMap extends Map {
 
     public WildWestMap() {
         super("west_map.txt", new WestTileset());
+        System.out.println("creating map");
         this.playerStartPosition = getMapTile(12, 2).getLocation();
         this.soundPath = "Resources/Audio/2021-08-26_-_Outlaw_Beginnings_-_www.FesliyanStudios.com.wav";
         this.setFlagManager(flagManager);
@@ -43,12 +44,12 @@ public class WildWestMap extends Map {
         ArrayList<NPC> npcs = new ArrayList<>();
 
         Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
-        walrus.setInteractScript(new WalrusScript());
-        npcs.add(walrus);
+        //walrus.setInteractScript(new WalrusScript());
+       // npcs.add(walrus);
 
         Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
-        dinosaur.setExistenceFlag("hasTalkedToDinosaur");
-        dinosaur.setInteractScript(new DinoScript());
+        //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
+       // dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
 
         return npcs;
@@ -57,7 +58,7 @@ public class WildWestMap extends Map {
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(Math.round(getMapTile(12, 2).getX()), Math.round(getMapTile(12, 2).getY()), 10, 10, new ChangeMapScript(), "changeMap"));
+       // triggers.add(new Trigger(Math.round(getMapTile(12, 2).getX()), Math.round(getMapTile(12, 2).getY()), 10, 10, new ChangeMapScript(), "changeMap"));
         //triggers.add(new Trigger(790, 1030, 100, 10, new LostBallScript(), "hasLostBall"));
         //triggers.add(new Trigger(790, 960, 10, 80, new LostBallScript(), "hasLostBall"));
         //triggers.add(new Trigger(890, 960, 10, 80, new LostBallScript(), "hasLostBall"));
@@ -66,9 +67,9 @@ public class WildWestMap extends Map {
 
     @Override
     public void loadScripts() {
-        getMapTile(12, 22).setInteractScript(new SimpleTextScript("Cat's house"));
-        getMapTile(12, 2).setInteractScript(new ChangeMapScript());
-        System.out.println("changeMapScript");
+      //  getMapTile(12, 22).setInteractScript(new SimpleTextScript("Cat's house"));
+      //  getMapTile(12, 2).setInteractScript(new ChangeMapScript());
+      //  System.out.println("changeMapScript");
     }
 }
 
