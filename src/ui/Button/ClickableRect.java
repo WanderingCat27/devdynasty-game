@@ -1,27 +1,22 @@
-package Button;
+package ui.Button;
 
 import java.awt.Color;
 import java.awt.Point;
 
 import Engine.GraphicsHandler;
 import Engine.Mouse;
+import ui.Container.UIContainer;
 
-public class ClickableRect {
-    protected int width, height, x, y;
+public class ClickableRect extends UIContainer{
     protected Color defColor, color;
     protected boolean pressed = false;
     protected Runnable onClick;
 
-    // for extending classes to do their own thing with variables
-    protected ClickableRect() {
 
-    }
+    // for extending classes to do their own thing with variables
 
     public ClickableRect(int x, int y, int width, int height, Color color, Runnable onClick) {
-        this.width = width;
-        this.height = height;
-        this.x = x;
-        this.y = y;
+        super(x, y, width, height);
         this.defColor = color;
         this.onClick = onClick;
     }
@@ -38,10 +33,9 @@ public class ClickableRect {
             pressed = false;
 
     }
-
     protected boolean isMouseOver() {
         Point p = Mouse.getMouseLoction();
-        return p.x > x && p.x < x + width && p.y > y && p.y < y + height;
+        return p.x > getXAbs() && p.x < getXAbs() + getWidth() && p.y > getYAbs() && p.y < getYAbs() + getHeight();
     }
 
     public void draw(GraphicsHandler g) {
@@ -52,6 +46,7 @@ public class ClickableRect {
         else // not pressed or hovering
             color = defColor;
 
-        g.drawFilledRectangle(x, y, width, height, color);
+        g.drawFilledRectangle(getXAbs(), getYAbs(), getWidth(), getHeight(), color);
+        super.draw(g);
     }
 }

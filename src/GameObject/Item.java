@@ -30,7 +30,7 @@ public class Item extends NPC
             put("STILL", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(2f)
-                            .withBounds(0, 0, 1, 1)
+                            //.withBounds(0, 0, 1, 1)
                             .build()
             });
         }};

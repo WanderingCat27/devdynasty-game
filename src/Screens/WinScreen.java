@@ -1,9 +1,14 @@
 package Screens;
 
-import Engine.*;
-import SpriteFont.SpriteFont;
+import java.awt.Color;
 
-import java.awt.*;
+import Engine.GraphicsHandler;
+import Engine.Key;
+import Engine.KeyLocker;
+import Engine.Keyboard;
+import Engine.Screen;
+import Engine.ScreenManager;
+import ui.SpriteFont.SpriteFont;
 
 // This class is for the win level screen
 public class WinScreen extends Screen {

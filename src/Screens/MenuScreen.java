@@ -3,21 +3,23 @@ package Screens;
 import java.awt.Color;
 import java.awt.Font;
 
-import Button.TextButton;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
 import Maps.TitleScreenMap;
+import ui.Button.TextButton;
+import ui.Container.CenterContainer;
+import ui.Container.UIContainer.FillType;
 
 // This is the class for the main menu screen
 public class MenuScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected Map background;
 
-    protected TextButton playButton;
-    protected TextButton creditButton;
+
+    protected CenterContainer centerContainer;
 
     public MenuScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -27,8 +29,10 @@ public class MenuScreen extends Screen {
     public void initialize() {
 
         background = new TitleScreenMap();
-        background.setAdjustCamera(false);
-        playButton = new TextButton(175, 119, 200, 60, new Color(2, 48, 71), "Play", new Font("Comic Sans", Font.BOLD, 30), new Color(255, 183, 3), new Runnable() {
+        background.setCenterCamera();
+        centerContainer = new CenterContainer();
+        centerContainer.setfIllType(FillType.FILL_SCREEN);
+        TextButton playButton = new TextButton(-150, -100, 300, 90, new Color(2, 48, 71), "Play", new Font("Comic Sans", Font.BOLD, 30), new Color(255, 183, 3), new Runnable() {
 
             @Override
             public void run() {
@@ -41,7 +45,7 @@ public class MenuScreen extends Screen {
         playButton.getSpriteFont().setOutlineThickness(3);
         playButton.getSpriteFont().setOutlineColor(Color.black);
 
-        creditButton = new TextButton(175, 219, 200, 60, new Color(251, 133, 0), "Credits", new Font("Comic Sans", Font.PLAIN, 30), new Color(33, 158, 188), new Runnable() {
+        TextButton creditButton = new TextButton(-150, 50, 300, 90, new Color(251, 133, 0), "Credits", new Font("Comic Sans", Font.PLAIN, 30), new Color(33, 158, 188), new Runnable() {
 
             @Override
             public void run() {
@@ -52,19 +56,20 @@ public class MenuScreen extends Screen {
         });
         creditButton.getSpriteFont().setOutlineThickness(3);
         creditButton.getSpriteFont().setOutlineColor(new Color(2, 48, 71));
+
+        centerContainer.addComponnent(playButton);
+        centerContainer.addComponnent(creditButton);        
     }
 
     public void update() {
         // update background map (to play tile animations)
         background.update(null);
-        playButton.update();
-        creditButton.update();
+        centerContainer.update();
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
 
-        playButton.draw(graphicsHandler);
-        creditButton.draw(graphicsHandler);
+        centerContainer.draw(graphicsHandler);
     }
 }

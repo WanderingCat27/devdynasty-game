@@ -4,7 +4,6 @@ import Level.MapEntityStatus;
 import Level.Script;
 import Level.ScriptState;
 import GameObject.Inventory;
-import Maps.NewMap; //since we will need to access the map's inventory
 import GameObject.Item; //since we will need to access the item class
 
 public class SwordScript extends Script<Item>
@@ -25,12 +24,11 @@ public class SwordScript extends Script<Item>
             
         }
     }
-
+    
     @Override
     protected void cleanup()
     {
         System.out.println("Sword script cleaned up");
-        //Inventory.fixSize();
     }
 
     @Override

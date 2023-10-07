@@ -16,6 +16,7 @@ public class RedPotion extends Item
     public RedPotion(int id, Point point)
     {
         super(id,point,"RedPotion.png");
+        this.setIsUncollidable(true);
     }    
 
     // public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)
