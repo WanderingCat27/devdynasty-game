@@ -11,6 +11,7 @@ import Level.Map;
 import Maps.CombatMap;
 import Button.SpriteButton;
 import java.awt.image.BufferedImage;
+import Level.Textbox;
 
 
 public class CombatScreen extends Screen{
@@ -23,7 +24,9 @@ public class CombatScreen extends Screen{
     protected BufferedImage fightImage;
     protected BufferedImage runImage;
     protected BufferedImage bagImage;
+    protected Textbox textbox;
     private float scale;
+    private boolean action;
 
     
 
@@ -44,17 +47,18 @@ public class CombatScreen extends Screen{
 
         background = new CombatMap();
         background.setAdjustCamera(false);
+        textbox = new Textbox(background);
 
         fightButton = new SpriteButton(330, 374, scale, fightImage, new Runnable() {
 
             @Override
             public void run(){
                 System.out.println("Fight");
-
             }
         });
 
-        runButton = new SpriteButton(555, 374, scale, runImage, new Runnable() {
+
+        runButton = new SpriteButton(555, 462, scale, runImage, new Runnable() {
 
             @Override
             public void run(){
@@ -63,7 +67,7 @@ public class CombatScreen extends Screen{
             }
         });
 
-        bagButton = new SpriteButton(555, 462, scale, bagImage, new Runnable() {
+        bagButton = new SpriteButton(555, 374, scale, bagImage, new Runnable() {
 
             @Override
             public void run(){
@@ -71,6 +75,7 @@ public class CombatScreen extends Screen{
             }
         });
 
+        
 
     }
 
@@ -87,6 +92,8 @@ public class CombatScreen extends Screen{
         fightButton.draw(graphicsHandler);
         runButton.draw(graphicsHandler);
         bagButton.draw(graphicsHandler);
+        
+        
 
     }
     
