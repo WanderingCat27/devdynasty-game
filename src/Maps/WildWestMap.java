@@ -1,6 +1,7 @@
 package Maps;
 
 import EnhancedMapTiles.PushableRock;
+import Items.RedPotion;
 import Level.EnhancedMapTile;
 import Level.Map;
 import Level.NPC;
@@ -8,6 +9,7 @@ import Level.Trigger;
 import NPCs.Dinosaur;
 import NPCs.Walrus;
 import Scripts.SimpleTextScript;
+import Scripts.NewMap.RedPotionScript;
 import Scripts.TestMap.DinoScript;
 import Scripts.TestMap.LostBallScript;
 import Scripts.TestMap.TreeScript;
@@ -42,6 +44,10 @@ public class WildWestMap extends Map {
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
+
+        RedPotion redPotion = new RedPotion(4, getMapTile(4, 4).getLocation());
+        redPotion.setInteractScript(new RedPotionScript());
+        npcs.add(redPotion);
 
         Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
         //walrus.setInteractScript(new WalrusScript());

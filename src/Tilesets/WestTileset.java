@@ -14,7 +14,7 @@ public class WestTileset extends Tileset
 {
     public WestTileset()
     {
-        super(ImageLoader.load("westDraftOne.png"), 16, 16, 3);
+        super(ImageLoader.load("westTileset.png"), 16, 16, 3);
     }
 
     @Override
@@ -56,6 +56,41 @@ public class WestTileset extends Tileset
 
     mapTiles.add(cactusTile);
 
+    // top of big cactus
+    Frame cactusTop = new FrameBuilder(getSubImage(1, 0))
+        .withScale(tileScale)
+        .build();
+    MapTileBuilder cactusTopTile = new MapTileBuilder(cactusTop);
+
+    mapTiles.add(cactusTopTile);
+    
+    // bottom of big cactus
+    Frame cactusBottom = new FrameBuilder(getSubImage(2, 0))
+        .withScale(tileScale)
+        .build();
+    MapTileBuilder cactusBottomTile = new MapTileBuilder(cactusBottom);
+
+
+    mapTiles.add(cactusBottomTile);
+
+    // sand
+    Frame sand = new FrameBuilder(getSubImage(2, 1))
+        .withScale(tileScale)
+        .build();
+    MapTileBuilder sandTile = new MapTileBuilder(sand);
+
+    mapTiles.add(sandTile);
+
+    // tumbleweed
+    Frame tumbleweed = new FrameBuilder(getSubImage(1, 1))
+        .withScale(tileScale)
+        .build();
+    MapTileBuilder tumbleweedTile = new MapTileBuilder(tumbleweed);
+
+    mapTiles.add(tumbleweedTile);
+
         return mapTiles;
     }
+
+
 }
