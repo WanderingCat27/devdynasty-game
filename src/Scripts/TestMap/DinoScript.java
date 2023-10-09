@@ -67,6 +67,7 @@ public class DinoScript extends Script<NPC> {
 
     @Override
     protected void cleanup() {
+        System.out.println("DinoScript cleanup");
         if (!isFlagSet("hasTalkedToWalrus")) {
             unlockPlayer();
             hideTextbox();

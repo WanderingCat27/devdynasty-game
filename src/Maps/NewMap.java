@@ -16,6 +16,7 @@ import Scripts.NewMap.FireStaffScript;
 import Scripts.NewMap.PurplePotionScript;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.NewMap.SwordScript;
+import Scripts.TestMap.DinoScript;
 import Tilesets.AnimatedTileset;
 //import Tilesets.CommonTileset;
 
@@ -40,15 +41,12 @@ public class NewMap extends Map
         ArrayList<NPC> npcs = new ArrayList<>();
 
         Sword sword = new Sword(3, getMapTile(10, 10).getLocation());
-        sword.setInteractScript(new SwordScript());
         npcs.add(sword);
 
         RedPotion redPotion = new RedPotion(4, getMapTile(4, 4).getLocation());
-        redPotion.setInteractScript(new RedPotionScript());
         npcs.add(redPotion);
 
         PurplePotion purplePotion = new PurplePotion(5, getMapTile(10, 9).getLocation());
-        purplePotion.setInteractScript(new PurplePotionScript());
         npcs.add(purplePotion);
 
         TimeMachine timeMachine = new TimeMachine(6, getMapTile(4, 5).getLocation());
@@ -56,8 +54,12 @@ public class NewMap extends Map
         npcs.add(timeMachine);
 
         FireStaff fireStaff = new FireStaff(6, getMapTile(7, 2).getLocation());
-        fireStaff.setInteractScript(new FireStaffScript());
         npcs.add(fireStaff);
+
+        Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
+        //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
+        dinosaur.setInteractScript(new DinoScript());
+        npcs.add(dinosaur);
 
         return npcs;
     }

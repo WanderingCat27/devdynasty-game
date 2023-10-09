@@ -27,6 +27,7 @@ public class PurplePotionScript extends Script<Item>
     protected void cleanup()
     {
         System.out.println("Purple Potion script cleaned up");
+        this.isActive = false;
     }
 
     @Override
