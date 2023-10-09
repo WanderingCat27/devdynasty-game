@@ -7,6 +7,7 @@ import Engine.GraphicsHandler;
 import GameObject.Frame;
 import GameObject.Item;
 import GameObject.SpriteSheet;
+import Scripts.NewMap.PurplePotionScript;
 import Utils.Point;
 
 public class PurplePotion extends Item
@@ -15,19 +16,8 @@ public class PurplePotion extends Item
     {
         super(id,point,"PurplePotion.png");
         this.setIsUncollidable(true);
+        this.setInteractScript(new PurplePotionScript());
     }    
-
-    // public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)
-    // {
-    //     return new HashMap<String, Frame[]>() {{
-    //         put("STILL", new Frame[] {
-    //                 new FrameBuilder(spriteSheet.getSprite(0, 0))
-    //                         .withScale(3)
-    //                         .withBounds(2, 2, 2, 2)
-    //                         .build()
-    //         });
-    //     }};
-    // }
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {

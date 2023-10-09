@@ -45,6 +45,7 @@ public class WildWestMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
+
         RedPotion redPotion = new RedPotion(4, getMapTile(4, 4).getLocation());
         redPotion.setInteractScript(new RedPotionScript());
         npcs.add(redPotion);
@@ -55,7 +56,7 @@ public class WildWestMap extends Map {
 
         Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
         //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
-       // dinosaur.setInteractScript(new DinoScript());
+        dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
 
         return npcs;
@@ -71,11 +72,11 @@ public class WildWestMap extends Map {
         return triggers;
     }
 
-    @Override
-    public void loadScripts() {
-      //  getMapTile(12, 22).setInteractScript(new SimpleTextScript("Cat's house"));
-      //  getMapTile(12, 2).setInteractScript(new ChangeMapScript());
-      //  System.out.println("changeMapScript");
-    }
+    // @Override
+    // public void loadScripts() {
+    //   //  getMapTile(12, 22).setInteractScript(new SimpleTextScript("Cat's house"));
+    //   //  getMapTile(12, 2).setInteractScript(new ChangeMapScript());
+    //   //  System.out.println("changeMapScript");
+    // }
 }
 

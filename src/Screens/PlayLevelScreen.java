@@ -26,6 +26,7 @@ import Players.PlayerAsh;
 import Players.PlayerPlayer;
 import Utils.Direction;
 import Utils.Point;
+import Engine.GameWindow;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
@@ -39,6 +40,7 @@ public class PlayLevelScreen extends Screen {
     protected FlagManager flagManager;
     protected Item sword;
     public static boolean doReload = false;
+
 
         // sound for level
         protected SoundPlayer soundPlayer;
@@ -119,11 +121,11 @@ public class PlayLevelScreen extends Screen {
         
 
 
-            System.out.println(SoundPlayer.musicPlaying);
-            this.soundPath = this.map.soundPath;
-            System.out.println("Current song file path is " + this.soundPath);
-            SoundPlayer.musicPlaying = true;
-            this.soundPlayer = new SoundPlayer(this.soundPath);
+        System.out.println(SoundPlayer.musicPlaying);
+        this.soundPath = this.map.soundPath;
+        System.out.println("Current song file path is " + this.soundPath);
+        SoundPlayer.musicPlaying = true;
+        this.soundPlayer = new SoundPlayer(GameWindow.getGameWindow(),this.soundPath);
                 
     }
 
