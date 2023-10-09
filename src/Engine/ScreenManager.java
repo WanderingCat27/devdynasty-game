@@ -27,6 +27,10 @@ public class ScreenManager {
         currentScreen.update();
     }
 
+    
+
+
+
     public void draw(GraphicsHandler graphicsHandler) {
         currentScreen.draw(graphicsHandler);
     }

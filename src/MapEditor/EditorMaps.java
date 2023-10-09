@@ -3,6 +3,7 @@ package MapEditor;
 import Level.Map;
 import Maps.TestMap;
 import Maps.TitleScreenMap;
+import Maps.CombatMap;
 import Maps.NewMap;
 import Maps.WildWestMap;
 
@@ -15,6 +16,7 @@ public class EditorMaps {
             add("TitleScreen");
             add("NewMap");
             add("WildWestMap");
+            add("CombatMap");
         }};
     }
 
@@ -28,6 +30,8 @@ public class EditorMaps {
                 return new NewMap();
             case "WildWestMap":
                 return new WildWestMap();
+            case "CombatMap":
+                return new CombatMap();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }
