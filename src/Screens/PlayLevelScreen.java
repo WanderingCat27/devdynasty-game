@@ -2,6 +2,7 @@ package Screens;
 
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Game.Game;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Inventory;
@@ -26,6 +27,9 @@ import Players.PlayerAsh;
 import Players.PlayerPlayer;
 import Utils.Direction;
 import Utils.Point;
+
+import javax.swing.plaf.basic.BasicSliderUI;
+
 import Engine.GameWindow;
 
 // This class is for when the platformer game is actually being played
@@ -42,9 +46,9 @@ public class PlayLevelScreen extends Screen {
     public static boolean doReload = false;
 
 
-        // sound for level
-        protected SoundPlayer soundPlayer;
-        protected String soundPath;
+    // sound for level
+    protected SoundPlayer soundPlayer;
+    protected String soundPath;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -54,6 +58,11 @@ public class PlayLevelScreen extends Screen {
     public static Map changeMapType = new WildWestMap();
 
     public void initialize() {
+        if(soundPlayer != null)
+        {
+            soundPlayer.dispose();
+        }
+        
         // setup state
         flagManager = new FlagManager();
         flagManager.addFlag("hasLostBall", false);
@@ -62,7 +71,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasFoundBall", false);
 
         // define/setup map
-        this.map = mapType;
+        map = mapType;
         map.setFlagManager(flagManager);
         map.setAdjustCamera();
 
@@ -122,7 +131,7 @@ public class PlayLevelScreen extends Screen {
 
 
         System.out.println(SoundPlayer.musicPlaying);
-        this.soundPath = this.map.soundPath;
+        this.soundPath = map.soundPath;
         System.out.println("Current song file path is " + this.soundPath);
         SoundPlayer.musicPlaying = true;
         this.soundPlayer = new SoundPlayer(GameWindow.getGameWindow(),this.soundPath);
@@ -133,9 +142,10 @@ public class PlayLevelScreen extends Screen {
         if (doReload) {
             System.out.println("initialized");
             mapType = new WildWestMap();
-            this.inventory.setMap(changeMapType);
+            //this.inventory.setMap(changeMapType);
             soundPlayer.pause();
             System.out.println("pausing");
+            soundPlayer.reset(); //we should add a lot of this functionality into one method to make this a lot more readable
             initialize();
             doReload = false;
         }

@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JSlider;
 import javax.swing.plaf.basic.BasicSliderUI;
 
+import Engine.GameWindow;
 import Engine.ImageLoader;
 import GameObject.Rectangle;
 import Utils.Colors;
@@ -47,12 +48,12 @@ import Utils.Colors;
          } catch (Exception e) {
              System.out.println("Error with creating sound player");
              System.out.println(e);
-         }
-        
+        }
+        CustomSliderUI sliderUI = new CustomSliderUI(volumeSlider);
         // Create the volume slider
         volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
         volumeSlider.setBackground(new Color(0, 0, 0, 0));
-        volumeSlider.setUI(new CustomSliderUI(volumeSlider));
+        volumeSlider.setUI(sliderUI);
         volumeSlider.setFocusable(false); // Set the focusable property to false
         volumeSlider.addChangeListener(e -> {
             // Set the volume to the value of the slider
@@ -63,22 +64,26 @@ import Utils.Colors;
 
         // Add the volume slider to the frame
         frame.add(volumeSlider);
-
-        // Set the size and visibility of the frame
-        // setSize(400, 100);
-        // setVisible(true);
-
      }
 
+     public JSlider getVolumeSlider() {
+         return volumeSlider;
+     }
+
+     public void reset()
+     {
+        GameWindow.getGameWindow().remove(volumeSlider);
+     }
+     
      public void play() {
          clip.start();
          status = "play";
      }
      public void pause() {
-     this.currentFrame = this.clip.getMicrosecondPosition();
-     clip.stop();
-     System.out.println("paused");
-     status = "paused";
+        this.currentFrame = this.clip.getMicrosecondPosition();
+        clip.stop();
+        System.out.println("paused");
+        status = "paused";
      }
      public void resume() {
            try {
@@ -104,9 +109,6 @@ import Utils.Colors;
          }
      }
 
-    public Clip getClip() {
-        return clip;
-    }
 
     private static class CustomSliderUI extends BasicSliderUI {
         private static final int TRACK_HEIGHT = 8;
