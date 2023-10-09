@@ -10,6 +10,7 @@ import Items.TimeMachine;
 import Level.Map;
 import Level.NPC;
 import NPCs.Dinosaur;
+import NPCs.MadScientist;
 import NPCs.Walrus;
 import Scripts.ChangeMapScript;
 import Scripts.NewMap.FireStaffScript;
@@ -46,6 +47,9 @@ public class NewMap extends Map
         RedPotion redPotion = new RedPotion(4, getMapTile(4, 4).getLocation());
         redPotion.setInteractScript(new RedPotionScript());
         npcs.add(redPotion);
+
+        MadScientist madScientist = new MadScientist(1, getMapTile(11, 7).getLocation().subtractY(40));
+        npcs.add(madScientist);
 
         PurplePotion purplePotion = new PurplePotion(5, getMapTile(10, 9).getLocation());
         purplePotion.setInteractScript(new PurplePotionScript());
