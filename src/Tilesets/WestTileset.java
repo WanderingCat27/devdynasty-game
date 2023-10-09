@@ -60,7 +60,8 @@ public class WestTileset extends Tileset
     Frame cactusTop = new FrameBuilder(getSubImage(1, 0))
         .withScale(tileScale)
         .build();
-    MapTileBuilder cactusTopTile = new MapTileBuilder(cactusTop);
+    MapTileBuilder cactusTopTile = new MapTileBuilder(cactusTop)
+        .withTileType(TileType.NOT_PASSABLE);;
 
     mapTiles.add(cactusTopTile);
     
@@ -68,7 +69,8 @@ public class WestTileset extends Tileset
     Frame cactusBottom = new FrameBuilder(getSubImage(2, 0))
         .withScale(tileScale)
         .build();
-    MapTileBuilder cactusBottomTile = new MapTileBuilder(cactusBottom);
+    MapTileBuilder cactusBottomTile = new MapTileBuilder(cactusBottom)
+        .withTileType(TileType.NOT_PASSABLE);
 
 
     mapTiles.add(cactusBottomTile);
