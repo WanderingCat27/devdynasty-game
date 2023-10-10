@@ -223,6 +223,6 @@ public class Inventory extends Sprite
 
     public static boolean canAdd()
     {
-        return itemsInInventory.size() < 5;
+        return itemsInInventory.size() < 4;
     }
 }
