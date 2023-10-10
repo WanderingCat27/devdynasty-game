@@ -5,7 +5,10 @@ import Level.Script;
 import Level.ScriptState;
 import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
+import Engine.Key;
+import Engine.Keyboard;
 import GameObject.Frame;
+import GameObject.Inventory;
 import Level.*;
 import Utils.Direction;
 import Utils.Point;
@@ -27,6 +30,8 @@ public class madScientistScript extends Script<NPC> {
         }
         entity.facePlayer(player);
     }
+
+    
 
     @Override
     protected void cleanup() {
