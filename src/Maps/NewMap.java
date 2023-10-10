@@ -18,6 +18,7 @@ import Scripts.NewMap.PurplePotionScript;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.NewMap.SwordScript;
 import Scripts.TestMap.DinoScript;
+import Scripts.NewMap.DinoCombatScript;
 import Tilesets.AnimatedTileset;
 //import Tilesets.CommonTileset;
 
@@ -53,6 +54,10 @@ public class NewMap extends Map
         PurplePotion purplePotion = new PurplePotion(5, getMapTile(10, 9).getLocation());
         npcs.add(purplePotion);
 
+        Dinosaur dino2 = new Dinosaur(2, getMapTile(22, 10).getLocation());
+        dino2.setInteractScript(new DinoCombatScript());
+        npcs.add(dino2);
+
         TimeMachine timeMachine = new TimeMachine(6, getMapTile(4, 5).getLocation());
         timeMachine.setInteractScript(new ChangeMapScript());
         npcs.add(timeMachine);
@@ -64,6 +69,9 @@ public class NewMap extends Map
         //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
         dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
+
+        
+        
 
         return npcs;
     }

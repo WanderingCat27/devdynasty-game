@@ -14,6 +14,7 @@ import Level.NPC;
 import Level.Player;
 import Level.SoundPlayer;
 import Level.Trigger;
+import Maps.CombatMap;
 import Maps.NewMap;
 
 import Maps.TestMap;
@@ -156,7 +157,7 @@ public class PlayLevelScreen extends Screen {
     }
     public static void changeMap() {
         System.out.println("test changing map");
-        map = new WildWestMap();
+        map = new CombatMap();
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
