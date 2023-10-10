@@ -77,6 +77,9 @@ public abstract class Map {
 
     // map's sound path
     public String soundPath;
+    
+    //Maps sound player
+    public SoundPlayer soundPlayer;
 
     public Map(String mapFileName, Tileset tileset) {
         this.mapFileName = mapFileName;

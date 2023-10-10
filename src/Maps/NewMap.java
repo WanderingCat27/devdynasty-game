@@ -17,6 +17,7 @@ import Scripts.NewMap.FireStaffScript;
 import Scripts.NewMap.PurplePotionScript;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.NewMap.SwordScript;
+import Scripts.NewMap.madScientistScript;
 import Scripts.TestMap.DinoScript;
 import Tilesets.AnimatedTileset;
 //import Tilesets.CommonTileset;
@@ -49,6 +50,7 @@ public class NewMap extends Map
 
         MadScientist madScientist = new MadScientist(1, getMapTile(11, 7).getLocation().subtractY(40));
         npcs.add(madScientist);
+        madScientist.setInteractScript(new madScientistScript());
 
         PurplePotion purplePotion = new PurplePotion(5, getMapTile(10, 9).getLocation());
         npcs.add(purplePotion);

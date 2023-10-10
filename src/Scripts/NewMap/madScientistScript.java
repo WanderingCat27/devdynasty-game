@@ -3,6 +3,12 @@ package Scripts.NewMap;
 import Level.NPC;
 import Level.Script;
 import Level.ScriptState;
+import Builders.FrameBuilder;
+import Builders.MapTileBuilder;
+import GameObject.Frame;
+import Level.*;
+import Utils.Direction;
+import Utils.Point;
 
 // script for talking to walrus npc
 public class madScientistScript extends Script<NPC> {
@@ -13,12 +19,11 @@ public class madScientistScript extends Script<NPC> {
         lockPlayer();
         showTextbox();
 
-        // changes what walrus says when talking to him the first time (flag is not set) vs talking to him afterwards (flag is set)
-        if (!isFlagSet("has talked to mad scientist")) {
+        if (!isFlagSet("hasTalkedToScientist")) {
             addTextToTextboxQueue( "This is the mad scientist test dialogue.");
         }
         else {
-            addTextToTextboxQueue( "I sure love doing walrus things!");
+            addTextToTextboxQueue( "This is the mad scientist test dialogue.");
         }
         entity.facePlayer(player);
     }
