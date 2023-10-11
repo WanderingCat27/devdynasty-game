@@ -7,7 +7,7 @@ public class AbsoluteContainer extends UIContainer {
 
     public AbsoluteContainer() {
         super(0, 0);
-        this.setfIllType(FillType.FILL_SCREEN);
+        this.setfillType(FillType.FILL_SCREEN);
     }
 
     @Override

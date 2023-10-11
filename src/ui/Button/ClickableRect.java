@@ -35,7 +35,7 @@ public class ClickableRect extends UIContainer{
     }
     protected boolean isMouseOver() {
         Point p = Mouse.getMouseLoction();
-        return p.x > getXAbs() && p.x < getXAbs() + getWidth() && p.y > getYAbs() && p.y < getYAbs() + getHeight();
+        return Utils.MathUtils.isInBounds(p, getXAbs(), getYAbs(), getWidth(), getHeight());
     }
 
     public void draw(GraphicsHandler g) {
