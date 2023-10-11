@@ -71,8 +71,6 @@ public class NewMap extends Map
         npcs.add(dinosaur);
 
         
-        
-
         return npcs;
     }
 

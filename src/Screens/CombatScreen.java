@@ -127,6 +127,7 @@ public class CombatScreen extends Screen{
         
         if(healthZero()){
             youWinPopup.draw(graphicsHandler);
+            //PlayLevelScreen.goToCombat();
         }
 
     }

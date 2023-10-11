@@ -20,6 +20,8 @@ import Maps.NewMap;
 import Maps.TestMap;
 import Maps.WildWestMap;
 
+import Screens.CombatScreen;
+
 import Players.Cat;
 
 import Players.PlayerAsh;
@@ -38,6 +40,7 @@ public class PlayLevelScreen extends Screen {
     protected Inventory inventory;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
+    protected CombatScreen combatScreen;
     protected FlagManager flagManager;
     protected Item sword;
     public static boolean doReload = false;
@@ -119,7 +122,7 @@ public class PlayLevelScreen extends Screen {
         }
 
         winScreen = new WinScreen(this);
-        
+        combatScreen = new CombatScreen(screenCoordinator);
 
 
         System.out.println(SoundPlayer.musicPlaying);
@@ -147,6 +150,8 @@ public class PlayLevelScreen extends Screen {
                 player.update();
                 map.update(player);
                 break;
+            case COMBAT:
+                combatScreen.initialize();
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
                 winScreen.update();
@@ -157,7 +162,7 @@ public class PlayLevelScreen extends Screen {
     }
     public static void changeMap() {
         System.out.println("test changing map");
-        map = new CombatMap();
+        map = new WildWestMap();
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
@@ -168,6 +173,9 @@ public class PlayLevelScreen extends Screen {
                 map.draw(player, graphicsHandler);
                 inventory.drawHud(graphicsHandler);
                 break;
+           // case COMBAT:
+           //     combatScreen.draw(graphicsHandler);
+           //     break;
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
                 break;
@@ -192,8 +200,11 @@ public class PlayLevelScreen extends Screen {
         screenCoordinator.setGameState(GameState.MENU);
     }
 
+    // public void goToCombat(){
+    //     playLevelScreenState = PlayLevelScreenState.COMBAT;
+    // }
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED
+        RUNNING, COMBAT, LEVEL_COMPLETED
     }
 }

@@ -21,10 +21,10 @@ public class DinoCombatScript extends Script<NPC> {
 
         // changes what walrus says when talking to him the first time (flag is not set) vs talking to him afterwards (flag is set)
         if (!isFlagSet("has talked to dino2")) {
-            addTextToTextboxQueue( "Im gonna fight you");
+            addTextToTextboxQueue( "Im wanna fight you");
         }
         else {
-            addTextToTextboxQueue( "I wanna fight you");
+            addTextToTextboxQueue( "Im a dinosaur");
         }
         entity.facePlayer(player);
     }
@@ -46,9 +46,9 @@ public class DinoCombatScript extends Script<NPC> {
         }
         end();
         System.out.println("executing");
-        PlayLevelScreen.changeMap();
-        PlayLevelScreen.doReload = true;
-        PlayLevelScreen.changeMapType = new CombatMap();
+        //PlayLevelScreen.goToCombat();
+        //PlayLevelScreen.doReload = true;
+        //PlayLevelScreen.changeMapType = new CombatMap();
         return ScriptState.COMPLETED;
     }
 }
