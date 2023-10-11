@@ -10,6 +10,7 @@ import java.util.HashMap;
 // This class is a base class for all npcs in the game -- all npcs should extend from it
 public class NPC extends MapEntity {
     protected int id = 0;
+    protected String pathToImage;
 
     public NPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
@@ -92,5 +93,9 @@ public class NPC extends MapEntity {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
+    }
+
+    public String getPathToImage() {
+        return pathToImage;
     }
 }

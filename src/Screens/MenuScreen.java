@@ -31,7 +31,7 @@ public class MenuScreen extends Screen {
         background = new TitleScreenMap();
         background.setCenterCamera();
         centerContainer = new CenterContainer();
-        centerContainer.setfIllType(FillType.FILL_SCREEN);
+        centerContainer.setfillType(FillType.FILL_SCREEN);
         TextButton playButton = new TextButton(-150, -100, 300, 90, new Color(2, 48, 71), "Play", new Font("Comic Sans", Font.BOLD, 30), new Color(255, 183, 3), new Runnable() {
 
             @Override

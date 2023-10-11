@@ -40,7 +40,7 @@ public class Inventory extends Sprite
     protected Map map;  //new NewMap();
 
     //This will be used to keep track of the items in the inventory
-    protected static ArrayList<Item> itemsInInventory = new ArrayList<Item>();
+    protected static ArrayList<NPC> itemsInInventory = new ArrayList<NPC>();
     public static ArrayList<Sprite> itemsInInventorySprites = new ArrayList<Sprite>();
 
 
@@ -65,7 +65,7 @@ public class Inventory extends Sprite
         this.twoSlot = new Sprite(ImageLoader.load(twoSlot, Colors.MAGENTA));
         this.threeSlot = new Sprite(ImageLoader.load(threeSlot, Colors.MAGENTA));
         this.fourSlot = new Sprite(ImageLoader.load(fourSlot, Colors.MAGENTA));
-        this.location = map.getMapTile(1, 2).getLocation().subtractX(6).subtractY(7);
+        this.location = new Point(58f, 121f);
         this.map = map;
         this.player = player;
     }
@@ -147,7 +147,12 @@ public class Inventory extends Sprite
         }        
     }
 
-    public static void addItem(Item item)
+    public void setMap(Map map)
+    {
+        this.map = map;
+    }
+
+    public static void addNPC(NPC item)
     {
         //This will be used to add an item to the inventory
         if(canAdd())
@@ -165,7 +170,7 @@ public class Inventory extends Sprite
             if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("1") && itemsInInventory.size() > 0 && !keyLocker.isKeyLocked(REMOVE))
             {
                 keyLocker.lockKey(REMOVE);
-                Item item = itemsInInventory.remove(0);
+                NPC item = itemsInInventory.remove(0);
                 itemsInInventorySprites.remove(0);
                 Point playerLocation = this.player.getLocation();
                 item.setLocation(playerLocation.x, playerLocation.y);
@@ -175,7 +180,7 @@ public class Inventory extends Sprite
             else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("2") && itemsInInventory.size() > 1 && !keyLocker.isKeyLocked(REMOVE))
             {
                 keyLocker.lockKey(REMOVE);
-                Item item = itemsInInventory.remove(1);
+                NPC item = itemsInInventory.remove(1);
                 itemsInInventorySprites.remove(1);
                 Point playerLocation = this.player.getLocation();
                 item.setLocation(playerLocation.x, playerLocation.y);
@@ -186,7 +191,7 @@ public class Inventory extends Sprite
             else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("3") && itemsInInventory.size() > 2 && !keyLocker.isKeyLocked(REMOVE))
             {
                 keyLocker.lockKey(REMOVE);
-                Item item = itemsInInventory.remove(2);
+                NPC item = itemsInInventory.remove(2);
                 itemsInInventorySprites.remove(2);
                 Point playerLocation = this.player.getLocation();
                 item.setLocation(playerLocation.x, playerLocation.y);
@@ -196,7 +201,7 @@ public class Inventory extends Sprite
             else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("4") && itemsInInventory.size() > 3 && !keyLocker.isKeyLocked(REMOVE))
             {
                 keyLocker.lockKey(REMOVE);
-                Item item = itemsInInventory.remove(3);
+                NPC item = itemsInInventory.remove(3);
                 itemsInInventorySprites.remove(3);
                 Point playerLocation = this.player.getLocation();
                 item.setLocation(playerLocation.x, playerLocation.y);

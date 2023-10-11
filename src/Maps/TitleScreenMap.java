@@ -17,8 +17,9 @@ public class TitleScreenMap extends Map {
 
     public TitleScreenMap() {
         super("title_screen_map.txt", new CommonTileset());
-        player = new Sprite(ImageLoader.loadSubImage("HumanPlayer.png", Colors.MAGENTA, 0, 0, 24, 24));
-        player.setScale(3);
+        //player = new Sprite(ImageLoader.loadSubImage("HumanPlayer.png", Colors.MAGENTA, 0, 0, 24, 24));
+        player = new Sprite(ImageLoader.loadSubImage("PokemonInspiredSpriteSheet.png", Colors.MAGENTA, 0, 0, 14, 19));
+        player.setScale(2.5f);
         player.setImageEffect(ImageEffect.FLIP_HORIZONTAL);
         updatePlayerSprite();
         setCenterCamera();

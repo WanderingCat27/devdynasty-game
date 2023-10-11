@@ -3,12 +3,20 @@ package Maps;
 import java.util.ArrayList;
 
 import EnhancedMapTiles.PushableRock;
+import Items.RedPotion;
 import Level.EnhancedMapTile;
 import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.Dinosaur;
 import NPCs.Walrus;
+import Scripts.SimpleTextScript;
+import Scripts.NewMap.RedPotionScript;
+import Scripts.TestMap.DinoScript;
+import Scripts.TestMap.LostBallScript;
+import Scripts.TestMap.TreeScript;
+import Scripts.TestMap.WalrusScript;
+import Tilesets.CommonTileset;
 import Tilesets.WestTileset;
 
 // Represents a test map to be used in a level
@@ -37,13 +45,19 @@ public class WildWestMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(1, getMapTile(19, 23).getLocation().subtractY(40));
+
+
+        RedPotion redPotion = new RedPotion(4, getMapTile(4, 4).getLocation());
+        redPotion.setInteractScript(new RedPotionScript());
+        npcs.add(redPotion);
+
+        Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
         //walrus.setInteractScript(new WalrusScript());
        // npcs.add(walrus);
 
         Dinosaur dinosaur = new Dinosaur(2, getMapTile(25, 24).getLocation());
         //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
-       // dinosaur.setInteractScript(new DinoScript());
+        dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
 
         return npcs;
@@ -59,11 +73,11 @@ public class WildWestMap extends Map {
         return triggers;
     }
 
-    @Override
-    public void loadScripts() {
-      //  getMapTile(12, 22).setInteractScript(new SimpleTextScript("Cat's house"));
-      //  getMapTile(12, 2).setInteractScript(new ChangeMapScript());
-      //  System.out.println("changeMapScript");
-    }
+    // @Override
+    // public void loadScripts() {
+    //   //  getMapTile(12, 22).setInteractScript(new SimpleTextScript("Cat's house"));
+    //   //  getMapTile(12, 2).setInteractScript(new ChangeMapScript());
+    //   //  System.out.println("changeMapScript");
+    // }
 }
 

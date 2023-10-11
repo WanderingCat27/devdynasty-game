@@ -8,6 +8,7 @@ import Engine.GraphicsHandler;
 import GameObject.Frame;
 import GameObject.Item;
 import GameObject.SpriteSheet;
+import Scripts.NewMap.SwordScript;
 
 public class Sword extends Item
 {
@@ -17,19 +18,8 @@ public class Sword extends Item
     {
         super(id,point,"sword.png");
         this.setIsUncollidable(true);
+        this.setInteractScript(new SwordScript());
     }
-
-    // public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)
-    // {
-    //     return new HashMap<String, Frame[]>() {{
-    //         put("STILL", new Frame[] {
-    //                 new FrameBuilder(spriteSheet.getSprite(1, 0))
-    //                         .withScale(3)
-    //                         .withBounds(14, 10, 18, 18)
-    //                         .build()
-    //         });
-    //     }};
-    // }
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {

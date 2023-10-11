@@ -4,6 +4,7 @@ import Engine.GraphicsHandler;
 import Utils.Point;
 import Engine.GraphicsHandler;
 import GameObject.Item;
+import Scripts.NewMap.FireStaffScript;
 
 public class FireStaff extends Item
 {
@@ -11,6 +12,7 @@ public class FireStaff extends Item
     {
         super(id,point,"FireStaff.png");
         this.setIsUncollidable(true);
+        this.setInteractScript(new FireStaffScript());
     }    
 
     @Override

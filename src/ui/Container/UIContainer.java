@@ -138,7 +138,7 @@ public class UIContainer {
         return fIllType;
     }
 
-    public void setfIllType(FillType fIllType) {
+    public void setfillType(FillType fIllType) {
         this.fIllType = fIllType;
     }
 
