@@ -175,6 +175,8 @@ public class Inventory extends Sprite
                 Point playerLocation = this.player.getLocation();
                 item.setLocation(playerLocation.x, playerLocation.y);
                 this.map.addNPC(item);
+                item.setMap(map);
+                item.getInteractScript().setMap(map);
                 item.setMapEntityStatus(MapEntityStatus.ACTIVE);
             }
             else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("2") && itemsInInventory.size() > 1 && !keyLocker.isKeyLocked(REMOVE))
@@ -185,6 +187,8 @@ public class Inventory extends Sprite
                 Point playerLocation = this.player.getLocation();
                 item.setLocation(playerLocation.x, playerLocation.y);
                 this.map.addNPC(item);
+                item.setMap(map);
+                item.getInteractScript().setMap(map);
                 item.setMapEntityStatus(MapEntityStatus.ACTIVE);
 
             }
@@ -196,6 +200,8 @@ public class Inventory extends Sprite
                 Point playerLocation = this.player.getLocation();
                 item.setLocation(playerLocation.x, playerLocation.y);
                 this.map.addNPC(item);
+                item.setMap(map);
+                item.getInteractScript().setMap(map);
                 item.setMapEntityStatus(MapEntityStatus.ACTIVE);
             }
             else if(Keyboard.isKeyDown(REMOVE) && keyNumber.equals("4") && itemsInInventory.size() > 3 && !keyLocker.isKeyLocked(REMOVE))
@@ -206,6 +212,8 @@ public class Inventory extends Sprite
                 Point playerLocation = this.player.getLocation();
                 item.setLocation(playerLocation.x, playerLocation.y);
                 this.map.addNPC(item);
+                item.setMap(map);
+                item.getInteractScript().setMap(map);
                 item.setMapEntityStatus(MapEntityStatus.ACTIVE);
             }
             if(Keyboard.isKeyUp(REMOVE))
