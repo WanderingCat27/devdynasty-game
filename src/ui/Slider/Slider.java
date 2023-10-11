@@ -11,7 +11,7 @@ import Engine.GraphicsHandler;
 import Engine.Mouse;
 import Utils.ImageUtils;
 import Utils.MathUtils;
-import ui.Container.Anchor;
+import ui.Anchor;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer;
 
@@ -43,8 +43,8 @@ public class Slider extends UIContainer {
         this.max = max;
         grip = new SliderGrip(x, y, 10, (int) (DEF_IMAGE.getHeight() * 1.5f));
         PositioningContainer container = new PositioningContainer(Anchor.CENTER_LEFT);
-        container.addComponnent(grip);
-        this.addComponnent(container);
+        container.addComponent(grip);
+        this.addComponent(container);
     }
 
     protected SliderGrip getSliderGrip() {

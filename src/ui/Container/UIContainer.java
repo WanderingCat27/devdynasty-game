@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
+import ui.Anchor;
 
 public class UIContainer {
 
@@ -17,9 +18,15 @@ public class UIContainer {
 
     private Anchor anchor;
 
+    public enum FillType {
+        NONE, FILL_PARENT, FILL_SCREEN
+    };
+
+    private FillType fillTypeX = FillType.NONE;
+    private FillType fillTypeY = FillType.NONE;
+
     // anchors modify the position on the object itself from which is will be drawn
     // i.e. CENTER -> (0,0) = center
-    
 
     public UIContainer(int x, int y, int width, int height) {
         this.x = x;
@@ -32,7 +39,7 @@ public class UIContainer {
     // if no width given, defaults to fill parent
     public UIContainer(int x, int y) {
         this(x, y, 0, 0);
-        this.fIllType = FillType.FILL_PARENT;
+        setfillType(FillType.FILL_PARENT);
     }
 
     public int getxOff() {
@@ -67,12 +74,6 @@ public class UIContainer {
         this.parentHeight = parentHeight;
     }
 
-    public enum FillType {
-        NONE, FILL_PARENT, FILL_SCREEN
-    };
-
-    private FillType fIllType = FillType.NONE;
-
     public int getXOrigin() {
         return x;
     }
@@ -90,11 +91,15 @@ public class UIContainer {
     }
 
     public int getXAbs() {
-        return getXOrigin() + getxOff() + anchor.getXOffset(this);
+        return getXOrigin() + getxOff() + getAnchor().getXOffset(this);
     }
 
     public int getYAbs() {
-        return getYOrigin() + getyOff() + anchor.getYOffset(this);
+        return getYOrigin() + getyOff() + getAnchor().getYOffset(this);
+    }
+
+    public Anchor getAnchor() {
+        return anchor;
     }
 
     public void setParentData(int xOff, int yOff, int width, int height) {
@@ -113,33 +118,48 @@ public class UIContainer {
     }
 
     public int getHeight() {
-        switch (fIllType) {
+        switch (fillTypeY) {
             case FILL_SCREEN:
-                return ScreenManager.getScreenHeight();
+                return  ScreenManager.getScreenHeight();
             case FILL_PARENT:
-                return getParentHeight();
+                return  getParentHeight();
             default:
-                return height;
+                return this.height;
         }
+
     }
 
     public int getWidth() {
-        switch (fIllType) {
+        switch (fillTypeX) {
             case FILL_SCREEN:
                 return ScreenManager.getScreenWidth();
             case FILL_PARENT:
                 return getParentWidth();
             default:
-                return width;
+                return this.width;
         }
+
     }
 
-    public FillType getfIllType() {
-        return fIllType;
+    public FillType getFillTypeX() {
+        return fillTypeX;
     }
 
-    public void setfillType(FillType fIllType) {
-        this.fIllType = fIllType;
+    public FillType getFillTypeY() {
+        return fillTypeY;
+    }
+
+    public void setfillType(FillType fillType) {
+        this.fillTypeX = fillType;
+        this.fillTypeY = fillType;
+    }
+
+    public void setfillTypeX(FillType fillType) {
+        this.fillTypeX = fillType;
+    }
+
+    public void setfillTypeY(FillType fillType) {
+        this.fillTypeY = fillType;
     }
 
     public void draw(GraphicsHandler g) {
@@ -154,11 +174,16 @@ public class UIContainer {
         components.forEach((c) -> c.update());
     }
 
-    public void addComponnent(UIContainer comp) {
+    public void addComponent(UIContainer comp) {
         this.components.add(comp);
     }
 
     public void setAnchor(Anchor anchor) {
         this.anchor = anchor;
     }
+
+    public ArrayList<UIContainer> getChildren() {
+        return components;
+    }
+
 }

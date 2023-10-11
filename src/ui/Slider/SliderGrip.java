@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import Engine.Config;
 import Engine.GraphicsHandler;
 import Utils.ImageUtils;
-import ui.Container.Anchor;
+import ui.Anchor;
 import ui.Container.UIContainer;
 
 public class SliderGrip extends UIContainer {

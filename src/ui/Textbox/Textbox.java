@@ -1,4 +1,4 @@
-package Level;
+package ui.Textbox;
 
 import java.awt.Color;
 import java.util.LinkedList;
@@ -8,31 +8,34 @@ import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import ui.Container.CenterContainer;
+import ui.Container.UIContainer;
 import ui.SpriteFont.SpriteFont;
 
 // Represents the game's textbox
 // will display the text it is given to its textQueue
 // each String in the textQueue will be displayed in the textbox, and hitting the interact key will cycle between additional Strings in the queue
 // use the newline character in a String in the textQueue to break the text up into a second line if needed
-public class Textbox {
+public class Textbox extends UIContainer {
     protected boolean isActive;
-    protected final int x = 22;
-    protected final int bottomY = 460;
-    protected final int topY = 22;
-    protected final int fontX = 35;
-    protected final int fontBottomY = 472;
-    protected final int fontTopY = 34;
-    protected final int width = 750;
-    protected final int height = 100;
 
     private Queue<String> textQueue = new LinkedList<String>();
-    private SpriteFont text = null;
+    private SpriteFont text;
     private KeyLocker keyLocker = new KeyLocker();
-    private Map map;
     private Key interactKey = Key.SPACE;
 
-    public Textbox(Map map) {
-        this.map = map;
+    private int marginX = 20;
+
+    private CenterContainer centerContainer;
+
+    public Textbox(int x, int y, int width, int height) {
+        super(x, y, width, height);
+        centerContainer = new CenterContainer();
+        centerContainer.setfillType(FillType.FILL_PARENT);
+        text = new SpriteFont("", 0, 0, "Arial", 30, Color.black);
+        text.setDrawParsedLines(true);
+        centerContainer.addComponent(text);
+        addComponent(centerContainer);
     }
 
     public void addText(String text) {
@@ -58,53 +61,50 @@ public class Textbox {
     }
 
     public void update() {
-        // if textQueue has more text to display and the interact key button was pressed previously, display new text
+        // if textQueue has more text to display and the interact key button was pressed
+        // previously, display new text
         if (!textQueue.isEmpty() && keyLocker.isKeyLocked(interactKey)) {
             String next = textQueue.peek();
 
-            // if camera is at bottom of screen, text is drawn at top of screen instead of the bottom like usual
+            // if camera is at bottom of screen, text is drawn at top of screen instead of
+            // the bottom like usual
             // to prevent it from covering the player
-            int fontY;
-            if (!map.getCamera().isAtBottomOfMap()) {
-                fontY = fontBottomY;
-            }
-            else {
-                fontY = fontTopY;
-            }
-            text = new SpriteFont(next, fontX, fontY, "Arial", 30, Color.black);
+            text.setText(next);
 
         }
-        // if interact key is pressed, remove the current text from the queue to prepare for the next text item to be displayed
+        // if interact key is pressed, remove the current text from the queue to prepare
+        // for the next text item to be displayed
         if (Keyboard.isKeyDown(interactKey) && !keyLocker.isKeyLocked(interactKey)) {
             keyLocker.lockKey(interactKey);
             textQueue.poll();
-        }
-        else if (Keyboard.isKeyUp(interactKey)) {
+        } else if (Keyboard.isKeyUp(interactKey)) {
             keyLocker.unlockKey(interactKey);
         }
 
+        super.update();
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        // if camera is at bottom of screen, textbox is drawn at top of screen instead of the bottom like usual
+        super.draw(graphicsHandler);
+        // if camera is at bottom of screen, textbox is drawn at top of screen instead
+        // of the bottom like usual
         // to prevent it from covering the player
-        if (!map.getCamera().isAtBottomOfMap()) {
-            graphicsHandler.drawFilledRectangleWithBorder(x, bottomY, width, height, Color.white, Color.black, 2);
+        graphicsHandler.drawFilledRectangleWithBorder(getXAbs() + marginX, getYAbs(), getWidth() - 2*marginX, getHeight(), Color.white,
+        Color.black, 2);
+        if (!text.getText().isBlank()) {
+            centerContainer.draw(graphicsHandler);
         }
-        else {
-            graphicsHandler.drawFilledRectangleWithBorder(x, topY, width, height, Color.white, Color.black, 2);
-        }
-        if (text != null) {
-            text.drawWithParsedNewLines(graphicsHandler, 10);
-        }
+        
     }
 
     public boolean isActive() {
+        // System.out.println("Ais " + this.isActive);
         return isActive;
     }
 
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
+        System.out.println(this.isActive);
     }
 
     public void setInteractKey(Key interactKey) {

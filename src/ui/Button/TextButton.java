@@ -17,8 +17,8 @@ public class TextButton extends ClickableRect {
         
         this.spriteFontRef = new SpriteFont(text, 0, 0, font, textColor);
         CenterContainer centerContainer = new CenterContainer();
-        centerContainer.addComponnent(this.spriteFontRef);
-        addComponnent(centerContainer);
+        centerContainer.addComponent(this.spriteFontRef);
+        addComponent(centerContainer);
     }
 
     public SpriteFont getSpriteFont() {

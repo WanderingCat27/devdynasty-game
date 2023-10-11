@@ -11,15 +11,17 @@ import Engine.GraphicsHandler;
 import ui.Container.UIContainer;
 
 // This class represents a sprite font, which is graphic text (text drawn to the screen as if it were an image)
-public class SpriteFont extends UIContainer{
+public class SpriteFont extends UIContainer {
 	protected String text;
 	protected Font font;
 	protected Color color;
 	protected Color outlineColor;
 	protected float outlineThickness = 1f;
+	private boolean drawParsedLines = false;
+	private int parsedLineGap = 10;
 
 	public SpriteFont(String text, int x, int y, String fontName, int fontSize, Color color) {
-		this(text, x, y,new Font(fontName, Font.PLAIN, fontSize), color);
+		this(text, x, y, new Font(fontName, Font.PLAIN, fontSize), color);
 	}
 
 	public SpriteFont(String text, int x, int y, Font font, Color color) {
@@ -28,6 +30,14 @@ public class SpriteFont extends UIContainer{
 		this.text = text;
 		this.font = font;
 		this.color = color;
+
+		updateTextDimensions();
+	}
+
+	private void updateTextDimensions() {
+		Dimension textDim = getTextDimensions();
+		setWidth(textDim.width);
+		setHeight(textDim.height);
 	}
 
 	public void setColor(Color color) {
@@ -38,10 +48,13 @@ public class SpriteFont extends UIContainer{
 		return text;
 	}
 
-	public Font getFont() { return font; }
+	public Font getFont() {
+		return font;
+	}
 
 	public void setText(String text) {
 		this.text = text;
+		updateTextDimensions();
 	}
 
 	public void setFontName(String fontName) {
@@ -56,7 +69,9 @@ public class SpriteFont extends UIContainer{
 		this.font = new Font(font.getFontName(), this.font.getStyle(), size);
 	}
 
-	public void setFont(Font font) { this.font = font; }
+	public void setFont(Font font) {
+		this.font = font;
+	}
 
 	public void setOutlineColor(Color outlineColor) {
 		this.outlineColor = outlineColor;
@@ -65,8 +80,6 @@ public class SpriteFont extends UIContainer{
 	public void setOutlineThickness(float outlineThickness) {
 		this.outlineThickness = outlineThickness;
 	}
-
-	
 
 	public void setLocation(int x, int y) {
 		setXOrigin(x);
@@ -103,23 +116,30 @@ public class SpriteFont extends UIContainer{
 	}
 
 	public void draw(GraphicsHandler graphicsHandler) {
-		int ascent = getAscent(graphicsHandler.getGraphics());
-		if (outlineColor != null && !outlineColor.equals(color)) {
-			graphicsHandler.drawStringWithOutline(text, getXAbs(), getYAbs() + ascent, font, color, outlineColor, outlineThickness);
-		} else {
-			graphicsHandler.drawString(text, getXAbs(), getYAbs() + ascent, font, color);
+		if (drawParsedLines) {
+			drawWithParsedNewLines(graphicsHandler, this.parsedLineGap);
+		}else {
+			int ascent = getAscent(graphicsHandler.getGraphics());
+			if (outlineColor != null && !outlineColor.equals(color)) {
+				graphicsHandler.drawStringWithOutline(text, getXAbs(), getYAbs() + ascent, font, color, outlineColor,
+						outlineThickness);
+			} else {
+				graphicsHandler.drawString(text, getXAbs(), getYAbs() + ascent, font, color);
+			}
 		}
 
 		super.draw(graphicsHandler);
 	}
 
-	// this can be called instead of regular draw to have the text drop to the next line in graphics space on a new line character
+	// this can be called instead of regular draw to have the text drop to the next
+	// line in graphics space on a new line character
 	public void drawWithParsedNewLines(GraphicsHandler graphicsHandler, int gapBetweenLines) {
 		int ascent = getAscent(graphicsHandler.getGraphics());
 		int drawLocationY = Math.round(getYAbs()) + ascent;
-		for (String line: text.split("\n")) {
+		for (String line : text.split("\n")) {
 			if (outlineColor != null && !outlineColor.equals(color)) {
-				graphicsHandler.drawStringWithOutline(line, getXAbs(), drawLocationY, font, color, outlineColor, outlineThickness);
+				graphicsHandler.drawStringWithOutline(line, getXAbs(), drawLocationY, font, color, outlineColor,
+						outlineThickness);
 			} else {
 				graphicsHandler.drawString(line, getXAbs(), drawLocationY, font, color);
 			}
@@ -129,20 +149,21 @@ public class SpriteFont extends UIContainer{
 		super.draw(graphicsHandler);
 	}
 
-	@Override
-	public int getWidth() {
-		return getTextDimensions().width;
-	}
-
-	@Override
-	public int getHeight() {
-		return getTextDimensions().height;
-	}
 
 	// method is deprecated, but the alternative method requires a
 	// "FontRendererContext" which is unclear how to create or find or anything
-	public Dimension getTextDimensions() {
+	private Dimension getTextDimensions() {
 		FontMetrics metric = Toolkit.getDefaultToolkit().getFontMetrics(font);
 		return new Dimension(metric.stringWidth(text), metric.getHeight());
 	}
+
+	public void setDrawParsedLines(boolean b) {
+		this.drawParsedLines = true;
+	}
+
+	public boolean isDrawParsedLines() {
+		return drawParsedLines;
+	}
+
+	
 }

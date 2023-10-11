@@ -73,7 +73,7 @@ public abstract class Map {
     public FlagManager flagManager;
 
     // map's textbox instance
-    protected Textbox textbox;
+    protected MapTextboxHandler textbox;
 
     // map's sound path
     public String soundPath;
@@ -131,7 +131,7 @@ public abstract class Map {
         this.loadScripts();
 
         this.camera = new Camera(0, 0, tileset.getScaledSpriteWidth(), tileset.getScaledSpriteHeight(), this);
-        this.textbox = new Textbox(this);
+        this.textbox = new MapTextboxHandler(this);
     }
 
     // reads in a map file to create the map's tilemap
@@ -576,7 +576,7 @@ public abstract class Map {
         this.flagManager = flagManager;
     }
 
-    public Textbox getTextbox() { return textbox; }
+    public MapTextboxHandler getTextbox() { return textbox; }
 
     public int getEndBoundX() { return endBoundX; }
     public int getEndBoundY() { return endBoundY; }

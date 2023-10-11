@@ -1,4 +1,6 @@
-package ui.Container;
+package ui;
+
+import ui.Container.UIContainer;
 
 public enum Anchor {
     TOP_LEFT

@@ -20,7 +20,7 @@ import Maps.WildWestMap;
 import Players.PlayerAsh;
 import Utils.Direction;
 import Utils.Point;
-import ui.Container.Anchor;
+import ui.Anchor;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
 import ui.Slider.Slider;
@@ -143,7 +143,7 @@ public class PlayLevelScreen extends Screen {
             sliderContainer.setfillType(FillType.FILL_SCREEN);
             sliderContainer.setAnchorChildren(true);
 
-            sliderContainer.addComponnent(volumeSlider);
+            sliderContainer.addComponent(volumeSlider);
         }
         this.soundPlayer.setVolume((int) volumeSlider.getValue());
     }
