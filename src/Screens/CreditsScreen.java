@@ -34,7 +34,7 @@ public class CreditsScreen extends Screen {
         background = new TitleScreenMap();
         posContainer = new PositioningContainer(Anchor.TOP_CENTER);
         posContainer.setAnchorChildren(true);
-        posContainer.setfIllType(FillType.FILL_SCREEN);
+        posContainer.setfillType(FillType.FILL_SCREEN);
 
         creditsLabel = new SpriteFont("Credits", 0, 7, "Times New Roman", 30, Color.white);
         createdByLabel = new SpriteFont("Created by devDynasty", 0, 121, "Times New Roman", 20, Color.white);
