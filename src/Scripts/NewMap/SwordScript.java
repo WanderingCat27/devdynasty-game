@@ -1,26 +1,24 @@
 package Scripts.NewMap;
 
 import Level.MapEntityStatus;
+import Level.NPC;
 import Level.Script;
 import Level.ScriptState;
 import GameObject.Inventory;
-import GameObject.Item; //since we will need to access the item class
+//import GameObject.Item; //since we will need to access the item class
 
-public class SwordScript extends Script<Item>
+public class SwordScript extends Script<NPC>
 {
-
+    
     @Override
     protected void setup()
     {
+
         //if the sword has been picked up, then we will set the map entity status to removed
         if(Inventory.canAdd() && this.entity.getMapEntityStatus() == MapEntityStatus.ACTIVE)
         {
             Inventory.addNPC(this.entity);
             this.entity.setMapEntityStatus(MapEntityStatus.REMOVED);
-            
-            //this.isActive = false;
-            System.out.println(this.entity.getMapEntityStatus().toString());
-            
         }
     }
     
