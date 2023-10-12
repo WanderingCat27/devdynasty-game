@@ -1,26 +1,32 @@
 package Utils;
 
-import java.awt.*;
-import java.awt.image.*;
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 
 // This class has some useful image methods that are used when loading in images to the game
 public class ImageUtils {
-	// changes desired color to be transparent (the chosen color will not be seen in game when drawn)
+	// changes desired color to be transparent (the chosen color will not be seen in
+	// game when drawn)
 	public static BufferedImage transformColorToTransparency(BufferedImage image, Color transparentColor) {
 		BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = newImage.createGraphics();
 		int transparentColorIndex = transparentColor.getRGB();
 
 		// iterates through each pixel of the image
-		// if pixel is equal to the transparent color, changes that pixel to be fully transparent
+		// if pixel is equal to the transparent color, changes that pixel to be fully
+		// transparent
 		for (int i = 0; i < image.getWidth(); i++) {
 			for (int j = 0; j < image.getHeight(); j++) {
 				int rgb = image.getRGB(i, j);
 				if (rgb == transparentColorIndex) {
 					g.setColor(new Color(0, true));
 					g.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR));
-				}
-				else {
+				} else {
 					g.setColor(new Color(rgb, false));
 					g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
 				}
@@ -42,6 +48,28 @@ public class ImageUtils {
 		return resized;
 	}
 
+	// Not my code, taken from:
+	// https://stackoverflow.com/questions/11271329/converting-image-to-bufferedimage
+	public static BufferedImage resizeImageNearestNeighbor(BufferedImage image, int newWidth, int newHeight) {
+		BufferedImage scaledImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+		AffineTransform at = new AffineTransform();
+		at.scale((float)newWidth/image.getWidth(), (float)newHeight/image.getHeight());
+		AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+		return scaleOp.filter(image, scaledImage);
+	}
+
+	public static BufferedImage scaleImage(BufferedImage image, float scale) {
+		return resizeImageNearestNeighbor(image, (int) (image.getWidth() *scale), (int) (image.getHeight() * scale));
+	}
+
+	// resize image but dont resize the hieght of top bottom edge and width of left right edge
+	public static BufferedImage resizeImagesIgnoreEdges(BufferedImage image, int width, int height, int ignoreEdgeWidth, int ignoreEdgeHeight) {
+		// crop edges off 
+		// resize center of image without edges
+		// draw the edgese back on only scaled in the one direction
+		return null;
+    }
+
 	public static BufferedImage createSolidImage(Color color) {
 		BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
 		image = ImageUtils.transformColorToTransparency(image, color);
@@ -53,4 +81,6 @@ public class ImageUtils {
 		image = ImageUtils.transformColorToTransparency(image, color);
 		return resizeImage(image, width, height);
 	}
+
+    
 }

@@ -1,5 +1,6 @@
 package Screens;
 
+import Engine.GameWindow;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
@@ -9,6 +10,7 @@ import GameObject.Item;
 import Level.EnhancedMapTile;
 import Level.FlagManager;
 import Level.Map;
+import Level.MapEntityStatus;
 import Level.MapTile;
 import Level.NPC;
 import Level.Player;
@@ -16,29 +18,26 @@ import Level.SoundPlayer;
 import Level.Trigger;
 import Maps.CombatMap;
 import Maps.NewMap;
-
-import Maps.TestMap;
 import Maps.WildWestMap;
-
-import Screens.CombatScreen;
 
 import Players.Cat;
 
 import Players.PlayerAsh;
-
-import Players.PlayerPlayer;
 import Utils.Direction;
 import Utils.Point;
-import Engine.GameWindow;
+import ui.Container.Anchor;
+import ui.Container.PositioningContainer;
+import ui.Container.UIContainer.FillType;
+import ui.Slider.Slider;
 import Game.GameState;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
-    protected static Map map;
+    public static Map map = new NewMap();
     protected Player player;
-    //protected Sprite hud;
-    protected Inventory inventory;
+    // protected Sprite hud;
+    protected static Inventory inventory;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
     protected CombatScreen combatScreen;
@@ -47,19 +46,23 @@ public class PlayLevelScreen extends Screen {
     public static boolean doReload = false;
 
 
+    protected PositioningContainer sliderContainer;
+    protected Slider volumeSlider;
 
-        // sound for level
-        protected SoundPlayer soundPlayer;
-        protected String soundPath;
+    // sound for level
+    protected SoundPlayer soundPlayer;
+    protected String soundPath;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
-    Map mapType = new NewMap();
-    public static Map changeMapType = new WildWestMap();
-
     public void initialize() {
+        
+        if (soundPlayer != null) {
+            soundPlayer.dispose();
+        }
+
         // setup state
         flagManager = new FlagManager();
         flagManager.addFlag("hasLostBall", false);
@@ -69,12 +72,12 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasTalkedToDino2", false);
 
         // define/setup map
-        this.map = mapType;
         map.setFlagManager(flagManager);
         map.setAdjustCamera();
 
         // setup player
-        //this.player = new PlayerPlayer(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        // this.player = new PlayerPlayer(map.getPlayerStartPosition().x,
+        // map.getPlayerStartPosition().y);
         this.player = new PlayerAsh(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.player.setMap(map);
         Point playerStartPosition = map.getPlayerStartPosition();
@@ -82,8 +85,9 @@ public class PlayLevelScreen extends Screen {
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
         this.player.setFacingDirection(Direction.DOWN);
 
-        //setup inventory
-        this.inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png", "fourSlotHUD.png",this.map,this.player);
+        // setup inventory
+        inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png",
+                "fourSlotHUD.png", map, this.player);
 
         // let pieces of map know which button to listen for as the "interact" button
         map.getTextbox().setInteractKey(player.getInteractKey());
@@ -96,10 +100,8 @@ public class PlayLevelScreen extends Screen {
             }
         }
 
-        for(Item item : map.getItems())
-        {
-            if(item.getInteractScript() != null)
-            {
+        for (Item item : map.getItems()) {
+            if (item.getInteractScript() != null) {
                 item.getInteractScript().setMap(map);
                 item.getInteractScript().setPlayer(player);
             }
@@ -126,29 +128,45 @@ public class PlayLevelScreen extends Screen {
 
         winScreen = new WinScreen(this);
 
-
-
         System.out.println(SoundPlayer.musicPlaying);
-        this.soundPath = this.map.soundPath;
+        this.soundPath = map.soundPath;
         System.out.println("Current song file path is " + this.soundPath);
         SoundPlayer.musicPlaying = true;
-        this.soundPlayer = new SoundPlayer(GameWindow.getGameWindow(),this.soundPath);
-                
+        this.soundPlayer = new SoundPlayer(GameWindow.getGameWindow(), this.soundPath);
+
+        // dont re-initialize slider
+        if (volumeSlider == null) {
+            // Create the volume slider
+            volumeSlider = new Slider(0, 0, 200, 0, 100);
+            volumeSlider.setValue(volumeSlider.getMax());
+            volumeSlider.addChangeListener(() -> {
+                this.soundPlayer.setVolume((int) volumeSlider.getValue());
+                System.out.println(volumeSlider.getValue());
+            });
+            // position at top of screen and anchor objects to their top center
+            sliderContainer = new PositioningContainer(Anchor.TOP_CENTER);
+            sliderContainer.setfillType(FillType.FILL_SCREEN);
+            sliderContainer.setAnchorChildren(true);
+
+            sliderContainer.addComponnent(volumeSlider);
+        }
+        this.soundPlayer.setVolume((int) volumeSlider.getValue());
     }
 
     public void update() {
         if (doReload) {
             System.out.println("initialized");
-            mapType = new WildWestMap();
-            this.inventory.setMap(changeMapType);
             soundPlayer.pause();
             System.out.println("pausing");
+            soundPlayer.reset(); // we should add a lot of this functionality into one method to make this a lo                   // more readable
             initialize();
             doReload = false;
+            
         }
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
-            // if level is "running" update player and map to keep game logic for the platformer level going
+            // if level is "running" update player and map to keep game logic for the
+            // platformer level going
             case RUNNING:
                 player.update();
                 map.update(player);
@@ -167,11 +185,7 @@ public class PlayLevelScreen extends Screen {
                 System.out.println("Combat mode");
         }
 
-        
-    }
-    public static void changeMap() {
-        System.out.println("test changing map");
-        map = new WildWestMap();
+        sliderContainer.update();
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
@@ -186,17 +200,13 @@ public class PlayLevelScreen extends Screen {
                 winScreen.draw(graphicsHandler);
                 break;
         }
-    }
 
-    public static Map getMap() {
-        Map currentMap = map;
-        return currentMap;
+        sliderContainer.draw(graphicsHandler);
     }
-
+    
     public PlayLevelScreenState getPlayLevelScreenState() {
         return playLevelScreenState;
     }
-
 
     public void resetLevel() {
         initialize();

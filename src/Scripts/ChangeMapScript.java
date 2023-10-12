@@ -22,15 +22,12 @@ public class ChangeMapScript extends Script {
         unlockPlayer();
     }
 
-    public Map currentMap;
-    public Map newMap;
-
     @Override
     public ScriptState execute() {
         System.out.println("executing");
-        PlayLevelScreen.changeMap();
+        //PlayLevelScreen.changeMap();
         PlayLevelScreen.doReload = true;
-        PlayLevelScreen.changeMapType = new WildWestMap();
+        PlayLevelScreen.map = new WildWestMap();
         return ScriptState.COMPLETED;
     }
 }
