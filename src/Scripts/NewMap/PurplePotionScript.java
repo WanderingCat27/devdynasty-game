@@ -3,10 +3,11 @@ package Scripts.NewMap;
 import GameObject.Inventory;
 import GameObject.Item;
 import Level.MapEntityStatus;
+import Level.NPC;
 import Level.Script;
 import Level.ScriptState;
 
-public class PurplePotionScript extends Script<Item>
+public class PurplePotionScript extends Script<NPC>
 {
     @Override
     protected void setup()

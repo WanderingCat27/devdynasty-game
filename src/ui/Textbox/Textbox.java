@@ -23,6 +23,8 @@ public class Textbox extends UIContainer {
     private SpriteFont text;
     private KeyLocker keyLocker = new KeyLocker();
     private Key interactKey = Key.SPACE;
+    private Key interactKey2 = Key.UP;
+    private Key interactKey3 = Key.DOWN;
 
     private int marginX = 20;
 
@@ -109,6 +111,12 @@ public class Textbox extends UIContainer {
 
     public void setInteractKey(Key interactKey) {
         this.interactKey = interactKey;
+    }
+    public void setInteractKey2(Key interactKey2) {
+        this.interactKey2 = interactKey2;
+    }
+    public void setInteractKey3(Key interactKey3) {
+        this.interactKey3 = interactKey3;
     }
 
 }
