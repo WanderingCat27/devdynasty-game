@@ -10,7 +10,6 @@ import GameObject.Item;
 import Level.EnhancedMapTile;
 import Level.FlagManager;
 import Level.Map;
-import Level.MapEntityStatus;
 import Level.MapTile;
 import Level.NPC;
 import Level.Player;
@@ -18,10 +17,6 @@ import Level.SoundPlayer;
 import Level.Trigger;
 import Maps.CombatMap;
 import Maps.NewMap;
-import Maps.WildWestMap;
-
-import Players.Cat;
-
 import Players.PlayerAsh;
 import Utils.Direction;
 import Utils.Point;
@@ -159,7 +154,6 @@ public class PlayLevelScreen extends Screen {
             System.out.println("initialized");
             soundPlayer.pause();
             System.out.println("pausing");
-            soundPlayer.reset(); // we should add a lot of this functionality into one method to make this a lo                   // more readable
             initialize();
             doReload = false;
             
