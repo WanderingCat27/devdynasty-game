@@ -15,6 +15,7 @@ import Level.NPC;
 import Level.Player;
 import Level.SoundPlayer;
 import Level.Trigger;
+import Maps.CombatMap;
 import Maps.NewMap;
 import Players.PlayerAsh;
 import Utils.Direction;
@@ -23,6 +24,7 @@ import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
 import ui.Slider.Slider;
+import Game.GameState;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
@@ -33,9 +35,11 @@ public class PlayLevelScreen extends Screen {
     protected static Inventory inventory;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
+    protected CombatScreen combatScreen;
     protected FlagManager flagManager;
     protected Item sword;
     public static boolean doReload = false;
+
 
     protected PositioningContainer sliderContainer;
     protected Slider volumeSlider;
@@ -60,6 +64,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasTalkedToWalrus", false);
         flagManager.addFlag("hasTalkedToDinosaur", false);
         flagManager.addFlag("hasFoundBall", false);
+        flagManager.addFlag("hasTalkedToDino2", false);
 
         // define/setup map
         map.setFlagManager(flagManager);
@@ -117,6 +122,7 @@ public class PlayLevelScreen extends Screen {
         }
 
         winScreen = new WinScreen(this);
+        
 
         System.out.println(SoundPlayer.musicPlaying);
         this.soundPath = map.soundPath;
@@ -152,6 +158,11 @@ public class PlayLevelScreen extends Screen {
             doReload = false;
             
         }
+
+        if(map.getFlagManager().isFlagSet("hasTalkedToDino2")){
+                screenCoordinator.setGameState(GameState.COMBAT);
+                System.out.println("Combat mode");
+        }
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the
@@ -164,7 +175,12 @@ public class PlayLevelScreen extends Screen {
             case LEVEL_COMPLETED:
                 winScreen.update();
                 break;
+
+
+            
         }
+
+        
 
         sliderContainer.update();
     }
@@ -199,6 +215,6 @@ public class PlayLevelScreen extends Screen {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED
+        RUNNING, LEVEL_COMPLETED;
     }
 }

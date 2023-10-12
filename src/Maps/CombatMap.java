@@ -4,9 +4,11 @@ import Engine.ImageLoader;
 import GameObject.ImageEffect;
 import GameObject.Sprite;
 import Level.Map;
+import NPCs.Dinosaur;
 import Tilesets.CommonTileset;
 import Utils.Colors;
 import Utils.Point;
+
 
 
 public class CombatMap extends Map{
