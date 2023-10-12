@@ -7,11 +7,13 @@ import Maps.WildWestMap;
 import Maps.CombatMap;
 import Screens.PlayLevelScreen;
 import Screens.CombatScreen;
+import Game.GameState;
 import Game.ScreenCoordinator;
 
 
 // script for talking to walrus npc
 public class DinoCombatScript extends Script<NPC> {
+
 
     @Override
     protected void setup() {
@@ -20,8 +22,8 @@ public class DinoCombatScript extends Script<NPC> {
         showTextbox();
 
         // changes what walrus says when talking to him the first time (flag is not set) vs talking to him afterwards (flag is set)
-        if (!isFlagSet("has talked to dino2")) {
-            addTextToTextboxQueue( "Im wanna fight you");
+        if (!isFlagSet("hasTalkedToDino2")) {
+            addTextToTextboxQueue( "I wanna fight you");
         }
         else {
             addTextToTextboxQueue( "Im a dinosaur");
@@ -35,7 +37,7 @@ public class DinoCombatScript extends Script<NPC> {
         hideTextbox();
 
         // set flag so that if walrus is talked to again after the first time, what he says changes
-        setFlag("has talked to dino2");
+        setFlag("hasTalkedToDino2");
     }
 
     @Override
@@ -45,10 +47,6 @@ public class DinoCombatScript extends Script<NPC> {
             return ScriptState.RUNNING;
         }
         end();
-        System.out.println("executing");
-        //PlayLevelScreen.goToCombat();
-        //PlayLevelScreen.doReload = true;
-        //PlayLevelScreen.changeMapType = new CombatMap();
         return ScriptState.COMPLETED;
     }
 }

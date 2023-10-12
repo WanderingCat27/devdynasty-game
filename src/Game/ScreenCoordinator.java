@@ -15,6 +15,7 @@ import Screens.PlayLevelScreen;
 public class ScreenCoordinator extends Screen {
 	// currently shown Screen
 	protected Screen currentScreen = new DefaultScreen();
+	protected Screen tempScreen;
 
 	// keep track of gameState so ScreenCoordinator knows which Screen to show
 	protected GameState gameState;
@@ -35,6 +36,8 @@ public class ScreenCoordinator extends Screen {
 		gameState = GameState.MENU;
 	}
 
+	
+
 	@Override
 	public void update() {
 		do {
@@ -46,10 +49,16 @@ public class ScreenCoordinator extends Screen {
 						currentScreen = new MenuScreen(this);
 						break;
 					case LEVEL:
-						currentScreen = new PlayLevelScreen(this);
+						if(previousGameState == GameState.COMBAT){
+							currentScreen = tempScreen;
+						}else{
+							currentScreen = new PlayLevelScreen(this);
+						}
 						break;
 					case COMBAT:
+						tempScreen = currentScreen;
 						currentScreen = new CombatScreen(this);
+						break;
 					case CREDITS:
 						currentScreen = new CreditsScreen(this);
 						break;
@@ -63,9 +72,14 @@ public class ScreenCoordinator extends Screen {
 		} while (previousGameState != gameState);
 	}
 
+	
+
 	@Override
 	public void draw(GraphicsHandler graphicsHandler) {
 		// call the draw method for the currentScreen
 		currentScreen.draw(graphicsHandler);
 	}
+
+
+	
 }

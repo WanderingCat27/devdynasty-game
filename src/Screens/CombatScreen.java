@@ -10,19 +10,23 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Maps.CombatMap;
 import ui.Button.SpriteButton;
+import ui.Button.TextButton;
 import java.awt.image.BufferedImage;
 import Level.Textbox;
 import java.util.Random;
 import GameObject.Sprite;
+import Screens.PlayLevelScreen;
 
 
 public class CombatScreen extends Screen{
     
     protected ScreenCoordinator screencoordinator;
+    protected PlayLevelScreen playLevelScreen;
     protected Map background;
     protected SpriteButton fightButton;
     protected SpriteButton runButton;
     protected SpriteButton bagButton;
+    protected TextButton returnButton;
     protected BufferedImage fightImage;
     protected BufferedImage runImage;
     protected BufferedImage bagImage;
@@ -33,6 +37,7 @@ public class CombatScreen extends Screen{
     private boolean action;
     private int health;
     private Random rand;
+    private boolean isInitialized;
 
     
 
@@ -57,6 +62,8 @@ public class CombatScreen extends Screen{
         background = new CombatMap();
 
         textbox = new Textbox(background);
+
+        isInitialized = true;
 
         fightButton = new SpriteButton(330, 374, scale, fightImage, new Runnable() {
 
@@ -94,8 +101,25 @@ public class CombatScreen extends Screen{
             
         });
 
+        returnButton = new TextButton(100, 400, 200, 100, Color.gray, "Return to game", new Font("Comic Sans", Font.PLAIN, 20), Color.WHITE ,new Runnable() {
+
+            
+            @Override
+            public void run(){
+                if(healthZero()){
+                    screencoordinator.setGameState(GameState.LEVEL);
+                }
+            }
+            
+            
+        });
+
         
 
+    }
+
+    public boolean isInitialized(){
+        return isInitialized;
     }
 
     public boolean healthZero(){
@@ -112,9 +136,10 @@ public class CombatScreen extends Screen{
             fightButton.update();
             runButton.update();
             bagButton.update();
+        }else{
+            returnButton.update();
         }
         
-
 
 
     }
@@ -127,7 +152,7 @@ public class CombatScreen extends Screen{
         
         if(healthZero()){
             youWinPopup.draw(graphicsHandler);
-            //PlayLevelScreen.goToCombat();
+            returnButton.draw(graphicsHandler);
         }
 
     }

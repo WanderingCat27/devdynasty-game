@@ -55,6 +55,7 @@ public class NewMap extends Map
         npcs.add(purplePotion);
 
         Dinosaur dino2 = new Dinosaur(2, getMapTile(22, 10).getLocation());
+        //dino2.setExistenceFlag("hastalkedToDino2");
         dino2.setInteractScript(new DinoCombatScript());
         npcs.add(dino2);
 
@@ -66,7 +67,7 @@ public class NewMap extends Map
         npcs.add(fireStaff);
 
         Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
-        //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
+        dinosaur.setExistenceFlag("hasTalkedToDinosaur");
         dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
 

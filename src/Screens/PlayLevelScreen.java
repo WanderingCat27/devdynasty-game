@@ -30,6 +30,7 @@ import Players.PlayerPlayer;
 import Utils.Direction;
 import Utils.Point;
 import Engine.GameWindow;
+import Game.GameState;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
@@ -44,6 +45,7 @@ public class PlayLevelScreen extends Screen {
     protected FlagManager flagManager;
     protected Item sword;
     public static boolean doReload = false;
+
 
 
         // sound for level
@@ -64,6 +66,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasTalkedToWalrus", false);
         flagManager.addFlag("hasTalkedToDinosaur", false);
         flagManager.addFlag("hasFoundBall", false);
+        flagManager.addFlag("hasTalkedToDino2", false);
 
         // define/setup map
         this.map = mapType;
@@ -122,7 +125,7 @@ public class PlayLevelScreen extends Screen {
         }
 
         winScreen = new WinScreen(this);
-        combatScreen = new CombatScreen(screenCoordinator);
+
 
 
         System.out.println(SoundPlayer.musicPlaying);
@@ -150,12 +153,18 @@ public class PlayLevelScreen extends Screen {
                 player.update();
                 map.update(player);
                 break;
-            case COMBAT:
-                combatScreen.initialize();
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
                 winScreen.update();
                 break;
+
+
+            
+        }
+
+        if(map.getFlagManager().isFlagSet("hasTalkedToDino2")){
+                screenCoordinator.setGameState(GameState.COMBAT);
+                System.out.println("Combat mode");
         }
 
         
@@ -173,9 +182,6 @@ public class PlayLevelScreen extends Screen {
                 map.draw(player, graphicsHandler);
                 inventory.drawHud(graphicsHandler);
                 break;
-           // case COMBAT:
-           //     combatScreen.draw(graphicsHandler);
-           //     break;
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
                 break;
@@ -200,11 +206,8 @@ public class PlayLevelScreen extends Screen {
         screenCoordinator.setGameState(GameState.MENU);
     }
 
-    // public void goToCombat(){
-    //     playLevelScreenState = PlayLevelScreenState.COMBAT;
-    // }
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, COMBAT, LEVEL_COMPLETED
+        RUNNING, LEVEL_COMPLETED;
     }
 }
