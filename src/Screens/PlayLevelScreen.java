@@ -10,6 +10,7 @@ import GameObject.Item;
 import Level.EnhancedMapTile;
 import Level.FlagManager;
 import Level.Map;
+import Level.MapEntityStatus;
 import Level.MapTile;
 import Level.NPC;
 import Level.Player;
@@ -28,10 +29,10 @@ import ui.Slider.Slider;
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
-    protected static Map map;
+    public static Map map = new NewMap();
     protected Player player;
     // protected Sprite hud;
-    protected Inventory inventory;
+    protected static Inventory inventory;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
     protected FlagManager flagManager;
@@ -49,10 +50,8 @@ public class PlayLevelScreen extends Screen {
         this.screenCoordinator = screenCoordinator;
     }
 
-    Map mapType = new NewMap();
-    public static Map changeMapType = new WildWestMap();
-
     public void initialize() {
+        
         if (soundPlayer != null) {
             soundPlayer.dispose();
         }
@@ -65,7 +64,6 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasFoundBall", false);
 
         // define/setup map
-        map = mapType;
         map.setFlagManager(flagManager);
         map.setAdjustCamera();
 
@@ -80,8 +78,8 @@ public class PlayLevelScreen extends Screen {
         this.player.setFacingDirection(Direction.DOWN);
 
         // setup inventory
-        this.inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png",
-                "fourSlotHUD.png", this.map, this.player);
+        inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png",
+                "fourSlotHUD.png", map, this.player);
 
         // let pieces of map know which button to listen for as the "interact" button
         map.getTextbox().setInteractKey(player.getInteractKey());
@@ -137,7 +135,6 @@ public class PlayLevelScreen extends Screen {
                 this.soundPlayer.setVolume((int) volumeSlider.getValue());
                 System.out.println(volumeSlider.getValue());
             });
-
             // position at top of screen and anchor objects to their top center
             sliderContainer = new PositioningContainer(Anchor.TOP_CENTER);
             sliderContainer.setfillType(FillType.FILL_SCREEN);
@@ -151,12 +148,9 @@ public class PlayLevelScreen extends Screen {
     public void update() {
         if (doReload) {
             System.out.println("initialized");
-            mapType = new WildWestMap();
-            // this.inventory.setMap(changeMapType);
             soundPlayer.pause();
             System.out.println("pausing");
-            soundPlayer.reset(); // we should add a lot of this functionality into one method to make this a lot
-                                 // more readable
+            soundPlayer.reset(); // we should add a lot of this functionality into one method to make this a lo                   // more readable
             initialize();
             doReload = false;
             
@@ -178,11 +172,6 @@ public class PlayLevelScreen extends Screen {
         sliderContainer.update();
     }
 
-    public static void changeMap() {
-        System.out.println("test changing map");
-        map = new WildWestMap();
-    }
-
     public void draw(GraphicsHandler graphicsHandler) {
         // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
@@ -198,12 +187,7 @@ public class PlayLevelScreen extends Screen {
 
         sliderContainer.draw(graphicsHandler);
     }
-
-    public static Map getMap() {
-        Map currentMap = map;
-        return currentMap;
-    }
-
+    
     public PlayLevelScreenState getPlayLevelScreenState() {
         return playLevelScreenState;
     }
