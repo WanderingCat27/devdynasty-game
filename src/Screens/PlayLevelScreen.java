@@ -127,6 +127,7 @@ public class PlayLevelScreen extends Screen {
         }
 
         winScreen = new WinScreen(this);
+        
 
         System.out.println(SoundPlayer.musicPlaying);
         this.soundPath = map.soundPath;
@@ -163,6 +164,11 @@ public class PlayLevelScreen extends Screen {
             doReload = false;
             
         }
+
+        if(map.getFlagManager().isFlagSet("hasTalkedToDino2")){
+                screenCoordinator.setGameState(GameState.COMBAT);
+                System.out.println("Combat mode");
+        }
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the
@@ -180,10 +186,7 @@ public class PlayLevelScreen extends Screen {
             
         }
 
-        if(map.getFlagManager().isFlagSet("hasTalkedToDino2")){
-                screenCoordinator.setGameState(GameState.COMBAT);
-                System.out.println("Combat mode");
-        }
+        
 
         sliderContainer.update();
     }

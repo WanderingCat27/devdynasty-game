@@ -36,6 +36,7 @@ public class ScreenCoordinator extends Screen {
 		gameState = GameState.MENU;
 	}
 
+
 	
 
 	@Override
@@ -51,6 +52,7 @@ public class ScreenCoordinator extends Screen {
 					case LEVEL:
 						if(previousGameState == GameState.COMBAT){
 							currentScreen = tempScreen;
+							System.out.println("Switchd from tempScreen");
 						}else{
 							currentScreen = new PlayLevelScreen(this);
 						}

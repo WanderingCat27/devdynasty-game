@@ -16,7 +16,8 @@ import Level.Textbox;
 import java.util.Random;
 import GameObject.Sprite;
 import Screens.PlayLevelScreen;
-
+import Level.NPC;
+import Maps.NewMap;
 
 public class CombatScreen extends Screen{
     
@@ -31,13 +32,18 @@ public class CombatScreen extends Screen{
     protected BufferedImage runImage;
     protected BufferedImage bagImage;
     protected BufferedImage youWinImage;
+    protected BufferedImage enemyImage;
     protected Textbox textbox;
     protected Sprite youWinPopup;
+    protected Sprite enemy;
     private float scale;
     private boolean action;
     private int health;
     private Random rand;
     private boolean isInitialized;
+    protected NPC npc;
+    
+
 
     
 
@@ -49,6 +55,9 @@ public class CombatScreen extends Screen{
         rand = new Random(15);
     }
 
+    // public void setNPC(NPC npc){
+    //     this.npc = npc;
+    // }
 
     
     public void initialize(){
@@ -58,7 +67,11 @@ public class CombatScreen extends Screen{
         runImage = ImageLoader.load("run_button.png");
         bagImage = ImageLoader.load("bag_button.png");
         youWinImage = ImageLoader.load("you_win.png");
+        enemyImage = ImageLoader.load("godzilla.png");
         youWinPopup = new Sprite(youWinImage, 100, 0);
+        enemy =  new Sprite(enemyImage, 300f, 50f);
+
+        
         background = new CombatMap();
 
         textbox = new Textbox(background);
@@ -149,10 +162,12 @@ public class CombatScreen extends Screen{
         fightButton.draw(graphicsHandler);
         runButton.draw(graphicsHandler);
         bagButton.draw(graphicsHandler);
+        enemy.draw(graphicsHandler);
         
         if(healthZero()){
             youWinPopup.draw(graphicsHandler);
             returnButton.draw(graphicsHandler);
+            //npc.draw(graphicsHandler);
         }
 
     }
