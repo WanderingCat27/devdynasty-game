@@ -24,21 +24,10 @@ public class madScientistScript extends Script<NPC> {
 
         if (!isFlagSet("hasTalkedToScientist")) {
             addTextToTextboxQueue( "This is the mad scientist test dialogue.");
-            addTextToTextboxQueue( "Test dialogue option #1 (PRESS UP ARROW) \n" + "Test dialogue option #2 (PRESS DOWN ARROW)");
-            if(Keyboard.isKeyDown(Key.UP))
-            {
-                addTextToTextboxQueue( "You chose dialogue option #1");
-            }
-            else if(Keyboard.isKeyDown(Key.DOWN))
-            {
-               addTextToTextboxQueue( "You chose dialogue option #2");
-            }
-             
+            addTextToTextboxQueue( "Test dialogue option #1 (PRESS UP ARROW) \nTest dialogue option #2 (PRESS DOWN ARROW)");  
         }
         entity.facePlayer(player);
     }
-
-    
 
     @Override
     protected void cleanup() {
@@ -52,9 +41,23 @@ public class madScientistScript extends Script<NPC> {
     @Override
     public ScriptState execute() {
         start();
+        if(Keyboard.isKeyDown(Key.UP))
+        {
+            addTextToTextboxQueue( "You chose dialogue option #1 \n(SPACE TO CONTINUE)");
+        }
+        else if(Keyboard.isKeyDown(Key.DOWN))
+        {
+            addTextToTextboxQueue( "You chose dialogue option #2 \n(SPACE TO CONTINUE)");
+        }
+        if(Keyboard.isKeyDown(Key.SPACE)){
+            unlockPlayer();
+            hideTextbox();
+        }
+        
         if (!isTextboxQueueEmpty()) {
             return ScriptState.RUNNING;
         }
+        
         end();
         return ScriptState.COMPLETED;
     }

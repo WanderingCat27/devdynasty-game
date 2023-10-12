@@ -30,6 +30,8 @@ public class Textbox {
     private KeyLocker keyLocker = new KeyLocker();
     private Map map;
     private Key interactKey = Key.SPACE;
+    private Key interactKey2 = Key.UP;
+    private Key interactKey3 = Key.DOWN;
 
     public Textbox(Map map) {
         this.map = map;
@@ -74,6 +76,39 @@ public class Textbox {
             text = new SpriteFont(next, fontX, fontY, "Arial", 30, Color.black);
 
         }
+
+        if (!textQueue.isEmpty() && keyLocker.isKeyLocked(interactKey2)) {
+            String next = textQueue.peek();
+
+            // if camera is at bottom of screen, text is drawn at top of screen instead of the bottom like usual
+            // to prevent it from covering the player
+            int fontY;
+            if (!map.getCamera().isAtBottomOfMap()) {
+                fontY = fontBottomY;
+            }
+            else {
+                fontY = fontTopY;
+            }
+            text = new SpriteFont(next, fontX, fontY, "Arial", 30, Color.black);
+
+        }
+
+        if (!textQueue.isEmpty() && keyLocker.isKeyLocked(interactKey3)) {
+            String next = textQueue.peek();
+
+            // if camera is at bottom of screen, text is drawn at top of screen instead of the bottom like usual
+            // to prevent it from covering the player
+            int fontY;
+            if (!map.getCamera().isAtBottomOfMap()) {
+                fontY = fontBottomY;
+            }
+            else {
+                fontY = fontTopY;
+            }
+            text = new SpriteFont(next, fontX, fontY, "Arial", 30, Color.black);
+
+        }
+
         // if interact key is pressed, remove the current text from the queue to prepare for the next text item to be displayed
         if (Keyboard.isKeyDown(interactKey) && !keyLocker.isKeyLocked(interactKey)) {
             keyLocker.lockKey(interactKey);
@@ -81,6 +116,22 @@ public class Textbox {
         }
         else if (Keyboard.isKeyUp(interactKey)) {
             keyLocker.unlockKey(interactKey);
+        }
+
+        if (Keyboard.isKeyDown(interactKey2) && !keyLocker.isKeyLocked(interactKey2)) {
+            keyLocker.lockKey(interactKey2);
+            textQueue.poll();
+        }
+        else if (Keyboard.isKeyUp(interactKey2)) {
+            keyLocker.unlockKey(interactKey2);
+        }
+
+        if (Keyboard.isKeyDown(interactKey3) && !keyLocker.isKeyLocked(interactKey3)) {
+            keyLocker.lockKey(interactKey3);
+            textQueue.poll();
+        }
+        else if (Keyboard.isKeyUp(interactKey3)) {
+            keyLocker.unlockKey(interactKey3);
         }
 
     }
@@ -109,6 +160,12 @@ public class Textbox {
 
     public void setInteractKey(Key interactKey) {
         this.interactKey = interactKey;
+    }
+    public void setInteractKey2(Key interactKey2) {
+        this.interactKey2 = interactKey2;
+    }
+    public void setInteractKey3(Key interactKey3) {
+        this.interactKey3 = interactKey3;
     }
 
 }
