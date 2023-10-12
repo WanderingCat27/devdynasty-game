@@ -25,7 +25,8 @@ public class ScreenCoordinator extends Screen {
 		return gameState;
 	}
 
-	// Other Screens can set the gameState of this class to force it to change the currentScreen
+	// Other Screens can set the gameState of this class to force it to change the
+	// currentScreen
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
 	}
@@ -36,24 +37,25 @@ public class ScreenCoordinator extends Screen {
 		gameState = GameState.MENU;
 	}
 
-
-	
-
 	@Override
 	public void update() {
 		do {
-			// if previousGameState does not equal gameState, it means there was a change in gameState
-			// this triggers ScreenCoordinator to bring up a new Screen based on what the gameState is
+			// if previousGameState does not equal gameState, it means there was a change in
+			// gameState
+			// this triggers ScreenCoordinator to bring up a new Screen based on what the
+			// gameState is
 			if (previousGameState != gameState) {
-				switch(gameState) {
+				switch (gameState) {
 					case MENU:
 						currentScreen = new MenuScreen(this);
 						break;
 					case LEVEL:
-						if(previousGameState == GameState.COMBAT){
+						if (previousGameState == GameState.COMBAT) {
 							currentScreen = tempScreen;
 							System.out.println("Switchd from tempScreen");
-						}else{
+							if (tempScreen instanceof PlayLevelScreen)
+								((PlayLevelScreen) tempScreen).doReload = true;
+						} else {
 							currentScreen = new PlayLevelScreen(this);
 						}
 						break;
@@ -65,9 +67,10 @@ public class ScreenCoordinator extends Screen {
 						currentScreen = new CreditsScreen(this);
 						break;
 					// case PAUSE:
-					// 	currentScreen = new PauseScreen(this);
+					// currentScreen = new PauseScreen(this);
 				}
-				currentScreen.initialize();
+				if (previousGameState != GameState.COMBAT)
+					currentScreen.initialize();
 			}
 			previousGameState = gameState;
 
@@ -76,14 +79,10 @@ public class ScreenCoordinator extends Screen {
 		} while (previousGameState != gameState);
 	}
 
-	
-
 	@Override
 	public void draw(GraphicsHandler graphicsHandler) {
 		// call the draw method for the currentScreen
 		currentScreen.draw(graphicsHandler);
 	}
 
-
-	
 }
