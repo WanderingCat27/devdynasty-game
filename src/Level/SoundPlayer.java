@@ -50,12 +50,6 @@ import javax.swing.JFrame;
         float dB = (float) (Math.log(vol) / Math.log(10.0) * 20.0);
             volumeControl.setValue(dB);
      }
-
-
-     public void reset()
-     {
-
-    }
      
      public void play() {
          clip.start();
