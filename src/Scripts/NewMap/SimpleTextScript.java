@@ -1,4 +1,4 @@
-//package Scripts;
+package Scripts.NewMap;
 
 import Level.Script;
 import Level.ScriptState;
