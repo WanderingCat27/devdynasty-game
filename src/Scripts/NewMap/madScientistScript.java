@@ -26,6 +26,7 @@ public class madScientistScript extends Script<NPC> {
             addTextToTextboxQueue( "My time machine is broken, I need help.");
             addTextToTextboxQueue( "I can help you with that. (PRESS UP ARROW) \nI can't help you with that. (PRESS DOWN ARROW)");  
         }
+        
         entity.facePlayer(player);
     }
 
@@ -48,9 +49,6 @@ public class madScientistScript extends Script<NPC> {
         else if(Keyboard.isKeyDown(Key.DOWN))
         {
             addTextToTextboxQueue( "You're no help! \n(SPACE TO CONTINUE)");
-        }
-        if(Keyboard.isKeyDown(Key.SPACE)){
-           cleanup();
         }
         
         if (!isTextboxQueueEmpty()) {
