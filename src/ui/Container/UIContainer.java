@@ -154,7 +154,7 @@ public class UIContainer {
         components.forEach((c) -> c.update());
     }
 
-    public void addComponnent(UIContainer comp) {
+    public void addComponent(UIContainer comp) {
         this.components.add(comp);
     }
 

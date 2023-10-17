@@ -15,7 +15,6 @@ import Level.NPC;
 import Level.Player;
 import Level.SoundPlayer;
 import Level.Trigger;
-import Maps.CombatMap;
 import Maps.NewMap;
 import Players.PlayerAsh;
 import Utils.Direction;
@@ -24,7 +23,6 @@ import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
 import ui.Slider.Slider;
-import Game.GameState;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
@@ -144,7 +142,7 @@ public class PlayLevelScreen extends Screen {
             sliderContainer.setfillType(FillType.FILL_SCREEN);
             sliderContainer.setAnchorChildren(true);
 
-            sliderContainer.addComponnent(volumeSlider);
+            sliderContainer.addComponent(volumeSlider);
         }
         this.soundPlayer.setVolume((int) volumeSlider.getValue());
     }
