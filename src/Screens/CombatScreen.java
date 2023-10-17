@@ -1,23 +1,23 @@
 package Screens;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import Engine.GraphicsHandler;
-import Engine.Screen;
 import Engine.ImageLoader;
+import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
+import GameObject.Sprite;
 import Level.Map;
+import Level.NPC;
+import Level.Textbox;
 import Maps.CombatMap;
 import ui.Button.SpriteButton;
 import ui.Button.TextButton;
-import java.awt.image.BufferedImage;
-import Level.Textbox;
-import java.util.Random;
-import GameObject.Sprite;
-import Screens.PlayLevelScreen;
-import Level.NPC;
-import Maps.NewMap;
+import ui.Container.CenterContainer;
+import ui.Container.UIContainer.FillType;
 
 public class CombatScreen extends Screen{
     
@@ -42,6 +42,7 @@ public class CombatScreen extends Screen{
     private Random rand;
     private boolean isInitialized;
     protected NPC npc;
+    private CenterContainer centerContainer;
     
 
 
@@ -78,7 +79,7 @@ public class CombatScreen extends Screen{
 
         isInitialized = true;
 
-        fightButton = new SpriteButton(330, 374, scale, fightImage, new Runnable() {
+        fightButton = new SpriteButton(0, 0, scale, fightImage, new Runnable() {
 
             
             @Override
@@ -127,6 +128,12 @@ public class CombatScreen extends Screen{
             
         });
 
+
+        centerContainer = new CenterContainer();
+        centerContainer.setAnchorChildren(true);
+        centerContainer.setfillType(FillType.FILL_SCREEN);
+        centerContainer.addComponent(fightButton);
+        System.out.println(fightButton.getXAbs());
         
 
     }
@@ -146,8 +153,8 @@ public class CombatScreen extends Screen{
     public void update(){
         background.update(null);
         if(!healthZero()){
-            fightButton.update();
-            runButton.update();
+          centerContainer.update();
+          runButton.update();
             bagButton.update();
         }else{
             returnButton.update();
@@ -159,7 +166,7 @@ public class CombatScreen extends Screen{
 
     public void draw(GraphicsHandler graphicsHandler){
         background.draw(graphicsHandler);
-        fightButton.draw(graphicsHandler);
+        centerContainer.draw(graphicsHandler);
         runButton.draw(graphicsHandler);
         bagButton.draw(graphicsHandler);
         enemy.draw(graphicsHandler);

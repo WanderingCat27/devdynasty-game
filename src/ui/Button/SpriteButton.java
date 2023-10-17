@@ -2,15 +2,15 @@ package ui.Button;
 
 import java.awt.image.BufferedImage;
 
-import Engine.GraphicsHandler;
-import GameObject.Sprite;
 import Utils.ImageUtils;
 import Utils.Point;
+import ui.SpriteUI.SpriteUI;
 
 public class SpriteButton extends AbstractButton {
   protected Sprite sprite;
   protected BufferedImage normalImg, hoveredImg, clickedImage;
   protected Point origin;
+  
 
   public SpriteButton(int x, int y, float scale, BufferedImage spriteImage, Runnable onClick) {
     super(x, y, x, y, onClick);
@@ -28,7 +28,7 @@ public class SpriteButton extends AbstractButton {
     this.clickedImage = ImageUtils.deepCopy(spriteImage);
     ImageUtils.darken(this.hoveredImg);
     ImageUtils.brighten(this.clickedImage);
-    this.sprite = new Sprite(normalImg, x, y);
+     this.addComponent(new SpriteUI(0, 0, spriteImage));
 
   }
 
@@ -46,8 +46,8 @@ public class SpriteButton extends AbstractButton {
     super.setYOrigin((int) origin.y + heightDiff / 2);
   }
 
-  public Sprite getSprite() {
-    return sprite;
+  public SpriteUI getSprite() {
+    return ((SpriteUI) this.components.get(0));;
   }
 
   @Override
