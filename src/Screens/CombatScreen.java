@@ -78,7 +78,7 @@ public class CombatScreen extends Screen{
 
         isInitialized = true;
 
-        fightButton = new SpriteButton(0, 0, scale, fightImage, new Runnable() {
+        fightButton = new SpriteButton(330, 374, scale, fightImage, new Runnable() {
 
             
             @Override
