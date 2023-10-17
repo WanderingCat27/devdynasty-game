@@ -32,13 +32,14 @@ public class GamePanel extends JPanel {
 	private KeyLocker keyLocker = new KeyLocker();
 	private final Key pauseKey = Key.ESC;
 	private Thread gameLoopProcess;
-	private ScreenCoordinator screenCoordinator;
 
 	private Key showFPSKey = Key.G;
 	private SpriteFont fpsDisplayLabel;
 	private boolean showFPS = false;
 	private int currentFPS;
 	private GameState gameState;
+
+  private ScreenCoordinator screenCoordinatorRef;
 
 	// The JPanel and various important class instances are setup here
 	public GamePanel() {
@@ -55,8 +56,6 @@ public class GamePanel extends JPanel {
 		graphicsHandler = new GraphicsHandler();
 
 		screenManager = new ScreenManager();
-		screenCoordinator = new ScreenCoordinator();
-		screenCoordinator.initialize();
 
 		pauseLabel = new SpriteFont("PAUSE", 365, 280, "Comic Sans", 24, Color.white);
 		pauseLabel.setOutlineColor(Color.black);
@@ -105,7 +104,6 @@ public class GamePanel extends JPanel {
 	public void update() {
 		updatePauseState();
 		updateShowFPSState();
-		//screenCoordinator.update();
 
 		if (!isGamePaused) {
 			screenManager.update();
@@ -113,7 +111,7 @@ public class GamePanel extends JPanel {
 	}
 
 	private void updatePauseState() {
-		gameState = screenCoordinator.getGameState();
+		gameState = ((ScreenCoordinator)screenManager.getCurrentScreen()).getGameState();
 		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey) && (gameState == GameState.LEVEL)) {
 			isGamePaused = !isGamePaused;
 			keyLocker.lockKey(pauseKey);

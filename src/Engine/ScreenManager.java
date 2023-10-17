@@ -17,6 +17,10 @@ public class ScreenManager {
         setCurrentScreen(new DefaultScreen());
     }
 
+    public Screen getCurrentScreen() {
+      return this.currentScreen;
+    }
+
     // attach an external Screen class here for the ScreenManager to start calling its update/draw cycles
     public void setCurrentScreen(Screen screen) {
         screen.initialize();
