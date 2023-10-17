@@ -17,7 +17,6 @@ import Maps.CombatMap;
 import ui.Button.SpriteButton;
 import ui.Button.TextButton;
 import ui.Container.CenterContainer;
-import ui.Container.UIContainer.FillType;
 
 public class CombatScreen extends Screen{
     
@@ -129,10 +128,6 @@ public class CombatScreen extends Screen{
         });
 
 
-        centerContainer = new CenterContainer();
-        centerContainer.setAnchorChildren(true);
-        centerContainer.setfillType(FillType.FILL_SCREEN);
-        centerContainer.addComponent(fightButton);
         System.out.println(fightButton.getXAbs());
         
 
@@ -153,7 +148,7 @@ public class CombatScreen extends Screen{
     public void update(){
         background.update(null);
         if(!healthZero()){
-          centerContainer.update();
+          fightButton.update();
           runButton.update();
             bagButton.update();
         }else{
@@ -166,7 +161,7 @@ public class CombatScreen extends Screen{
 
     public void draw(GraphicsHandler graphicsHandler){
         background.draw(graphicsHandler);
-        centerContainer.draw(graphicsHandler);
+        fightButton.draw(graphicsHandler);
         runButton.draw(graphicsHandler);
         bagButton.draw(graphicsHandler);
         enemy.draw(graphicsHandler);
