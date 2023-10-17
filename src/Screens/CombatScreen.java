@@ -1,16 +1,22 @@
 package Screens;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import Engine.GraphicsHandler;
-import Engine.Screen;
 import Engine.ImageLoader;
+import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
+import GameObject.Sprite;
 import Level.Map;
+import Level.NPC;
+import Level.Textbox;
 import Maps.CombatMap;
 import ui.Button.SpriteButton;
 import ui.Button.TextButton;
+<<<<<<< HEAD
 import java.awt.image.BufferedImage;
 import Level.Textbox;
 import java.util.Random;
@@ -20,6 +26,9 @@ import Level.NPC;
 import Maps.NewMap;
 import ui.Container.CenterContainer;
 import ui.Container.UIContainer.FillType;
+=======
+import ui.Container.CenterContainer;
+>>>>>>> master
 
 public class CombatScreen extends Screen{
     
@@ -44,7 +53,11 @@ public class CombatScreen extends Screen{
     private Random rand;
     private boolean isInitialized;
     protected NPC npc;
+<<<<<<< HEAD
     protected CenterContainer centerContainer;
+=======
+    private CenterContainer centerContainer;
+>>>>>>> master
     
 
 
@@ -132,9 +145,14 @@ public class CombatScreen extends Screen{
             
         });
 
+<<<<<<< HEAD
         centerContainer.addComponent(fightButton);
         centerContainer.addComponent(bagButton);
         centerContainer.addComponent(runButton);
+=======
+
+        System.out.println(fightButton.getXAbs());
+>>>>>>> master
         
 
     }
@@ -154,7 +172,13 @@ public class CombatScreen extends Screen{
     public void update(){
         background.update(null);
         if(!healthZero()){
+<<<<<<< HEAD
             centerContainer.update();
+=======
+          fightButton.update();
+          runButton.update();
+            bagButton.update();
+>>>>>>> master
         }else{
             returnButton.update();
         }
