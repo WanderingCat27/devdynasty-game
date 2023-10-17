@@ -18,6 +18,8 @@ import GameObject.Sprite;
 import Screens.PlayLevelScreen;
 import Level.NPC;
 import Maps.NewMap;
+import ui.Container.CenterContainer;
+import ui.Container.UIContainer.FillType;
 
 public class CombatScreen extends Screen{
     
@@ -42,6 +44,7 @@ public class CombatScreen extends Screen{
     private Random rand;
     private boolean isInitialized;
     protected NPC npc;
+    protected CenterContainer centerContainer;
     
 
 
@@ -53,6 +56,8 @@ public class CombatScreen extends Screen{
         this.screencoordinator = screenCoordinator;
         health = 20;
         rand = new Random(15);
+        centerContainer = new CenterContainer();
+        centerContainer.setfillType(FillType.FILL_SCREEN);
     }
 
     // public void setNPC(NPC npc){
@@ -127,6 +132,9 @@ public class CombatScreen extends Screen{
             
         });
 
+        centerContainer.addComponent(fightButton);
+        centerContainer.addComponent(bagButton);
+        centerContainer.addComponent(runButton);
         
 
     }
@@ -146,22 +154,19 @@ public class CombatScreen extends Screen{
     public void update(){
         background.update(null);
         if(!healthZero()){
-            fightButton.update();
-            runButton.update();
-            bagButton.update();
+            centerContainer.update();
         }else{
             returnButton.update();
         }
         
-
-
     }
 
     public void draw(GraphicsHandler graphicsHandler){
         background.draw(graphicsHandler);
-        fightButton.draw(graphicsHandler);
-        runButton.draw(graphicsHandler);
-        bagButton.draw(graphicsHandler);
+        // fightButton.draw(graphicsHandler);
+        // runButton.draw(graphicsHandler);
+        // bagButton.draw(graphicsHandler);
+        centerContainer.draw(graphicsHandler);
         enemy.draw(graphicsHandler);
         
         if(healthZero()){
