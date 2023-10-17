@@ -57,8 +57,8 @@ public class MenuScreen extends Screen {
         creditButton.getSpriteFont().setOutlineThickness(3);
         creditButton.getSpriteFont().setOutlineColor(new Color(2, 48, 71));
 
-        centerContainer.addComponnent(playButton);
-        centerContainer.addComponnent(creditButton);        
+        centerContainer.addComponent(playButton);
+        centerContainer.addComponent(creditButton);        
     }
 
     public void update() {
