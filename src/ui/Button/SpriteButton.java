@@ -2,13 +2,12 @@ package ui.Button;
 
 import java.awt.image.BufferedImage;
 
-import Engine.GraphicsHandler;
-import GameObject.Sprite;
 import Utils.ImageUtils;
 import Utils.Point;
+import ui.SpriteUI.SpriteUI;
 
 public class SpriteButton extends ClickableRect {
-    Sprite sprite;
+    SpriteUI sprite;
     protected Point origin;
 
     public SpriteButton(int x, int y, float scale, BufferedImage spriteImage, Runnable onClick) {
@@ -21,7 +20,8 @@ public class SpriteButton extends ClickableRect {
         setHeight(spriteImage.getHeight());
         this.onClick = onClick;
 
-        this.sprite = new Sprite(spriteImage, x, y);
+        this.addComponent(new SpriteUI(0, 0, spriteImage));
+        
     }
 
    
@@ -39,13 +39,8 @@ public class SpriteButton extends ClickableRect {
         super.setYOrigin((int) origin.y + heightDiff / 2);
     }
 
-    public Sprite getSprite() {
+    public SpriteUI getSprite() {
         return sprite;
-    }
-
-    @Override
-    public void draw(GraphicsHandler g) {
-        this.sprite.draw(g);
     }
 
 }
