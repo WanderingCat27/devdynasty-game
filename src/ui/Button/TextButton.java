@@ -1,17 +1,15 @@
 package ui.Button;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 
 import ui.Container.CenterContainer;
 import ui.SpriteFont.SpriteFont;
 
-public class TextButton extends ClickableRect {
+public class TextButton extends SolidRectButton {
 
     SpriteFont spriteFontRef;
 
-    private static Canvas metricCanvas = new Canvas();
     public TextButton(int x, int y, int width, int height, Color color, String text, Font font, Color textColor, Runnable onClick) {
         super(x, y, width, height, color, onClick);
     
