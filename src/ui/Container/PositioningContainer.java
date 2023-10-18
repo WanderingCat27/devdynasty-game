@@ -26,7 +26,7 @@ public class PositioningContainer extends UIContainer {
     @Override
     public void draw(GraphicsHandler g) {
         for (UIContainer comp : components) {
-            comp.setParentData(getXAbs() - drawPosition.getXOffset(this), getYAbs() - drawPosition.getYOffset(this), getParentWidth(), getHeight());
+            comp.setParentData(getXAbs() - drawPosition.getXOffset(this), getYAbs() - drawPosition.getYOffset(this), getWidth(), getHeight());
             comp.draw(g);
         }
     }
@@ -34,8 +34,8 @@ public class PositioningContainer extends UIContainer {
 
     // if should change anchor then change anchor of children
     @Override
-    public void addComponnent(UIContainer container) {
-        super.addComponnent(container);
+    public void addComponent(UIContainer container) {
+        super.addComponent(container);
         if (anchorChildren)
             container.setAnchor(this.drawPosition);
     }

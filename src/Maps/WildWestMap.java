@@ -1,5 +1,7 @@
 package Maps;
 
+import java.util.ArrayList;
+
 import EnhancedMapTiles.PushableRock;
 import Items.RedPotion;
 import Level.EnhancedMapTile;
@@ -8,26 +10,17 @@ import Level.NPC;
 import Level.Trigger;
 import NPCs.Dinosaur;
 import NPCs.Walrus;
-import Scripts.SimpleTextScript;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.TestMap.DinoScript;
-import Scripts.TestMap.LostBallScript;
-import Scripts.TestMap.TreeScript;
-import Scripts.TestMap.WalrusScript;
-import Tilesets.CommonTileset;
 import Tilesets.WestTileset;
-import Scripts.ChangeMapScript;
-
-import java.util.ArrayList;
 
 // Represents a test map to be used in a level
 public class WildWestMap extends Map {
 
     public WildWestMap() {
         super("west_map.txt", new WestTileset());
-        System.out.println("creating map");
         this.playerStartPosition = getMapTile(12, 2).getLocation();
-        this.soundPath = "Resources/Audio/2021-08-26_-_Outlaw_Beginnings_-_www.FesliyanStudios.com.wav";
+        addMusic("Resources/Audio/2021-08-26_-_Outlaw_Beginnings_-_www.FesliyanStudios.com.wav");
         this.setFlagManager(flagManager);
     }
 

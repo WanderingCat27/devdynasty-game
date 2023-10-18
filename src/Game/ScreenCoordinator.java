@@ -3,6 +3,7 @@ package Game;
 import Engine.DefaultScreen;
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Screens.CombatScreen;
 import Screens.CreditsScreen;
 import Screens.MenuScreen;
 import Screens.PlayLevelScreen;
@@ -14,6 +15,7 @@ import Screens.PlayLevelScreen;
 public class ScreenCoordinator extends Screen {
 	// currently shown Screen
 	protected Screen currentScreen = new DefaultScreen();
+	protected Screen tempScreen;
 
 	// keep track of gameState so ScreenCoordinator knows which Screen to show
 	protected GameState gameState;
@@ -23,7 +25,8 @@ public class ScreenCoordinator extends Screen {
 		return gameState;
 	}
 
-	// Other Screens can set the gameState of this class to force it to change the currentScreen
+	// Other Screens can set the gameState of this class to force it to change the
+	// currentScreen
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
 	}
@@ -37,23 +40,31 @@ public class ScreenCoordinator extends Screen {
 	@Override
 	public void update() {
 		do {
-			// if previousGameState does not equal gameState, it means there was a change in gameState
-			// this triggers ScreenCoordinator to bring up a new Screen based on what the gameState is
+			// if previousGameState does not equal gameState, it means there was a change in
+			// gameState
+			// this triggers ScreenCoordinator to bring up a new Screen based on what the
+			// gameState is
 			if (previousGameState != gameState) {
-				switch(gameState) {
+				switch (gameState) {
 					case MENU:
 						currentScreen = new MenuScreen(this);
 						break;
 					case LEVEL:
-						currentScreen = new PlayLevelScreen(this);
+							currentScreen = new PlayLevelScreen(this);
+              PlayLevelScreen.doReload = true;
+              currentScreen.initialize();
+						break;
+					case COMBAT:
+						currentScreen = new CombatScreen(this);
 						break;
 					case CREDITS:
 						currentScreen = new CreditsScreen(this);
 						break;
 					// case PAUSE:
-					// 	currentScreen = new PauseScreen(this);
+					// currentScreen = new PauseScreen(this);
 				}
-				currentScreen.initialize();
+				if (previousGameState != GameState.COMBAT)
+					currentScreen.initialize();
 			}
 			previousGameState = gameState;
 
@@ -67,4 +78,5 @@ public class ScreenCoordinator extends Screen {
 		// call the draw method for the currentScreen
 		currentScreen.draw(graphicsHandler);
 	}
+
 }

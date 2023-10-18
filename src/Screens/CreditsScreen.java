@@ -38,9 +38,9 @@ public class CreditsScreen extends Screen {
 
         creditsLabel = new SpriteFont("Credits", 0, 7, "Times New Roman", 30, Color.white);
         createdByLabel = new SpriteFont("Created by devDynasty", 0, 121, "Times New Roman", 20, Color.white);
-        posContainer.addComponnent(creditsLabel);
-        posContainer.addComponnent(createdByLabel);
-        this.exitButton = new TextButton(20, 20, 100, 50, Color.gray, "Menu", new Font("Comic Sans", Font.PLAIN, 20), Color.WHITE, new Runnable() {
+        posContainer.addComponent(creditsLabel);
+        posContainer.addComponent(createdByLabel);
+        this.exitButton = new TextButton(20, 20, 100, 50, Color.DARK_GRAY, "Menu", new Font("Comic Sans", Font.PLAIN, 20), Color.LIGHT_GRAY, new Runnable() {
 
             @Override
             public void run() {

@@ -7,6 +7,7 @@ import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
+import Level.LevelManager;
 import Level.Map;
 import Maps.TitleScreenMap;
 import ui.Button.TextButton;
@@ -37,6 +38,7 @@ public class MenuScreen extends Screen {
             @Override
             public void run() {
                 screenCoordinator.setGameState(GameState.LEVEL);
+                LevelManager.initStartMap();
 
             }
 
@@ -57,8 +59,8 @@ public class MenuScreen extends Screen {
         creditButton.getSpriteFont().setOutlineThickness(3);
         creditButton.getSpriteFont().setOutlineColor(new Color(2, 48, 71));
 
-        centerContainer.addComponnent(playButton);
-        centerContainer.addComponnent(creditButton);        
+        centerContainer.addComponent(playButton);
+        centerContainer.addComponent(creditButton);        
     }
 
     public void update() {
