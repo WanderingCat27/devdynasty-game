@@ -59,7 +59,6 @@ import javax.swing.JFrame;
      public void pause() {
         this.currentFrame = this.clip.getMicrosecondPosition();
         clip.stop();
-        System.out.println("paused");
         status = "paused";
      }
      public void resume() {
