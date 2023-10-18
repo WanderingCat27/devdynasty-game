@@ -29,6 +29,9 @@ public class TestMap extends Map {
     public TestMap() {
         super("test_map.txt", new CommonTileset());
         this.playerStartPosition = getMapTile(17, 20).getLocation();
+        this.soundPath = "Resources/Audio/AmTronic_-_Caribbean_Dub.wav";
+        System.out.println(this.soundPath);
+        this.setFlagManager(flagManager);
     }
 
     @Override
