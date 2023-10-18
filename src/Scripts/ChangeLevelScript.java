@@ -1,40 +1,41 @@
 package Scripts;
 
+import Level.Level;
 import Level.LevelManager;
-import Level.Levels;
 import Level.Script;
 import Level.ScriptState;
 import Screens.PlayLevelScreen;
 
-// script for talking to tree with hole in it
+// Reusable simple interact script
+// Just shows text upon interacting with the associated entity
 public class ChangeLevelScript extends Script {
+    private final Level level;
+    public ChangeLevelScript(Level level) {
+      this.level = level;      
+    }
 
-  private Levels toChange;
 
-  public ChangeLevelScript(Levels level) {
-    this.toChange = level;
+    @Override
+    public ScriptState execute() {
+        // call setup code
+        start();
+        
 
-  }
+        PlayLevelScreen.doReload = true;
+        LevelManager.setLevel(level);
 
-  @Override
-  protected void setup() {
-    lockPlayer();
-  }
+        // script ends
+        return ScriptState.COMPLETED;
+    }
 
-  @Override
-  protected void cleanup() {
-    map.flagManager.setFlag("changeMap");
-    System.out.println("setting flag");
-    hideTextbox();
-    unlockPlayer();
-  }
 
-  @Override
-  public ScriptState execute() {
-    System.out.println("executing");
-    // PlayLevelScreen.changeMap();
-    PlayLevelScreen.doReload = true;
-    LevelManager.setLevel(toChange);
-    return ScriptState.COMPLETED;
-  }
+    @Override
+    protected void setup() {
+    }
+
+
+    @Override
+    protected void cleanup() {
+    
+    }
 }

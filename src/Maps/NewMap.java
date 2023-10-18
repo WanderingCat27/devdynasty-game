@@ -7,7 +7,7 @@ import Items.PurplePotion;
 import Items.RedPotion;
 import Items.Sword;
 import Items.TimeMachine;
-import Level.Levels;
+import Level.LevelManager;
 import Level.Map;
 import Level.NPC;
 import NPCs.Dinosaur;
@@ -59,7 +59,7 @@ public class NewMap extends Map
         npcs.add(dino2);
 
         TimeMachine timeMachine = new TimeMachine(6, getMapTile(4, 5).getLocation());
-        timeMachine.setInteractScript(new ChangeLevelScript(Levels.WILDWEST));
+        timeMachine.setInteractScript(new ChangeLevelScript(LevelManager.WILDWEST));
         npcs.add(timeMachine);
 
         FireStaff fireStaff = new FireStaff(6, getMapTile(7, 2).getLocation());
