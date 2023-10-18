@@ -1,9 +1,8 @@
 package Scripts;
 
-import Level.Map;
+import Level.LevelManager;
 import Level.Script;
 import Level.ScriptState;
-import Maps.WildWestMap;
 import Screens.PlayLevelScreen;
 
 // script for talking to tree with hole in it
@@ -27,7 +26,7 @@ public class ChangeMapScript extends Script {
         System.out.println("executing");
         //PlayLevelScreen.changeMap();
         PlayLevelScreen.doReload = true;
-        PlayLevelScreen.map = new WildWestMap();
+        LevelManager.setLevel(LevelManager.Level.WILDWEST);
         return ScriptState.COMPLETED;
     }
 }

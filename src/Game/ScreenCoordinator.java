@@ -50,17 +50,11 @@ public class ScreenCoordinator extends Screen {
 						currentScreen = new MenuScreen(this);
 						break;
 					case LEVEL:
-						if (previousGameState == GameState.COMBAT) {
-							currentScreen = tempScreen;
-							System.out.println("Switchd from tempScreen");
-							if (tempScreen instanceof PlayLevelScreen)
-								((PlayLevelScreen) tempScreen).doReload = true;
-						} else {
 							currentScreen = new PlayLevelScreen(this);
-						}
+              PlayLevelScreen.doReload = true;
+              currentScreen.initialize();
 						break;
 					case COMBAT:
-						tempScreen = currentScreen;
 						currentScreen = new CombatScreen(this);
 						break;
 					case CREDITS:

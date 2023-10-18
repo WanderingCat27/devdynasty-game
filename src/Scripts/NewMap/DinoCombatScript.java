@@ -3,12 +3,6 @@ package Scripts.NewMap;
 import Level.NPC;
 import Level.Script;
 import Level.ScriptState;
-import Maps.WildWestMap;
-import Maps.CombatMap;
-import Screens.PlayLevelScreen;
-import Screens.CombatScreen;
-import Game.GameState;
-import Game.ScreenCoordinator;
 
 
 // script for talking to walrus npc
