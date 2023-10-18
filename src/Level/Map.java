@@ -83,7 +83,6 @@ public abstract class Map {
   // map's textbox instance
   protected Textbox textbox;
 
-
   // Maps sound player
   public SoundPlayer soundPlayer;
 
@@ -103,8 +102,9 @@ public abstract class Map {
   }
 
   protected void addMusic(String soundPath) {
-              this.soundPlayer = new SoundPlayer(GameWindow.getGameWindow(), soundPath);
-    }
+    this.soundPlayer = new SoundPlayer(GameWindow.getGameWindow(), soundPath);
+    this.soundPlayer.pause();
+  }
 
   protected int getMidPointY() {
     return ScreenManager.getScreenHeight() / 2;
