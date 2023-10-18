@@ -37,8 +37,6 @@ import javax.swing.JFrame;
      public SoundPlayer(JFrame frame ,String soundFilePath, int startVolume ) {
         this(frame, soundFilePath);
         setVolume(startVolume);
-        
-
      }
 
      // volume from 0-100;
@@ -46,7 +44,12 @@ import javax.swing.JFrame;
         // clamp and adjust volume to usable value
         float vol = Utils.MathUtils.clamp(volume, 0, 100) / 100f;
         float dB = (float) (Math.log(vol) / Math.log(10.0) * 20.0);
-            volumeControl.setValue(dB);
+        volumeControl.setValue(dB);
+     }
+
+     public FloatControl getVolume()
+     {
+        return volumeControl;
      }
      
      public void play() {

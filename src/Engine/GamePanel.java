@@ -111,15 +111,15 @@ public class GamePanel extends JPanel {
 	}
 
 	private void updatePauseState() {
-		gameState = ((ScreenCoordinator)screenManager.getCurrentScreen()).getGameState();
-		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey) && (gameState == GameState.LEVEL)) {
-			isGamePaused = !isGamePaused;
-			keyLocker.lockKey(pauseKey);
-		}
+		// gameState = ((ScreenCoordinator)screenManager.getCurrentScreen()).getGameState();
+		// if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey) && (gameState == GameState.LEVEL)) {
+		// 	isGamePaused = !isGamePaused;
+		// 	keyLocker.lockKey(pauseKey);
+		// }
 
-		if (Keyboard.isKeyUp(pauseKey)) {
-			keyLocker.unlockKey(pauseKey);
-		}
+		// if (Keyboard.isKeyUp(pauseKey)) {
+		// 	keyLocker.unlockKey(pauseKey);
+		// }
 	}
 
 	private void updateShowFPSState() {

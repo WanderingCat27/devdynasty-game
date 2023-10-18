@@ -1,6 +1,9 @@
 package Screens;
 
 import Engine.GraphicsHandler;
+import Engine.Key;
+import Engine.KeyLocker;
+import Engine.Keyboard;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
@@ -13,6 +16,9 @@ import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
 import ui.Slider.Slider;
+import Game.GameState;
+import Engine.Keyboard;
+
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
@@ -25,10 +31,12 @@ public class PlayLevelScreen extends Screen {
     protected FlagManager flagManager;
     protected Item sword;
     public static boolean doReload = false;
-
-
+    protected PauseScreen pauseScreen;
     protected PositioningContainer sliderContainer;
     protected Slider volumeSlider;
+
+    protected KeyLocker keyLocker = new KeyLocker();
+    protected static Key ESC = Key.ESC;
 
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
@@ -57,12 +65,32 @@ public class PlayLevelScreen extends Screen {
 
         winScreen = new WinScreen(this);
         
+        
 
         LevelManager.getCurrentLevel().getMap().soundPlayer.play();
         System.out.println(SoundPlayer.musicPlaying);
         SoundPlayer.musicPlaying = true;
 
         // dont re-initialize slider
+
+        // if (volumeSlider == null) {
+        //     // Create the volume slider
+        //     volumeSlider = new Slider(0, 0, 200, 0, 100);
+        //     volumeSlider.setValue(volumeSlider.getMax());
+        //     volumeSlider.addChangeListener(() -> {
+        //         this.soundPlayer.setVolume((int) volumeSlider.getValue());
+        //         System.out.println(volumeSlider.getValue());
+        //     });
+        //     // position at top of screen and anchor objects to their top center
+        //     sliderContainer = new PositioningContainer(Anchor.TOP_CENTER);
+        //     sliderContainer.setfillType(FillType.FILL_SCREEN);
+        //     sliderContainer.setAnchorChildren(true);
+
+        //     sliderContainer.addComponnent(volumeSlider);
+        // }
+        // this.soundPlayer.setVolume((int) volumeSlider.getValue());
+
+        pauseScreen = new PauseScreen(this, this.soundPlayer);
         if (volumeSlider == null) {
             // Create the volume slider
             volumeSlider = new Slider(0, 0, 200, 0, 100);
@@ -78,7 +106,6 @@ public class PlayLevelScreen extends Screen {
 
             sliderContainer.addComponent(volumeSlider);
         }
-        LevelManager.getCurrentLevel().getMap().soundPlayer.setVolume((int) volumeSlider.getValue());
     }
 
     public void update() {
@@ -95,6 +122,15 @@ public class PlayLevelScreen extends Screen {
                 screenCoordinator.setGameState(GameState.COMBAT);
                 System.out.println("Combat mode");
         }
+
+        if(Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC))
+        {
+            keyLocker.lockKey(ESC);
+            this.playLevelScreenState = PlayLevelScreenState.PAUSED;
+        }
+        
+
+        
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the
@@ -106,14 +142,15 @@ public class PlayLevelScreen extends Screen {
             case LEVEL_COMPLETED:
                 winScreen.update();
                 break;
-
-
-            
+            case PAUSED:
+                pauseScreen.update();
+                if(Keyboard.isKeyUp(ESC))
+                {
+                    keyLocker.unlockKey(ESC);
+                }
+                break;
         }
-
-        
-
-        sliderContainer.update();
+        //sliderContainer.update();
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
@@ -127,9 +164,11 @@ public class PlayLevelScreen extends Screen {
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
                 break;
+            case PAUSED:
+                pauseScreen.draw(graphicsHandler);
+                break;
         }
-
-        sliderContainer.draw(graphicsHandler);
+        //sliderContainer.draw(graphicsHandler);
     }
     
     public PlayLevelScreenState getPlayLevelScreenState() {
@@ -140,12 +179,25 @@ public class PlayLevelScreen extends Screen {
         initialize();
     }
 
+    public SoundPlayer getSoundPlayer() {
+        return soundPlayer;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public void resumeLevel()
+    {
+        this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+    }
+
     public void goBackToMenu() {
         screenCoordinator.setGameState(GameState.MENU);
     }
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED;
+        RUNNING, LEVEL_COMPLETED, PAUSED;
     }
 }
