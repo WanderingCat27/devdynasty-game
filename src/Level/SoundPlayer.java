@@ -18,19 +18,17 @@ import javax.swing.JFrame;
 
      private AudioInputStream audioInputStream;
 
-     public SoundPlayer(JFrame frame ,String soundFilePath) {
+     public SoundPlayer(JFrame frame, String soundFilePath) {
          try {
              soundPath = soundFilePath;
-             System.out.println("getting file");
              audioInputStream = AudioSystem.getAudioInputStream(new File(soundFilePath).getAbsoluteFile());
-             System.out.println("got file");
              clip = AudioSystem.getClip();
              clip.open(audioInputStream);
              volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN); //set the volume for the the audio clip
              clip.loop(Clip.LOOP_CONTINUOUSLY);
          } catch (Exception e) {
              System.out.println("Error with creating sound player");
-             System.out.println(e);
+            e.printStackTrace();
         }
         
 

@@ -28,11 +28,9 @@ public class NewMap extends Map
         super("proof_map.txt", new AnimatedTileset());
         this.playerStartPosition = getMapTile(10, 10).getLocation();
         // Links background sound to map
-        this.soundPath = "Resources/Audio/AmTronic_-_Caribbean_Dub.wav";
-        System.out.println(this.soundPath);
+        addMusic("Resources/Audio/AmTronic_-_Caribbean_Dub.wav");
         this.setFlagManager(flagManager);
 
-        System.out.println("init new new map");
 
     } 
     
