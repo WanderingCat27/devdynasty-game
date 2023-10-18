@@ -8,7 +8,7 @@ import Level.Levels;
 import Level.Map;
 import Level.NPC;
 import NPCs.MadScientist;
-import Scripts.ChangeMapScript;
+import Scripts.ChangeLevelScript;
 import Scripts.NewMap.madScientistScript;
 import Tilesets.ScienceLabTilset;
 
@@ -31,7 +31,7 @@ public class ScienceLabMap extends Map
         npcs.add(sword);
 
         TimeMachine timeMachine = new TimeMachine(2, getMapTile(28, 10).getLocation());
-        timeMachine.setInteractScript(new ChangeMapScript(Levels.WILDWEST));
+        timeMachine.setInteractScript(new ChangeLevelScript(Levels.WILDWEST));
         npcs.add(timeMachine);
 
         MadScientist madScientist = new MadScientist(3, getMapTile(27, 14).getLocation().subtractY(40));

@@ -12,7 +12,7 @@ import Level.Map;
 import Level.NPC;
 import NPCs.Dinosaur;
 import NPCs.MadScientist;
-import Scripts.ChangeMapScript;
+import Scripts.ChangeLevelScript;
 import Scripts.NewMap.DinoCombatScript;
 import Scripts.NewMap.madScientistScript;
 import Scripts.TestMap.DinoScript;
@@ -59,7 +59,7 @@ public class NewMap extends Map
         npcs.add(dino2);
 
         TimeMachine timeMachine = new TimeMachine(6, getMapTile(4, 5).getLocation());
-        timeMachine.setInteractScript(new ChangeMapScript(Levels.WILDWEST));
+        timeMachine.setInteractScript(new ChangeLevelScript(Levels.WILDWEST));
         npcs.add(timeMachine);
 
         FireStaff fireStaff = new FireStaff(6, getMapTile(7, 2).getLocation());
