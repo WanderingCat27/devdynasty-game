@@ -9,6 +9,13 @@ import Screens.PlayLevelScreen;
 // script for talking to tree with hole in it
 public class ChangeMapScript extends Script {
 
+  private Levels toChange;
+
+  public ChangeMapScript(Levels level) {
+    this.toChange = level;
+
+  }
+
   @Override
   protected void setup() {
     lockPlayer();
@@ -27,7 +34,7 @@ public class ChangeMapScript extends Script {
     System.out.println("executing");
     // PlayLevelScreen.changeMap();
     PlayLevelScreen.doReload = true;
-    LevelManager.setLevel(Levels.WILDWEST);
+    LevelManager.setLevel(toChange);
     return ScriptState.COMPLETED;
   }
 }
