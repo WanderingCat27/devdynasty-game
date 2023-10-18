@@ -7,11 +7,11 @@ import Level.ScriptState;
 import Screens.PlayLevelScreen;
 
 // script for talking to tree with hole in it
-public class ChangeMapScript extends Script {
+public class ChangeLevelScript extends Script {
 
   private Levels toChange;
 
-  public ChangeMapScript(Levels level) {
+  public ChangeLevelScript(Levels level) {
     this.toChange = level;
 
   }
