@@ -5,11 +5,8 @@ import java.awt.Font;
 
 import Engine.GraphicsHandler;
 import Engine.Screen;
-import Game.GameState;
-import Game.ScreenCoordinator;
 import Level.Map;
 import Level.SoundPlayer;
-import Maps.WildWestMap;
 import ui.Button.TextButton;
 import ui.Container.Anchor;
 import ui.Container.CenterContainer;
@@ -37,7 +34,7 @@ public class PauseScreen extends Screen
 
     public void initialize()
     {
-        background = new WildWestMap(); //just to test
+        // background = new WildWestMap(); //just to test
         //might need to set camera to center of the screen
         centerContainer = new CenterContainer();
         centerContainer.setfillType(FillType.FILL_SCREEN);
@@ -51,7 +48,7 @@ public class PauseScreen extends Screen
         });
         playButton.getSpriteFont().setOutlineThickness(3);
         playButton.getSpriteFont().setOutlineColor(Color.black);
-        centerContainer.addComponnent(playButton);
+        centerContainer.addComponent(playButton);
 
         //volume slider
         // dont re-initialize slider
@@ -68,7 +65,7 @@ public class PauseScreen extends Screen
             sliderContainer.setfillType(FillType.FILL_SCREEN);
             sliderContainer.setAnchorChildren(true);
 
-            sliderContainer.addComponnent(volumeSlider);
+            sliderContainer.addComponent(volumeSlider);
         }
         //playLevelScreen.getSoundPlayer().getVolume().getValue()
     }
