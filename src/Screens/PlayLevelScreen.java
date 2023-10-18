@@ -11,13 +11,12 @@ import GameObject.Inventory;
 import GameObject.Item;
 import Level.FlagManager;
 import Level.LevelManager;
+import Level.Map;
 import Level.SoundPlayer;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
 import ui.Slider.Slider;
-import Game.GameState;
-import Engine.Keyboard;
 
 
 // This class is for when the platformer game is actually being played
@@ -90,7 +89,7 @@ public class PlayLevelScreen extends Screen {
         // }
         // this.soundPlayer.setVolume((int) volumeSlider.getValue());
 
-        pauseScreen = new PauseScreen(this, this.soundPlayer);
+        pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer);
         if (volumeSlider == null) {
             // Create the volume slider
             volumeSlider = new Slider(0, 0, 200, 0, 100);
@@ -180,11 +179,11 @@ public class PlayLevelScreen extends Screen {
     }
 
     public SoundPlayer getSoundPlayer() {
-        return soundPlayer;
+        return getMap().soundPlayer;
     }
 
     public Map getMap() {
-        return map;
+        return LevelManager.getCurrentLevel().getMap();
     }
 
     public void resumeLevel()
