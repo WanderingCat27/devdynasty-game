@@ -8,7 +8,6 @@ import Level.Map;
 import Level.NPC;
 import NPCs.MadScientist;
 import Scripts.ChangeMapScript;
-import Scripts.NewMap.SwordScript;
 import Scripts.NewMap.madScientistScript;
 import Tilesets.ScienceLabTilset;
 
@@ -18,8 +17,7 @@ public class ScienceLabMap extends Map
     {
         super("science_lab_map.txt", new ScienceLabTilset());
         this.playerStartPosition = getMapTile(5, 5).getLocation();
-        this.soundPath = "Resources/Audio/AmTronic_-_Caribbean_Dub.wav";
-        System.out.println(this.soundPath);
+        addMusic("Resources/Audio/AmTronic_-_Caribbean_Dub.wav");
         this.setFlagManager(flagManager);
     }
     
