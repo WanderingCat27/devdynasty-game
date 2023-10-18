@@ -18,7 +18,6 @@ import Level.NPC;
 import Level.Player;
 import Level.SoundPlayer;
 import Level.Trigger;
-import Maps.CombatMap;
 import Maps.NewMap;
 import Players.PlayerAsh;
 import Utils.Direction;
@@ -29,6 +28,7 @@ import ui.Container.UIContainer.FillType;
 import ui.Slider.Slider;
 import Game.GameState;
 import Engine.Keyboard;
+
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
@@ -138,6 +138,7 @@ public class PlayLevelScreen extends Screen {
         this.soundPlayer = new SoundPlayer(GameWindow.getGameWindow(), this.soundPath);
 
         // dont re-initialize slider
+
         // if (volumeSlider == null) {
         //     // Create the volume slider
         //     volumeSlider = new Slider(0, 0, 200, 0, 100);
@@ -156,6 +157,21 @@ public class PlayLevelScreen extends Screen {
         // this.soundPlayer.setVolume((int) volumeSlider.getValue());
 
         pauseScreen = new PauseScreen(this, this.soundPlayer);
+        if (volumeSlider == null) {
+            // Create the volume slider
+            volumeSlider = new Slider(0, 0, 200, 0, 100);
+            volumeSlider.setValue(volumeSlider.getMax());
+            volumeSlider.addChangeListener(() -> {
+                this.soundPlayer.setVolume((int) volumeSlider.getValue());
+                System.out.println(volumeSlider.getValue());
+            });
+            // position at top of screen and anchor objects to their top center
+            sliderContainer = new PositioningContainer(Anchor.TOP_CENTER);
+            sliderContainer.setfillType(FillType.FILL_SCREEN);
+            sliderContainer.setAnchorChildren(true);
+
+            sliderContainer.addComponent(volumeSlider);
+        }
     }
 
     public void update() {
