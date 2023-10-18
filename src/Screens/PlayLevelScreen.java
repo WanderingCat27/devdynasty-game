@@ -16,6 +16,8 @@ import Level.Player;
 import Level.SoundPlayer;
 import Level.Trigger;
 import Maps.NewMap;
+import Maps.ScienceLabMap;
+import Maps.TestMap;
 import Players.PlayerAsh;
 import Utils.Direction;
 import Utils.Point;
@@ -27,7 +29,7 @@ import ui.Slider.Slider;
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
-    public static Map map = new NewMap();
+    public static Map map = new ScienceLabMap();
     protected Player player;
     // protected Sprite hud;
     protected static Inventory inventory;

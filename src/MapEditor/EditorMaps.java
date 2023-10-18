@@ -4,6 +4,7 @@ import Level.Map;
 import Maps.TestMap;
 import Maps.TitleScreenMap;
 import Maps.NewMap;
+import Maps.ScienceLabMap;
 import Maps.WildWestMap;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class EditorMaps {
             add("TitleScreen");
             add("NewMap");
             add("WildWestMap");
+            add("ScienceLabMap");
         }};
     }
 
@@ -28,6 +30,8 @@ public class EditorMaps {
                 return new NewMap();
             case "WildWestMap":
                 return new WildWestMap();
+            case "ScienceLabMap":
+                return new ScienceLabMap();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }
