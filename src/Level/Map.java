@@ -81,7 +81,7 @@ public abstract class Map {
   public FlagManager flagManager;
 
   // map's textbox instance
-  protected Textbox textbox;
+  protected TextboxHandler textbox;
 
   // Maps sound player
   public SoundPlayer soundPlayer;
@@ -145,7 +145,7 @@ public abstract class Map {
     this.loadScripts();
 
     this.camera = new Camera(0, 0, tileset.getScaledSpriteWidth(), tileset.getScaledSpriteHeight(), this);
-    this.textbox = new Textbox(this);
+    this.textbox = new TextboxHandler(this);
   }
 
   // reads in a map file to create the map's tilemap
@@ -566,7 +566,7 @@ public abstract class Map {
 
     }
     camera.update(player);
-    if (textbox.isActive()) {
+    if (textbox.getTextbox().isActive()) {
       textbox.update();
     }
   }
@@ -601,7 +601,7 @@ public abstract class Map {
 
   public void draw(Player player, GraphicsHandler graphicsHandler) {
     camera.draw(player, graphicsHandler);
-    if (textbox.isActive()) {
+    if (textbox.getTextbox().isActive()) {
       textbox.draw(graphicsHandler);
     }
   }
@@ -614,7 +614,7 @@ public abstract class Map {
     this.flagManager = flagManager;
   }
 
-  public Textbox getTextbox() {
+  public TextboxHandler getTextboxHandler() {
     return textbox;
   }
 
