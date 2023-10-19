@@ -3,6 +3,7 @@ package Level;
 import Engine.GraphicsHandler;
 import GameObject.Item;
 import Maps.NewMap;
+import Maps.ScienceLabMap;
 import Maps.WildWestMap;
 import Players.PlayerAsh;
 import Utils.Direction;
@@ -10,7 +11,8 @@ import Utils.Point;
 
 public enum Levels {
     TEST(new NewMap()),
-    WILDWEST(new WildWestMap());
+    WILDWEST(new WildWestMap()),
+    LAB(new ScienceLabMap());
 
     private final Map map;
     private final Player player;

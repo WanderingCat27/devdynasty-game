@@ -30,7 +30,7 @@ public class Point {
         return new Point(this.x - x, this.y);
     }
 
-    public Point subtractY(int y) {
+    public Point subtractY(float y) {
         return new Point(this.x, this.y - y);
     }
 

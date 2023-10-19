@@ -2,6 +2,7 @@ package Maps;
 
 import java.util.ArrayList;
 
+import Items.Computer;
 import Items.Sword;
 import Items.TimeMachine;
 import Level.Levels;
@@ -37,6 +38,16 @@ public class ScienceLabMap extends Map
         MadScientist madScientist = new MadScientist(3, getMapTile(27, 14).getLocation().subtractY(40));
         madScientist.setInteractScript(new madScientistScript());
         npcs.add(madScientist);
+
+        //add computer
+        Computer computer = new Computer(4, getMapTile(26, 8).getLocation().subtractY(7));
+        //add interact script
+        npcs.add(computer);
+
+        Computer computer2 = new Computer(5, getMapTile(24, 8).getLocation().subtractY(7));
+        //add interact script
+        npcs.add(computer2);
+        
         return npcs;
     }
 }

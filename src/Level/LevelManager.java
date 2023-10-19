@@ -19,7 +19,7 @@ public class LevelManager {
   }
 
   public static void initStartMap() {
-    setLevel(Levels.TEST);
+    setLevel(Levels.LAB);
   }
 
   
