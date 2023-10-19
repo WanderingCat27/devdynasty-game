@@ -46,7 +46,7 @@ public class PlayLevelScreen extends Screen {
     flagManager.addFlag("hasTalkedToDinosaur", false);
     flagManager.addFlag("hasFoundBall", false);
     flagManager.addFlag("hasTalkedToDino2", false);
-    flagManager.addFlag("hasTalkedToCowboy", false);
+    GlobalFlagManager.flagManager.addFlag("hasTalkedToCowboy", false);
   }
 
   public void initialize() {
@@ -115,7 +115,7 @@ public class PlayLevelScreen extends Screen {
       System.out.println("Combat mode");
     }
 
-    if (LevelManager.getCurrentLevel().getMap().getFlagManager().isFlagSet("hasTalkedToCowboy")) {
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
       screenCoordinator.setGameState(GameState.COMBAT);
     }
 
