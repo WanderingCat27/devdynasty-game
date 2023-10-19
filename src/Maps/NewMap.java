@@ -30,8 +30,6 @@ public class NewMap extends Map
         this.playerStartPosition = getMapTile(10, 10).getLocation();
         // Links background sound to map
         addMusic("Resources/Audio/AmTronic_-_Caribbean_Dub.wav");
-        this.setFlagManager(flagManager);
-
 
     } 
     
