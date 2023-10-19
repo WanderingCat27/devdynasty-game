@@ -7,11 +7,12 @@ import Items.PurplePotion;
 import Items.RedPotion;
 import Items.Sword;
 import Items.TimeMachine;
+import Level.LevelManager;
 import Level.Map;
 import Level.NPC;
 import NPCs.Dinosaur;
 import NPCs.MadScientist;
-import Scripts.ChangeMapScript;
+import Scripts.ChangeLevelScript;
 import Scripts.NewMap.DinoCombatScript;
 import Scripts.NewMap.madScientistScript;
 import Scripts.TestMap.DinoScript;
@@ -28,11 +29,9 @@ public class NewMap extends Map
         super("proof_map.txt", new AnimatedTileset());
         this.playerStartPosition = getMapTile(10, 10).getLocation();
         // Links background sound to map
-        this.soundPath = "Resources/Audio/AmTronic_-_Caribbean_Dub.wav";
-        System.out.println(this.soundPath);
+        addMusic("Resources/Audio/AmTronic_-_Caribbean_Dub.wav");
         this.setFlagManager(flagManager);
 
-        System.out.println("init new new map");
 
     } 
     
@@ -60,7 +59,7 @@ public class NewMap extends Map
         npcs.add(dino2);
 
         TimeMachine timeMachine = new TimeMachine(6, getMapTile(4, 5).getLocation());
-        timeMachine.setInteractScript(new ChangeMapScript());
+        timeMachine.setInteractScript(new ChangeLevelScript(LevelManager.WILDWEST));
         npcs.add(timeMachine);
 
         FireStaff fireStaff = new FireStaff(6, getMapTile(7, 2).getLocation());

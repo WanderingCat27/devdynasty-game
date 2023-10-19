@@ -18,19 +18,17 @@ import javax.swing.JFrame;
 
      private AudioInputStream audioInputStream;
 
-     public SoundPlayer(JFrame frame ,String soundFilePath) {
+     public SoundPlayer(JFrame frame, String soundFilePath) {
          try {
              soundPath = soundFilePath;
-             System.out.println("getting file");
              audioInputStream = AudioSystem.getAudioInputStream(new File(soundFilePath).getAbsoluteFile());
-             System.out.println("got file");
              clip = AudioSystem.getClip();
              clip.open(audioInputStream);
              volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN); //set the volume for the the audio clip
              clip.loop(Clip.LOOP_CONTINUOUSLY);
          } catch (Exception e) {
              System.out.println("Error with creating sound player");
-             System.out.println(e);
+            e.printStackTrace();
         }
         
 
@@ -39,8 +37,6 @@ import javax.swing.JFrame;
      public SoundPlayer(JFrame frame ,String soundFilePath, int startVolume ) {
         this(frame, soundFilePath);
         setVolume(startVolume);
-        
-
      }
 
      // volume from 0-100;
@@ -48,7 +44,12 @@ import javax.swing.JFrame;
         // clamp and adjust volume to usable value
         float vol = Utils.MathUtils.clamp(volume, 0, 100) / 100f;
         float dB = (float) (Math.log(vol) / Math.log(10.0) * 20.0);
-            volumeControl.setValue(dB);
+        volumeControl.setValue(dB);
+     }
+
+     public FloatControl getVolume()
+     {
+        return volumeControl;
      }
      
      public void play() {
@@ -58,7 +59,6 @@ import javax.swing.JFrame;
      public void pause() {
         this.currentFrame = this.clip.getMicrosecondPosition();
         clip.stop();
-        System.out.println("paused");
         status = "paused";
      }
      public void resume() {

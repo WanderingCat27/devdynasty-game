@@ -84,7 +84,7 @@ public class GamePanel extends JPanel {
 	// this had to be done outside of the constructor because it needed to know the
 	// JPanel's width and height, which aren't available in the constructor
 	public void setupGame() {
-		setBackground(Colors.CORNFLOWER_BLUE);
+		setBackground(Colors.BLACK);
 		screenManager.initialize(new Rectangle(getX(), getY(), getWidth(), getHeight()));
 	}
 
@@ -111,15 +111,15 @@ public class GamePanel extends JPanel {
 	}
 
 	private void updatePauseState() {
-		gameState = ((ScreenCoordinator)screenManager.getCurrentScreen()).getGameState();
-		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey) && (gameState == GameState.LEVEL)) {
-			isGamePaused = !isGamePaused;
-			keyLocker.lockKey(pauseKey);
-		}
+		// gameState = ((ScreenCoordinator)screenManager.getCurrentScreen()).getGameState();
+		// if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey) && (gameState == GameState.LEVEL)) {
+		// 	isGamePaused = !isGamePaused;
+		// 	keyLocker.lockKey(pauseKey);
+		// }
 
-		if (Keyboard.isKeyUp(pauseKey)) {
-			keyLocker.unlockKey(pauseKey);
-		}
+		// if (Keyboard.isKeyUp(pauseKey)) {
+		// 	keyLocker.unlockKey(pauseKey);
+		// }
 	}
 
 	private void updateShowFPSState() {

@@ -1,5 +1,7 @@
 package NPCs;
 
+import java.awt.Point;
+import java.util.HashMap;
 
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
@@ -8,49 +10,51 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.NPC;
-import Level.Player;
-import Utils.Point;
 
+public class MadScientist extends NPC
+{
+    public MadScientist(int id, Utils.Point point)
+    {
+        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("FinalMadScientist.png"), 14, 19), "STAND_DOWN");
+    }
 
-import java.util.HashMap;
+    public void update() {
+        super.update();
+    }
 
+    public void draw(GraphicsHandler graphicsHandler) {
+        super.draw(graphicsHandler);
+    }
 
-// This class is for the walrus NPC
-public class MadScientist extends NPC {
-
-
-   public MadScientist(int id, Point location) {
-       super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("madScientist.png"), 24, 24), "STAND_LEFT");
-   }
-
-
-   public void update(Player player) {
-       super.update(player);
-   }
-
-   @Override
-   public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
-       return new HashMap<String, Frame[]>() {{
-           put("STAND_LEFT", new Frame[] {
-                   new FrameBuilder(spriteSheet.getSprite(0, 0))
-                           .withScale(3)
-                           .withBounds(7, 13, 11, 7)
+    @Override
+    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)
+    {
+        return new HashMap<String, Frame[]>() {{
+            put("STAND_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(1, 0))
+                            .withScale(2.5f)
+                            .withBounds(0, 0, 14, 19)
+                            .build()
+            });
+            put("STAND_RIGHT", new Frame[] {
+                   new FrameBuilder(spriteSheet.getSprite(1, 0))
+                           .withScale(2.5f)
+                           .withBounds(0, 0, 14, 19)
                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                            .build()
            });
-           put("STAND_RIGHT", new Frame[] {
-                  new FrameBuilder(spriteSheet.getSprite(0, 0))
-                          .withScale(3)
-                          .withBounds(7, 13, 11, 7)
-                          .build()
-          });
-       }};
-   }
-
-
-   @Override
-   public void draw(GraphicsHandler graphicsHandler) {
-       super.draw(graphicsHandler);
-   }
+            put("STAND_UP", new Frame[] {
+                   new FrameBuilder(spriteSheet.getSprite(2, 0))
+                           .withScale(2.5f)
+                           .withBounds(0, 0, 14, 19)
+                           .build()
+           });
+            put("STAND_DOWN", new Frame[] {
+                   new FrameBuilder(spriteSheet.getSprite(0, 0))
+                           .withScale(2.5f)
+                           .withBounds(0, 0, 14, 19)
+                           .build()
+           });
+        }};
+    }
 }
-

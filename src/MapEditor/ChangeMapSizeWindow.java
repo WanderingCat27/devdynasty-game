@@ -31,7 +31,7 @@ public class ChangeMapSizeWindow {
         changeMapSizeWindow.setLocationRelativeTo(parent);
         JPanel mainPanel = new JPanel(null);
         changeMapSizeWindow.setContentPane(mainPanel);
-        mainPanel.setBackground(Colors.CORNFLOWER_BLUE);
+        mainPanel.setBackground(Colors.BLACK);
 
         JLabel widthLabel = new JLabel("Width:");
         widthLabel.setLocation(10, 10);
@@ -50,11 +50,11 @@ public class ChangeMapSizeWindow {
         widthLeftRadio = new JRadioButton("Left");
         widthLeftRadio.setLocation(10, 70);
         widthLeftRadio.setSize(60, 20);
-        widthLeftRadio.setBackground(Colors.CORNFLOWER_BLUE);
+        widthLeftRadio.setBackground(Colors.BLACK);
         widthRightRadio = new JRadioButton("Right");
         widthRightRadio.setLocation(80, 70);
         widthRightRadio.setSize(60, 20);
-        widthRightRadio.setBackground(Colors.CORNFLOWER_BLUE);
+        widthRightRadio.setBackground(Colors.BLACK);
         widthRightRadio.setSelected(true);
 
         widthLeftOrRightRadioGroup.add(widthLeftRadio);
@@ -80,11 +80,11 @@ public class ChangeMapSizeWindow {
         heightTopRadio = new JRadioButton("Top");
         heightTopRadio.setLocation(10, 170);
         heightTopRadio.setSize(60, 20);
-        heightTopRadio.setBackground(Colors.CORNFLOWER_BLUE);
+        heightTopRadio.setBackground(Colors.BLACK);
         heightBottomRadio = new JRadioButton("Bottom");
         heightBottomRadio.setLocation(80, 170);
         heightBottomRadio.setSize(70, 20);
-        heightBottomRadio.setBackground(Colors.CORNFLOWER_BLUE);
+        heightBottomRadio.setBackground(Colors.BLACK);
         heightBottomRadio.setSelected(true);
         heightTopOrBottomRadioGroup.add(heightTopRadio);
         heightTopOrBottomRadioGroup.add(heightBottomRadio);

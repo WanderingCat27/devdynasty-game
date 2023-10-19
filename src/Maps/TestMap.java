@@ -1,7 +1,8 @@
 package Maps;
 
+import java.util.ArrayList;
+
 import EnhancedMapTiles.PushableRock;
-import GameObject.Item;
 import Items.PurplePotion;
 import Items.RedPotion;
 import Items.Sword;
@@ -21,14 +22,14 @@ import Scripts.TestMap.TreeScript;
 import Scripts.TestMap.WalrusScript;
 import Tilesets.CommonTileset;
 
-import java.util.ArrayList;
-
 // Represents a test map to be used in a level
 public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
         this.playerStartPosition = getMapTile(17, 20).getLocation();
+        addMusic("Resources/Audio/AmTronic_-_Caribbean_Dub.wav");
+        this.setFlagManager(flagManager);
     }
 
     @Override
