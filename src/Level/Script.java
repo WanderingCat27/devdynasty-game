@@ -193,7 +193,7 @@ public abstract class Script<T extends MapEntity> {
         map.getFlagManager().setFlag(flagName);
     }
 
-    // sets a flag to falase
+    // sets a flag to false
     protected void unsetFlag(String flagName) {
         map.getFlagManager().unsetFlag(flagName);
     }
