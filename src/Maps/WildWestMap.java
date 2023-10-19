@@ -9,6 +9,7 @@ import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.Dinosaur;
+import NPCs.EvilCowboy;
 import NPCs.Walrus;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.TestMap.DinoScript;
@@ -43,14 +44,17 @@ public class WildWestMap extends Map {
         redPotion.setInteractScript(new RedPotionScript());
         npcs.add(redPotion);
 
-        Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
-        //walrus.setInteractScript(new WalrusScript());
-       // npcs.add(walrus);
+
 
         Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
         //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
         dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
+
+        EvilCowboy evilCowboy = new EvilCowboy(3, getMapTile(18, 3).getLocation());
+        evilCowboy.setExistenceFlag("hasTalkedToCowboy");
+        // add interact script here
+        npcs.add(evilCowboy);
 
         return npcs;
     }
