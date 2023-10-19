@@ -65,4 +65,15 @@ public class SpriteButton extends AbstractButton {
     this.spriteUI.setImage(clickedImage);
   }
 
+  public void scaleSprite(float scale){
+    normalImg = ImageUtils.resizeImageNearestNeighbor(normalImg, (int) (scale * normalImg.getWidth()),
+        (int) (scale * normalImg.getHeight()));
+    this.hoveredImg = ImageUtils.deepCopy(normalImg);
+    this.clickedImage = ImageUtils.deepCopy(normalImg);
+    ImageUtils.darken(this.hoveredImg);
+    ImageUtils.brighten(this.clickedImage);
+    setWidth(normalImg.getWidth());
+    setHeight(normalImg.getHeight());
+  }
+
 }

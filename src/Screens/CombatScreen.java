@@ -7,6 +7,7 @@ import java.util.Random;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Screen;
+import Engine.ScreenManager;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Sprite;
@@ -16,7 +17,6 @@ import Level.Textbox;
 import Maps.CombatMap;
 import ui.Button.SpriteButton;
 import ui.Button.TextButton;
-<<<<<<< HEAD
 import java.awt.image.BufferedImage;
 import Level.Textbox;
 import java.util.Random;
@@ -26,9 +26,6 @@ import Level.NPC;
 import Maps.NewMap;
 import ui.Container.CenterContainer;
 import ui.Container.UIContainer.FillType;
-=======
-import ui.Container.CenterContainer;
->>>>>>> master
 
 public class CombatScreen extends Screen{
     
@@ -39,11 +36,7 @@ public class CombatScreen extends Screen{
     protected SpriteButton runButton;
     protected SpriteButton bagButton;
     protected TextButton returnButton;
-    protected BufferedImage fightImage;
-    protected BufferedImage runImage;
-    protected BufferedImage bagImage;
-    protected BufferedImage youWinImage;
-    protected BufferedImage enemyImage;
+    protected BufferedImage fightImage, runImage, bagImage, youWinImage, enemyImage;
     protected Textbox textbox;
     protected Sprite youWinPopup;
     protected Sprite enemy;
@@ -53,11 +46,9 @@ public class CombatScreen extends Screen{
     private Random rand;
     private boolean isInitialized;
     protected NPC npc;
-<<<<<<< HEAD
     protected CenterContainer centerContainer;
-=======
-    private CenterContainer centerContainer;
->>>>>>> master
+    private int startScreenWidth, startScreenHeight, currScreenHeight, currScreenWidth;
+    private boolean screenChanged;
     
 
 
@@ -71,6 +62,10 @@ public class CombatScreen extends Screen{
         rand = new Random(15);
         centerContainer = new CenterContainer();
         centerContainer.setfillType(FillType.FILL_SCREEN);
+        startScreenHeight = ScreenManager.getScreenHeight();
+        startScreenWidth = ScreenManager.getScreenHeight();
+        currScreenHeight = startScreenHeight;
+
     }
 
     // public void setNPC(NPC npc){
@@ -88,6 +83,7 @@ public class CombatScreen extends Screen{
         enemyImage = ImageLoader.load("godzilla.png");
         youWinPopup = new Sprite(youWinImage, 100, 0);
         enemy =  new Sprite(enemyImage, 300f, 50f);
+        
 
         
         background = new CombatMap();
@@ -109,6 +105,8 @@ public class CombatScreen extends Screen{
             }
             
         });
+
+        //fightButton.scaleSprite(5f);
 
 
         runButton = new SpriteButton(555, 462, scale, runImage, new Runnable() {
@@ -145,14 +143,11 @@ public class CombatScreen extends Screen{
             
         });
 
-<<<<<<< HEAD
         centerContainer.addComponent(fightButton);
         centerContainer.addComponent(bagButton);
         centerContainer.addComponent(runButton);
-=======
 
         System.out.println(fightButton.getXAbs());
->>>>>>> master
         
 
     }
@@ -170,18 +165,30 @@ public class CombatScreen extends Screen{
 
 
     public void update(){
+
+        currScreenHeight = ScreenManager.getScreenHeight();
+        if(currScreenHeight != startScreenHeight){
+            screenChanged = true;
+        }
+
         background.update(null);
         if(!healthZero()){
-<<<<<<< HEAD
             centerContainer.update();
-=======
-          fightButton.update();
-          runButton.update();
-            bagButton.update();
->>>>>>> master
         }else{
             returnButton.update();
         }
+
+        if(screenChanged){
+            if(currScreenHeight > startScreenHeight){
+                fightButton.scaleSprite(1.5f);
+            }else if(currScreenHeight <= startScreenHeight){
+                fightButton.scaleSprite(-2f);
+            }
+            startScreenHeight = currScreenHeight;
+            screenChanged = false;
+        }
+            
+
         
     }
 
