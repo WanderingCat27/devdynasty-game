@@ -96,27 +96,27 @@ public abstract class Script<T extends MapEntity> {
 
     // textbox is shown on screen
     protected void showTextbox() {
-        map.getTextbox().setIsActive(true);
+        map.getTextboxHandler().getTextbox().setIsActive(true);
     }
 
     // adds text to be shown in textbox
     protected void addTextToTextboxQueue(String text) {
-        map.getTextbox().addText(text);
+        map.getTextboxHandler().getTextbox().addText(text);
     }
 
     // adds a series of text to be shown in textbox
     protected void addTextToTextboxQueue(String[] text) {
-        map.getTextbox().addText(text);
+        map.getTextboxHandler().getTextbox().addText(text);
     }
 
     // checks if textbox has already shown all text in its queue
     protected boolean isTextboxQueueEmpty() {
-        return map.getTextbox().isTextQueueEmpty();
+        return map.getTextboxHandler().getTextbox().isTextQueueEmpty();
     }
 
     // remove textbox from screen
     protected void hideTextbox() {
-        map.getTextbox().setIsActive(false);
+        map.getTextboxHandler().getTextbox().setIsActive(false);
     }
 
     // gets an npc instance by its id value

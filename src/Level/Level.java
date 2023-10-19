@@ -27,7 +27,7 @@ public class Level {
       map.setAdjustCamera();
 
       // let pieces of map know which button to listen for as the "interact" button
-      map.getTextbox().setInteractKey(player.getInteractKey());
+      map.getTextboxHandler().getTextbox().setInteractKey(player.getInteractKey());
 
       // setup map scripts to have references to the map and player
       for (MapTile mapTile : map.getMapTiles()) {
