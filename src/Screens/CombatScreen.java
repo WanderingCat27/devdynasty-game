@@ -13,7 +13,7 @@ import Game.ScreenCoordinator;
 import GameObject.Sprite;
 import Level.Map;
 import Level.NPC;
-import Level.Textbox;
+import Level.TextboxHandler;
 import Maps.CombatMap;
 import ui.Button.SpriteButton;
 import ui.Button.TextButton;
@@ -88,7 +88,7 @@ public class CombatScreen extends Screen{
         
         background = new CombatMap();
 
-        textbox = new Textbox(background);
+        textbox = new TextboxHandler(background);
 
         isInitialized = true;
 

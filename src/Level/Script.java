@@ -96,27 +96,27 @@ public abstract class Script<T extends MapEntity> {
 
     // textbox is shown on screen
     protected void showTextbox() {
-        map.getTextbox().setIsActive(true);
+        map.getTextboxHandler().getTextbox().setIsActive(true);
     }
 
     // adds text to be shown in textbox
     protected void addTextToTextboxQueue(String text) {
-        map.getTextbox().addText(text);
+        map.getTextboxHandler().getTextbox().addText(text);
     }
 
     // adds a series of text to be shown in textbox
     protected void addTextToTextboxQueue(String[] text) {
-        map.getTextbox().addText(text);
+        map.getTextboxHandler().getTextbox().addText(text);
     }
 
     // checks if textbox has already shown all text in its queue
     protected boolean isTextboxQueueEmpty() {
-        return map.getTextbox().isTextQueueEmpty();
+        return map.getTextboxHandler().getTextbox().isTextQueueEmpty();
     }
 
     // remove textbox from screen
     protected void hideTextbox() {
-        map.getTextbox().setIsActive(false);
+        map.getTextboxHandler().getTextbox().setIsActive(false);
     }
 
     // gets an npc instance by its id value
@@ -185,17 +185,17 @@ public abstract class Script<T extends MapEntity> {
 
     // checks if a certain flag has been set or not
     protected boolean isFlagSet(String flagName) {
-        return map.getFlagManager().isFlagSet(flagName);
+        return GlobalFlagManager.FLAG_MANAGER.isFlagSet(flagName);
     }
 
     // sets a flag to true
     protected void setFlag(String flagName) {
-        map.getFlagManager().setFlag(flagName);
+        GlobalFlagManager.FLAG_MANAGER.setFlag(flagName);
     }
 
-    // sets a flag to falase
+    // sets a flag to false
     protected void unsetFlag(String flagName) {
-        map.getFlagManager().unsetFlag(flagName);
+        GlobalFlagManager.FLAG_MANAGER.unsetFlag(flagName);
     }
 
     // sets amount of frames to wait before moving on

@@ -20,7 +20,6 @@ public class ScienceLabMap extends Map
         super("science_lab_map.txt", new ScienceLabTilset());
         this.playerStartPosition = getMapTile(5, 5).getLocation();
         addMusic("Resources/Audio/AmTronic_-_Caribbean_Dub.wav");
-        this.setFlagManager(flagManager);
     }
     
     @Override 
