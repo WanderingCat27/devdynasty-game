@@ -178,6 +178,14 @@ public class ScienceLabTilset extends Tileset
             .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(secondComputerTile);
 
+        //black tile
+        Frame blackTile = new FrameBuilder(getSubImage(3, 0))
+            .withScale(tileScale)
+            .build();
+        MapTileBuilder blackTileBuilder = new MapTileBuilder(blackTile)
+            .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(blackTileBuilder);
+
         return mapTiles;
         
     }
