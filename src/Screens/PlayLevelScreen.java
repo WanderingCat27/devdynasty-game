@@ -9,7 +9,7 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Inventory;
 import GameObject.Item;
-import Level.FlagManager;
+import Level.GlobalFlagManager;
 import Level.LevelManager;
 import Level.Map;
 import Level.SoundPlayer;
@@ -26,7 +26,6 @@ public class PlayLevelScreen extends Screen {
   protected PlayLevelScreenState playLevelScreenState;
   protected WinScreen winScreen;
   protected CombatScreen combatScreen;
-  protected FlagManager flagManager;
   protected Item sword;
   public static boolean doReload = false;
   protected PauseScreen pauseScreen;
@@ -40,12 +39,12 @@ public class PlayLevelScreen extends Screen {
     this.screenCoordinator = screenCoordinator;
 
     // setup state
-    flagManager = new FlagManager();
-    flagManager.addFlag("hasLostBall", false);
-    flagManager.addFlag("hasTalkedToWalrus", false);
-    flagManager.addFlag("hasTalkedToDinosaur", false);
-    flagManager.addFlag("hasFoundBall", false);
-    flagManager.addFlag("hasTalkedToDino2", false);
+    
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasLostBall", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToWalrus", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToDinosaur", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasFoundBall", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToDino2", false);
   }
 
   public void initialize() {
@@ -54,8 +53,6 @@ public class PlayLevelScreen extends Screen {
     // map.getPlayerStartPosition().y);
     this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-    // setup inventory
-    LevelManager.getCurrentLevel().getMap().setFlagManager(flagManager);
 
     inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png",
         "fourSlotHUD.png", LevelManager.getCurrentLevel().getMap(), LevelManager.getCurrentLevel().getPlayer());
@@ -109,7 +106,7 @@ public class PlayLevelScreen extends Screen {
 
     }
 
-    if (LevelManager.getCurrentLevel().getMap().getFlagManager().isFlagSet("hasTalkedToDino2")) {
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToDino2")) {
       screenCoordinator.setGameState(GameState.COMBAT);
       System.out.println("Combat mode");
     }

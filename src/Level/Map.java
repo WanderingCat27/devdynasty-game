@@ -77,8 +77,6 @@ public abstract class Map {
   // map tiles in map that are animated
   protected ArrayList<MapTile> animatedMapTiles;
 
-  // flag manager instance to keep track of flags set while map is loaded
-  public FlagManager flagManager;
 
   // map's textbox instance
   protected Textbox textbox;
@@ -606,13 +604,7 @@ public abstract class Map {
     }
   }
 
-  public FlagManager getFlagManager() {
-    return flagManager;
-  }
-
-  public void setFlagManager(FlagManager flagManager) {
-    this.flagManager = flagManager;
-  }
+  
 
   public Textbox getTextbox() {
     return textbox;

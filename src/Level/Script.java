@@ -185,17 +185,17 @@ public abstract class Script<T extends MapEntity> {
 
     // checks if a certain flag has been set or not
     protected boolean isFlagSet(String flagName) {
-        return map.getFlagManager().isFlagSet(flagName);
+        return GlobalFlagManager.FLAG_MANAGER.isFlagSet(flagName);
     }
 
     // sets a flag to true
     protected void setFlag(String flagName) {
-        map.getFlagManager().setFlag(flagName);
+        GlobalFlagManager.FLAG_MANAGER.setFlag(flagName);
     }
 
     // sets a flag to falase
     protected void unsetFlag(String flagName) {
-        map.getFlagManager().unsetFlag(flagName);
+        GlobalFlagManager.FLAG_MANAGER.unsetFlag(flagName);
     }
 
     // sets amount of frames to wait before moving on
