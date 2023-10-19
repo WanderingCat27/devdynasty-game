@@ -163,6 +163,18 @@ public class CombatScreen extends Screen{
         return false;
     }
 
+    private void fullscreen(){
+        fightButton.scaleSprite(1.5f);
+        runButton.scaleSprite(1.5f);
+        bagButton.scaleSprite(1.5f);
+    }
+
+    private void notFullscreen(){
+        fightButton.scaleSprite(-1.5f);
+        runButton.scaleSprite(-1.5f);
+        bagButton.scaleSprite(-1.5f);
+    }
+
 
     public void update(){
 
@@ -180,7 +192,7 @@ public class CombatScreen extends Screen{
 
         if(screenChanged){
             if(currScreenHeight > startScreenHeight){
-                fightButton.scaleSprite(1.5f);
+                
             }else if(currScreenHeight <= startScreenHeight){
                 fightButton.scaleSprite(-2f);
             }

@@ -10,13 +10,17 @@ import Utils.Point;
 
 public class TimeMachine extends Item
 {
-    String pathToImage = "TimeMachine.png";
+    String pathToImage = "TimeMachine2.1.png";
 
     public TimeMachine(int id, Point point)
     {
-        super(id,point,"TimeMachine.png");
+        super(id,point,"TimeMachine2.1.png");
     }    
     
+    public TimeMachine(int id, Point point, int spriteWidth, int spriteHeight){
+        super(id, point,"TimeMachine2.1.png", spriteWidth, spriteHeight);
+    }
+
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);

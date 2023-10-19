@@ -24,6 +24,10 @@ public class Item extends NPC
     }
 
 
+    public Item(int id, Point point, String pathToImage, int spriteWidth, int spriteHeight){
+        super(id,point.x,point.y,new SpriteSheet(ImageLoader.load(pathToImage), spriteWidth,spriteHeight),"STILL");
+    }
+
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)
     {
         return new HashMap<String, Frame[]>() {{
