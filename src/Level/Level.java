@@ -2,11 +2,16 @@ package Level;
 
 import Engine.GraphicsHandler;
 import GameObject.Item;
+import Maps.NewMap;
+import Maps.ScienceLabMap;
+import Maps.WildWestMap;
 import Players.PlayerAsh;
 import Utils.Direction;
 import Utils.Point;
 
 public class Level {
+  
+
     private final Map map;
     private final Player player;
 
