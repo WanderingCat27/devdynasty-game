@@ -31,6 +31,7 @@ public class SpriteButton extends AbstractButton {
     this.addComponent(this.spriteUI);
   }
 
+
   // if you manually set width and height you might want to center the hitbox of
   // the button to the center of the sprite image because the imaage has white
   // space around it
