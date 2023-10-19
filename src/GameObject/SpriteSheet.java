@@ -30,6 +30,11 @@ public class SpriteSheet {
 		return image.getSubimage((column * spriteWidth) + column, (row * spriteHeight) + row, spriteWidth, spriteHeight);
 	}
 
+  // get subimage but with no offset for like black bars in the tile sheet
+  public BufferedImage getSubImageNoOffset(int row, int column) {
+		return image.getSubimage((column * spriteWidth), (row * spriteHeight), spriteWidth, spriteHeight);
+	}
+
 	public BufferedImage getImage() {
 		return image;
 	}
