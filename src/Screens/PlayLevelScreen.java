@@ -40,7 +40,7 @@ public class PlayLevelScreen extends Screen {
 
     // setup state
 
-    GlobalFlagManager.flagManager.addFlag("hasTalkedToCowboy", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCowboy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasLostBall", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToWalrus", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToDinosaur", false);
