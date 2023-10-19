@@ -22,7 +22,6 @@ public class WildWestMap extends Map {
         super("west_map.txt", new WestTileset());
         this.playerStartPosition = getMapTile(12, 2).getLocation();
         addMusic("Resources/Audio/2021-08-26_-_Outlaw_Beginnings_-_www.FesliyanStudios.com.wav");
-        this.setFlagManager(flagManager);
     }
 
     @Override
