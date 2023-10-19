@@ -4,30 +4,35 @@ import java.awt.image.BufferedImage;
 
 import GameObject.SpriteSheet;
 import Utils.ImageUtils;
-import Utils.Point;
 import ui.SpriteUI.SpriteUI;
 
 public class AnimatedSpriteButton extends AbstractButton {
   protected SpriteUI spriteUI;
+  protected SpriteSheet spriteSheet;
   protected BufferedImage normalImg, hoveredImg, clickedImage;
-  protected Point origin;
+  protected float initialScale;
 
   public AnimatedSpriteButton(int x, int y, float scale, SpriteSheet spriteSheet, Runnable onClick) {
     super(x, y, x, y, onClick);
-    normalImg = scaleImage(spriteSheet.getSubImageNoOffset(0, 0), scale);
-    hoveredImg = scaleImage(spriteSheet.getSubImageNoOffset(0, 1), scale);
-    clickedImage = scaleImage(spriteSheet.getSubImageNoOffset(0, 2), scale);
-    // ImageUtils.brighten(this.hoveredImg);
+    this.spriteSheet = spriteSheet;
+    this.initialScale = scale;
 
-
-    super.setXOrigin(x);
-    super.setYOrigin(y);
-    this.origin = new Point(x, y);
-    setWidth(normalImg.getWidth());
-    setHeight(normalImg.getHeight());
+    scale(1);
 
     this.spriteUI = new SpriteUI(0, 0, normalImg);
     this.addComponent(this.spriteUI);
+  }
+
+
+  public void scale(float scale) {
+    scale *= initialScale;
+    normalImg = scaleImage(spriteSheet.getSubImageNoOffset(0, 0), scale);
+    hoveredImg = scaleImage(spriteSheet.getSubImageNoOffset(0, 1), scale);
+    clickedImage = scaleImage(spriteSheet.getSubImageNoOffset(0, 2), scale);
+
+
+    setWidth(normalImg.getWidth());
+    setHeight(normalImg.getHeight());
   }
 
 
@@ -55,5 +60,7 @@ public class AnimatedSpriteButton extends AbstractButton {
   public void whilePressed() {
     this.spriteUI.setImage(clickedImage);
   }
+
+
 
 }
