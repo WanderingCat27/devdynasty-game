@@ -1,27 +1,35 @@
 package Level;
 
+import Maps.NewMap;
+import Maps.ScienceLabMap;
+import Maps.WildWestMap;
+
 public class LevelManager {
 
-  private static Levels currentLevel;
+  public static final Level TEST = new Level(new NewMap());
+  public static final Level WILDWEST = new Level(new WildWestMap());
+  public static final Level LAB = new Level(new ScienceLabMap());
+
+  private static Level currentLevel;
 
   private LevelManager() {
   }
 
-  public static void setLevel(Levels level) {
+  public static void setLevel(Level level) {
+    if (level == null)
+      return;
     if (currentLevel != null)
       currentLevel.getSoundPlayer().pause();
     currentLevel = level;
     currentLevel.getSoundPlayer().play();
   }
 
-  public static Levels getCurrentLevel() {
+  public static Level getCurrentLevel() {
     return currentLevel;
   }
 
   public static void initStartMap() {
-    setLevel(Levels.LAB);
+    setLevel(LevelManager.LAB);
   }
-
-  
 
 }

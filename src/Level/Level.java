@@ -9,15 +9,13 @@ import Players.PlayerAsh;
 import Utils.Direction;
 import Utils.Point;
 
-public enum Levels {
-    TEST(new NewMap()),
-    WILDWEST(new WildWestMap()),
-    LAB(new ScienceLabMap());
+public class Level {
+  
 
     private final Map map;
     private final Player player;
 
-    private Levels(Map map) {
+    public Level(Map map) {
       this.map = map;
       this.player = new PlayerAsh(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
       map.soundPlayer.pause();

@@ -13,7 +13,6 @@ import Level.FlagManager;
 import Level.LevelManager;
 import Level.Map;
 import Level.SoundPlayer;
-import Maps.ScienceLabMap;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
@@ -23,7 +22,6 @@ import ui.Slider.Slider;
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
-    public static Map map = new ScienceLabMap();
     // protected Sprite hud;
     protected static Inventory inventory;
     protected PlayLevelScreenState playLevelScreenState;
@@ -69,7 +67,6 @@ public class PlayLevelScreen extends Screen {
         
 
         LevelManager.getCurrentLevel().getMap().soundPlayer.play();
-        System.out.println(SoundPlayer.musicPlaying);
         SoundPlayer.musicPlaying = true;
 
         // dont re-initialize slider
@@ -98,7 +95,6 @@ public class PlayLevelScreen extends Screen {
             volumeSlider.setValue(volumeSlider.getMax());
             volumeSlider.addChangeListener(() -> {
                 LevelManager.getCurrentLevel().getMap().soundPlayer.setVolume((int) volumeSlider.getValue());
-                System.out.println(volumeSlider.getValue());
             });
             // position at top of screen and anchor objects to their top center
             sliderContainer = new PositioningContainer(Anchor.TOP_CENTER);
@@ -111,9 +107,7 @@ public class PlayLevelScreen extends Screen {
 
     public void update() {
         if (doReload) {
-            System.out.println("initialized");
             LevelManager.getCurrentLevel().getMap().soundPlayer.pause();
-            System.out.println("pausing");
             initialize();
             doReload = false;
             
