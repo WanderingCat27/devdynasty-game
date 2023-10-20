@@ -30,7 +30,7 @@ public class ScienceLabMap extends Map
         Sword sword = new Sword(1, getMapTile(8, 8).getLocation());
         npcs.add(sword);
 
-        TimeMachine timeMachine = new TimeMachine(2, getMapTile(27, 9).getLocation(), 35, 32);
+        TimeMachine timeMachine = new TimeMachine(2, getMapTile(27, 9).getLocation(), 26, 37);
         timeMachine.setInteractScript(new ChangeLevelScript(LevelManager.WILDWEST));
         npcs.add(timeMachine);
 
