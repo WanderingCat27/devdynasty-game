@@ -9,6 +9,7 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Inventory;
 import GameObject.Item;
+import Level.FlagManager;
 import Level.GlobalFlagManager;
 import Level.LevelManager;
 import Level.Map;
@@ -47,6 +48,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToDinosaur", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasFoundBall", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToDino2", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToScientist", false);
     pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer);
   }
 
