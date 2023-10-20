@@ -39,7 +39,8 @@ public class PlayLevelScreen extends Screen {
     this.screenCoordinator = screenCoordinator;
 
     // setup state
-    
+
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCowboy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasLostBall", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToWalrus", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToDinosaur", false);
@@ -109,6 +110,10 @@ public class PlayLevelScreen extends Screen {
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToDino2")) {
       screenCoordinator.setGameState(GameState.COMBAT);
       System.out.println("Combat mode");
+    }
+
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
+      screenCoordinator.setGameState(GameState.COMBAT);
     }
 
     if (Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC)) {
