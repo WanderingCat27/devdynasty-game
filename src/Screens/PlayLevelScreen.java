@@ -13,6 +13,7 @@ import Level.GlobalFlagManager;
 import Level.LevelManager;
 import Level.Map;
 import Level.SoundPlayer;
+import Level.Trigger;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
@@ -20,32 +21,33 @@ import ui.Slider.Slider;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
-  protected ScreenCoordinator screenCoordinator;
-  // protected Sprite hud;
-  protected static Inventory inventory;
-  protected PlayLevelScreenState playLevelScreenState;
-  protected WinScreen winScreen;
-  protected CombatScreen combatScreen;
-  protected Item sword;
-  public static boolean doReload = false;
-  protected PauseScreen pauseScreen;
-  protected PositioningContainer sliderContainer;
-  protected Slider volumeSlider;
+    protected ScreenCoordinator screenCoordinator;
+    // protected Sprite hud;
+    protected static Inventory inventory;
+    protected PlayLevelScreenState playLevelScreenState;
+    protected WinScreen winScreen;
+    protected CombatScreen combatScreen;
+    protected FlagManager flagManager;
+    protected Item sword;
+    public static boolean doReload = false;
+    protected PauseScreen pauseScreen;
+    protected PositioningContainer sliderContainer;
+    protected Slider volumeSlider;
 
-  protected KeyLocker keyLocker = new KeyLocker();
-  protected static Key ESC = Key.ESC;
+    protected KeyLocker keyLocker = new KeyLocker();
+    protected static Key ESC = Key.ESC;
 
   public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
     this.screenCoordinator = screenCoordinator;
 
     // setup state
-
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCowboy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasLostBall", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToWalrus", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToDinosaur", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasFoundBall", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToDino2", false);
+    pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer);
   }
 
   public void initialize() {
@@ -63,41 +65,8 @@ public class PlayLevelScreen extends Screen {
     LevelManager.getCurrentLevel().getMap().soundPlayer.play();
     SoundPlayer.musicPlaying = true;
 
-    // dont re-initialize slider
-
-    // if (volumeSlider == null) {
-    // // Create the volume slider
-    // volumeSlider = new Slider(0, 0, 200, 0, 100);
-    // volumeSlider.setValue(volumeSlider.getMax());
-    // volumeSlider.addChangeListener(() -> {
-    // this.soundPlayer.setVolume((int) volumeSlider.getValue());
-    // System.out.println(volumeSlider.getValue());
-    // });
-    // // position at top of screen and anchor objects to their top center
-    // sliderContainer = new PositioningContainer(Anchor.TOP_CENTER);
-    // sliderContainer.setfillType(FillType.FILL_SCREEN);
-    // sliderContainer.setAnchorChildren(true);
-
-    // sliderContainer.addComponnent(volumeSlider);
-    // }
-    // this.soundPlayer.setVolume((int) volumeSlider.getValue());
-
-    pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer);
-    if (volumeSlider == null) {
-      // Create the volume slider
-      volumeSlider = new Slider(0, 0, 200, 0, 100);
-      volumeSlider.setValue(volumeSlider.getMax());
-      volumeSlider.addChangeListener(() -> {
-        LevelManager.getCurrentLevel().getMap().soundPlayer.setVolume((int) volumeSlider.getValue());
-      });
-      // position at top of screen and anchor objects to their top center
-      sliderContainer = new PositioningContainer(Anchor.TOP_CENTER);
-      sliderContainer.setfillType(FillType.FILL_SCREEN);
-      sliderContainer.setAnchorChildren(true);
-
-      sliderContainer.addComponent(volumeSlider);
+    
     }
-  }
 
   public void update() {
     if (doReload) {
@@ -124,9 +93,9 @@ public class PlayLevelScreen extends Screen {
         resumeLevel();
 
     }
-
-    if (keyLocker.isKeyLocked(ESC) && Keyboard.isKeyUp(ESC))
+    if (keyLocker.isKeyLocked(ESC) && Keyboard.isKeyUp(ESC)) {
       keyLocker.unlockKey(ESC);
+    }
 
     // based on screen state, perform specific actions
     switch (playLevelScreenState) {
@@ -143,7 +112,6 @@ public class PlayLevelScreen extends Screen {
         pauseScreen.update();
         break;
     }
-    // sliderContainer.update();
   }
 
   public void draw(GraphicsHandler graphicsHandler) {
@@ -161,7 +129,6 @@ public class PlayLevelScreen extends Screen {
         pauseScreen.draw(graphicsHandler);
         break;
     }
-    // sliderContainer.draw(graphicsHandler);
   }
 
   public PlayLevelScreenState getPlayLevelScreenState() {
