@@ -82,4 +82,13 @@ public class PauseScreen extends Screen
         centerContainer.update();
         sliderContainer.update();
     }
+
+    public SoundPlayer getSoundPlayer()
+    {
+        return soundPlayer;
+    }
+
+    public Slider getSlider() {
+        return volumeSlider;
+    }
 }

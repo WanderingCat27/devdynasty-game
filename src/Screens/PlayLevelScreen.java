@@ -13,6 +13,7 @@ import Level.FlagManager;
 import Level.LevelManager;
 import Level.Map;
 import Level.SoundPlayer;
+import Level.Trigger;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
@@ -48,6 +49,9 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasTalkedToDinosaur", false);
         flagManager.addFlag("hasFoundBall", false);
         flagManager.addFlag("hasTalkedToDino2", false);
+        flagManager.addFlag("hasTalkedToScientist", false);
+        flagManager.addFlag("intersecScript", false);
+        pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer);
     }
 
     public void initialize() {
@@ -56,7 +60,7 @@ public class PlayLevelScreen extends Screen {
         // map.getPlayerStartPosition().y);
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-        // setup inventory 
+
         LevelManager.getCurrentLevel().getMap().setFlagManager(flagManager);
 
         inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png",
@@ -67,42 +71,9 @@ public class PlayLevelScreen extends Screen {
         
 
         LevelManager.getCurrentLevel().getMap().soundPlayer.play();
+        LevelManager.getCurrentLevel().getMap().soundPlayer.setVolume((int) pauseScreen.getSlider().getValue());
         SoundPlayer.musicPlaying = true;
 
-        // dont re-initialize slider
-
-        // if (volumeSlider == null) {
-        //     // Create the volume slider
-        //     volumeSlider = new Slider(0, 0, 200, 0, 100);
-        //     volumeSlider.setValue(volumeSlider.getMax());
-        //     volumeSlider.addChangeListener(() -> {
-        //         this.soundPlayer.setVolume((int) volumeSlider.getValue());
-        //         System.out.println(volumeSlider.getValue());
-        //     });
-        //     // position at top of screen and anchor objects to their top center
-        //     sliderContainer = new PositioningContainer(Anchor.TOP_CENTER);
-        //     sliderContainer.setfillType(FillType.FILL_SCREEN);
-        //     sliderContainer.setAnchorChildren(true);
-
-        //     sliderContainer.addComponnent(volumeSlider);
-        // }
-        // this.soundPlayer.setVolume((int) volumeSlider.getValue());
-
-        pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer);
-        if (volumeSlider == null) {
-            // Create the volume slider
-            volumeSlider = new Slider(0, 0, 200, 0, 100);
-            volumeSlider.setValue(volumeSlider.getMax());
-            volumeSlider.addChangeListener(() -> {
-                LevelManager.getCurrentLevel().getMap().soundPlayer.setVolume((int) volumeSlider.getValue());
-            });
-            // position at top of screen and anchor objects to their top center
-            sliderContainer = new PositioningContainer(Anchor.TOP_CENTER);
-            sliderContainer.setfillType(FillType.FILL_SCREEN);
-            sliderContainer.setAnchorChildren(true);
-
-            sliderContainer.addComponent(volumeSlider);
-        }
     }
 
     public void update() {

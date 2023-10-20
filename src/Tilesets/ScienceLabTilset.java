@@ -88,6 +88,14 @@ public class ScienceLabTilset extends Tileset
             .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(bottomRightCornerTile);
 
+        //other corner tile
+        Frame otherCornerFrame = new FrameBuilder(getSubImage(2, 3))
+            .withScale(tileScale)
+            .build();
+        MapTileBuilder otherCornerTile = new MapTileBuilder(otherCornerFrame)
+            .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(otherCornerTile);
+
         //bottom left corner tile
         Frame bottomLeftCornerFrame = new FrameBuilder(getSubImage(3, 4))
             .withScale(tileScale)
@@ -185,6 +193,14 @@ public class ScienceLabTilset extends Tileset
         MapTileBuilder blackTileBuilder = new MapTileBuilder(blackTile)
             .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(blackTileBuilder);
+
+        //final border tile
+        Frame finalBorderTile = new FrameBuilder(getSubImage(3, 3))
+            .withScale(tileScale)
+            .build();
+        MapTileBuilder finalBorderTileBuilder = new MapTileBuilder(finalBorderTile)
+            .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(finalBorderTileBuilder);
 
         return mapTiles;
         

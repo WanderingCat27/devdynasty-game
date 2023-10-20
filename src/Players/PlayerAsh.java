@@ -32,45 +32,45 @@ public class PlayerAsh extends Player
             put("STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 0))
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build()
             });
             put("STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 0))
                             .withScale(2.5f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build()
             });
             put("STAND_UP", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2, 0))
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build()
             });
             put("STAND_DOWN", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build()
             });
 
             put("WALK_UP", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2, 0), 8)
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 1), 8)
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 2), 8)
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 3), 8)
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build()
             });
 
@@ -78,59 +78,59 @@ public class PlayerAsh extends Player
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 8)
                             .withScale(2.5f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 1), 8)
                             .withScale(2.5f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 2), 8)
                             .withScale(2.5f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 3), 8)
                             .withScale(2.5f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build()
             });
 
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 8)
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 1), 8)
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 2), 8)
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 3), 8)
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build()
             });
             put("WALK_DOWN", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 8)
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 3), 8)
                             .withScale(2.5f)
-                            .withBounds(6, 12, 12, 7)
+                            .withBounds(2, 2, 6, 6)
                             .build()
             });
         }};

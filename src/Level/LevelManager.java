@@ -2,6 +2,7 @@ package Level;
 
 import Maps.NewMap;
 import Maps.ScienceLabMap;
+import Maps.TestMap;
 import Maps.WildWestMap;
 
 public class LevelManager {
@@ -9,6 +10,7 @@ public class LevelManager {
   public static final Level TEST = new Level(new NewMap());
   public static final Level WILDWEST = new Level(new WildWestMap());
   public static final Level LAB = new Level(new ScienceLabMap());
+  public static final Level OLD_TEST = new Level(new TestMap());
 
   private static Level currentLevel;
 
