@@ -2,9 +2,6 @@ package Level;
 
 import Engine.GraphicsHandler;
 import GameObject.Item;
-import Maps.NewMap;
-import Maps.ScienceLabMap;
-import Maps.WildWestMap;
 import Players.PlayerAsh;
 import Utils.Direction;
 import Utils.Point;
@@ -30,7 +27,7 @@ public class Level {
       map.setAdjustCamera();
 
       // let pieces of map know which button to listen for as the "interact" button
-      map.getTextbox().setInteractKey(player.getInteractKey());
+      map.getTextboxHandler().getTextbox().setInteractKey(player.getInteractKey());
 
       // setup map scripts to have references to the map and player
       for (MapTile mapTile : map.getMapTiles()) {
@@ -84,9 +81,6 @@ public class Level {
       return map;
     }
 
-    public void setFlagManager(FlagManager flagManager) {
-      map.setFlagManager(flagManager);
-    }
 
     public SoundPlayer getSoundPlayer() {
       return map.soundPlayer;

@@ -29,7 +29,6 @@ public class TestMap extends Map {
         super("test_map.txt", new CommonTileset());
         this.playerStartPosition = getMapTile(17, 20).getLocation();
         addMusic("Resources/Audio/AmTronic_-_Caribbean_Dub.wav");
-        this.setFlagManager(flagManager);
     }
 
     @Override

@@ -1,16 +1,18 @@
 package Screens;
 
-import java.awt.Color;
-import java.awt.Font;
-
+import Engine.Config;
 import Engine.GraphicsHandler;
+import Engine.ImageLoader;
 import Engine.Screen;
+import Engine.ScreenManager;
 import Game.GameState;
 import Game.ScreenCoordinator;
+import GameObject.SpriteSheet;
 import Level.LevelManager;
 import Level.Map;
 import Maps.TitleScreenMap;
-import ui.Button.TextButton;
+import ui.Button.AnimatedSpriteButton;
+import ui.Container.Anchor;
 import ui.Container.CenterContainer;
 import ui.Container.UIContainer.FillType;
 
@@ -19,7 +21,7 @@ public class MenuScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected Map background;
 
-
+    protected AnimatedSpriteButton playButton, creditButton;
     protected CenterContainer centerContainer;
 
     public MenuScreen(ScreenCoordinator screenCoordinator) {
@@ -31,46 +33,50 @@ public class MenuScreen extends Screen {
 
         background = new TitleScreenMap();
         background.setCenterCamera();
+
+
         centerContainer = new CenterContainer();
         centerContainer.setfillType(FillType.FILL_SCREEN);
-        TextButton playButton = new TextButton(-150, -100, 300, 90, new Color(2, 48, 71), "Play", new Font("Comic Sans", Font.BOLD, 30), new Color(255, 183, 3), new Runnable() {
+        centerContainer.setAnchorChildren(false);
 
-            @Override
-            public void run() {
-                screenCoordinator.setGameState(GameState.LEVEL);
-                LevelManager.initStartMap();
+         playButton = new AnimatedSpriteButton(0, 0, 6, new SpriteSheet(ImageLoader.loadAllowTransparent("start_button.png"), 64, 32), () ->{
+            screenCoordinator.setGameState(GameState.LEVEL);
+            LevelManager.initStartMap();
 
-            }
+          });
 
-        });
+          playButton.setAnchor(Anchor.BOTTOM_CENTER);
 
-        playButton.getSpriteFont().setOutlineThickness(3);
-        playButton.getSpriteFont().setOutlineColor(Color.black);
 
-        TextButton creditButton = new TextButton(-150, 50, 300, 90, new Color(251, 133, 0), "Credits", new Font("Comic Sans", Font.PLAIN, 30), new Color(33, 158, 188), new Runnable() {
-
-            @Override
-            public void run() {
+           creditButton = new AnimatedSpriteButton(0, 50, 4, new SpriteSheet(ImageLoader.loadAllowTransparent("credits_button.png"), 64, 24), () ->{
                 screenCoordinator.setGameState(GameState.CREDITS);
 
-            }
-
-        });
-        creditButton.getSpriteFont().setOutlineThickness(3);
-        creditButton.getSpriteFont().setOutlineColor(new Color(2, 48, 71));
-
+            });
+            creditButton.setAnchor(Anchor.TOP_CENTER);
+       
         centerContainer.addComponent(playButton);
         centerContainer.addComponent(creditButton);        
     }
+
+
+    private float getScaleFactor() {
+      return Math.max(1, Math.min((float)ScreenManager.getScreenHeight() / Config.GAME_WINDOW_HEIGHT, (float)ScreenManager.getScreenWidth() / Config.GAME_WINDOW_WIDTH));
+    }
+
 
     public void update() {
         // update background map (to play tile animations)
         background.update(null);
         centerContainer.update();
+        float scale = getScaleFactor();
+        playButton.scale(scale);
+        creditButton.scale(scale);
+
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
+        // graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 191, 163));
 
         centerContainer.draw(graphicsHandler);
     }

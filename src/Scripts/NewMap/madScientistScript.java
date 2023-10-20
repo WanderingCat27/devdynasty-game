@@ -30,29 +30,30 @@ public class madScientistScript extends Script<NPC> {
         entity.facePlayer(player);
     }
 
+    public void trees() {
+        if(Keyboard.isKeyDown(Key.UP))
+        {
+            addTextToTextboxQueue( "Thank you so much!");
+        }
+        else if(Keyboard.isKeyDown(Key.DOWN))
+        {
+            addTextToTextboxQueue( "Come back here when you can help.");
+        }
+    }
+
     @Override
     protected void cleanup() {
         unlockPlayer();
         hideTextbox();
-
-        // set flag so that if madScientist is talked to again after the first time, what he says changes
-        setFlag("has talked to mad scientist");
     }
 
     @Override
     public ScriptState execute() {
         start();
-        if(Keyboard.isKeyDown(Key.UP))
-        {
-            addTextToTextboxQueue( "Thank you so much! \n(SPACE TO CONTINUE)");
-        }
-        else if(Keyboard.isKeyDown(Key.DOWN))
-        {
-            addTextToTextboxQueue( "You're no help! \n(SPACE TO CONTINUE)");
-        }
+        trees();
         
         if (!isTextboxQueueEmpty()) {
-            return ScriptState.RUNNING;
+            return ScriptState.RUNNING;   
         }
         
         end();

@@ -9,9 +9,11 @@ import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.Dinosaur;
+import NPCs.EvilCowboy;
 import NPCs.Walrus;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.TestMap.DinoScript;
+import Scripts.WildWestMap.EvilCowboyScript;
 import Tilesets.WestTileset;
 
 // Represents a test map to be used in a level
@@ -21,7 +23,6 @@ public class WildWestMap extends Map {
         super("west_map.txt", new WestTileset());
         this.playerStartPosition = getMapTile(12, 2).getLocation();
         addMusic("Resources/Audio/2021-08-26_-_Outlaw_Beginnings_-_www.FesliyanStudios.com.wav");
-        this.setFlagManager(flagManager);
     }
 
     @Override
@@ -43,14 +44,17 @@ public class WildWestMap extends Map {
         redPotion.setInteractScript(new RedPotionScript());
         npcs.add(redPotion);
 
-        Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
-        //walrus.setInteractScript(new WalrusScript());
-       // npcs.add(walrus);
+
 
         Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
         //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
         dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
+
+        EvilCowboy evilCowboy = new EvilCowboy(3, getMapTile(18, 3).getLocation());
+        evilCowboy.setExistenceFlag("hasTalkedToCowboy");
+        evilCowboy.setInteractScript(new EvilCowboyScript());
+        npcs.add(evilCowboy);
 
         return npcs;
     }
