@@ -66,7 +66,7 @@ public class CombatScreen extends Screen{
     
 
     public void initialize(){
-        combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/AmTronic_-_Caribbean_Dub.wav");
+        combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/combat.wav");
         LevelManager.getCurrentLevel().getSoundPlayer().pause();
         scale = 2.3f;
         fightImage = ImageLoader.load("fight_button.png");
