@@ -4,14 +4,17 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import Engine.GameWindow;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Sprite;
+import Level.LevelManager;
 import Level.Map;
 import Level.NPC;
+import Level.SoundPlayer;
 import Level.TextboxHandler;
 import Maps.CombatMap;
 import ui.Button.SpriteButton;
@@ -42,6 +45,7 @@ public class CombatScreen extends Screen{
     private boolean isInitialized;
     protected NPC npc;
     private CenterContainer centerContainer;
+    public SoundPlayer combatSoundPlayer;
     
 
 
@@ -60,8 +64,10 @@ public class CombatScreen extends Screen{
     // }
 
     
-    public void initialize(){
 
+    public void initialize(){
+        combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/AmTronic_-_Caribbean_Dub.wav");
+        LevelManager.getCurrentLevel().getSoundPlayer().pause();
         scale = 2.3f;
         fightImage = ImageLoader.load("fight_button.png");
         runImage = ImageLoader.load("run_button.png");
@@ -120,6 +126,7 @@ public class CombatScreen extends Screen{
             @Override
             public void run(){
                 if(healthZero()){
+                    pauseMusic();
                     screencoordinator.setGameState(GameState.LEVEL);
                 }
             }
@@ -153,6 +160,7 @@ public class CombatScreen extends Screen{
             bagButton.update();
         }else{
             returnButton.update();
+            LevelManager.getCurrentLevel().getSoundPlayer().pause();
         }
         
 
@@ -172,6 +180,11 @@ public class CombatScreen extends Screen{
             //npc.draw(graphicsHandler);
         }
 
+    }
+
+    public void pauseMusic() {
+        combatSoundPlayer.pause();
+        System.out.println("pausing music");
     }
     
 }
