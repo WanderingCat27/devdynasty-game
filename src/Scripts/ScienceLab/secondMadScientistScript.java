@@ -41,9 +41,9 @@ public class secondMadScientistScript extends Script<NPC>
                 amountMoved = 0;
                 showTextbox();
                 addTextToTextboxQueue("Oh, hello there!");
-                addTextToTextboxQueue("I havent seen you in quite sometime...");
+                addTextToTextboxQueue("I haven't seen you in quite some time...");
                 addTextToTextboxQueue("I've been thinking about fixing this time\nmachine...maybe to get us home.");
-                addTextToTextboxQueue("Heres what you have to do...");
+                addTextToTextboxQueue("Here's what you have to do...");
                 addTextToTextboxQueue("I will send you to various time periods\ntosearch for various objects.");
                 addTextToTextboxQueue("After you get the parts, I\nbelieve I can fix the the time machine.");
                 addTextToTextboxQueue("I'm sure your journey will be smooth sailing...");
