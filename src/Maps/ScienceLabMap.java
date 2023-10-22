@@ -2,8 +2,8 @@ package Maps;
 
 import java.awt.Color;
 import java.util.ArrayList;
-
 import Engine.GraphicsHandler;
+import javax.sound.sampled.Clip;
 import Items.Computer;
 import Items.Sword;
 import Items.TimeMachine;
@@ -24,8 +24,8 @@ public class ScienceLabMap extends Map
     public ScienceLabMap()
     {
         super("science_lab_map.txt", new ScienceLabTilset());
-        this.playerStartPosition = getMapTile(16, 32).getLocation();
-        addMusic("Resources/Audio/AmTronic_-_Caribbean_Dub.wav");
+        this.playerStartPosition = getMapTile(5, 5).getLocation();
+        addMusic("Resources/Audio/scienceLab.wav");
     }
     
     @Override 
