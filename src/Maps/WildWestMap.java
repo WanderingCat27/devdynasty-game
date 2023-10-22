@@ -22,6 +22,7 @@ public class WildWestMap extends Map {
     public WildWestMap() {
         super("west_map.txt", new WestTileset());
         this.playerStartPosition = getMapTile(12, 2).getLocation();
+        addMusic("Resources/Audio/wildWest.wav");
     }
 
     @Override
