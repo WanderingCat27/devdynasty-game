@@ -24,7 +24,7 @@ public class ScienceLabMap extends Map
     public ScienceLabMap()
     {
         super("science_lab_map.txt", new ScienceLabTilset());
-        this.playerStartPosition = getMapTile(5, 5).getLocation();
+        this.playerStartPosition = getMapTile(16, 32).getLocation();
         addMusic("Resources/Audio/scienceLab.wav");
     }
     
