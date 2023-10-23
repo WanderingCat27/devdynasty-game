@@ -198,15 +198,15 @@ public class CombatScreen extends Screen{
             LevelManager.getCurrentLevel().getSoundPlayer().pause();
         }
 
-        if(screenChanged){
-            if(currScreenHeight > startScreenHeight){
+        // if(screenChanged){
+        //     if(currScreenHeight > startScreenHeight){
                 
-            }else if(currScreenHeight <= startScreenHeight){
-                fightButton.scaleSprite(-2f);
-            }
-            startScreenHeight = currScreenHeight;
-            screenChanged = false;
-        }
+        //     }else if(currScreenHeight <= startScreenHeight){
+        //         fightButton.scaleSprite(-2f);
+        //     }
+        //     startScreenHeight = currScreenHeight;
+        //     screenChanged = false;
+        // }
             
 
         
