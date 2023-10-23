@@ -12,7 +12,7 @@ import javax.swing.JFrame;
      Long currentFrame;
      public String status;
      String soundPath;
-     Clip clip;
+     public Clip clip;
      public static boolean musicPlaying = false;
      private FloatControl volumeControl;
 

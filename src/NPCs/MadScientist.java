@@ -33,28 +33,107 @@ public class MadScientist extends NPC
             put("STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 0))
                             .withScale(2.5f)
-                            .withBounds(0, 0, 14, 19)
+                            .withBounds(2, 2, 6, 6)
                             .build()
             });
             put("STAND_RIGHT", new Frame[] {
                    new FrameBuilder(spriteSheet.getSprite(1, 0))
                            .withScale(2.5f)
-                           .withBounds(0, 0, 14, 19)
+                           .withBounds(2, 2, 6, 6)
                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                            .build()
            });
             put("STAND_UP", new Frame[] {
                    new FrameBuilder(spriteSheet.getSprite(2, 0))
                            .withScale(2.5f)
-                           .withBounds(0, 0, 14, 19)
+                           .withBounds(2, 2, 6, 6)
                            .build()
            });
             put("STAND_DOWN", new Frame[] {
                    new FrameBuilder(spriteSheet.getSprite(0, 0))
                            .withScale(2.5f)
-                           .withBounds(0, 0, 14, 19)
+                           .withBounds(2, 2, 6, 6)
                            .build()
            });
+           put("WALK_LEFT", new Frame[] {
+                   new FrameBuilder(spriteSheet.getSprite(1, 0),7)
+                           .withScale(2.5f)
+                           .withBounds(2, 2, 6, 6)
+                           .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 1),7)
+                            .withScale(2.5f)
+                            .withBounds(2, 2, 6, 6)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 2),7)
+                            .withScale(2.5f)
+                            .withBounds(2, 2, 6, 6)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 3),7)
+                            .withScale(2.5f)
+                            .withBounds(2, 2, 6, 6)
+                            .build()
+           });
+           put("WALK_RIGHT", new Frame[] {
+                   new FrameBuilder(spriteSheet.getSprite(1, 0), 7)
+                           .withScale(2.5f)
+                           .withBounds(2, 2, 6, 6)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                           .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 1), 7)
+                            .withScale(2.5f)
+                            .withBounds(2, 2, 6, 6)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 2), 7)
+                            .withScale(2.5f)
+                            .withBounds(2, 2, 6,6)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 3), 7)
+                            .withScale(2.5f)
+                            .withBounds(2, 2, 6, 6)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build()
+           });
+           put("WALK_DOWN", new Frame[] {
+                   new FrameBuilder(spriteSheet.getSprite(0, 0), 7)
+                           .withScale(2.5f)
+                           .withBounds(2, 2, 6, 6)
+                           .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 7)
+                            .withScale(2.5f)
+                            .withBounds(2, 2, 6, 6)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 2),7)
+                            .withScale(2.5f)
+                            .withBounds(2, 2, 6, 6)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 3), 7)
+                            .withScale(2.5f)
+                            .withBounds(2, 2, 6, 6)
+                            .build()
+           });
+           put("WALK_UP", new Frame[] {
+                   new FrameBuilder(spriteSheet.getSprite(2, 0), 7)
+                           .withScale(2.5f)
+                           .withBounds(2, 2, 6, 6)
+                           .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 1), 7)
+                            .withScale(2.5f)
+                            .withBounds(2, 2, 6, 6)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 2), 7)
+                            .withScale(2.5f)
+                            .withBounds(2, 2, 6, 6)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 3), 7)
+                            .withScale(2.5f)
+                            .withBounds(2, 2, 6, 6)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build()
+           });
+           
+
         }};
     }
 }

@@ -55,6 +55,22 @@ public class NPC extends MapEntity {
         else if (direction == Direction.LEFT) {
             this.currentAnimationName = "STAND_LEFT";
         }
+        else if(direction == Direction.DOWN)
+        {
+            this.currentAnimationName = "STAND_DOWN";
+        }
+        else if(direction == Direction.UP)
+        {
+            this.currentAnimationName = "STAND_UP";
+        }
+        else {
+            if (this.currentAnimationName.contains("RIGHT")) {
+                this.currentAnimationName = "STAND_RIGHT";
+            }
+            else {
+                this.currentAnimationName = "STAND_LEFT";
+            }
+        }
     }
 
     public void walk(Direction direction, float speed) {
@@ -63,6 +79,13 @@ public class NPC extends MapEntity {
         }
         else if (direction == Direction.LEFT) {
             this.currentAnimationName = "WALK_LEFT";
+        }
+        else if(direction == Direction.DOWN) {
+            this.currentAnimationName = "WALK_DOWN";
+        }
+        else if(direction == Direction.UP)
+        {
+            this.currentAnimationName = "WALK_UP";
         }
         else {
             if (this.currentAnimationName.contains("RIGHT")) {
