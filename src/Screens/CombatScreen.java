@@ -18,7 +18,7 @@ import Maps.CombatMap;
 import ui.Button.SpriteButton;
 import ui.Button.TextButton;
 import java.awt.image.BufferedImage;
-import Level.Textbox;
+import Level.TextboxHandler;
 import java.util.Random;
 import GameObject.Sprite;
 import Screens.PlayLevelScreen;
@@ -37,7 +37,7 @@ public class CombatScreen extends Screen{
     protected SpriteButton bagButton;
     protected TextButton returnButton;
     protected BufferedImage fightImage, runImage, bagImage, youWinImage, enemyImage;
-    protected Textbox textbox;
+    protected TextboxHandler textbox;
     protected Sprite youWinPopup;
     protected Sprite enemy;
     private float scale;
