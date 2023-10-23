@@ -21,7 +21,7 @@ public class MenuScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected Map background;
 
-    protected AnimatedSpriteButton playButton, creditButton;
+    protected AnimatedSpriteButton playButton, creditButton, controlsButton;
     protected CenterContainer centerContainer;
 
     public MenuScreen(ScreenCoordinator screenCoordinator) {
@@ -34,28 +34,33 @@ public class MenuScreen extends Screen {
         background = new TitleScreenMap();
         background.setCenterCamera();
 
-
         centerContainer = new CenterContainer();
         centerContainer.setfillType(FillType.FILL_SCREEN);
         centerContainer.setAnchorChildren(false);
 
-         playButton = new AnimatedSpriteButton(0, 0, 6, new SpriteSheet(ImageLoader.loadAllowTransparent("start_button.png"), 64, 32), () ->{
+         playButton = new AnimatedSpriteButton(0, -60, 6, new SpriteSheet(ImageLoader.loadAllowTransparent("start_button.png"), 64, 32), () ->{
             screenCoordinator.setGameState(GameState.LEVEL);
             LevelManager.initStartMap();
 
           });
 
           playButton.setAnchor(Anchor.BOTTOM_CENTER);
-
-
-           creditButton = new AnimatedSpriteButton(0, 50, 4, new SpriteSheet(ImageLoader.loadAllowTransparent("credits_button.png"), 64, 24), () ->{
+        
+        controlsButton = new AnimatedSpriteButton(0,25, 5.5f, new SpriteSheet(ImageLoader.loadAllowTransparent("controls_button.png"), 48, 26), () ->{
+            screenCoordinator.setGameState(GameState.CONTROLS);
+            });
+        
+        controlsButton.setAnchor(Anchor.CENTER);
+          
+           creditButton = new AnimatedSpriteButton(0, 125, 4, new SpriteSheet(ImageLoader.loadAllowTransparent("credits_button.png"), 64, 24), () ->{
                 screenCoordinator.setGameState(GameState.CREDITS);
 
             });
             creditButton.setAnchor(Anchor.TOP_CENTER);
        
         centerContainer.addComponent(playButton);
-        centerContainer.addComponent(creditButton);        
+        centerContainer.addComponent(creditButton);
+        centerContainer.addComponent(controlsButton);        
     }
 
 
@@ -71,6 +76,7 @@ public class MenuScreen extends Screen {
         float scale = getScaleFactor();
         playButton.scale(scale);
         creditButton.scale(scale);
+        controlsButton.scale(scale);
 
     }
 
