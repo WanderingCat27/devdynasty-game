@@ -55,7 +55,7 @@ public class WildWestMap extends Map {
         evilCowboy.setExistenceFlag("hasTalkedToCowboy");
         evilCowboy.setInteractScript(new EvilCowboyScript());
         npcs.add(evilCowboy);
-
+         
         return npcs;
     }
 

@@ -15,10 +15,13 @@ import Level.LevelManager;
 import Level.Map;
 import Level.SoundPlayer;
 import Level.Trigger;
+import Maps.WildWestMap;
+import NPCs.EvilCowboy;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
 import ui.Slider.Slider;
+import Level.NPC;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
@@ -34,12 +37,14 @@ public class PlayLevelScreen extends Screen {
     protected PauseScreen pauseScreen;
     protected PositioningContainer sliderContainer;
     protected Slider volumeSlider;
-
+    protected NPC currEnemy;
+    protected EvilCowboy evilCowboy;
     protected KeyLocker keyLocker = new KeyLocker();
     protected static Key ESC = Key.ESC;
 
   public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
     this.screenCoordinator = screenCoordinator;
+    
 
     // setup state
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCowboy", false);
@@ -63,6 +68,8 @@ public class PlayLevelScreen extends Screen {
         "fourSlotHUD.png", LevelManager.getCurrentLevel().getMap(), LevelManager.getCurrentLevel().getPlayer());
 
     winScreen = new WinScreen(this);
+    combatScreen = new CombatScreen(this);
+    
 
     LevelManager.getCurrentLevel().getMap().soundPlayer.play();
     SoundPlayer.musicPlaying = true;
@@ -75,16 +82,18 @@ public class PlayLevelScreen extends Screen {
       LevelManager.getCurrentLevel().getMap().soundPlayer.pause();
       initialize();
       doReload = false;
-
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToDino2")) {
-      screenCoordinator.setGameState(GameState.COMBAT);
-      System.out.println("Combat mode");
+      //combatMode();
+      //combatScreen.setNPC(getMap().loadNPCs().get(getMap().loadNPCs().indexOf(dino2)));
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
-      screenCoordinator.setGameState(GameState.COMBAT);
+      // evilCowboy = 
+      // currEnemy = LevelManager.WILDWEST.getMap().loadNPCs().get(getMap().loadNPCs().indexOf(evilCowboy));
+      currEnemy = new EvilCowboy(3, LevelManager.WILDWEST.getMap().getMapTile(18, 3).getLocation());
+      this.playLevelScreenState = PlayLevelScreenState.COMBAT;
     }
 
     if (Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC)) {
@@ -113,6 +122,9 @@ public class PlayLevelScreen extends Screen {
       case PAUSED:
         pauseScreen.update();
         break;
+      case COMBAT:
+          combatScreen.update();
+          break;
     }
   }
 
@@ -130,6 +142,8 @@ public class PlayLevelScreen extends Screen {
       case PAUSED:
         pauseScreen.draw(graphicsHandler);
         break;
+      case COMBAT:
+        combatScreen.draw(graphicsHandler);
     }
   }
 
@@ -153,12 +167,16 @@ public class PlayLevelScreen extends Screen {
     this.playLevelScreenState = PlayLevelScreenState.RUNNING;
   }
 
+  public void combatMode(NPC npc){
+    combatScreen.initialize();
+  }
+
   public void goBackToMenu() {
     screenCoordinator.setGameState(GameState.MENU);
   }
 
   // This enum represents the different states this screen can be in
   private enum PlayLevelScreenState {
-    RUNNING, LEVEL_COMPLETED, PAUSED;
+    RUNNING, LEVEL_COMPLETED, PAUSED, COMBAT;
   }
 }

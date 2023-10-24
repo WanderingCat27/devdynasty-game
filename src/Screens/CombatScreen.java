@@ -29,6 +29,7 @@ import Level.NPC;
 import Maps.NewMap;
 import ui.Container.CenterContainer;
 import ui.Container.UIContainer.FillType;
+import NPCs.EvilCowboy;
 
 public class CombatScreen extends Screen{
     
@@ -48,20 +49,33 @@ public class CombatScreen extends Screen{
     private int health;
     private Random rand;
     private boolean isInitialized;
-    protected NPC npc;
+    protected static NPC npc;
     protected CenterContainer centerContainer;
     public SoundPlayer combatSoundPlayer;
     private int startScreenWidth, startScreenHeight, currScreenHeight, currScreenWidth;
     private boolean screenChanged;
+    protected EvilCowboy evilCowboy;
     
 
 
     
 
 
+    public CombatScreen(PlayLevelScreen playLevelScreen){
+        this.playLevelScreen = playLevelScreen;
+        this.npc = null;
+        health = 20;
+        rand = new Random(15);
+        centerContainer = new CenterContainer();
+        centerContainer.setfillType(FillType.FILL_SCREEN);
+        startScreenHeight = ScreenManager.getScreenHeight();
+        startScreenWidth = ScreenManager.getScreenHeight();
+        currScreenHeight = startScreenHeight;
+    }
 
-    public CombatScreen(ScreenCoordinator screenCoordinator){ // Add NPC parameter to know Enemy
-        this.screencoordinator = screenCoordinator;
+    public CombatScreen(PlayLevelScreen playLevelScreen, NPC enemy){ // Add NPC parameter to know Enemy
+        this.playLevelScreen = playLevelScreen;
+        this.npc = enemy;
         health = 20;
         rand = new Random(15);
         centerContainer = new CenterContainer();
@@ -72,9 +86,6 @@ public class CombatScreen extends Screen{
 
     }
 
-    // public void setNPC(NPC npc){
-    //     this.npc = npc;
-    // }
 
     
 
@@ -86,9 +97,10 @@ public class CombatScreen extends Screen{
         runImage = ImageLoader.load("run_button.png");
         bagImage = ImageLoader.load("bag_button.png");
         youWinImage = ImageLoader.load("you_win.png");
-        enemyImage = ImageLoader.load("godzilla.png");
+        System.out.println(npc.getPathToImage());
+        enemyImage = ImageLoader.load(npc.getPathToImage());
         youWinPopup = new Sprite(youWinImage, 100, 0);
-        enemy =  new Sprite(enemyImage, 300f, 50f);
+        enemy = new Sprite(enemyImage, 400, 100, 2);
         
 
         
@@ -176,10 +188,14 @@ public class CombatScreen extends Screen{
         bagButton.scaleSprite(1.5f);
     }
 
-    private void notFullscreen(){
+    private void reverseFullscreen(){
         fightButton.scaleSprite(-1.5f);
         runButton.scaleSprite(-1.5f);
         bagButton.scaleSprite(-1.5f);
+    }
+
+    public static void setEnemy(NPC enemy){
+        npc = enemy;
     }
 
 
@@ -225,6 +241,7 @@ public class CombatScreen extends Screen{
             returnButton.draw(graphicsHandler);
             //npc.draw(graphicsHandler);
         }
+        
 
     }
 
