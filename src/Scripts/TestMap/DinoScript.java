@@ -20,12 +20,11 @@ public class DinoScript extends Script<NPC> {
     protected void setup() {
         System.out.println("Dino Trees has started");
         lockPlayer();
-        showTextbox();
-        isChoosing = true;
 
         if (!isFlagSet("hasTalkedToDinosaur")) {
-            addTextToTextboxQueue("Dino Test 1. (PRESS UP ARROW)\nDino Test 2. (PRESS DOWN ARROW)");
-            isChoosing = true;
+            resetDialogue(); // Reset the dialogue
+        } else if (!isChoosing) {
+            hideTextbox();
         }
 
         entity.facePlayer(player);
@@ -45,7 +44,9 @@ public class DinoScript extends Script<NPC> {
             handleChoiceInput();
         } else {
             if (Keyboard.isKeyDown(Key.ENTER)) {
-                cleanup();
+                if (!isFlagSet("hasTalkedToDinosaur")) {
+                    cleanup();
+                }
             }
         }
 
@@ -59,11 +60,18 @@ public class DinoScript extends Script<NPC> {
 
     private void handleChoiceInput() {
         if (Keyboard.isKeyDown(Key.UP)) {
-            addTextToTextboxQueue("Dino Test 1 Chosen");
+            addTextToTextboxQueue("Surprised you made it out alive!");
             isChoosing = false;
         } else if (Keyboard.isKeyDown(Key.DOWN)) {
-            addTextToTextboxQueue("Dino Test 2 Chosen");
+            addTextToTextboxQueue("You should go talk to him.");
             isChoosing = false;
         }
+    }
+
+    private void resetDialogue() {
+        showTextbox();
+        addTextToTextboxQueue("Have you spoken to that cowboy over there?");
+        addTextToTextboxQueue("I have. (PRESS UP ARROW)\nI have not. (PRESS DOWN ARROW)");
+        isChoosing = true;
     }
 }
