@@ -40,7 +40,7 @@ public class EvilCowboyScript extends Script<NPC> {
         // set flag so that if walrus is talked to again after the first time, what he says changes
         GlobalFlagManager.FLAG_MANAGER.setFlag("hasTalkedToCowboy");
         System.out.println("cleaned up");
-        System.out.println(isFlagSet("hasTalkedToCowboy"));
+        System.out.println(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy"));
     }
 
     @Override

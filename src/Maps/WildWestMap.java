@@ -52,7 +52,7 @@ public class WildWestMap extends Map {
         npcs.add(dinosaur);
 
         EvilCowboy evilCowboy = new EvilCowboy(3, getMapTile(18, 3).getLocation());
-        evilCowboy.setExistenceFlag("hasTalkedToCowboy");
+        //evilCowboy.setExistenceFlag("hasTalkedToCowboy");
         evilCowboy.setInteractScript(new EvilCowboyScript());
         npcs.add(evilCowboy);
 
