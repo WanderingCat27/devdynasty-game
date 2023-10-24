@@ -31,14 +31,27 @@ public class madScientistScript extends Script<NPC> {
     }
 
     public void trees() {
-        if(Keyboard.isKeyDown(Key.UP))
-        {
-            addTextToTextboxQueue( "Thank you so much!");
+        System.out.println("Mad Scientist tree started");
+        lockPlayer();
+        showTextbox();
+
+        if (!isFlagSet("hasTalkedToScientist")) {
+            if(Keyboard.isKeyDown(Key.UP))
+            {
+                addTextToTextboxQueue( "Thank you so much!");
+                if(Keyboard.isKeyDown(Key.ENTER)){
+                    cleanup();
+                }
+            }
+            else if(Keyboard.isKeyDown(Key.DOWN))
+            {
+                addTextToTextboxQueue( "Come back here when you can help.");
+                 if(Keyboard.isKeyDown(Key.ENTER)){
+                    cleanup();
+                }
+            }
         }
-        else if(Keyboard.isKeyDown(Key.DOWN))
-        {
-            addTextToTextboxQueue( "Come back here when you can help.");
-        }
+        entity.facePlayer(player);
     }
 
     @Override

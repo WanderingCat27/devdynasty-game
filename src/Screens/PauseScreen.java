@@ -3,10 +3,19 @@ package Screens;
 import java.awt.Color;
 import java.awt.Font;
 
+import Engine.Config;
 import Engine.GraphicsHandler;
+import Engine.ImageLoader;
 import Engine.Screen;
+import Engine.ScreenManager;
+import Game.GameState;
+import GameObject.AnimatedSprite;
+import GameObject.SpriteSheet;
+import Level.LevelManager;
 import Level.Map;
 import Level.SoundPlayer;
+import Maps.TitleScreenMap;
+import ui.Button.AnimatedSpriteButton;
 import ui.Button.TextButton;
 import ui.Container.Anchor;
 import ui.Container.CenterContainer;
@@ -19,7 +28,7 @@ public class PauseScreen extends Screen
     protected PlayLevelScreen playLevelScreen;
     protected Map background;
     protected CenterContainer centerContainer;
-    protected TextButton resumeButton;
+    protected AnimatedSpriteButton playButton;
     protected PositioningContainer posContainer;
     protected SoundPlayer soundPlayer;
     protected PositioningContainer sliderContainer;
@@ -38,16 +47,11 @@ public class PauseScreen extends Screen
         //might need to set camera to center of the screen
         centerContainer = new CenterContainer();
         centerContainer.setfillType(FillType.FILL_SCREEN);
-        TextButton playButton = new TextButton(0, -100, 300, 90, new Color(2, 48, 71), "Resume", new Font("Comic Sans", Font.BOLD, 30), new Color(255, 183, 3), new Runnable() {
 
-            @Override
-            public void run()
-            {
-                playLevelScreen.resumeLevel();
-            }
-        });
-        playButton.getSpriteFont().setOutlineThickness(3);
-        playButton.getSpriteFont().setOutlineColor(Color.black);
+        playButton = new AnimatedSpriteButton(0, -60, 6, new SpriteSheet(ImageLoader.loadAllowTransparent("resume_button.png"), 48, 26), () ->{
+            playLevelScreen.resumeLevel();
+          });
+        
         centerContainer.addComponent(playButton);
 
         //volume slider
@@ -62,6 +66,7 @@ public class PauseScreen extends Screen
             });
             // position at top of screen and anchor objects to their top center
             sliderContainer = new PositioningContainer(Anchor.CENTER);
+            sliderContainer.setYOrigin(100);
             sliderContainer.setfillType(FillType.FILL_SCREEN);
             sliderContainer.setAnchorChildren(true);
 
@@ -76,10 +81,15 @@ public class PauseScreen extends Screen
         centerContainer.draw(graphicsHandler);
         sliderContainer.draw(graphicsHandler);
     }
-
+    private float getScaleFactor() {
+      return Math.max(1, Math.min((float)ScreenManager.getScreenHeight() / Config.GAME_WINDOW_HEIGHT, (float)ScreenManager.getScreenWidth() / Config.GAME_WINDOW_WIDTH));
+    }
+    
     public void update()
-    {
+    {  
         centerContainer.update();
+        float scale = getScaleFactor();
+        playButton.scale(scale);
         sliderContainer.update();
     }
 

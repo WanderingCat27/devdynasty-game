@@ -4,6 +4,7 @@ import Engine.DefaultScreen;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Screens.CombatScreen;
+import Screens.ControlsScreen;
 import Screens.CreditsScreen;
 import Screens.MenuScreen;
 import Screens.PlayLevelScreen;
@@ -46,6 +47,9 @@ public class ScreenCoordinator extends Screen {
 			// gameState is
 			if (previousGameState != gameState) {
 				switch (gameState) {
+					case CONTROLS:
+						currentScreen = new ControlsScreen(this);
+						break;
 					case MENU:
 						currentScreen = new MenuScreen(this);
 						break;
