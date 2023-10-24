@@ -74,7 +74,6 @@ public abstract class Player extends GameObject {
             if (previousPlayerState != PlayerState.WALKING && playerState == PlayerState.WALKING) {
                 walkingSoundPlayer.clip.loop(Clip.LOOP_CONTINUOUSLY);
                 //walkingSoundPlayer.play();
-                System.out.println("playing sound");
             } else if (playerState != PlayerState.WALKING) {
                 walkingSoundPlayer.pause();
             }
