@@ -21,14 +21,14 @@ public class WestTileset extends Tileset {
 
     SpriteSheet spriteSheet2 = new SpriteSheet(ImageLoader.load("desert.png"), 16, 16);
 
-    Frame desertSand = new FrameBuilder(spriteSheet2.getSubImageNoOffset(6, 3))
+    Frame desertSand = new FrameBuilder(spriteSheet2.getSubImageNoOffset(6, 1))
         .withScale(tileScale)
         .build();
 
     // desert grass
-    // Frame desertGrass = new FrameBuilder(spriteSheet2.getSubImageNoOffset(6, 2))
-    //     .withScale(tileScale)
-    //     .build();
+    // Frame desertGrass = new FrameBuilder(spriteSheet2.getSubImageNoOffset(6, 0))
+    // .withScale(tileScale)
+    // .build();
 
     // yellow-ish grass
     Frame westGrass = new FrameBuilder(getSubImage(0, 0))
@@ -109,7 +109,7 @@ public class WestTileset extends Tileset {
     mapTiles.add(desertGrassTile);
 
     // saloon roof
-    for (int col = 0; col < 3; col++) {
+    for (int col = 0; col < 4; col++) {
       Frame saloon = new FrameBuilder(spriteSheet2.getSubImageNoOffset(0, col))
           .withScale(tileScale)
           .build();
@@ -120,27 +120,25 @@ public class WestTileset extends Tileset {
     }
 
     // saloon
-    // saloon
-    for (int row = 1; row < 5; row++) {
-      for (int col = 0; col < 3; col++) {
+    for (int row = 1; row < 6; row++) {
+      for (int col = 0; col < 4; col++) {
         Frame saloon = new FrameBuilder(spriteSheet2.getSubImageNoOffset(row, col))
             .withScale(tileScale)
             .build();
         MapTileBuilder saloonTile = new MapTileBuilder(saloon);
-        if (col == 4 && row == 1)
-          saloonTile.withTileType(TileType.PASSABLE); // porch entrance is enterable
-        else
-          saloonTile.withTileType(TileType.NOT_PASSABLE);
+        // if (col == 4 && row == 1)
+        // saloonTile.withTileType(TileType.PASSABLE); // porch entrance is enterable
+        // else
+        saloonTile.withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(saloonTile);
       }
     }
 
-
     // mini buildings
-    for (int row = 0; row < 4; row++) {
-      for (int col = 0; col < 2; col++) {
-        Frame building = new FrameBuilder(spriteSheet2.getSubImageNoOffset(row + 2, col + 6))
+    for (int row = 0; row < 5; row++) {
+      for (int col = 0; col < 3; col++) {
+        Frame building = new FrameBuilder(spriteSheet2.getSubImageNoOffset(row, col + 5))
             .withScale(tileScale)
             .build();
         MapTileBuilder buildingTile;
@@ -157,7 +155,7 @@ public class WestTileset extends Tileset {
     }
 
     // cactus
-    Frame cactus2 = new FrameBuilder(spriteSheet2.getSubImageNoOffset(7, 3))
+    Frame cactus2 = new FrameBuilder(spriteSheet2.getSubImageNoOffset(7, 1))
         .withScale(tileScale)
         .build();
     MapTileBuilder cactusTile2 = new MapTileBuilder(desertSand)
@@ -165,21 +163,33 @@ public class WestTileset extends Tileset {
     mapTiles.add(cactusTile2);
 
     // tree
-    for (int row = 0; row < 5; row++) {
+    for (int row = 0; row < 3; row++) {
       for (int col = 0; col < 3; col++) {
-        if (row >= 3 && col != 1)
-          continue;
-        Frame tree = new FrameBuilder(spriteSheet2.getSubImageNoOffset(row + 2, col + 3))
+        Frame tree = new FrameBuilder(spriteSheet2.getSubImageNoOffset(row + 5, col + 4))
             .withScale(tileScale)
             .build();
         MapTileBuilder treeTile = new MapTileBuilder(westGrass)
             .withTopLayer(tree);
-        if (row >= 3)
-          treeTile.withTileType(TileType.NOT_PASSABLE);
-
         mapTiles.add(treeTile);
       }
     }
+
+    // base
+    Frame treeBase = new FrameBuilder(spriteSheet2.getSubImageNoOffset(6, 7))
+        .withScale(tileScale)
+        .build();
+    MapTileBuilder treeBaseTile = new MapTileBuilder(westGrass)
+        .withTopLayer(treeBase);
+        mapTiles.add(treeBaseTile);
+    // trunk
+    Frame treeTrunk = new FrameBuilder(spriteSheet2.getSubImageNoOffset(7, 7))
+        .withScale(tileScale)
+        .build();
+    MapTileBuilder treeTrunkTile = new MapTileBuilder(westGrass)
+        .withTopLayer(treeTrunk)
+        .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(treeTrunkTile);
+
 
     return mapTiles;
   }
