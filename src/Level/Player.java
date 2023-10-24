@@ -156,8 +156,7 @@ public abstract class Player extends GameObject {
             }
             else{
                 moveAmountX = 0;
-                moveAmountY = 0;
-                playerState = PlayerState.STANDING;
+                //moveAmountY = 0;
             }
         }
 
@@ -175,8 +174,7 @@ public abstract class Player extends GameObject {
             }
             else{
                 moveAmountX = 0;
-                moveAmountY = 0;
-                playerState = PlayerState.STANDING;
+                //moveAmountY = 0;
             }
         }
         else {
@@ -196,8 +194,7 @@ public abstract class Player extends GameObject {
             }
             else{
                 moveAmountY = 0;
-                moveAmountX = 0;
-                playerState = PlayerState.STANDING;
+                //moveAmountX = 0;
             }
             
             
@@ -215,8 +212,7 @@ public abstract class Player extends GameObject {
             }
             else{
                 moveAmountY = 0;
-                moveAmountX = 0;
-                playerState = PlayerState.STANDING;
+                //moveAmountX = 0;
             }
         }
         else {
