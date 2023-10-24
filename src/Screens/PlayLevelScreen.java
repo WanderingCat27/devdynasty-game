@@ -51,6 +51,8 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasFoundBall", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToDino2", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToScientist", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboy", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboyTwice", false);
     pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer);
   }
 

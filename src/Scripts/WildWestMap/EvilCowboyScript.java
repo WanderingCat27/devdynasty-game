@@ -12,14 +12,12 @@ public class EvilCowboyScript extends Script<NPC> {
 
     @Override
     protected void setup() {
-        System.out.println("Evil cowboy script has started");
         lockPlayer();
-        System.out.println(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy"));
         // changes what walrus says when talking to him the first time (flag is not set) vs talking to him afterwards (flag is set)
         if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
             showTextbox();
             addTextToTextboxQueue("Well kid... you beat me fair and square.");
-            addTextToTextboxQueue("You can have my trusty crystal, but I never want to see you again.");
+            addTextToTextboxQueue("You can have my trusty crystal, but I\nnever want to see you again.");
         }
         else if (!GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
             showTextbox();
@@ -39,8 +37,6 @@ public class EvilCowboyScript extends Script<NPC> {
 
         // set flag so that if walrus is talked to again after the first time, what he says changes
         GlobalFlagManager.FLAG_MANAGER.setFlag("hasTalkedToCowboy");
-        System.out.println("cleaned up");
-        System.out.println(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy"));
     }
 
     @Override
