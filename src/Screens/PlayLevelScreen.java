@@ -1,5 +1,7 @@
 package Screens;
 
+import javax.sound.sampled.Clip;
+
 import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.KeyLocker;
@@ -65,7 +67,9 @@ public class PlayLevelScreen extends Screen {
     winScreen = new WinScreen(this);
 
     LevelManager.getCurrentLevel().getMap().soundPlayer.play();
+    LevelManager.getCurrentLevel().getMap().soundPlayer.clip.loop(Clip.LOOP_CONTINUOUSLY);
     SoundPlayer.musicPlaying = true;
+    
 
     
     }
