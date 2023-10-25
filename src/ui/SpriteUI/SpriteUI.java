@@ -13,7 +13,7 @@ public class SpriteUI extends UIContainer {
   public SpriteUI(int x, int y, BufferedImage image) {
     super(x, y);
     this.image = image;
-
+    setfillType(FillType.NONE);
     updateDim();
   }
 

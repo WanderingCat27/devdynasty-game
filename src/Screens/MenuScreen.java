@@ -39,7 +39,7 @@ public class MenuScreen extends Screen {
         centerContainer.setfillType(FillType.FILL_SCREEN);
         centerContainer.setAnchorChildren(false);
 
-         playButton = new AnimatedSpriteButton(0, -40, 7, new SpriteSheet(ImageLoader.loadAllowTransparent("start_button.png"), 64, 32), () ->{
+         playButton = new AnimatedSpriteButton(0, -10, 7.5f, new SpriteSheet(ImageLoader.loadAllowTransparent("start_button.png"), 64, 32), () ->{
             screenCoordinator.setGameState(GameState.LEVEL);
             LevelManager.initStartMap();
 
@@ -52,21 +52,23 @@ public class MenuScreen extends Screen {
           container.setYOrigin(20);
           container.setAnchorChildren(false);
           container.setfillType(FillType.NONE);
-        controlsButton = new AnimatedSpriteButton(-20,0, 4f, new SpriteSheet(ImageLoader.loadAllowTransparent("controls_button.png"), 64, 24), () ->{
+        controlsButton = new AnimatedSpriteButton(-20,20, 5f, new SpriteSheet(ImageLoader.loadAllowTransparent("controls_button.png"), 64, 24), () ->{
             screenCoordinator.setGameState(GameState.CONTROLS);
             });
             controlsButton.setAnchor(Anchor.TOP_RIGHT);
         
           
-           creditButton = new AnimatedSpriteButton(20, 0, 4, new SpriteSheet(ImageLoader.loadAllowTransparent("credits_button.png"), 64, 24), () ->{
+           creditButton = new AnimatedSpriteButton(20, 20, 5, new SpriteSheet(ImageLoader.loadAllowTransparent("credits_button.png"), 64, 24), () ->{
                 screenCoordinator.setGameState(GameState.CREDITS);
             });
 
             creditButton.setAnchor(Anchor.TOP_LEFT);
        
-        centerContainer.addComponent(playButton);
-        container.addComponent(creditButton);
-        container.addComponent(controlsButton);        
+        centerContainer.addComponent(playButton);      
+                centerContainer.addComponent(creditButton);      
+
+                        centerContainer.addComponent(controlsButton);      
+
         centerContainer.addComponent(container);
     }
 
