@@ -39,6 +39,7 @@ public class NPC extends MapEntity {
 
     public int getId() { return id; }
 
+
     public void facePlayer(Player player) {
         if (Math.round(getBoundsX2()) - (getBounds().getWidth() / 2) < Math.round(player.getBoundsX2())) {
             this.currentAnimationName = "STAND_RIGHT";

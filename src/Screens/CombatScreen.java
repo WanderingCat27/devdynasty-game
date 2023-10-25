@@ -12,6 +12,7 @@ import Engine.ScreenManager;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Sprite;
+import GameObject.SpriteSheet;
 import Level.LevelManager;
 import Level.Map;
 import Level.NPC;
@@ -25,6 +26,7 @@ import Level.TextboxHandler;
 import java.util.Random;
 import GameObject.Sprite;
 import Screens.PlayLevelScreen;
+import Utils.Colors;
 import Level.NPC;
 import Maps.NewMap;
 import ui.Container.CenterContainer;
@@ -49,7 +51,7 @@ public class CombatScreen extends Screen{
     private int health;
     private Random rand;
     private boolean isInitialized;
-    protected static NPC npc;
+    protected NPC npc;
     protected CenterContainer centerContainer;
     public SoundPlayer combatSoundPlayer;
     private int startScreenWidth, startScreenHeight, currScreenHeight, currScreenWidth;
@@ -63,27 +65,26 @@ public class CombatScreen extends Screen{
 
     public CombatScreen(PlayLevelScreen playLevelScreen){
         this.playLevelScreen = playLevelScreen;
-        this.npc = null;
+        //this.npc = new NPC(3, 13f, 19f, new SpriteSheet(ImageLoader.load("EvilCowboy.png"), 14, 19), "STAND_DOWN");
         health = 20;
-        rand = new Random(15);
         centerContainer = new CenterContainer();
         centerContainer.setfillType(FillType.FILL_SCREEN);
         startScreenHeight = ScreenManager.getScreenHeight();
         startScreenWidth = ScreenManager.getScreenHeight();
         currScreenHeight = startScreenHeight;
+        
     }
 
     public CombatScreen(PlayLevelScreen playLevelScreen, NPC enemy){ // Add NPC parameter to know Enemy
         this.playLevelScreen = playLevelScreen;
         this.npc = enemy;
         health = 20;
-        rand = new Random(15);
         centerContainer = new CenterContainer();
         centerContainer.setfillType(FillType.FILL_SCREEN);
         startScreenHeight = ScreenManager.getScreenHeight();
         startScreenWidth = ScreenManager.getScreenHeight();
         currScreenHeight = startScreenHeight;
-
+        initialize();
     }
 
 
@@ -92,15 +93,17 @@ public class CombatScreen extends Screen{
     public void initialize(){
         combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/combat.wav");
         LevelManager.getCurrentLevel().getSoundPlayer().pause();
-        scale = 2.3f;
+        scale = 2.3f; //(currScreenHeight/currScreenWidth)
         fightImage = ImageLoader.load("fight_button.png");
         runImage = ImageLoader.load("run_button.png");
         bagImage = ImageLoader.load("bag_button.png");
         youWinImage = ImageLoader.load("you_win.png");
-        System.out.println(npc.getPathToImage());
-        enemyImage = ImageLoader.load(npc.getPathToImage());
+       // enemyImage = ImageLoader.load("godzilla.png");
+        // System.out.println(npc.getPathToImage());
         youWinPopup = new Sprite(youWinImage, 100, 0);
+        enemyImage = ImageLoader.loadSubImage("EvilCowboy.png", Colors.MAGENTA, 0, 0, 14, 19);
         enemy = new Sprite(enemyImage, 400, 100, 2);
+
         
 
         
@@ -155,7 +158,7 @@ public class CombatScreen extends Screen{
             public void run(){
                 if(healthZero()){
                     pauseMusic();
-                    screencoordinator.setGameState(GameState.LEVEL);
+                    playLevelScreen.resumeLevel();
                 }
             }
             
@@ -169,6 +172,15 @@ public class CombatScreen extends Screen{
         System.out.println(fightButton.getXAbs());
         
 
+    }
+
+    protected NPC getNPC(int npcId) {
+        for (NPC npc : LevelManager.getCurrentLevel().getMap().getNPCs()) {
+            if (npc.getId() == npcId) {
+                return npc;
+            }
+        }
+        return null;
     }
 
     public boolean isInitialized(){
@@ -194,9 +206,6 @@ public class CombatScreen extends Screen{
         bagButton.scaleSprite(-1.5f);
     }
 
-    public static void setEnemy(NPC enemy){
-        npc = enemy;
-    }
 
 
     public void update(){
@@ -207,6 +216,7 @@ public class CombatScreen extends Screen{
         }
 
         background.update(null);
+
         if(!healthZero()){
             centerContainer.update();
         }else{

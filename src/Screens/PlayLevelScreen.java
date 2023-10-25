@@ -90,10 +90,11 @@ public class PlayLevelScreen extends Screen {
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
-      // evilCowboy = 
-      // currEnemy = LevelManager.WILDWEST.getMap().loadNPCs().get(getMap().loadNPCs().indexOf(evilCowboy));
-      currEnemy = new EvilCowboy(3, LevelManager.WILDWEST.getMap().getMapTile(18, 3).getLocation());
+      System.out.print("COMBAT");
+      //System.out.println(combatScreen.isInitialized());
+      currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
       this.playLevelScreenState = PlayLevelScreenState.COMBAT;
+
     }
 
     if (Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC)) {
@@ -123,8 +124,15 @@ public class PlayLevelScreen extends Screen {
         pauseScreen.update();
         break;
       case COMBAT:
-          combatScreen.update();
-          break;
+      if(combatScreen.isInitialized()){
+        combatScreen.update();
+      }else{
+        combatScreen = new CombatScreen(this, currEnemy);
+        combatScreen.update();
+      }
+      break;
+        
+        
     }
   }
 
@@ -167,9 +175,6 @@ public class PlayLevelScreen extends Screen {
     this.playLevelScreenState = PlayLevelScreenState.RUNNING;
   }
 
-  public void combatMode(NPC npc){
-    combatScreen.initialize();
-  }
 
   public void goBackToMenu() {
     screenCoordinator.setGameState(GameState.MENU);

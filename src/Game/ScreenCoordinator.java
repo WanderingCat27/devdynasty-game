@@ -64,7 +64,6 @@ public class ScreenCoordinator extends Screen {
 					// case PAUSE:
 					// currentScreen = new PauseScreen(this);
 				}
-				if (previousGameState != GameState.COMBAT)
 					currentScreen.initialize();
 			}
 			previousGameState = gameState;
