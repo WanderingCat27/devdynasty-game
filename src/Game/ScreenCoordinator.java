@@ -58,16 +58,12 @@ public class ScreenCoordinator extends Screen {
               PlayLevelScreen.doReload = true;
               currentScreen.initialize();
 						break;
-					case COMBAT:
-						currentScreen = new CombatScreen(this);
-						break;
 					case CREDITS:
 						currentScreen = new CreditsScreen(this);
 						break;
 					// case PAUSE:
 					// currentScreen = new PauseScreen(this);
 				}
-				if (previousGameState != GameState.COMBAT)
 					currentScreen.initialize();
 			}
 			previousGameState = gameState;

@@ -149,7 +149,6 @@ public abstract class Player extends GameObject {
                 }else{
                     moveAmountX -= walkSpeed;
                 }
-                
                 facingDirection = Direction.LEFT;
                 currentWalkingXDirection = Direction.LEFT;
                 lastWalkingXDirection = Direction.LEFT;
