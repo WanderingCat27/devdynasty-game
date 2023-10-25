@@ -12,102 +12,107 @@ import GameObject.Sprite;
 import GameObject.SpriteSheet;
 import Level.Map;
 import Maps.TitleScreenMap;
+import Utils.ImageUtils;
 import ui.Button.AnimatedSpriteButton;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
+import ui.Container.UIContainer;
 import ui.Container.UIContainer.FillType;
 import ui.SpriteFont.SpriteFont;
+import ui.SpriteUI.SpriteUI;
 
-public class ControlsScreen extends Screen
-{
-    protected ScreenCoordinator screenCoordinator;
-    protected AnimatedSpriteButton exitButton;
-    protected SpriteFont controlsLabel;
-    protected PositioningContainer posContainer;
-    protected Map background;
-    
-    public ControlsScreen(ScreenCoordinator screenCoordinator)
-    {
-        this.screenCoordinator = screenCoordinator;
-    }
+public class ControlsScreen extends Screen {
+  protected ScreenCoordinator screenCoordinator;
+  protected AnimatedSpriteButton exitButton;
+  protected SpriteFont controlsLabel;
+  protected PositioningContainer posContainer;
+  protected Map background;
 
-    @Override
-    public void initialize()
-    {
-        background = new TitleScreenMap();
-        posContainer = new PositioningContainer(Anchor.TOP_CENTER);
-        posContainer.setAnchorChildren(true);
-        posContainer.setfillType(FillType.FILL_SCREEN);
+  public ControlsScreen(ScreenCoordinator screenCoordinator) {
+    this.screenCoordinator = screenCoordinator;
+  }
 
-        //controls label
-        controlsLabel = new SpriteFont("Controls", 0, 7, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
-        posContainer.addComponent(controlsLabel);
+  @Override
+  public void initialize() {
+    background = new TitleScreenMap();
+    posContainer = new PositioningContainer(Anchor.TOP_CENTER);
+    posContainer.setAnchorChildren(true);
+    posContainer.setfillType(FillType.FILL_SCREEN);
+    posContainer.addComponent(new SpriteUI(0, 0, ImageUtils.createFilledImage(800, 500, new Color(0, 0, 0, 100))));
 
-        //movement label
-        SpriteFont movementLabel = new SpriteFont("Movement",-250, 80, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
-        posContainer.addComponent(movementLabel);
+    // controls label
+    controlsLabel = new SpriteFont("Controls", 0, 7, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
+    posContainer.addComponent(controlsLabel);
 
-        //movement controls
-        SpriteFont movementControls = new SpriteFont("W-A-S-D", 250, 80, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
-        posContainer.addComponent(movementControls);
+    // movement label
+    SpriteFont movementLabel = new SpriteFont("Movement", -250, 80, new Font("Times New Roman", Font.BOLD, 30),
+        Color.ORANGE);
+    posContainer.addComponent(movementLabel);
 
-        //interact label
-        SpriteFont interactLabel = new SpriteFont("Interact/Pick-Up Items", -230, 150, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
-        posContainer.addComponent(interactLabel);
+    // movement controls
+    SpriteFont movementControls = new SpriteFont("W-A-S-D", 250, 80, new Font("Times New Roman", Font.BOLD, 30),
+        Color.ORANGE);
+    posContainer.addComponent(movementControls);
 
-        //interact controls
-        SpriteFont interactControls = new SpriteFont("Return", 250, 150, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
-        posContainer.addComponent(interactControls);
+    // interact label
+    SpriteFont interactLabel = new SpriteFont("Interact/Pick-Up Items", -230, 150,
+        new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
+    posContainer.addComponent(interactLabel);
 
-        //pause label
-        SpriteFont pauseLabel = new SpriteFont("Pause", -250, 220, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
-        posContainer.addComponent(pauseLabel);
+    // interact controls
+    SpriteFont interactControls = new SpriteFont("Return", 250, 150, new Font("Times New Roman", Font.BOLD, 30),
+        Color.ORANGE);
+    posContainer.addComponent(interactControls);
 
-        //pause controls
-        SpriteFont pauseControls = new SpriteFont("ESC", 250, 220, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
-        posContainer.addComponent(pauseControls);
+    // pause label
+    SpriteFont pauseLabel = new SpriteFont("Pause", -250, 220, new Font("Times New Roman", Font.BOLD, 30),
+        Color.ORANGE);
+    posContainer.addComponent(pauseLabel);
 
-        //inventory label
-        SpriteFont inventoryLabel = new SpriteFont("Inventory", -250, 290, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
-        posContainer.addComponent(inventoryLabel);
+    // pause controls
+    SpriteFont pauseControls = new SpriteFont("ESC", 250, 220, new Font("Times New Roman", Font.BOLD, 30),
+        Color.ORANGE);
+    posContainer.addComponent(pauseControls);
 
-        //inventory controls
-        SpriteFont inventoryControls = new SpriteFont("1-2-3-4-`", 250, 290, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
-        posContainer.addComponent(inventoryControls);
+    // inventory label
+    SpriteFont inventoryLabel = new SpriteFont("Inventory", -250, 290, new Font("Times New Roman", Font.BOLD, 30),
+        Color.ORANGE);
+    posContainer.addComponent(inventoryLabel);
 
-        //drop label
-        SpriteFont dropLabel = new SpriteFont("Drop Item", -250, 360, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
-        posContainer.addComponent(dropLabel);
+    // inventory controls
+    SpriteFont inventoryControls = new SpriteFont("1-2-3-4-`", 250, 290, new Font("Times New Roman", Font.BOLD, 30),
+        Color.ORANGE);
+    posContainer.addComponent(inventoryControls);
 
-        //drop controls
-        SpriteFont dropControls = new SpriteFont("R", 250, 360, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
-        posContainer.addComponent(dropControls);
+    // drop label
+    SpriteFont dropLabel = new SpriteFont("Drop Item", -250, 360, new Font("Times New Roman", Font.BOLD, 30),
+        Color.ORANGE);
+    posContainer.addComponent(dropLabel);
 
+    // drop controls
+    SpriteFont dropControls = new SpriteFont("R", 250, 360, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
+    posContainer.addComponent(dropControls);
 
-
-
-
-        //this will be the exit button
-        this.exitButton = new AnimatedSpriteButton(10, 10, 3,
+    // this will be the exit button
+    this.exitButton = new AnimatedSpriteButton(10, 10, 5,
         new SpriteSheet(ImageLoader.loadAllowTransparent("menu_button.png"), 32, 16), () -> {
           screenCoordinator.setGameState(GameState.MENU);
 
         });
-    }
 
-    @Override
-    public void update()
-    {
-        background.update(null);
-        exitButton.update();
-    }
+  }
 
-    @Override
-    public void draw(GraphicsHandler graphicsHandler)
-    {
-        background.draw(graphicsHandler);
-        exitButton.draw(graphicsHandler);
-        posContainer.draw(graphicsHandler);
-    }
-    
+  @Override
+  public void update() {
+    background.update(null);
+    exitButton.update();
+  }
+
+  @Override
+  public void draw(GraphicsHandler graphicsHandler) {
+    background.draw(graphicsHandler);
+    posContainer.draw(graphicsHandler);
+    exitButton.draw(graphicsHandler);
+  }
+
 }

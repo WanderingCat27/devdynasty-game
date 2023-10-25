@@ -6,6 +6,7 @@ import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.Mouse;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
@@ -68,7 +69,6 @@ public class PlayLevelScreen extends Screen {
     // map.getPlayerStartPosition().y);
     this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-
     inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png",
         "fourSlotHUD.png", LevelManager.getCurrentLevel().getMap(), LevelManager.getCurrentLevel().getPlayer());
 
@@ -76,20 +76,17 @@ public class PlayLevelScreen extends Screen {
     combatScreen = new CombatScreen(this);
     
 
-    
-    //LevelManager.getCurrentLevel().getMap().soundPlayer.play();
-        if(LevelManager.getCurrentLevel().getSoundPlayer() != null)
-    LevelManager.getCurrentLevel().getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
+    // LevelManager.getCurrentLevel().getMap().soundPlayer.play();
+    if (LevelManager.getCurrentLevel().getSoundPlayer() != null)
+      LevelManager.getCurrentLevel().getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
     SoundPlayer.musicPlaying = true;
-    
 
-    
-    }
+  }
 
   public void update() {
     if (doReload) {
-    if(LevelManager.getCurrentLevel().getSoundPlayer() != null)
-      LevelManager.getCurrentLevel().getSoundPlayer().pause();
+      if (LevelManager.getCurrentLevel().getSoundPlayer() != null)
+        LevelManager.getCurrentLevel().getSoundPlayer().pause();
       initialize();
       doReload = false;
     }
@@ -164,6 +161,17 @@ public class PlayLevelScreen extends Screen {
       case COMBAT:
         combatScreen.draw(graphicsHandler);
     }
+
+    // print tile location mouse is over, to find tiles to place entities on
+
+    if (Mouse.isButtonDown(Mouse.LEFT_MOUSE_BUTTON) && LevelManager.getCurrentLevel() != null) {
+      Map map = LevelManager.getCurrentLevel().getMap();
+      float x = map.getCamera().getX();
+      float y = map.getCamera().getY() - map.getCamera().getHeight() + 21;
+      map.getTileByPosition(Mouse.getMouseLoction().x, Mouse.getMouseLoction().y).getLocation();
+      System.out.println(x + "  " + y);
+    }
+
   }
 
   public PlayLevelScreenState getPlayLevelScreenState() {
