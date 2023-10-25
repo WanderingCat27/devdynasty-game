@@ -1,5 +1,7 @@
 package Screens;
 
+import javax.sound.sampled.Clip;
+
 import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.KeyLocker;
@@ -54,6 +56,8 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasFoundBall", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToDino2", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToScientist", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboy", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboyTwice", false);
     pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer);
   }
 
@@ -71,8 +75,10 @@ public class PlayLevelScreen extends Screen {
     combatScreen = new CombatScreen(this);
     
 
-    LevelManager.getCurrentLevel().getMap().soundPlayer.play();
+    //LevelManager.getCurrentLevel().getMap().soundPlayer.play();
+    LevelManager.getCurrentLevel().getMap().soundPlayer.clip.loop(Clip.LOOP_CONTINUOUSLY);
     SoundPlayer.musicPlaying = true;
+    
 
     
     }

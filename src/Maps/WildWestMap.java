@@ -10,10 +10,11 @@ import Level.NPC;
 import Level.Trigger;
 import NPCs.Dinosaur;
 import NPCs.EvilCowboy;
-import NPCs.Walrus;
+import NPCs.OldCowboy;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.TestMap.DinoScript;
 import Scripts.WildWestMap.EvilCowboyScript;
+import Scripts.WildWestMap.OldCowboyScript;
 import Tilesets.WestTileset;
 
 // Represents a test map to be used in a level
@@ -55,7 +56,11 @@ public class WildWestMap extends Map {
         //evilCowboy.setExistenceFlag("hasTalkedToCowboy");
         evilCowboy.setInteractScript(new EvilCowboyScript());
         npcs.add(evilCowboy);
-         
+
+        OldCowboy oldCowboy = new OldCowboy(9, getMapTile(2, 10).getLocation());
+        oldCowboy.setInteractScript(new OldCowboyScript());
+        npcs.add(oldCowboy);
+
         return npcs;
     }
 
