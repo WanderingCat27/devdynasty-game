@@ -22,6 +22,7 @@ public class ChangeLevelScript extends Script {
     public ScriptState execute() {
         // call setup code
         start();
+        LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
         System.out.println("this: " + this);
         
 

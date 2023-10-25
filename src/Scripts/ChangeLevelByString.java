@@ -19,6 +19,7 @@ public class ChangeLevelByString extends Script {
   public ScriptState execute() {
     // call setup code
     start();
+    LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
     Level level = null;
     if (this.levelStr.toLowerCase() == "wildwest")
       level = LevelManager.WILDWEST;
