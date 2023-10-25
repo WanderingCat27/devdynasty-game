@@ -57,6 +57,7 @@ public abstract class Script<T extends MapEntity> {
         // If Script is completed, set it to inactive to allow game to carry on
         if (scriptState == ScriptState.COMPLETED) {
             this.isActive = false;
+            if(map != null)
             map.setActiveInteractScript(null);
         }
     }

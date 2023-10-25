@@ -13,6 +13,7 @@ import GameObject.Inventory;
 import GameObject.Item;
 import Level.FlagManager;
 import Level.GlobalFlagManager;
+import Level.Level;
 import Level.LevelManager;
 import Level.Map;
 import Level.SoundPlayer;
@@ -68,8 +69,10 @@ public class PlayLevelScreen extends Screen {
 
     winScreen = new WinScreen(this);
 
+    
     //LevelManager.getCurrentLevel().getMap().soundPlayer.play();
-    LevelManager.getCurrentLevel().getMap().soundPlayer.clip.loop(Clip.LOOP_CONTINUOUSLY);
+        if(LevelManager.getCurrentLevel().getSoundPlayer() != null)
+    LevelManager.getCurrentLevel().getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
     SoundPlayer.musicPlaying = true;
     
 
@@ -78,7 +81,8 @@ public class PlayLevelScreen extends Screen {
 
   public void update() {
     if (doReload) {
-      LevelManager.getCurrentLevel().getMap().soundPlayer.pause();
+    if(LevelManager.getCurrentLevel().getSoundPlayer() != null)
+      LevelManager.getCurrentLevel().getSoundPlayer().pause();
       initialize();
       doReload = false;
 
