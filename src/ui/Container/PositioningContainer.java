@@ -43,7 +43,7 @@ public class PositioningContainer extends UIContainer {
     super.addComponent(container);
     if (anchorChildren)
       container.setAnchor(this.drawPosition);
-
+      
   }
 
   public void updateChildrenAnchors() {

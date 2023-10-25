@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import Engine.Config;
 import Engine.GameWindow;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
@@ -29,6 +30,7 @@ import Screens.PlayLevelScreen;
 import Utils.Colors;
 import Level.NPC;
 import Maps.NewMap;
+import ui.Container.Anchor;
 import ui.Container.CenterContainer;
 import ui.Container.UIContainer.FillType;
 import NPCs.EvilCowboy;
@@ -54,10 +56,11 @@ public class CombatScreen extends Screen{
     protected NPC npc;
     protected CenterContainer centerContainer;
     public SoundPlayer combatSoundPlayer;
-    private int startScreenWidth, startScreenHeight, currScreenHeight, currScreenWidth;
+    private int lastScreenWidth, lastScreenHeight, currScreenHeight, currScreenWidth;
     private boolean screenChanged;
     protected EvilCowboy evilCowboy;
-    
+    private boolean gameOver;
+    private double imageScale;
 
 
     
@@ -69,9 +72,10 @@ public class CombatScreen extends Screen{
         health = 20;
         centerContainer = new CenterContainer();
         centerContainer.setfillType(FillType.FILL_SCREEN);
-        startScreenHeight = ScreenManager.getScreenHeight();
-        startScreenWidth = ScreenManager.getScreenHeight();
-        currScreenHeight = startScreenHeight;
+        lastScreenHeight = centerContainer.getHeight();
+        lastScreenWidth = centerContainer.getWidth();
+        currScreenHeight = lastScreenHeight;
+        currScreenWidth = lastScreenWidth;
         
     }
 
@@ -81,9 +85,10 @@ public class CombatScreen extends Screen{
         health = 20;
         centerContainer = new CenterContainer();
         centerContainer.setfillType(FillType.FILL_SCREEN);
-        startScreenHeight = ScreenManager.getScreenHeight();
-        startScreenWidth = ScreenManager.getScreenHeight();
-        currScreenHeight = startScreenHeight;
+        lastScreenHeight = centerContainer.getHeight();
+        lastScreenWidth = centerContainer.getWidth();
+        currScreenHeight = lastScreenHeight;
+        currScreenWidth = lastScreenWidth;
         initialize();
     }
 
@@ -93,19 +98,24 @@ public class CombatScreen extends Screen{
     public void initialize(){
         combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/combat.wav");
         LevelManager.getCurrentLevel().getSoundPlayer().pause();
-        scale = 2.3f; //(currScreenHeight/currScreenWidth)
         fightImage = ImageLoader.load("fight_button.png");
         runImage = ImageLoader.load("run_button.png");
         bagImage = ImageLoader.load("bag_button.png");
         youWinImage = ImageLoader.load("you_win.png");
-       // enemyImage = ImageLoader.load("godzilla.png");
-        // System.out.println(npc.getPathToImage());
         youWinPopup = new Sprite(youWinImage, 100, 0);
         enemyImage = ImageLoader.loadSubImage("EvilCowboy.png", Colors.MAGENTA, 0, 0, 14, 19);
-        enemy = new Sprite(enemyImage, 400, 100, 2);
+        enemy = new Sprite(enemyImage, 400, 100, 10);
+        gameOver = false;
+        System.out.println(ScreenManager.getScreenHeight() + " " + ScreenManager.getScreenWidth());
+        System.out.println(lastScreenHeight + " " + lastScreenWidth);
 
+        if(currScreenHeight > Config.GAME_WINDOW_HEIGHT){
+            scale = 3.45f;
+        }else{
+            scale = 2.3f;
+        }
         
-
+        
         
         background = new CombatMap();
 
@@ -113,7 +123,21 @@ public class CombatScreen extends Screen{
 
         isInitialized = true;
 
-        fightButton = new SpriteButton(330, 374, scale, fightImage, new Runnable() {
+
+        runButton = new SpriteButton(555, currScreenHeight-(runImage.getHeight()), scale, runImage, new Runnable() { //555, 462
+
+            
+            @Override
+            public void run(){
+                System.out.println("Run");
+                System.out.println(currScreenHeight +" "+ currScreenHeight);
+            }
+            
+        });
+
+
+
+        fightButton = new SpriteButton(330, 374, scale, fightImage, new Runnable() { //330, 374
 
             
             @Override
@@ -130,17 +154,9 @@ public class CombatScreen extends Screen{
         //fightButton.scaleSprite(5f);
 
 
-        runButton = new SpriteButton(555, 462, scale, runImage, new Runnable() {
+        
 
-            
-            @Override
-            public void run(){
-                System.out.println("Run");
-            }
-            
-        });
-
-        bagButton = new SpriteButton(555, 374, scale, bagImage, new Runnable() {
+        bagButton = new SpriteButton(555, 374, scale, bagImage, new Runnable() { //555, 374
 
             
             @Override
@@ -159,6 +175,7 @@ public class CombatScreen extends Screen{
                 if(healthZero()){
                     pauseMusic();
                     playLevelScreen.resumeLevel();
+                    gameOver = true;
                 }
             }
             
@@ -194,6 +211,10 @@ public class CombatScreen extends Screen{
         return false;
     }
 
+    public boolean gameOver(){
+        return gameOver;
+    }
+
     private void fullscreen(){
         fightButton.scaleSprite(1.5f);
         runButton.scaleSprite(1.5f);
@@ -207,14 +228,39 @@ public class CombatScreen extends Screen{
     }
 
 
+    private void checkButtons(){ //Makes sure the buttons are relative to the screen
+        runButton.setXOrigin(currScreenWidth/2-(runButton.getWidth())/2);
+        runButton.setYOrigin(currScreenHeight/2-(runButton.getHeight())/2);
+        bagButton.setXOrigin(runButton.getXOrigin());
+        bagButton.setYOrigin(runButton.getYOrigin()-runButton.getHeight());
+        fightButton.setXOrigin(bagButton.getXOrigin()-bagButton.getWidth());
+        fightButton.setYOrigin(bagButton.getYOrigin());
+
+    }
+
+
 
     public void update(){
 
-        currScreenHeight = ScreenManager.getScreenHeight();
-        if(currScreenHeight != startScreenHeight){
-            screenChanged = true;
+        currScreenHeight = centerContainer.getHeight();
+        currScreenWidth = centerContainer.getWidth();
+        checkButtons(); 
+        if(currScreenHeight != lastScreenHeight){
+            if(currScreenHeight < lastScreenHeight){
+                bagButton.scaleSprite(2/3f);
+                runButton.scaleSprite(2/3f);
+                fightButton.scaleSprite(2/3f);
+            }else if(currScreenHeight > lastScreenHeight){
+                bagButton.scaleSprite(1.5f);
+                runButton.scaleSprite(1.5f);
+                fightButton.scaleSprite(1.5f);
+            }
+            
         }
+        lastScreenHeight = currScreenHeight;
+        lastScreenWidth = currScreenWidth;
 
+        
         background.update(null);
 
         if(!healthZero()){

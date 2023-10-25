@@ -96,11 +96,12 @@ public class PlayLevelScreen extends Screen {
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
-      System.out.print("COMBAT");
-      //System.out.println(combatScreen.isInitialized());
-      currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
-      this.playLevelScreenState = PlayLevelScreenState.COMBAT;
-
+       if(!combatScreen.gameOver()){ 
+        System.out.println(playLevelScreenState);
+        //System.out.println(combatScreen.isInitialized());
+        currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
+        this.playLevelScreenState = PlayLevelScreenState.COMBAT;
+       }
     }
 
     if (Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC)) {
