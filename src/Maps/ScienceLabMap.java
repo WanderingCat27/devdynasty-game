@@ -12,9 +12,13 @@ import Level.LevelManager;
 import Level.Map;
 import Level.NPC;
 import Level.Trigger;
+import NPCs.AnimatedTable;
+import NPCs.DaggerTable;
 import NPCs.MadScientist;
 import Scripts.ChangeLevelScript;
 import Scripts.NewMap.madScientistScript;
+import Scripts.ScienceLab.AnimatedTableScript;
+import Scripts.ScienceLab.DaggerTableScript;
 import Scripts.ScienceLab.secondMadScientistScript;
 import Scripts.ScienceLab.triggerForScientist;
 import Tilesets.ScienceLabTilset;
@@ -52,6 +56,14 @@ public class ScienceLabMap extends Map
         Computer computer2 = new Computer(5, getMapTile(15, 10).getLocation().subtractY(7));
         //add interact script
         npcs.add(computer2);
+
+        AnimatedTable animatedTable = new AnimatedTable(6, getMapTile(10, 11).getLocation().subtractY(7));
+        animatedTable.setInteractScript(new AnimatedTableScript());
+        npcs.add(animatedTable);
+
+        DaggerTable daggerTable = new DaggerTable(6, getMapTile(10, 17).getLocation().subtractY(7));
+        daggerTable.setInteractScript(new DaggerTableScript());
+        npcs.add(daggerTable);
         
         return npcs;
     }
@@ -60,7 +72,7 @@ public class ScienceLabMap extends Map
     public ArrayList<Trigger> loadTriggers()
     {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(770, 1042, 50,10, new triggerForScientist(), "hasTalkedToScientist"));
+        //triggers.add(new Trigger(770, 1042, 50,10, new triggerForScientist(), "hasTalkedToScientist"));
         return triggers;
     }
 
