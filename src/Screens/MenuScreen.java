@@ -14,6 +14,7 @@ import Maps.TitleScreenMap;
 import ui.Button.AnimatedSpriteButton;
 import ui.Container.Anchor;
 import ui.Container.CenterContainer;
+import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
 
 // This is the class for the main menu screen
@@ -38,7 +39,7 @@ public class MenuScreen extends Screen {
         centerContainer.setfillType(FillType.FILL_SCREEN);
         centerContainer.setAnchorChildren(false);
 
-         playButton = new AnimatedSpriteButton(0, -60, 6, new SpriteSheet(ImageLoader.loadAllowTransparent("start_button.png"), 64, 32), () ->{
+         playButton = new AnimatedSpriteButton(0, -40, 7, new SpriteSheet(ImageLoader.loadAllowTransparent("start_button.png"), 64, 32), () ->{
             screenCoordinator.setGameState(GameState.LEVEL);
             LevelManager.initStartMap();
 
@@ -46,21 +47,27 @@ public class MenuScreen extends Screen {
 
           playButton.setAnchor(Anchor.BOTTOM_CENTER);
         
-        controlsButton = new AnimatedSpriteButton(0,25, 5.5f, new SpriteSheet(ImageLoader.loadAllowTransparent("controls_button.png"), 48, 26), () ->{
+
+          PositioningContainer container = new PositioningContainer(Anchor.TOP_CENTER);
+          container.setYOrigin(20);
+          container.setAnchorChildren(false);
+          container.setfillType(FillType.NONE);
+        controlsButton = new AnimatedSpriteButton(-20,0, 4f, new SpriteSheet(ImageLoader.loadAllowTransparent("controls_button.png"), 64, 24), () ->{
             screenCoordinator.setGameState(GameState.CONTROLS);
             });
+            controlsButton.setAnchor(Anchor.TOP_RIGHT);
         
-        controlsButton.setAnchor(Anchor.CENTER);
           
-           creditButton = new AnimatedSpriteButton(0, 125, 4, new SpriteSheet(ImageLoader.loadAllowTransparent("credits_button.png"), 64, 24), () ->{
+           creditButton = new AnimatedSpriteButton(20, 0, 4, new SpriteSheet(ImageLoader.loadAllowTransparent("credits_button.png"), 64, 24), () ->{
                 screenCoordinator.setGameState(GameState.CREDITS);
-
             });
-            creditButton.setAnchor(Anchor.TOP_CENTER);
+
+            creditButton.setAnchor(Anchor.TOP_LEFT);
        
         centerContainer.addComponent(playButton);
-        centerContainer.addComponent(creditButton);
-        centerContainer.addComponent(controlsButton);        
+        container.addComponent(creditButton);
+        container.addComponent(controlsButton);        
+        centerContainer.addComponent(container);
     }
 
 

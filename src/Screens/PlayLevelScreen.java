@@ -6,6 +6,7 @@ import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.Mouse;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
@@ -25,21 +26,21 @@ import ui.Slider.Slider;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
-    protected ScreenCoordinator screenCoordinator;
-    // protected Sprite hud;
-    protected static Inventory inventory;
-    protected PlayLevelScreenState playLevelScreenState;
-    protected WinScreen winScreen;
-    protected CombatScreen combatScreen;
-    protected FlagManager flagManager;
-    protected Item sword;
-    public static boolean doReload = false;
-    protected PauseScreen pauseScreen;
-    protected PositioningContainer sliderContainer;
-    protected Slider volumeSlider;
+  protected ScreenCoordinator screenCoordinator;
+  // protected Sprite hud;
+  protected static Inventory inventory;
+  protected PlayLevelScreenState playLevelScreenState;
+  protected WinScreen winScreen;
+  protected CombatScreen combatScreen;
+  protected FlagManager flagManager;
+  protected Item sword;
+  public static boolean doReload = false;
+  protected PauseScreen pauseScreen;
+  protected PositioningContainer sliderContainer;
+  protected Slider volumeSlider;
 
-    protected KeyLocker keyLocker = new KeyLocker();
-    protected static Key ESC = Key.ESC;
+  protected KeyLocker keyLocker = new KeyLocker();
+  protected static Key ESC = Key.ESC;
 
   public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
     this.screenCoordinator = screenCoordinator;
@@ -63,26 +64,22 @@ public class PlayLevelScreen extends Screen {
     // map.getPlayerStartPosition().y);
     this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-
     inventory = new Inventory("noSelectionHUD.png", "oneSlotHUD.png", "twoSlotHUD.png", "threeSlotHUD.png",
         "fourSlotHUD.png", LevelManager.getCurrentLevel().getMap(), LevelManager.getCurrentLevel().getPlayer());
 
     winScreen = new WinScreen(this);
 
-    
-    //LevelManager.getCurrentLevel().getMap().soundPlayer.play();
-        if(LevelManager.getCurrentLevel().getSoundPlayer() != null)
-    LevelManager.getCurrentLevel().getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
+    // LevelManager.getCurrentLevel().getMap().soundPlayer.play();
+    if (LevelManager.getCurrentLevel().getSoundPlayer() != null)
+      LevelManager.getCurrentLevel().getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
     SoundPlayer.musicPlaying = true;
-    
 
-    
-    }
+  }
 
   public void update() {
     if (doReload) {
-    if(LevelManager.getCurrentLevel().getSoundPlayer() != null)
-      LevelManager.getCurrentLevel().getSoundPlayer().pause();
+      if (LevelManager.getCurrentLevel().getSoundPlayer() != null)
+        LevelManager.getCurrentLevel().getSoundPlayer().pause();
       initialize();
       doReload = false;
 
@@ -141,6 +138,17 @@ public class PlayLevelScreen extends Screen {
         pauseScreen.draw(graphicsHandler);
         break;
     }
+
+    // print tile location mouse is over, to find tiles to place entities on
+
+    if (Mouse.isButtonDown(Mouse.LEFT_MOUSE_BUTTON) && LevelManager.getCurrentLevel() != null) {
+      Map map = LevelManager.getCurrentLevel().getMap();
+      float x = map.getCamera().getX();
+      float y = map.getCamera().getY() - map.getCamera().getHeight() + 21;
+      map.getTileByPosition(Mouse.getMouseLoction().x, Mouse.getMouseLoction().y).getLocation();
+      System.out.println(x + "  " + y);
+    }
+
   }
 
   public PlayLevelScreenState getPlayLevelScreenState() {
