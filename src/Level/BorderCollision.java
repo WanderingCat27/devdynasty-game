@@ -12,7 +12,5 @@ import Utils.Point;
 
 public class BorderCollision {
 
-    // public static CollsionState side;
-
 }
 

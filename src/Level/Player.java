@@ -2,6 +2,9 @@ package Level;
 
 import java.util.ArrayList;
 
+import javax.sound.sampled.Clip;
+
+import Engine.GameWindow;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
@@ -47,6 +50,7 @@ public abstract class Player extends GameObject {
     protected Key MOVE_DOWN_KEY = Key.S;
     protected Key INTERACT_KEY = Key.ENTER;
     protected Key SPRINT_KEY = Key.SHIFT;
+    public SoundPlayer walkingSoundPlayer;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -54,6 +58,8 @@ public abstract class Player extends GameObject {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         this.affectedByTriggers = true;
+        walkingSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/footstep.wav");
+        walkingSoundPlayer.pause();
     }
 
     public void update() {
@@ -65,6 +71,12 @@ public abstract class Player extends GameObject {
         do {
             previousPlayerState = playerState;
             handlePlayerState();
+            if (previousPlayerState != PlayerState.WALKING && playerState == PlayerState.WALKING) {
+                walkingSoundPlayer.clip.loop(Clip.LOOP_CONTINUOUSLY);
+                //walkingSoundPlayer.play();
+            } else if (playerState != PlayerState.WALKING) {
+                walkingSoundPlayer.pause();
+            }
         } while (previousPlayerState != playerState);
 
         // move player with respect to map collisions based on how much player needs to move this frame
@@ -118,8 +130,10 @@ public abstract class Player extends GameObject {
     // player WALKING state logic
     protected void playerWalking() {
         if (!isWalking()) {
+          //  walkingSoundPlayer.pause();
             playerState = PlayerState.STANDING;
         }
+
 
         if (!keyLocker.isKeyLocked(INTERACT_KEY) && Keyboard.isKeyDown(INTERACT_KEY)) {
             keyLocker.lockKey(INTERACT_KEY);
@@ -142,8 +156,7 @@ public abstract class Player extends GameObject {
             }
             else{
                 moveAmountX = 0;
-                moveAmountY = 0;
-                playerState = PlayerState.STANDING;
+                //moveAmountY = 0;
             }
         }
 
@@ -161,8 +174,7 @@ public abstract class Player extends GameObject {
             }
             else{
                 moveAmountX = 0;
-                moveAmountY = 0;
-                playerState = PlayerState.STANDING;
+                //moveAmountY = 0;
             }
         }
         else {
@@ -182,8 +194,7 @@ public abstract class Player extends GameObject {
             }
             else{
                 moveAmountY = 0;
-                moveAmountX = 0;
-                playerState = PlayerState.STANDING;
+                //moveAmountX = 0;
             }
             
             
@@ -201,8 +212,7 @@ public abstract class Player extends GameObject {
             }
             else{
                 moveAmountY = 0;
-                moveAmountX = 0;
-                playerState = PlayerState.STANDING;
+                //moveAmountX = 0;
             }
         }
         else {
