@@ -60,7 +60,7 @@ public class ScienceLabMap extends Map
     public ArrayList<Trigger> loadTriggers()
     {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        //triggers.add(new Trigger(770, 1042, 50,10, new triggerForScientist(), "hasTalkedToScientist"));
+        triggers.add(new Trigger(770, 1042, 50,10, new triggerForScientist(), "hasTalkedToScientist"));
         return triggers;
     }
 
