@@ -1,14 +1,21 @@
 package Maps;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
+import Engine.GraphicsHandler;
 import GameObject.Frame;
 import GameObject.Item;
+import Items.BuildingEntrance;
 import Level.LevelManager;
 import Level.Map;
 import Level.NPC;
 import Level.Trigger;
+import Scripts.ChangeLevelByString;
 import Scripts.ChangeLevelScript;
 import Tilesets.ScienceLabTilset;
 import Utils.Point;
@@ -17,29 +24,16 @@ public class SaloonMap extends Map {
   public SaloonMap() {
     super("saloon_map.txt", new ScienceLabTilset());
     // addMusic("Resources/Audio/scienceLab.wav");
+    this.playerStartPosition = getMapTile(5, 0).getLocation();
+
   }
-
-
 
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList list = new ArrayList<>();
 
-    int width = 16;
-    int height = 16;
+        BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(4, 0).getLocation(), 96, 32, "wildwest");
 
-    // Create a BufferedImage with RGB mode (Red, Green, Blue)
-    BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
-    // Set all pixels to pink (255 red, 192 green, 203 blue in RGB)
-    int pinkColor = (255 << 16) | (192 << 8) | 203;
-    for (int y = 0; y < height; y++) {
-      for (int x = 0; x < width; x++) {
-        img.setRGB(x, y, pinkColor);
-      }
-    }
-    Item saloonEntrance = new Item(0, 0, 0, new Frame(img));
-    saloonEntrance.setInteractScript(new ChangeLevelScript(LevelManager.SALOON));
     list.add(saloonEntrance);
     return list;
   }

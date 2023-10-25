@@ -9,8 +9,11 @@ import Screens.PlayLevelScreen;
 // Reusable simple interact script
 // Just shows text upon interacting with the associated entity
 public class ChangeLevelScript extends Script {
-    private final Level level;
+    private Level level;
     public ChangeLevelScript(Level level) {
+      System.out.println("aksndlkn" + level);
+              System.out.println("this: " + this);
+
       this.level = level;      
     }
 
@@ -19,9 +22,11 @@ public class ChangeLevelScript extends Script {
     public ScriptState execute() {
         // call setup code
         start();
+        System.out.println("this: " + this);
         
 
         PlayLevelScreen.doReload = true;
+        System.out.println(level);
         LevelManager.setLevel(level);
 
         // script ends
