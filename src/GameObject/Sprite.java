@@ -34,6 +34,13 @@ public class Sprite extends Rectangle {
         this.imageEffect = imageEffect;
     }
 
+    public Sprite(BufferedImage image, float x, float y, float scale){
+        super(x, y, image.getWidth(), image.getHeight(), scale);
+        this.image = image;
+        this.bounds = new Rectangle(0, 0, image.getWidth(), image.getHeight(), scale);
+        this.imageEffect = ImageEffect.NONE;
+    }
+
     public BufferedImage getImage() {
         return image;
     }

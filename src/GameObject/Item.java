@@ -17,6 +17,11 @@ public class Item extends NPC {
     this.pathToImage = pathToImage;
   }
 
+  public Item(int id, Point point, String pathToImage, int height, int width) {
+    super(id, point.x, point.y, new SpriteSheet(ImageLoader.load(pathToImage), height,width), "STILL");
+    this.pathToImage = pathToImage;
+  }
+
   public Item(int id, Point point, Frame frame) {
     this(id, point.x, point.y, frame);
   }
