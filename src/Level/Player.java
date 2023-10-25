@@ -413,4 +413,8 @@ public abstract class Player extends GameObject {
         return 0;
     }
 
+    public void stopSound() {
+        walkingSoundPlayer.pause();
+    }
+
 }

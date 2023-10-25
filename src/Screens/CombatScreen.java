@@ -98,6 +98,8 @@ public class CombatScreen extends Screen{
     public void initialize(){
         combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/combat.wav");
         LevelManager.getCurrentLevel().getSoundPlayer().pause();
+        LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
+        scale = 2.3f;
         fightImage = ImageLoader.load("fight_button.png");
         runImage = ImageLoader.load("run_button.png");
         bagImage = ImageLoader.load("bag_button.png");

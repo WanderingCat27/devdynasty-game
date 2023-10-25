@@ -1,21 +1,33 @@
 package Maps;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import EnhancedMapTiles.PushableRock;
+import GameObject.Frame;
+import GameObject.Item;
+import Items.BuildingEntrance;
 import Items.RedPotion;
+import Items.TimeMachine;
 import Level.EnhancedMapTile;
+import Level.LevelManager;
 import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.Dinosaur;
 import NPCs.EvilCowboy;
+import NPCs.Walrus;
+import Scripts.ChangeLevelByString;
+import Scripts.ChangeLevelScript;
 import NPCs.OldCowboy;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.TestMap.DinoScript;
 import Scripts.WildWestMap.EvilCowboyScript;
 import Scripts.WildWestMap.OldCowboyScript;
 import Tilesets.WestTileset;
+import Utils.Point;
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
 
 // Represents a test map to be used in a level
 public class WildWestMap extends Map {
@@ -25,6 +37,15 @@ public class WildWestMap extends Map {
         this.playerStartPosition = getMapTile(12, 2).getLocation();
         addMusic("Resources/Audio/wildWest.wav");
     }
+  
+    @Override
+  public ArrayList<Item> loadItems() {
+    ArrayList list = new ArrayList<>();
+
+    BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(23, 11).getLocation(), 96, 32, "saloon");
+    list.add(saloonEntrance);
+    return list;
+  }
 
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
@@ -81,4 +102,3 @@ public class WildWestMap extends Map {
     //   //  System.out.println("changeMapScript");
     // }
 }
-

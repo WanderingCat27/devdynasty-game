@@ -491,10 +491,12 @@ public abstract class Map {
       interactedEntity = currentLargestAreaOverlappedEntity;
     }
     if (interactedEntity != null) {
+      System.out.println("interacted" + interactedEntity.getClass().toGenericString());
       System.out.println("Intersected");
       interactedEntity.getInteractScript().setIsActive(true);
       activeInteractScript = interactedEntity.getInteractScript();
     }
+
   }
 
   private boolean isInteractedEntityValid(MapEntity interactedEntity, Player player) {
