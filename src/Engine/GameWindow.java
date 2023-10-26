@@ -3,6 +3,7 @@ package Engine;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.*;
 
 /*
  * The JFrame that holds the GamePanel
@@ -24,6 +25,8 @@ public class GameWindow {
     gameWindow.setMinimumSize(new Dimension(Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT));
     gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
     gameWindow.setVisible(true);
+	MyWindowFocusListener listener = new MyWindowFocusListener();
+	gameWindow.addWindowFocusListener(listener);
     gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // it'd be nice if this actually worked more than 1/3rd
                                                                // of the time
     gamePanel.setupGame();
