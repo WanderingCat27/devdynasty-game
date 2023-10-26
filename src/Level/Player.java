@@ -70,7 +70,6 @@ public abstract class Player extends GameObject {
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
-        System.out.println(p);
 
         // if player is currently playing through level (has not won or lost)
         // update player's state and current actions, which includes things like determining how much it should move each frame and if its walking or jumping
