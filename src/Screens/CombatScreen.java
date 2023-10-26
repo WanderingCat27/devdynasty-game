@@ -38,6 +38,7 @@ import ui.Container.CenterContainer;
 import ui.Container.UIContainer.FillType;
 import NPCs.EvilCowboy;
 import GameObject.Inventory;
+import ui.Textbox.Textbox;
 
 public class CombatScreen extends Screen{
     
@@ -49,7 +50,7 @@ public class CombatScreen extends Screen{
     protected SpriteButton bagButton;
     protected TextButton returnButton;
     protected BufferedImage fightImage, runImage, bagImage, youWinImage, enemyImage;
-    protected TextboxHandler textbox;
+    protected Textbox textbox;
     protected Sprite youWinPopup;
     protected Sprite enemy;
     private float scale;
@@ -120,6 +121,8 @@ public class CombatScreen extends Screen{
             scale = 2.3f;
             enemyScale = 10f;
         }
+
+        
         
 
         enemyImage = ImageLoader.loadSubImage("EvilCowboy.png", Colors.MAGENTA, 0, 0, 14, 19);
@@ -132,7 +135,7 @@ public class CombatScreen extends Screen{
         
         background = new CombatMap();
 
-        textbox = new TextboxHandler(background);
+        
 
         isInitialized = true;
 
@@ -159,6 +162,7 @@ public class CombatScreen extends Screen{
                     System.out.println("Fight");
                     health -= 10;
                     System.out.println("Health: " + health);
+                    //textbox.addText("You did 10 damage. Enemy Health = " + health);
                 }
             }
             
@@ -196,11 +200,12 @@ public class CombatScreen extends Screen{
             
             
         });
-
+        textbox = new Textbox(0, currScreenHeight-(fightButton.getHeight()*2), currScreenWidth-(fightButton.getWidth()*2), fightButton.getHeight()*2);
+        textbox.setIsActive(true);
+        textbox.addText("What will you do?");
         centerContainer.addComponent(fightButton);
         centerContainer.addComponent(bagButton);
         centerContainer.addComponent(runButton);
-        
         
 
     }
@@ -255,6 +260,10 @@ public class CombatScreen extends Screen{
         enemy.setY(currScreenHeight/2 - (float)(75*scale));
         youWinPopup.setX(currScreenWidth/2 - (youWinPopup.getWidth()/2));
         youWinPopup.setY(currScreenHeight/2 -(youWinPopup.getHeight()*2));
+        textbox.setXOrigin(0);
+        textbox.setYOrigin(currScreenHeight-(fightButton.getHeight()*2));
+        textbox.setWidth(currScreenWidth-(fightButton.getWidth()*2));
+        textbox.setHeight(fightButton.getHeight()*2);
 
     }
 
@@ -264,6 +273,7 @@ public class CombatScreen extends Screen{
 
         currScreenHeight = centerContainer.getHeight();
         currScreenWidth = centerContainer.getWidth();
+        textbox.update();
         checkButtons(); 
         if(currScreenHeight != lastScreenHeight){
             if(currScreenHeight < lastScreenHeight){
@@ -290,8 +300,8 @@ public class CombatScreen extends Screen{
         if(!healthZero()){
             centerContainer.update();
         }else{
-            returnButton.update();
             checkButtons();
+            returnButton.update();
           //  LevelManager.getCurrentLevel().getSoundPlayer().pause();
         }
 
@@ -316,6 +326,7 @@ public class CombatScreen extends Screen{
         // bagButton.draw(graphicsHandler);
         centerContainer.draw(graphicsHandler);
         enemy.draw(graphicsHandler);
+        textbox.draw(graphicsHandler);
         
         if(healthZero()){
             youWinPopup.draw(graphicsHandler);

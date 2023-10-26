@@ -54,6 +54,8 @@ public class Textbox extends UIContainer {
     }
   }
 
+  
+
   // returns whether the textQueue is out of items to display or not
   // useful for scripts to know when to complete
   public boolean isTextQueueEmpty() {
