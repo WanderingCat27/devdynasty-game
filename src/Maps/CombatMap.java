@@ -15,6 +15,7 @@ public class CombatMap extends Map{
 
     public CombatMap(){
         super("combat_map.txt", new CommonTileset());
+        super.setNoFollow();
     }
     
 

@@ -77,7 +77,6 @@ public abstract class Map {
   // map tiles in map that are animated
   protected ArrayList<MapTile> animatedMapTiles;
 
-
   // map's textbox instance
   protected TextboxHandler textbox;
 
@@ -95,7 +94,7 @@ public abstract class Map {
     this.endBoundX = width * tileset.getScaledSpriteWidth();
     this.endBoundY = height * tileset.getScaledSpriteHeight();
     this.playerStartPosition = new Point(0, 0);
-
+    setAdjustCamera();
     // this.soundPlayer.pause();
   }
 
@@ -257,7 +256,6 @@ public abstract class Map {
   public void setMapTiles(MapTile[] mapTiles) {
     this.mapTiles = mapTiles;
   }
-
 
   // get specific map tile from tile map
   public MapTile getMapTile(int x, int y) {
@@ -558,7 +556,7 @@ public abstract class Map {
   }
 
   public void update(Player player) {
-    if (cameraFollowState == CameraFollowState.ADJUST_TO_PLAYER) {
+    if (player != null && cameraFollowState == CameraFollowState.ADJUST_TO_PLAYER) {
       adjustMovementY(player);
       adjustMovementX(player);
     } else if (cameraFollowState == CameraFollowState.CENTER) {
@@ -607,8 +605,6 @@ public abstract class Map {
     }
   }
 
-  
-
   public TextboxHandler getTextboxHandler() {
     return textbox;
   }
@@ -619,5 +615,9 @@ public abstract class Map {
 
   public int getEndBoundY() {
     return endBoundY;
+  }
+
+  public void setNoFollow() {
+    this.cameraFollowState = CameraFollowState.NONE;
   }
 }
