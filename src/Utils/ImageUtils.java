@@ -48,18 +48,16 @@ public class ImageUtils {
   }
 
   public static void darken(BufferedImage image) {
-    for(int x = 0; x < image.getWidth(); x++)
-      for(int y = 0; y < image.getHeight(); y++)
+    for (int x = 0; x < image.getWidth(); x++)
+      for (int y = 0; y < image.getHeight(); y++)
         image.setRGB(x, y, new Color(image.getRGB(x, y)).darker().getRGB());
   }
 
-
   public static void brighten(BufferedImage image) {
-    for(int x = 0; x < image.getWidth(); x++)
-      for(int y = 0; y < image.getHeight(); y++)
+    for (int x = 0; x < image.getWidth(); x++)
+      for (int y = 0; y < image.getHeight(); y++)
         image.setRGB(x, y, new Color(image.getRGB(x, y)).brighter().getRGB());
   }
-
 
   // https://stackoverflow.com/a/4216315
   // resizes an image
@@ -106,6 +104,15 @@ public class ImageUtils {
     BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
     image = ImageUtils.transformColorToTransparency(image, color);
     return resizeImage(image, width, height);
+  }
+
+  public static BufferedImage createFilledImage(int width, int height, Color color) {
+    BufferedImage solid = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2d = solid.createGraphics(); // Get the graphics object once
+
+    g2d.setColor(color);
+    g2d.fillRect(0, 0, solid.getWidth(), solid.getHeight());
+    return solid;
   }
 
 }
