@@ -6,6 +6,7 @@ import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import GameObject.Frame;
 import GameObject.Item;
+import GameObject.SpriteSheet;
 import Utils.Point;
 
 public class TimeMachine extends Item
@@ -25,6 +26,19 @@ public class TimeMachine extends Item
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
     }
+
+    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
+        return new HashMap<String, Frame[]>() {
+          {
+            put("STILL", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 0))
+                    .withScale(2f)
+                    // .withBounds(0, 0, 1, 1)
+                    .build()
+            });
+          }
+        };
+      }
 
     public String getPathToImage()
     {
