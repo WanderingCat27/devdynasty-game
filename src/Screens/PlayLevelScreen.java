@@ -99,8 +99,6 @@ public class PlayLevelScreen extends Screen {
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
       if (!combatScreen.gameOver()) {
-        System.out.println(playLevelScreenState);
-        // System.out.println(combatScreen.isInitialized());
         currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
         this.playLevelScreenState = PlayLevelScreenState.COMBAT;
       }

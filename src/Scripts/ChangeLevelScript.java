@@ -11,8 +11,6 @@ import Screens.PlayLevelScreen;
 public class ChangeLevelScript extends Script {
     private Level level;
     public ChangeLevelScript(Level level) {
-      System.out.println("aksndlkn" + level);
-              System.out.println("this: " + this);
 
       this.level = level;      
     }
@@ -23,7 +21,6 @@ public class ChangeLevelScript extends Script {
         // call setup code
         start();
         LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
-        System.out.println("this: " + this);
         
 
         PlayLevelScreen.doReload = true;

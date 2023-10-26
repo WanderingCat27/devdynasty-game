@@ -122,8 +122,6 @@ public class CombatScreen extends Screen{
         enemyImage = ImageLoader.loadSubImage("EvilCowboy.png", Colors.MAGENTA, 0, 0, 14, 19);
         enemy = new Sprite(enemyImage, centerContainer.getWidth()-200, centerContainer.getHeight()-400, enemyScale);
         gameOver = false;
-        System.out.println(ScreenManager.getScreenHeight() + " " + ScreenManager.getScreenWidth());
-        System.out.println(lastScreenHeight + " " + lastScreenWidth);
 
         
         
@@ -198,8 +196,6 @@ public class CombatScreen extends Screen{
         centerContainer.addComponent(bagButton);
         centerContainer.addComponent(runButton);
         
-
-        System.out.println(fightButton.getXAbs());
         
 
     }
