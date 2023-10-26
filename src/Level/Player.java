@@ -106,11 +106,7 @@ public abstract class Player extends GameObject {
                 playerStanding();
                 break;
             case WALKING:
-                if(Mouse.mouseOnScreen){
-                    playerWalking();
-                }else{
-                    playerState = PlayerState.STANDING;
-                }
+                playerWalking();
                 break;
             case INTERACTING:
                 playerInteracting();
@@ -135,7 +131,7 @@ public abstract class Player extends GameObject {
         // ^ = Xor
         // will pass if any of the movement keys are pressed but not if both of either
         // pair are pressed
-        return (Keyboard.isKeyDown(MOVE_LEFT_KEY) ^ Keyboard.isKeyDown(MOVE_RIGHT_KEY) || (Keyboard.isKeyDown(MOVE_UP_KEY)) ^ Keyboard.isKeyDown(MOVE_DOWN_KEY));
+        return ((Keyboard.isKeyDown(MOVE_LEFT_KEY) ^ Keyboard.isKeyDown(MOVE_RIGHT_KEY) || (Keyboard.isKeyDown(MOVE_UP_KEY)) ^ Keyboard.isKeyDown(MOVE_DOWN_KEY)) && Mouse.mouseOnScreen);
     }
 
     // player WALKING state logic
