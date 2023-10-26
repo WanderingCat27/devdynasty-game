@@ -23,7 +23,7 @@ import Utils.Point;
 public class SaloonMap extends Map {
   public SaloonMap() {
     super("saloon_map.txt", new ScienceLabTilset());
-    // addMusic("Resources/Audio/scienceLab.wav");
+    addMusic("Resources/Audio/scienceLab.wav");
     this.playerStartPosition = getMapTile(5, 0).getLocation();
 
   }

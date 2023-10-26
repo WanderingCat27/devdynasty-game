@@ -29,24 +29,24 @@ import Level.NPC;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen {
-    protected ScreenCoordinator screenCoordinator;
-    // protected Sprite hud;
-    protected static Inventory inventory;
-    protected PlayLevelScreenState playLevelScreenState;
-    protected WinScreen winScreen;
-    protected CombatScreen combatScreen;
-    protected FlagManager flagManager;
-    protected Item sword;
-    public static boolean doReload = false;
-    protected PauseScreen pauseScreen;
-    protected PositioningContainer sliderContainer;
-    protected Slider volumeSlider;
-    protected NPC currEnemy;
-    protected EvilCowboy evilCowboy;
-    protected KeyLocker keyLocker = new KeyLocker();
-    protected static Key ESC = Key.ESC;
-    protected float currentVolume;
-    protected float currentWalkVolume;
+  protected ScreenCoordinator screenCoordinator;
+  // protected Sprite hud;
+  protected static Inventory inventory;
+  protected PlayLevelScreenState playLevelScreenState;
+  protected WinScreen winScreen;
+  protected CombatScreen combatScreen;
+  protected FlagManager flagManager;
+  protected Item sword;
+  public static boolean doReload = false;
+  protected PauseScreen pauseScreen;
+  protected PositioningContainer sliderContainer;
+  protected Slider volumeSlider;
+  protected NPC currEnemy;
+  protected EvilCowboy evilCowboy;
+  protected KeyLocker keyLocker = new KeyLocker();
+  protected static Key ESC = Key.ESC;
+  protected float currentVolume;
+  protected float currentWalkVolume;
 
   public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
     this.screenCoordinator = screenCoordinator;
@@ -62,7 +62,8 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboyTwice", false);
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
-    pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer, LevelManager.getCurrentLevel().getPlayer().getWalkingSoundPlayer());
+    pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer,
+        LevelManager.getCurrentLevel().getPlayer().getWalkingSoundPlayer());
   }
 
   public void initialize() {
@@ -75,12 +76,11 @@ public class PlayLevelScreen extends Screen {
         "fourSlotHUD.png", LevelManager.getCurrentLevel().getMap(), LevelManager.getCurrentLevel().getPlayer());
 
     winScreen = new WinScreen(this);
-    combatScreen = new CombatScreen(this);
-    
+    if (combatScreen == null)
+      combatScreen = new CombatScreen(this);
 
     // LevelManager.getCurrentLevel().getMap().soundPlayer.play();
-    if (LevelManager.getCurrentLevel().getSoundPlayer() != null)
-    {
+    if (LevelManager.getCurrentLevel().getSoundPlayer() != null) {
       LevelManager.getCurrentLevel().getSoundPlayer().setVolume((int) currentVolume);
       LevelManager.getCurrentLevel().getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
@@ -98,12 +98,12 @@ public class PlayLevelScreen extends Screen {
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
-       if(!combatScreen.gameOver()){ 
+      if (!combatScreen.gameOver()) {
         System.out.println(playLevelScreenState);
-        //System.out.println(combatScreen.isInitialized());
+        // System.out.println(combatScreen.isInitialized());
         currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
         this.playLevelScreenState = PlayLevelScreenState.COMBAT;
-       }
+      }
     }
 
     if (Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC)) {
@@ -134,15 +134,14 @@ public class PlayLevelScreen extends Screen {
         pauseScreen.update();
         break;
       case COMBAT:
-      if(combatScreen.isInitialized()){
-        combatScreen.update();
-      }else{
-        combatScreen = new CombatScreen(this, currEnemy);
-        combatScreen.update();
-      }
-      break;
-        
-        
+        if (combatScreen.isInitialized()) {
+          combatScreen.update();
+        } else {
+          combatScreen = new CombatScreen(this, currEnemy);
+          combatScreen.update();
+        }
+        break;
+
     }
   }
 
@@ -216,7 +215,7 @@ public class PlayLevelScreen extends Screen {
     screenCoordinator.setGameState(GameState.MENU);
   }
 
-  public Inventory getInventory(){
+  public Inventory getInventory() {
     return inventory;
   }
 
