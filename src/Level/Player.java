@@ -309,6 +309,10 @@ public abstract class Player extends GameObject {
 
     }
 
+    public SoundPlayer getWalkingSoundPlayer() {
+        return walkingSoundPlayer;
+    }
+
     public PlayerState getPlayerState() {
         return playerState;
     }

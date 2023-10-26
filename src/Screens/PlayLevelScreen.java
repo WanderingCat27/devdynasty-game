@@ -45,11 +45,11 @@ public class PlayLevelScreen extends Screen {
     protected EvilCowboy evilCowboy;
     protected KeyLocker keyLocker = new KeyLocker();
     protected static Key ESC = Key.ESC;
+    protected float currentVolume;
+    protected float currentWalkVolume;
 
   public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
     this.screenCoordinator = screenCoordinator;
-    
-
     // setup state
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCowboy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasLostBall", false);
@@ -60,7 +60,9 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToScientist", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboyTwice", false);
-    pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer);
+    this.currentVolume = 100;
+    this.currentWalkVolume = 100;
+    pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer, LevelManager.getCurrentLevel().getPlayer().getWalkingSoundPlayer());
   }
 
   public void initialize() {
@@ -78,7 +80,10 @@ public class PlayLevelScreen extends Screen {
 
     // LevelManager.getCurrentLevel().getMap().soundPlayer.play();
     if (LevelManager.getCurrentLevel().getSoundPlayer() != null)
+    {
+      LevelManager.getCurrentLevel().getSoundPlayer().setVolume((int) currentVolume);
       LevelManager.getCurrentLevel().getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
     SoundPlayer.musicPlaying = true;
 
   }
@@ -87,13 +92,9 @@ public class PlayLevelScreen extends Screen {
     if (doReload) {
       if (LevelManager.getCurrentLevel().getSoundPlayer() != null)
         LevelManager.getCurrentLevel().getSoundPlayer().pause();
+
       initialize();
       doReload = false;
-    }
-
-    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToDino2")) {
-      //combatMode();
-      //combatScreen.setNPC(getMap().loadNPCs().get(getMap().loadNPCs().indexOf(dino2)));
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
@@ -123,6 +124,7 @@ public class PlayLevelScreen extends Screen {
       // platformer level going
       case RUNNING:
         LevelManager.getCurrentLevel().update();
+        LevelManager.getCurrentLevel().getPlayer().getWalkingSoundPlayer().setVolume((int) currentWalkVolume);
         break;
       // if level has been completed, bring up level cleared screen
       case LEVEL_COMPLETED:
@@ -194,6 +196,21 @@ public class PlayLevelScreen extends Screen {
     this.playLevelScreenState = PlayLevelScreenState.RUNNING;
   }
 
+  public void setCurrentVolume(float volume) {
+    this.currentVolume = volume;
+  }
+
+  public float getCurrentVolume() {
+    return this.currentVolume;
+  }
+
+  public void setCurrentWalkVolume(float volume) {
+    this.currentWalkVolume = volume;
+  }
+
+  public float getCurrentWalkVolume() {
+    return this.currentWalkVolume;
+  }
 
   public void goBackToMenu() {
     screenCoordinator.setGameState(GameState.MENU);

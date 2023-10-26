@@ -52,7 +52,7 @@ public class MenuScreen extends Screen {
           container.setYOrigin(20);
           container.setAnchorChildren(false);
           container.setfillType(FillType.NONE);
-        controlsButton = new AnimatedSpriteButton(-20,20, 5f, new SpriteSheet(ImageLoader.loadAllowTransparent("controls_button.png"), 64, 24), () ->{
+            controlsButton = new AnimatedSpriteButton(-20,20, 5f, new SpriteSheet(ImageLoader.loadAllowTransparent("second_controls_button.png"), 64, 24), () ->{
             screenCoordinator.setGameState(GameState.CONTROLS);
             });
             controlsButton.setAnchor(Anchor.TOP_RIGHT);
