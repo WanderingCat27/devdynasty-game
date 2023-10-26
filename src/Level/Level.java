@@ -48,7 +48,7 @@ public abstract class Level {
 
     // define/setup map
     // map.setFlagManager(flagManager);
-    map.setAdjustCamera();
+    // map.setAdjustCamera();
 
     // let pieces of map know which button to listen for as the "interact" button
     map.getTextboxHandler().getTextbox().setInteractKey(player.getInteractKey());

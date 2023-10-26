@@ -61,7 +61,7 @@ public class GamePanel extends JPanel {
 		pauseLabel.setOutlineColor(Color.black);
 		pauseLabel.setOutlineThickness(2.0f);
 
-		fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Comic Sans", 12, Color.black);
+		fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Comic Sans", 12, Color.PINK);
 
 		currentFPS = Config.TARGET_FPS;
 
