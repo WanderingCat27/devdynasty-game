@@ -72,7 +72,8 @@ public class ScienceLabMap extends Map
     public ArrayList<Trigger> loadTriggers()
     {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        //triggers.add(new Trigger(770, 1042, 50,10, new triggerForScientist(), "hasTalkedToScientist"));
+        //just comment out the line below if you want to test the map without the trigger
+        triggers.add(new Trigger(770, 1042, 50,10, new triggerForScientist(), "hasTalkedToScientist"));
         return triggers;
     }
 
