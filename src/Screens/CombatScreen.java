@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import javax.sound.sampled.Clip;
+
 import Engine.Config;
 import Engine.GameWindow;
 import Engine.GraphicsHandler;
@@ -14,6 +16,7 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Sprite;
 import GameObject.SpriteSheet;
+import Level.Level;
 import Level.LevelManager;
 import Level.Map;
 import Level.NPC;
@@ -185,6 +188,8 @@ public class CombatScreen extends Screen{
                 if(healthZero()){
                     pauseMusic();
                     playLevelScreen.resumeLevel();
+                    LevelManager.getCurrentLevel().getSoundPlayer().play();
+                    //playLevelScreen.getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
                     gameOver = true;
                 }
             }
@@ -287,7 +292,7 @@ public class CombatScreen extends Screen{
         }else{
             returnButton.update();
             checkButtons();
-            LevelManager.getCurrentLevel().getSoundPlayer().pause();
+          //  LevelManager.getCurrentLevel().getSoundPlayer().pause();
         }
 
         // if(screenChanged){
@@ -326,7 +331,8 @@ public class CombatScreen extends Screen{
 
     public void pauseMusic() {
         combatSoundPlayer.pause();
-        System.out.println("pausing music");
+        LevelManager.getCurrentLevel().getSoundPlayer().play();
+        System.out.println("pausing combat music");
     }
     
 }

@@ -104,6 +104,7 @@ public class PlayLevelScreen extends Screen {
       }
     }
 
+
     if (Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC)) {
       keyLocker.lockKey(ESC);
       if (playLevelScreenState == PlayLevelScreenState.RUNNING)
@@ -190,6 +191,8 @@ public class PlayLevelScreen extends Screen {
   }
 
   public void resumeLevel() {
+    getSoundPlayer().play();
+    System.out.println("playing music");
     this.playLevelScreenState = PlayLevelScreenState.RUNNING;
   }
 
