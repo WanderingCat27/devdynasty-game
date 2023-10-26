@@ -34,6 +34,7 @@ import ui.Container.Anchor;
 import ui.Container.CenterContainer;
 import ui.Container.UIContainer.FillType;
 import NPCs.EvilCowboy;
+import GameObject.Inventory;
 
 public class CombatScreen extends Screen{
     
@@ -60,7 +61,9 @@ public class CombatScreen extends Screen{
     private boolean screenChanged;
     protected EvilCowboy evilCowboy;
     private boolean gameOver;
-    private double imageScale;
+    private float enemyScale;
+    private Inventory inventory;
+    private boolean showInventory;
 
 
     
@@ -76,6 +79,7 @@ public class CombatScreen extends Screen{
         lastScreenWidth = centerContainer.getWidth();
         currScreenHeight = lastScreenHeight;
         currScreenWidth = lastScreenWidth;
+        inventory = playLevelScreen.getInventory();
         
     }
 
@@ -89,6 +93,7 @@ public class CombatScreen extends Screen{
         lastScreenWidth = centerContainer.getWidth();
         currScreenHeight = lastScreenHeight;
         currScreenWidth = lastScreenWidth;
+        inventory = playLevelScreen.getInventory();
         initialize();
     }
 
@@ -99,23 +104,28 @@ public class CombatScreen extends Screen{
         combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/combat.wav");
         LevelManager.getCurrentLevel().getSoundPlayer().pause();
         LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
-        scale = 2.3f;
         fightImage = ImageLoader.load("fight_button.png");
         runImage = ImageLoader.load("run_button.png");
         bagImage = ImageLoader.load("bag_button.png");
-        youWinImage = ImageLoader.load("you_win.png");
-        youWinPopup = new Sprite(youWinImage, 100, 0);
+        youWinImage = ImageLoader.load("GameOver.png");
+        youWinPopup = new Sprite(youWinImage, currScreenWidth/2 - 100, currScreenHeight/2 - 100, 5f);
+        showInventory = false;
+        if(currScreenHeight > Config.GAME_WINDOW_HEIGHT){
+            scale = 3.45f;
+            enemyScale = 18f;
+        }else{
+            scale = 2.3f;
+            enemyScale = 10f;
+        }
+        
+
         enemyImage = ImageLoader.loadSubImage("EvilCowboy.png", Colors.MAGENTA, 0, 0, 14, 19);
-        enemy = new Sprite(enemyImage, 400, 100, 10);
+        enemy = new Sprite(enemyImage, centerContainer.getWidth()-200, centerContainer.getHeight()-400, enemyScale);
         gameOver = false;
         System.out.println(ScreenManager.getScreenHeight() + " " + ScreenManager.getScreenWidth());
         System.out.println(lastScreenHeight + " " + lastScreenWidth);
 
-        if(currScreenHeight > Config.GAME_WINDOW_HEIGHT){
-            scale = 3.45f;
-        }else{
-            scale = 2.3f;
-        }
+        
         
         
         
@@ -131,8 +141,8 @@ public class CombatScreen extends Screen{
             
             @Override
             public void run(){
-                System.out.println("Run");
-                System.out.println(currScreenHeight +" "+ currScreenHeight);
+                playLevelScreen.resumeLevel();
+                gameOver = true;
             }
             
         });
@@ -163,13 +173,13 @@ public class CombatScreen extends Screen{
             
             @Override
             public void run(){
-                System.out.println("Bag");
+                showInventory = !showInventory;
             }
             
             
         });
 
-        returnButton = new TextButton(100, 400, 200, 100, Color.gray, "Return to game", new Font("Comic Sans", Font.PLAIN, 20), Color.WHITE ,new Runnable() {
+        returnButton = new TextButton(currScreenWidth/2, currScreenWidth/2, (int)(100*scale), (int)(50*scale), Color.gray, "Return to game", new Font("Comic Sans", Font.PLAIN, 20), Color.WHITE ,new Runnable() {
 
             
             @Override
@@ -187,6 +197,7 @@ public class CombatScreen extends Screen{
         centerContainer.addComponent(fightButton);
         centerContainer.addComponent(bagButton);
         centerContainer.addComponent(runButton);
+        
 
         System.out.println(fightButton.getXAbs());
         
@@ -237,6 +248,12 @@ public class CombatScreen extends Screen{
         bagButton.setYOrigin(runButton.getYOrigin()-runButton.getHeight());
         fightButton.setXOrigin(bagButton.getXOrigin()-bagButton.getWidth());
         fightButton.setYOrigin(bagButton.getYOrigin());
+        returnButton.setXOrigin(currScreenWidth/2 - (returnButton.getWidth()/2));
+        returnButton.setYOrigin(currScreenHeight/2 - (returnButton.getHeight()/2));
+        enemy.setX(currScreenWidth/2 + (float)(50*scale));
+        enemy.setY(currScreenHeight/2 - (float)(75*scale));
+        youWinPopup.setX(currScreenWidth/2 - (youWinPopup.getWidth()/2));
+        youWinPopup.setY(currScreenHeight/2 -(youWinPopup.getHeight()*2));
 
     }
 
@@ -252,10 +269,14 @@ public class CombatScreen extends Screen{
                 bagButton.scaleSprite(2/3f);
                 runButton.scaleSprite(2/3f);
                 fightButton.scaleSprite(2/3f);
+                enemy.setScale(10f);
+                youWinPopup.setScale(2.3f);
             }else if(currScreenHeight > lastScreenHeight){
                 bagButton.scaleSprite(1.5f);
                 runButton.scaleSprite(1.5f);
                 fightButton.scaleSprite(1.5f);
+                enemy.setScale(18f);
+                youWinPopup.setScale(5f);
             }
             
         }
@@ -269,6 +290,7 @@ public class CombatScreen extends Screen{
             centerContainer.update();
         }else{
             returnButton.update();
+            checkButtons();
             LevelManager.getCurrentLevel().getSoundPlayer().pause();
         }
 
@@ -298,6 +320,9 @@ public class CombatScreen extends Screen{
             youWinPopup.draw(graphicsHandler);
             returnButton.draw(graphicsHandler);
             //npc.draw(graphicsHandler);
+        }
+        if(showInventory){
+            inventory.drawHud(graphicsHandler);
         }
         
 

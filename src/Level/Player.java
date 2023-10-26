@@ -1,5 +1,6 @@
 package Level;
 
+import java.awt.MouseInfo;
 import java.util.ArrayList;
 
 import javax.sound.sampled.Clip;
@@ -8,11 +9,13 @@ import Engine.GameWindow;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.Mouse;
+import Engine.ScreenManager;
 import GameObject.GameObject;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Utils.Direction;
-import Utils.Point;
+import java.awt.Point;
 import Maps.NewMap;
 import Maps.TitleScreenMap;
 import Level.Map;
@@ -51,6 +54,8 @@ public abstract class Player extends GameObject {
     protected Key INTERACT_KEY = Key.ENTER;
     protected Key SPRINT_KEY = Key.SHIFT;
     public SoundPlayer walkingSoundPlayer;
+    protected boolean mouseOnScreen;
+    protected Point p;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -65,6 +70,7 @@ public abstract class Player extends GameObject {
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
+        System.out.println(p);
 
         // if player is currently playing through level (has not won or lost)
         // update player's state and current actions, which includes things like determining how much it should move each frame and if its walking or jumping
@@ -85,6 +91,8 @@ public abstract class Player extends GameObject {
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
         }
 
+        
+
         handlePlayerAnimation();
         updateLockedKeys();
 
@@ -99,7 +107,11 @@ public abstract class Player extends GameObject {
                 playerStanding();
                 break;
             case WALKING:
-                playerWalking();
+                if(Mouse.mouseOnScreen){
+                    playerWalking();
+                }else{
+                    playerState = PlayerState.STANDING;
+                }
                 break;
             case INTERACTING:
                 playerInteracting();

@@ -191,6 +191,10 @@ public class PlayLevelScreen extends Screen {
     screenCoordinator.setGameState(GameState.MENU);
   }
 
+  public Inventory getInventory(){
+    return inventory;
+  }
+
   // This enum represents the different states this screen can be in
   private enum PlayLevelScreenState {
     RUNNING, LEVEL_COMPLETED, PAUSED, COMBAT;

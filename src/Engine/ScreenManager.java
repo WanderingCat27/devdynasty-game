@@ -2,6 +2,8 @@ package Engine;
 
 
 import GameObject.Rectangle;
+import java.awt.Point;
+
 
 /*
  * The game engine uses this class to start off the cascading Screen updating/drawing
@@ -29,6 +31,18 @@ public class ScreenManager {
 
     public void update() {
         currentScreen.update();
+    }
+
+    public static boolean mouseIsInBounds(Point p){
+        if(p.x < screenBounds.getX() && p.x > 0){
+            if(p.y < screenBounds.getY() && p.y > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 
     
