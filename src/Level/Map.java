@@ -1,5 +1,7 @@
 package Level;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,9 +12,13 @@ import java.util.Scanner;
 import Engine.Config;
 import Engine.GameWindow;
 import Engine.GraphicsHandler;
+import Engine.ImageLoader;
 import Engine.ScreenManager;
+import GameObject.GameObject;
+import GameObject.ImageEffect;
 import GameObject.Item;
 import GameObject.Rectangle;
+import Utils.Colors;
 import Utils.Direction;
 import Utils.Point;
 
@@ -37,6 +43,8 @@ public abstract class Map {
 
   // the tileset this map uses for its map tiles
   protected Tileset tileset;
+
+  protected BufferedImage interactIcon = ImageLoader.load("interact_icon.png", Colors.MAGENTA);
 
   // camera class that handles the viewable part of the map that is seen by the
   // player of a game during a level
@@ -460,6 +468,18 @@ public abstract class Map {
     return surroundingMapEntities;
   }
 
+  
+  public MapEntity getCurrentlyIntersectingEntity(Player player) {
+    ArrayList<MapEntity> surroundingMapEntities = getSurroundingMapEntities(player);
+    for (MapEntity mapEntity : surroundingMapEntities) {
+      if (mapEntity.intersects(player.getInteractionRange())) {
+        return mapEntity;
+      }
+    }
+    return null;
+  }
+
+
   public void entityInteract(Player player) {
     ArrayList<MapEntity> surroundingMapEntities = getSurroundingMapEntities(player);
     ArrayList<MapEntity> playerTouchingMapEntities = new ArrayList<>();
@@ -487,6 +507,7 @@ public abstract class Map {
         }
       }
       interactedEntity = currentLargestAreaOverlappedEntity;
+      System.out.println("Player is currently intersecting" + interactedEntity.getClass().toGenericString());
     }
     if (interactedEntity != null) {
       System.out.println("interacted" + interactedEntity.getClass().toGenericString());
@@ -494,9 +515,8 @@ public abstract class Map {
       interactedEntity.getInteractScript().setIsActive(true);
       activeInteractScript = interactedEntity.getInteractScript();
     }
-
   }
-
+  
   private boolean isInteractedEntityValid(MapEntity interactedEntity, Player player) {
     Rectangle playerBounds = player.getBounds();
     Rectangle entityBounds = interactedEntity.getBounds();
@@ -602,6 +622,12 @@ public abstract class Map {
     camera.draw(player, graphicsHandler);
     if (textbox.getTextbox().isActive()) {
       textbox.draw(graphicsHandler);
+    }
+    if(this.getCurrentlyIntersectingEntity(player) != null)
+    {
+      Point location = player.getLocation();
+      System.out.println("Drawing at " + location.x + " " + location.y);
+      graphicsHandler.drawImage(interactIcon, (int) player.getCalibratedXLocation() + 12, (int) player.getCalibratedYLocation() - 20, 10, 10, ImageEffect.NONE);
     }
   }
 
