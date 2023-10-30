@@ -1,10 +1,17 @@
 package Level;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import Engine.GraphicsHandler;
+import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.GameObject;
+import GameObject.Rectangle;
 import GameObject.SpriteSheet;
+import Utils.Point;
 
 // This class represents a map entity, which is any "entity" on a map besides the player
 // it is basically a game object with a few extra features for handling things what to do upon the player interacting with them
@@ -75,6 +82,10 @@ public class MapEntity extends GameObject {
 
     public boolean isHidden() {
         return isHidden;
+    }
+
+    public Point getLocation() {
+        return new Point(x, y);
     }
 
     public void setIsHidden(boolean isHidden) {
