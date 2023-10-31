@@ -37,7 +37,7 @@ public class GameWindow {
     gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // it'd be nice if this actually worked more than 1/3rd
 
     Toolkit toolkit = Toolkit.getDefaultToolkit();
-    Image image = ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("cursor.png"), 2);
+    Image image = ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("cursor.png"), 1.5f);
     Cursor c = toolkit.createCustomCursor(image, new java.awt.Point(gamePanel.getX(),
         gamePanel.getY()), "custom_cursor");
     gamePanel.setCursor(c);
