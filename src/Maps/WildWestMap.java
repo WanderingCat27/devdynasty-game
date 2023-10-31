@@ -82,6 +82,12 @@ public class WildWestMap extends Map {
         oldCowboy.setInteractScript(new OldCowboyScript());
         npcs.add(oldCowboy);
 
+        TimeMachine timeMachine = new TimeMachine(6, getMapTile(4, 5).getLocation(), 26, 37);
+        timeMachine.setInteractScript(new ChangeLevelScript(LevelManager.LAB));
+        npcs.add(timeMachine);
+        // time machine is not visible before you defeat evil cowboy
+        timeMachine.setIsHidden(true);
+
         return npcs;
     }
 
