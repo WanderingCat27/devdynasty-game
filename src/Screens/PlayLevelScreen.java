@@ -101,6 +101,7 @@ public class PlayLevelScreen extends Screen {
       if (!combatScreen.gameOver()) {
         currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
         this.playLevelScreenState = PlayLevelScreenState.COMBAT;
+        this.getMap().getNPCById(6).setIsHidden(false);
       }
     }
 
