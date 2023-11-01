@@ -113,14 +113,18 @@ public class GamePanel extends JPanel {
     }
 
     if (Config.debugMapChangeKey && Keyboard.isKeyDown(Key.M) && !keyLocker.isKeyLocked(Key.M)) {
+      keyLocker.lockKey(Key.M);
       PlayLevelScreen.doReload = true;
+      
       Level level = LevelManager.LAB;
+
       if (LevelManager.getCurrentLevel() == LevelManager.LAB)
         level = LevelManager.WILDWEST;
+      else if (LevelManager.getCurrentLevel() == LevelManager.WILDWEST)
+        level = LevelManager.FUTURE;
 
       LevelManager.setLevel(level);
 
-      keyLocker.lockKey(Key.M);
     } else if (Keyboard.isKeyUp(Key.M))
       keyLocker.unlockKey(Key.M);
   }
