@@ -136,4 +136,8 @@ public class Textbox extends UIContainer {
     return this.text;
   }
 
+  public void setText(String string) {
+    this.text.setText(string);
+  }
+
 }

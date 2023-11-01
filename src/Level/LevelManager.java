@@ -5,6 +5,7 @@ import Maps.SaloonMap;
 import Maps.ScienceLabMap;
 import Maps.TestMap;
 import Maps.WildWestMap;
+import Maps.FutureMap;
 
 public class LevelManager {
 
@@ -31,6 +32,15 @@ public class LevelManager {
     @Override
     protected Map getMapInstance() {
       return new SaloonMap();
+    }
+
+  };
+
+  public static Level FUTURE = new Level() {
+
+    @Override
+    protected Map getMapInstance() {
+      return new FutureMap();
     }
 
   };

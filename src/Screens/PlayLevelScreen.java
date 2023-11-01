@@ -19,7 +19,7 @@ import Level.LevelManager;
 import Level.Map;
 import Level.SoundPlayer;
 import Level.Trigger;
-import Maps.WildWestMap;
+import Maps.FutureMap;
 import NPCs.EvilCowboy;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
@@ -101,6 +101,7 @@ public class PlayLevelScreen extends Screen {
       if (!combatScreen.gameOver()) {
         currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
         this.playLevelScreenState = PlayLevelScreenState.COMBAT;
+        this.getMap().getNPCById(6).setIsHidden(false);
       }
     }
 
@@ -164,13 +165,13 @@ public class PlayLevelScreen extends Screen {
 
     // print tile location mouse is over, to find tiles to place entities on
 
-    if (Mouse.isButtonDown(Mouse.LEFT_MOUSE_BUTTON) && LevelManager.getCurrentLevel() != null) {
-      Map map = LevelManager.getCurrentLevel().getMap();
-      float x = map.getCamera().getX();
-      float y = map.getCamera().getY() - map.getCamera().getHeight() + 21;
-      map.getTileByPosition(Mouse.getMouseLoction().x, Mouse.getMouseLoction().y).getLocation();
-      System.out.println(x + "  " + y);
-    }
+    // if (Mouse.isButtonDown(Mouse.LEFT_MOUSE_BUTTON) && LevelManager.getCurrentLevel() != null) {
+    //   Map map = LevelManager.getCurrentLevel().getMap();
+    //   float x = map.getCamera().getX();
+    //   float y = map.getCamera().getY() - map.getCamera().getHeight() + 21;
+    //   map.getTileByPosition(Mouse.getMouseLoction().x, Mouse.getMouseLoction().y).getLocation();
+    //   System.out.println(x + "  " + y);
+    // }
 
   }
 

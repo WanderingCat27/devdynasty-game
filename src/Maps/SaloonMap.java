@@ -27,7 +27,6 @@ public class SaloonMap extends Map {
     addMusic("Resources/Audio/scienceLab.wav");
     this.playerStartPosition = getMapTile(8, 16).getLocation();
     setCenterCamera();
-
   }
 
   @Override

@@ -17,7 +17,7 @@ public class EditorControlPanel extends JPanel {
 
     private ArrayList<String> mapNames;
     private JComboBox<String> mapNamesComboBox;
-    private TilePicker tilePicker;
+    public static TilePicker tilePicker;
     private MapBuilder mapBuilder;
     private Map selectedMap;
 

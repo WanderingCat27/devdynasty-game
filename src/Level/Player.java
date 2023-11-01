@@ -30,6 +30,7 @@ public abstract class Player extends GameObject {
     protected Direction currentWalkingYDirection;
     protected Direction lastWalkingXDirection;
     protected Direction lastWalkingYDirection;
+    protected boolean walking = false;
 
     // values used to handle player movement
     protected float moveAmountX, moveAmountY;
@@ -284,23 +285,43 @@ public abstract class Player extends GameObject {
             }
         }
         else if (playerState == PlayerState.INTERACTING) {
-            // sets animation to STAND when player is interacting
-            // player can be told to stand or walk during Script by using the "stand" and "walk" methods
-            if(facingDirection == Direction.RIGHT)
+            if (walking)
             {
+                if(facingDirection == Direction.RIGHT)
+                {
+                    this.currentAnimationName = "WALK_RIGHT";
+                }
+                else if(facingDirection == Direction.LEFT)
+                {
+                    this.currentAnimationName = "WALK_LEFT";
+                }
+                else if(facingDirection == Direction.UP)
+                {
+                    this.currentAnimationName = "WALK_UP";
+                }
+                else if(facingDirection == Direction.DOWN)
+                {
+                    this.currentAnimationName = "WALK_DOWN";
+                }
+            }
+            else
+            {
+                if(facingDirection == Direction.RIGHT)
+                {
                 this.currentAnimationName = "STAND_RIGHT";
-            }
+                }
             else if(facingDirection == Direction.LEFT)
-            {
+                {
                 this.currentAnimationName = "STAND_LEFT";
-            }
+                }
             else if(facingDirection == Direction.UP)
-            {
+                {
                 this.currentAnimationName = "STAND_UP";
-            }
+                }
             else if(facingDirection == Direction.DOWN)
-            {
+                {
                 this.currentAnimationName = "STAND_DOWN";
+                }
             }
         }
     }
@@ -338,6 +359,11 @@ public abstract class Player extends GameObject {
 
     public void addListener(PlayerListener listener) {
         listeners.add(listener);
+    }
+
+    public boolean setWalking(boolean walking) {
+        this.walking = walking;
+        return walking;
     }
 
     public Rectangle getInteractionRange() {

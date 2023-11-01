@@ -7,7 +7,7 @@ import Level.NPC;
 import Level.Script;
 import Level.ScriptState;
 
-public class FireStaffScript extends Script<NPC>
+public class FireStaffScript extends Script<Item>
 {
      @Override
     protected void setup()

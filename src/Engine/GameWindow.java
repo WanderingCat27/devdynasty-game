@@ -1,8 +1,15 @@
 package Engine;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+
+import Utils.ImageUtils;
+import Utils.Point;
+
 import javax.swing.*;
 
 /*
@@ -25,10 +32,16 @@ public class GameWindow {
     gameWindow.setMinimumSize(new Dimension(Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT));
     gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
     gameWindow.setVisible(true);
-	MyWindowFocusListener listener = new MyWindowFocusListener();
-	gameWindow.addWindowFocusListener(listener);
+    MyWindowFocusListener listener = new MyWindowFocusListener();
+    gameWindow.addWindowFocusListener(listener);
     gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // it'd be nice if this actually worked more than 1/3rd
-                                                               // of the time
+
+    Toolkit toolkit = Toolkit.getDefaultToolkit();
+    Image image = ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("cursor.png"), 1.5f);
+    Cursor c = toolkit.createCustomCursor(image, new java.awt.Point(gamePanel.getX(),
+        gamePanel.getY()), "custom_cursor");
+    gamePanel.setCursor(c);
+
     gamePanel.setupGame();
   }
 

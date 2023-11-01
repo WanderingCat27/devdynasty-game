@@ -176,4 +176,8 @@ public class UIContainer {
   public void setAnchor(Anchor anchor) {
     this.anchor = anchor;
   }
+
+  public ArrayList<UIContainer> children() {
+    return components;
+  }
 }

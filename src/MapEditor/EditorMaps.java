@@ -9,7 +9,7 @@ import Maps.SaloonMap;
 import Maps.ScienceLabMap;
 import Maps.TestMap;
 import Maps.TitleScreenMap;
-import Maps.WildWestMap;
+import Maps.FutureMap;
 
 public class EditorMaps {
     public static ArrayList<String> getMapNames() {
@@ -21,6 +21,7 @@ public class EditorMaps {
             add("ScienceLabMap");
             add("CombatMap");
             add("SaloonMap");
+            add("FutureMap");
         }};
     }
 
@@ -33,13 +34,15 @@ public class EditorMaps {
             case "NewMap":
                 return new NewMap();
             case "WildWestMap":
-                return new WildWestMap();
+                return new FutureMap();
             case "ScienceLabMap":
                 return new ScienceLabMap();
             case "CombatMap":
                 return new CombatMap();
             case "SaloonMap":
               return new SaloonMap();
+            case "FutureMap":
+              return new FutureMap();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }
