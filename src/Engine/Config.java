@@ -15,6 +15,7 @@ public class Config {
     public static final int GAME_WINDOW_WIDTH = 800;
     public static final int GAME_WINDOW_HEIGHT = 605;
     public static final Color TRANSPARENT_COLOR = Colors.MAGENTA;
+    public static final boolean debugMapChangeKey = true;
 
     // POWER_SAVER does not hog CPU as much, but can potentially stutter/lag on lower end computers if they cannot handle reaching the target FPS
     // MAX_PERFORMANCE will have the game do whatever it takes to reach the target FPS, even if that means hogging the CPU
