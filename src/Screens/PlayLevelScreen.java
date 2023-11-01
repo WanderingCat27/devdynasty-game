@@ -164,13 +164,13 @@ public class PlayLevelScreen extends Screen {
 
     // print tile location mouse is over, to find tiles to place entities on
 
-    if (Mouse.isButtonDown(Mouse.LEFT_MOUSE_BUTTON) && LevelManager.getCurrentLevel() != null) {
-      Map map = LevelManager.getCurrentLevel().getMap();
-      float x = map.getCamera().getX();
-      float y = map.getCamera().getY() - map.getCamera().getHeight() + 21;
-      map.getTileByPosition(Mouse.getMouseLoction().x, Mouse.getMouseLoction().y).getLocation();
-      System.out.println(x + "  " + y);
-    }
+    // if (Mouse.isButtonDown(Mouse.LEFT_MOUSE_BUTTON) && LevelManager.getCurrentLevel() != null) {
+    //   Map map = LevelManager.getCurrentLevel().getMap();
+    //   float x = map.getCamera().getX();
+    //   float y = map.getCamera().getY() - map.getCamera().getHeight() + 21;
+    //   map.getTileByPosition(Mouse.getMouseLoction().x, Mouse.getMouseLoction().y).getLocation();
+    //   System.out.println(x + "  " + y);
+    // }
 
   }
 

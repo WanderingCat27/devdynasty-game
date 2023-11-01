@@ -6,8 +6,9 @@ import Level.Script;
 import Level.ScriptState;
 import GameObject.Inventory;
 //import GameObject.Item; //since we will need to access the item class
+import GameObject.Item;
 
-public class SwordScript extends Script<NPC>
+public class SwordScript extends Script<Item>
 {
     
     @Override

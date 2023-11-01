@@ -11,6 +11,11 @@ public class MathUtils {
     
     }
 
+    public static float clamp(float val, float min, float max) {
+        return Math.min(max, Math.max(val, min));
+    
+    }
+
     public static boolean isInBounds(java.awt.Point p, int x, int y, int width, int height) {
         return p.x > x && p.x < x + width && p.y > y && p.y < y + height;
     }
