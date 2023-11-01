@@ -305,8 +305,8 @@ public class MapTile extends MapEntity {
 
   public boolean isSimilar(MapTile tile) {
     if((topLayer == null ^ tile.topLayer == null) || (bottomLayer == null ^ tile.bottomLayer == null)) return false;
-      return  ((topLayer == null && tile.topLayer == null) || ImageUtils.imagesEqual(topLayer.getCurrentFrame().getImage(), tile.topLayer.getCurrentFrame().getImage()))
-      && ((bottomLayer == null && tile.bottomLayer == null) || ImageUtils.imagesEqual(bottomLayer.getCurrentFrame().getImage(), tile.bottomLayer.getCurrentFrame().getImage()));
+      return  ((topLayer == null && tile.topLayer == null) || (ImageUtils.imagesEqual(topLayer.getCurrentFrame().getImage(), tile.topLayer.getCurrentFrame().getImage()) && topLayer.getCurrentFrame().getImageEffect() == tile.topLayer.getCurrentFrame().getImageEffect()))
+      && ((bottomLayer == null && tile.bottomLayer == null) || (ImageUtils.imagesEqual(bottomLayer.getCurrentFrame().getImage(), tile.bottomLayer.getCurrentFrame().getImage()) && bottomLayer.getCurrentFrame().getImageEffect() == tile.bottomLayer.getCurrentFrame().getImageEffect()));
   }
 
   
