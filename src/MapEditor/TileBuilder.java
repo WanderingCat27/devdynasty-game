@@ -23,6 +23,7 @@ public class TileBuilder extends JPanel {
   private boolean showItems;
 
   private int currentlyPressedButton = -1;
+  private int heldTile = -1;
 
   public TileBuilder(SelectedTileIndexHolder controlPanelHolder, JLabel hoveredTileIndexLabel) {
     setBackground(Colors.MAGENTA);
@@ -42,12 +43,19 @@ public class TileBuilder extends JPanel {
       @Override
       public void mousePressed(MouseEvent e) {
         currentlyPressedButton = e.getButton();
-        if (e.getButton() == 1)
-          tileSelected(e.getPoint());
-        else if(e.getButton() == 2)
+        if (e.getButton() == 1) {
+          {
+            if (controlPanelHolder.getSelectedTileIndex() == -1)
+              controlPanelHolder.setSelectedTileIndex(heldTile);
+            tileSelected(e.getPoint());
+          }
+        } else if (e.getButton() == 2)
           EditorControlPanel.tilePicker.setTile(hoveredMapTile);
-          else if(e.getButton() == 3) 
+        else if (e.getButton() == 3) {
+          heldTile = controlPanelHolder.getSelectedTileIndex();
+          tileSelected(e.getPoint());
           controlPanelHolder.setSelectedTileIndex(-1);
+        }
       }
 
       @Override
@@ -56,8 +64,8 @@ public class TileBuilder extends JPanel {
 
       @Override
       public void mouseReleased(MouseEvent e) {
-        if(e.getButton() == currentlyPressedButton)
-        currentlyPressedButton = -1;
+        if (e.getButton() == currentlyPressedButton)
+          currentlyPressedButton = -1;
       }
 
       @Override
@@ -72,9 +80,10 @@ public class TileBuilder extends JPanel {
       }
 
       @Override
-      public void mouseDragged(MouseEvent e) {;
+      public void mouseDragged(MouseEvent e) {
+        ;
         tileHovered(e.getPoint());
-        if (currentlyPressedButton == 1) 
+        if (currentlyPressedButton == 1 || currentlyPressedButton == 3)
           tileSelected(e.getPoint());
       }
     });
