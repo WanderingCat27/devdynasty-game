@@ -25,15 +25,15 @@ public class SaloonMap extends Map {
   public SaloonMap() {
     super("saloon_map.txt", new SaloonTileset());
     addMusic("Resources/Audio/scienceLab.wav");
-    this.playerStartPosition = getMapTile(7, 20).getLocation();
-    setCenterCamera();
+    this.playerStartPosition = getMapTile(13, 19).getLocation();
+    //setCenterCamera();
   }
 
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList list = new ArrayList<>();
 
-        BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(7, 21).getLocation(), 96, 32, "wildwest");
+        BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(12, 20).getLocation(), 160, 32, "wildwest");
 
     list.add(saloonEntrance);
     return list;
