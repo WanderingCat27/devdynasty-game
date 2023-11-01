@@ -625,6 +625,7 @@ public abstract class Map {
     }
     if(this.getCurrentlyIntersectingEntity(player) != null)
     {
+
       Point location = player.getLocation();
       graphicsHandler.drawImage(interactIcon, (int) player.getCalibratedXLocation() + 12, (int) player.getCalibratedYLocation() - 20, 10, 10, ImageEffect.NONE);
     }
