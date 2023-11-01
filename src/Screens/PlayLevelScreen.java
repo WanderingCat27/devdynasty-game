@@ -19,7 +19,7 @@ import Level.LevelManager;
 import Level.Map;
 import Level.SoundPlayer;
 import Level.Trigger;
-import Maps.WildWestMap;
+import Maps.FutureMap;
 import NPCs.EvilCowboy;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;

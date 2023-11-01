@@ -12,192 +12,207 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
 public class TileBuilder extends JPanel {
-    private Map map;
-    private MapTile hoveredMapTile;
-    private SelectedTileIndexHolder controlPanelHolder;
-    private GraphicsHandler graphicsHandler = new GraphicsHandler();
-    private JLabel hoveredTileIndexLabel;
-    private boolean showNPCs;
-    private boolean showEnhancedMapTiles;
-    private boolean showTriggers;
-    private boolean showItems;
+  private Map map;
+  private MapTile hoveredMapTile;
+  private SelectedTileIndexHolder controlPanelHolder;
+  private GraphicsHandler graphicsHandler = new GraphicsHandler();
+  private JLabel hoveredTileIndexLabel;
+  private boolean showNPCs;
+  private boolean showEnhancedMapTiles;
+  private boolean showTriggers;
+  private boolean showItems;
 
-    public TileBuilder(SelectedTileIndexHolder controlPanelHolder, JLabel hoveredTileIndexLabel) {
-        setBackground(Colors.MAGENTA);
-        setLocation(0, 0);
-        setPreferredSize(new Dimension(585, 562));
-        this.controlPanelHolder = controlPanelHolder;
-        this.hoveredTileIndexLabel = hoveredTileIndexLabel;
-        addMouseListener(new MouseListener() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                hoveredMapTile = null;
-                hoveredTileIndexLabel.setText("");
-                repaint();
-            }
+  private int currentlyPressedButton = -1;
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-                tileSelected(e.getPoint());
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) { }
-
-            @Override
-            public void mouseReleased(MouseEvent e) { }
-
-            @Override
-            public void mouseEntered(MouseEvent e) { }
-        });
-
-        addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                tileHovered(e.getPoint());
-            }
-
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                tileHovered(e.getPoint());
-                tileSelected(e.getPoint());
-            }
-        });
-    }
-
-    public void setMap(Map map) {
-        this.map = map;
-        setPreferredSize(new Dimension(map.getWidthPixels(), map.getHeightPixels()));
+  public TileBuilder(SelectedTileIndexHolder controlPanelHolder, JLabel hoveredTileIndexLabel) {
+    setBackground(Colors.MAGENTA);
+    setLocation(0, 0);
+    setPreferredSize(new Dimension(585, 562));
+    this.controlPanelHolder = controlPanelHolder;
+    this.hoveredTileIndexLabel = hoveredTileIndexLabel;
+    addMouseListener(new MouseListener() {
+      @Override
+      public void mouseExited(MouseEvent e) {
+        hoveredMapTile = null;
+        hoveredTileIndexLabel.setText("");
+        currentlyPressedButton = -1;
         repaint();
+      }
+
+      @Override
+      public void mousePressed(MouseEvent e) {
+        currentlyPressedButton = e.getButton();
+        if (e.getButton() == 1)
+          tileSelected(e.getPoint());
+        else if(e.getButton() == 2)
+          EditorControlPanel.tilePicker.setTile(hoveredMapTile);
+          else if(e.getButton() == 3) 
+          controlPanelHolder.setSelectedTileIndex(-1);
+      }
+
+      @Override
+      public void mouseClicked(MouseEvent e) {
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+        if(e.getButton() == currentlyPressedButton)
+        currentlyPressedButton = -1;
+      }
+
+      @Override
+      public void mouseEntered(MouseEvent e) {
+      }
+    });
+
+    addMouseMotionListener(new MouseMotionAdapter() {
+      @Override
+      public void mouseMoved(MouseEvent e) {
+        tileHovered(e.getPoint());
+      }
+
+      @Override
+      public void mouseDragged(MouseEvent e) {;
+        tileHovered(e.getPoint());
+        if (currentlyPressedButton == 1) 
+          tileSelected(e.getPoint());
+      }
+    });
+  }
+
+  public void setMap(Map map) {
+    this.map = map;
+    setPreferredSize(new Dimension(map.getWidthPixels(), map.getHeightPixels()));
+    repaint();
+  }
+
+  public void draw() {
+    for (MapTile tile : map.getMapTiles()) {
+      tile.draw(graphicsHandler);
     }
 
-    public void draw() {
-        for (MapTile tile : map.getMapTiles()) {
-            tile.draw(graphicsHandler);
-        }
-
-        if (showEnhancedMapTiles) {
-            for (EnhancedMapTile enhancedMapTile : map.getEnhancedMapTiles()) {
-                enhancedMapTile.draw(graphicsHandler);
-            }
-        }
-
-        if (showNPCs) {
-            for (NPC npc : map.getNPCs()) {
-                npc.draw(graphicsHandler);
-            }
-        }
-
-        if(showItems){
-            for(Item item: map.getItems()){
-                item.draw(graphicsHandler);
-            }
-        }
-
-        if (showTriggers) {
-            for (Trigger trigger : map.getTriggers()) {
-                trigger.draw(graphicsHandler, new Color(255, 0, 255, 100));
-            }
-        }
-
-        if (hoveredMapTile != null) {
-            graphicsHandler.drawRectangle(
-                    Math.round(hoveredMapTile.getX()) + 2,
-                    Math.round(hoveredMapTile.getY()) + 2,
-                    hoveredMapTile.getWidth() - 5,
-                    hoveredMapTile.getHeight() - 5,
-                    Color.YELLOW,
-                    5
-            );
-        }
+    if (showEnhancedMapTiles) {
+      for (EnhancedMapTile enhancedMapTile : map.getEnhancedMapTiles()) {
+        enhancedMapTile.draw(graphicsHandler);
+      }
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        graphicsHandler.setGraphics((Graphics2D) g);
-        draw();
+    if (showNPCs) {
+      for (NPC npc : map.getNPCs()) {
+        npc.draw(graphicsHandler);
+      }
     }
 
-    public void tileSelected(Point selectedPoint) {
-        int selectedTileIndex = getSelectedTileIndex(selectedPoint);
-        if (selectedTileIndex != -1) {
-            MapTile oldMapTile = map.getMapTiles()[selectedTileIndex];
-            MapTile newMapTile =  map.getTileset().getTile(controlPanelHolder.getSelectedTileIndex()).build(oldMapTile.getX(), oldMapTile.getY());
-            newMapTile.setMap(map);
-            map.getMapTiles()[selectedTileIndex] = newMapTile;
-
-        }
-        repaint();
+    if (showItems) {
+      for (Item item : map.getItems()) {
+        item.draw(graphicsHandler);
+      }
     }
 
-    public void tileHovered(Point hoveredPoint) {
-        this.hoveredMapTile = getHoveredTile(hoveredPoint);
-        if (this.hoveredMapTile != null) {
-            int hoveredIndexX = Math.round(this.hoveredMapTile.getX()) / map.getTileset().getScaledSpriteWidth();
-            int hoveredIndexY = Math.round(this.hoveredMapTile.getY()) / map.getTileset().getScaledSpriteHeight();
-            hoveredTileIndexLabel.setText("X: " + hoveredIndexX + ", Y: " + hoveredIndexY);
-            repaint();
-        }
+    if (showTriggers) {
+      for (Trigger trigger : map.getTriggers()) {
+        trigger.draw(graphicsHandler, new Color(255, 0, 255, 100));
+      }
     }
 
-    protected MapTile getHoveredTile(Point mousePoint) {
-        for (MapTile mapTile : map.getMapTiles()) {
-            if (isPointInTile(mousePoint, mapTile)) {
-                return mapTile;
-            }
-        }
-        return null;
+    if (hoveredMapTile != null) {
+      graphicsHandler.drawRectangle(
+          Math.round(hoveredMapTile.getX()) + 2,
+          Math.round(hoveredMapTile.getY()) + 2,
+          hoveredMapTile.getWidth() - 5,
+          hoveredMapTile.getHeight() - 5,
+          Color.YELLOW,
+          5);
     }
+  }
 
-    protected int getSelectedTileIndex(Point mousePoint) {
-        MapTile[] mapTiles = map.getMapTiles();
-        for (int i = 0; i < mapTiles.length; i++) {
-            if (isPointInTile(mousePoint, mapTiles[i])) {
-                return i;
-            }
-        }
-        return -1;
-    }
+  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    graphicsHandler.setGraphics((Graphics2D) g);
+    draw();
+  }
 
-    protected boolean isPointInTile(Point point, MapTile tile) {
-        return (point.x >= tile.getX() && point.x <= tile.getX() + tile.getWidth() &&
-                point.y >= tile.getY() && point.y <= tile.getY() + tile.getHeight());
-    }
+  public void tileSelected(Point selectedPoint) {
+    int selectedTileIndex = getSelectedTileIndex(selectedPoint);
+    if (selectedTileIndex != -1) {
+      MapTile oldMapTile = map.getMapTiles()[selectedTileIndex];
+      MapTile newMapTile = map.getTileset().getTile(controlPanelHolder.getSelectedTileIndex()).build(oldMapTile.getX(),
+          oldMapTile.getY());
+      newMapTile.setMap(map);
+      map.getMapTiles()[selectedTileIndex] = newMapTile;
 
-    public boolean getShowNPCs() {
-        return showNPCs;
     }
+    repaint();
+  }
 
-    public void setShowNPCs(boolean showNPCs) {
-        this.showNPCs = showNPCs;
-        repaint();
+  public void tileHovered(Point hoveredPoint) {
+    this.hoveredMapTile = getHoveredTile(hoveredPoint);
+    if (this.hoveredMapTile != null) {
+      int hoveredIndexX = Math.round(this.hoveredMapTile.getX()) / map.getTileset().getScaledSpriteWidth();
+      int hoveredIndexY = Math.round(this.hoveredMapTile.getY()) / map.getTileset().getScaledSpriteHeight();
+      hoveredTileIndexLabel.setText("X: " + hoveredIndexX + ", Y: " + hoveredIndexY);
+      repaint();
     }
+  }
 
-    public boolean getShowItems() {
-        return showItems;
+  protected MapTile getHoveredTile(Point mousePoint) {
+    for (MapTile mapTile : map.getMapTiles()) {
+      if (isPointInTile(mousePoint, mapTile)) {
+        return mapTile;
+      }
     }
+    return null;
+  }
 
-    public void setShowItems(boolean showItems) {
-        this.showItems = showItems;
-        repaint();
+  protected int getSelectedTileIndex(Point mousePoint) {
+    MapTile[] mapTiles = map.getMapTiles();
+    for (int i = 0; i < mapTiles.length; i++) {
+      if (isPointInTile(mousePoint, mapTiles[i])) {
+        return i;
+      }
     }
+    return -1;
+  }
 
-    public boolean getShowEnhancedMapTiles() {
-        return showEnhancedMapTiles;
-    }
+  protected boolean isPointInTile(Point point, MapTile tile) {
+    return (point.x >= tile.getX() && point.x <= tile.getX() + tile.getWidth() &&
+        point.y >= tile.getY() && point.y <= tile.getY() + tile.getHeight());
+  }
 
-    public void setShowEnhancedMapTiles(boolean showEnhancedMapTiles) {
-        this.showEnhancedMapTiles = showEnhancedMapTiles;
-        repaint();
-    }
+  public boolean getShowNPCs() {
+    return showNPCs;
+  }
 
-    public boolean getShowTriggers() {
-        return showTriggers;
-    }
+  public void setShowNPCs(boolean showNPCs) {
+    this.showNPCs = showNPCs;
+    repaint();
+  }
 
-    public void setShowTriggers(boolean showTriggers) {
-        this.showTriggers = showTriggers;
-        repaint();
-    }
+  public boolean getShowItems() {
+    return showItems;
+  }
+
+  public void setShowItems(boolean showItems) {
+    this.showItems = showItems;
+    repaint();
+  }
+
+  public boolean getShowEnhancedMapTiles() {
+    return showEnhancedMapTiles;
+  }
+
+  public void setShowEnhancedMapTiles(boolean showEnhancedMapTiles) {
+    this.showEnhancedMapTiles = showEnhancedMapTiles;
+    repaint();
+  }
+
+  public boolean getShowTriggers() {
+    return showTriggers;
+  }
+
+  public void setShowTriggers(boolean showTriggers) {
+    this.showTriggers = showTriggers;
+    repaint();
+  }
 }
