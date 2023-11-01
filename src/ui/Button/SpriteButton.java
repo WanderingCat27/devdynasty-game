@@ -1,6 +1,7 @@
 package ui.Button;
 
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
 import Utils.ImageUtils;
 import Utils.Point;
@@ -8,9 +9,8 @@ import ui.SpriteUI.SpriteUI;
 
 public class SpriteButton extends AbstractButton {
   protected SpriteUI spriteUI;
-  protected BufferedImage normalImg, hoveredImg, clickedImage;
+  protected BufferedImage originalImg, normalImg, hoveredImg, clickedImage;
   protected Point origin;
-  
 
   public SpriteButton(int x, int y, float scale, BufferedImage spriteImage, Runnable onClick) {
     super(x, y, x, y, onClick);
@@ -23,6 +23,7 @@ public class SpriteButton extends AbstractButton {
     setHeight(spriteImage.getHeight());
 
     this.normalImg = spriteImage;
+    this.originalImg = spriteImage;
     this.hoveredImg = ImageUtils.deepCopy(spriteImage);
     this.clickedImage = ImageUtils.deepCopy(spriteImage);
     ImageUtils.darken(this.hoveredImg);
@@ -30,7 +31,6 @@ public class SpriteButton extends AbstractButton {
     this.spriteUI = new SpriteUI(0, 0, spriteImage);
     this.addComponent(this.spriteUI);
   }
-
 
   // if you manually set width and height you might want to center the hitbox of
   // the button to the center of the sprite image because the imaage has white
@@ -66,15 +66,21 @@ public class SpriteButton extends AbstractButton {
     this.spriteUI.setImage(clickedImage);
   }
 
-  public void scaleSprite(float scale){
-    normalImg = ImageUtils.resizeImageNearestNeighbor(normalImg, (int) (scale * normalImg.getWidth()),
-        (int) (scale * normalImg.getHeight()));
+  public void scaleSprite(float scale) {
+    this.normalImg = ImageUtils.resizeImageNearestNeighbor(this.originalImg, (int) (scale * originalImg.getWidth()),
+        (int) (scale * originalImg.getHeight()));
     this.hoveredImg = ImageUtils.deepCopy(normalImg);
     this.clickedImage = ImageUtils.deepCopy(normalImg);
     ImageUtils.darken(this.hoveredImg);
     ImageUtils.brighten(this.clickedImage);
     setWidth(normalImg.getWidth());
     setHeight(normalImg.getHeight());
+  }
+
+  public void setImage(BufferedImage image, float scale) {
+    this.originalImg = image;
+    scaleSprite(scale);
+    this.originalImg = this.normalImg;
   }
 
 }
