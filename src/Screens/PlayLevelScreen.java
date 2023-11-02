@@ -20,6 +20,7 @@ import Level.Map;
 import Level.SoundPlayer;
 import Level.Trigger;
 import Maps.FutureMap;
+import Maps.WildWestMap;
 import NPCs.EvilCowboy;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
@@ -93,27 +94,14 @@ public class PlayLevelScreen extends Screen {
     if (doReload) {
       if (LevelManager.getCurrentLevel().getSoundPlayer() != null)
         LevelManager.getCurrentLevel().getSoundPlayer().pause();
-
       initialize();
       doReload = false;
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
+      NPC npc = LevelManager.getCurrentLevel().getMap().getNPCById(3);
+      System.out.println();
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(3), "hasTalkedToCowboy");
-    //   if (!combatScreen.gameOver()) {
-    //     currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
-    //     if(this.playLevelScreenState != PlayLevelScreenState.PAUSED)
-    //       this.playLevelScreenState = PlayLevelScreenState.COMBAT;
-    //     activeCombat = true;
-    //     this.getMap().getNPCById(6).setIsHidden(false);
-    //   }else if(!combatScreen.playerWin() && combatScreen.gameOver()){
-    //     GlobalFlagManager.FLAG_MANAGER.unsetFlag("hasTalkedToCowboy");
-    //     combatScreen = new CombatScreen(this);
-    //     activeCombat = false;
-    //     this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-    //   }else{
-    //     activeCombat = false;
-    //   }
     }
 
 
@@ -203,14 +191,13 @@ public class PlayLevelScreen extends Screen {
   }
 
   public void resumeLevel() {
-    getSoundPlayer().play();
-    System.out.println("playing music");
     if(activeCombat){
       this.playLevelScreenState = PlayLevelScreenState.COMBAT;
     }else{
       this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }
-    
+    getSoundPlayer().play();
+    System.out.println("playing music");
   }
 
   public void setCurrentVolume(float volume) {

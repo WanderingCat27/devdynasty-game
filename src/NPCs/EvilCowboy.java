@@ -18,6 +18,10 @@ public class EvilCowboy extends NPC
         super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("EvilCowboy.png"), 14, 19), "STAND_DOWN");
     }
 
+    public EvilCowboy(int id, Utils.Point point, double startingHealth){
+        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("EvilCowboy.png"), 14, 19), "STAND_DOWN", startingHealth);
+    }
+
     public void update() {
         super.update();
     }

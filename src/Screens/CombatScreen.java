@@ -64,7 +64,8 @@ public class CombatScreen extends Screen {
 
   private SCREENSTATE screenState = SCREENSTATE.TEXTBOX;
 
-  private int health;
+  private double enemyHealth;
+  private double playerHealth;
   private int inventoryIndex;
   private final int initialTextboxHeight = 130;
   private final int initialFontSize = 30;
@@ -90,14 +91,14 @@ public class CombatScreen extends Screen {
     this.playLevelScreen = playLevelScreen;
     // this.npc = new NPC(3, 13f, 19f, new
     // SpriteSheet(ImageLoader.load("EvilCowboy.png"), 14, 19), "STAND_DOWN");
-    health = 20;
+    enemyHealth = 20;
 
   }
 
   public CombatScreen(PlayLevelScreen playLevelScreen, NPC enemy) { // Add NPC parameter to know Enemy
     this(playLevelScreen);
     this.npc = enemy;
-    health = 20;
+    enemyHealth = 100; //npc.getHealth();
 
     initialize();
   }
@@ -169,11 +170,10 @@ public class CombatScreen extends Screen {
           @Override
           public void run() {
             screenState = SCREENSTATE.TEXTBOX;
-            if (health > 0) {
+            if (enemyHealth > 0) {
               System.out.println("Attacked");
-              health -= 10;
-              System.out.println("Health: " + health);
-              textbox.setText("You did 10 damage." + "\n\nEnemy Health: " + health);
+              enemyHealth -= 10;
+              textbox.setText("You did 10 damage." + "\n\nEnemy Health: " + enemyHealth);
 
             }
           }
@@ -411,7 +411,7 @@ public class CombatScreen extends Screen {
   }
 
   public boolean healthZero() {
-    return health <= 0;
+    return (enemyHealth <= 0);
   }
 
   public boolean gameOver() {
