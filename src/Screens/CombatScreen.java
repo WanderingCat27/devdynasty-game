@@ -68,6 +68,8 @@ public class CombatScreen extends Screen{
     private float enemyScale;
     private Inventory inventory;
     private boolean showInventory;
+    private boolean combatPaused;
+    private boolean playerRun;
 
 
     
@@ -84,7 +86,6 @@ public class CombatScreen extends Screen{
         currScreenHeight = lastScreenHeight;
         currScreenWidth = lastScreenWidth;
         inventory = playLevelScreen.getInventory();
-        
     }
 
     public CombatScreen(PlayLevelScreen playLevelScreen, NPC enemy){ // Add NPC parameter to know Enemy
@@ -114,6 +115,8 @@ public class CombatScreen extends Screen{
         youWinImage = ImageLoader.load("GameOver.png");
         youWinPopup = new Sprite(youWinImage, currScreenWidth/2 - 100, currScreenHeight/2 - 100, 5f);
         showInventory = false;
+        combatPaused = false;
+        playerRun = false;
         if(currScreenHeight > Config.GAME_WINDOW_HEIGHT){
             scale = 3.45f;
             enemyScale = 18f;
@@ -146,7 +149,9 @@ public class CombatScreen extends Screen{
             @Override
             public void run(){
                 playLevelScreen.resumeLevel();
-                gameOver = true;
+                playerRun = true;
+                gameOver = false;
+                isInitialized = false;
             }
             
         });
@@ -223,6 +228,10 @@ public class CombatScreen extends Screen{
         return isInitialized;
     }
 
+    public boolean playerRun(){
+        return playerRun;
+    }
+
     public boolean healthZero(){
         if(health <= 0){
             return true;
@@ -268,6 +277,14 @@ public class CombatScreen extends Screen{
     }
 
 
+    public void pauseCombat(){
+        combatPaused = true;
+    }
+
+    public void unPauseCombat(){
+        combatPaused = false;
+    }
+
 
     public void update(){
 
@@ -297,13 +314,18 @@ public class CombatScreen extends Screen{
         
         background.update(null);
 
-        if(!healthZero()){
-            centerContainer.update();
-        }else{
-            checkButtons();
-            returnButton.update();
-          //  LevelManager.getCurrentLevel().getSoundPlayer().pause();
+        if(!isInitialized){
+            playerRun = false;
+            gameOver = false;
         }
+        if(!combatPaused)
+            if(!healthZero()){
+                centerContainer.update();
+            }else{
+                checkButtons();
+                returnButton.update();
+                //  LevelManager.getCurrentLevel().getSoundPlayer().pause();
+            }
 
         // if(screenChanged){
         //     if(currScreenHeight > startScreenHeight){
