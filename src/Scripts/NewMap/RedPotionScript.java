@@ -7,7 +7,7 @@ import Level.NPC;
 import Level.Script;
 import Level.ScriptState;
 
-public class RedPotionScript extends Script<NPC>
+public class RedPotionScript extends Script<Item>
 {
     @Override
     protected void setup()

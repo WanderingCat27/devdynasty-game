@@ -31,7 +31,7 @@ public class ScienceLabTilset extends Tileset
         
         MapTileBuilder floorTile = new MapTileBuilder(floorFrame);
         mapTiles.add(floorTile);
-
+        
         //bottom border tile
         Frame bottomBorderFrame = new FrameBuilder(getSubImage(0, 1))
             .withScale(tileScale)

@@ -17,23 +17,23 @@ import Level.NPC;
 import Level.Trigger;
 import Scripts.ChangeLevelByString;
 import Scripts.ChangeLevelScript;
+import Tilesets.SaloonTileset;
 import Tilesets.ScienceLabTilset;
 import Utils.Point;
 
 public class SaloonMap extends Map {
   public SaloonMap() {
-    super("saloon_map.txt", new ScienceLabTilset());
-    addMusic("Resources/Audio/saloon.wav");
-    this.playerStartPosition = getMapTile(5, 0).getLocation();
-    setCenterCamera();
-
+    super("saloon_map.txt", new SaloonTileset());
+    addMusic("Resources/Audio/scienceLab.wav");
+    this.playerStartPosition = getMapTile(13, 19).getLocation();
+    //setCenterCamera();
   }
 
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList list = new ArrayList<>();
 
-        BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(4, 0).getLocation(), 96, 32, "wildwest");
+        BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(12, 20).getLocation(), 160, 32, "wildwest");
 
     list.add(saloonEntrance);
     return list;

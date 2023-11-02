@@ -22,7 +22,7 @@ public class MapBuilder extends JPanel {
         JPanel labelPanel = new JPanel();
         labelPanel.setLayout(null);
         labelPanel.setPreferredSize(new Dimension(200, 30));
-        labelPanel.setBackground(Colors.BLACK);
+        labelPanel.setBackground(Colors.WHITE);
         mapWidthLabel = new JLabel("Width: ");
         mapWidthLabel.setSize(70, 20);
         mapWidthLabel.setLocation(2, 5);
