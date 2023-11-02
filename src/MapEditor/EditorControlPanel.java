@@ -17,13 +17,13 @@ public class EditorControlPanel extends JPanel {
 
     private ArrayList<String> mapNames;
     private JComboBox<String> mapNamesComboBox;
-    private TilePicker tilePicker;
+    public static TilePicker tilePicker;
     private MapBuilder mapBuilder;
     private Map selectedMap;
 
     public EditorControlPanel(SelectedTileIndexHolder selectedTileIndexHolder, MapBuilder mapBuilder, JFrame parent) {
         setLayout(new BorderLayout());
-        setBackground(Colors.BLACK);
+        setBackground(Colors.WHITE);
         setLocation(0, 0);
         setPreferredSize(new Dimension(200, 600));
 
@@ -34,7 +34,7 @@ public class EditorControlPanel extends JPanel {
         JPanel mapChoosePanel = new JPanel();
         mapChoosePanel.setLayout(null);
         mapChoosePanel.setPreferredSize(new Dimension(200, 80));
-        mapChoosePanel.setBackground(Colors.BLACK);
+        mapChoosePanel.setBackground(Colors.WHITE);
 
         JLabel mapLabel = new JLabel();
         mapLabel.setLocation(5, 0);
@@ -72,7 +72,7 @@ public class EditorControlPanel extends JPanel {
         JPanel mapButtonsPanel = new JPanel();
         mapButtonsPanel.setLayout(null);
         mapButtonsPanel.setPreferredSize(new Dimension(200, 95));
-        mapButtonsPanel.setBackground(Colors.BLACK);
+        mapButtonsPanel.setBackground(Colors.WHITE);
 
         JButton setMapDimensionsButton = new JButton();
         setMapDimensionsButton.setSize(190, 40);

@@ -60,17 +60,19 @@ public class DinoScript extends Script<NPC> {
 
     private void handleChoiceInput() {
         if (Keyboard.isKeyDown(Key.UP)) {
-            addTextToTextboxQueue("Surprised you made it out alive!");
+            addTextToTextboxQueue("My heavens, surprised you made it out alive!");
             isChoosing = false;
         } else if (Keyboard.isKeyDown(Key.DOWN)) {
-            addTextToTextboxQueue("You should go talk to him.");
+            addTextToTextboxQueue("Come back to me after you have fella...");
             isChoosing = false;
         }
     }
 
     private void resetDialogue() {
         showTextbox();
-        addTextToTextboxQueue("Have you spoken to that cowboy over there?");
+        addTextToTextboxQueue("Why hello there!");
+        addTextToTextboxQueue("You must be knew to town...");
+        addTextToTextboxQueue("Say, have you made your way to the saloon?");
         addTextToTextboxQueue("I have. (PRESS UP ARROW)\nI have not. (PRESS DOWN ARROW)");
         isChoosing = true;
     }

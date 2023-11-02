@@ -100,6 +100,15 @@ public class MapEntity extends GameObject {
         return existenceFlag;
     }
 
+    public boolean checkIfInteractScriptExists()
+    {
+        if (this.interactScript == null)
+        {
+            return false;
+        }
+        return true;
+    }
+
     public void setExistenceFlag(String existenceFlag) {
         this.existenceFlag = existenceFlag;
     }

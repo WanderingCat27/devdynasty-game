@@ -115,4 +115,15 @@ public class ImageUtils {
     return solid;
   }
 
+  public static boolean imagesEqual(BufferedImage image1, BufferedImage image2) {
+    if (image1.getWidth() != image2.getWidth() || image1.getHeight() != image2.getHeight())
+      return false;
+    for (int i = 0; i < image1.getWidth(); i++)
+      for (int j = 0; j < image1.getHeight(); j++)
+        if (image1.getRGB(i, j) != image2.getRGB(i, j))
+          return false;
+
+    return true;
+  }
+
 }

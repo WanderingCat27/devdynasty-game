@@ -21,6 +21,7 @@ import Level.SoundPlayer;
 import Level.Trigger;
 import Maps.ScienceLabMap;
 import Maps.WildWestMap;
+import Maps.FutureMap;
 import NPCs.EvilCowboy;
 import Scripts.ChangeLevelByString;
 import Scripts.ChangeLevelScript;
@@ -50,6 +51,7 @@ public class PlayLevelScreen extends Screen {
   protected static Key ESC = Key.ESC;
   protected float currentVolume;
   protected float currentWalkVolume;
+  protected boolean activeCombat = false;
 
   public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
     this.screenCoordinator = screenCoordinator;
@@ -102,28 +104,35 @@ public class PlayLevelScreen extends Screen {
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
-      if (!combatScreen.gameOver()) {
-        currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
-        this.playLevelScreenState = PlayLevelScreenState.COMBAT;
-        this.getMap().getNPCById(6).setIsHidden(false);
-      }
-      if (LevelManager.getCurrentLevel() == LevelManager.LAB) {
-        LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("prehistoric"));
-      }
+      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(3), "hasTalkedToCowboy");
+    //   if (!combatScreen.gameOver()) {
+    //     currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
+    //     if(this.playLevelScreenState != PlayLevelScreenState.PAUSED)
+    //       this.playLevelScreenState = PlayLevelScreenState.COMBAT;
+    //     activeCombat = true;
+    //     this.getMap().getNPCById(6).setIsHidden(false);
+    //   }else if(!combatScreen.playerWin() && combatScreen.gameOver()){
+    //     GlobalFlagManager.FLAG_MANAGER.unsetFlag("hasTalkedToCowboy");
+    //     combatScreen = new CombatScreen(this);
+    //     activeCombat = false;
+    //     this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+    //   }else{
+    //     activeCombat = false;
+    //   }
     }
 
 
     if (Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC)) {
       keyLocker.lockKey(ESC);
-      if (playLevelScreenState == PlayLevelScreenState.RUNNING)
+      if (playLevelScreenState == PlayLevelScreenState.RUNNING || playLevelScreenState == PlayLevelScreenState.COMBAT)
         this.playLevelScreenState = PlayLevelScreenState.PAUSED;
       else
         resumeLevel();
-
     }
     if (keyLocker.isKeyLocked(ESC) && Keyboard.isKeyUp(ESC)) {
       keyLocker.unlockKey(ESC);
     }
+
 
     // based on screen state, perform specific actions
     switch (playLevelScreenState) {
@@ -143,7 +152,7 @@ public class PlayLevelScreen extends Screen {
       case COMBAT:
         if (combatScreen.isInitialized()) {
           combatScreen.update();
-        } else {
+        }else {
           combatScreen = new CombatScreen(this, currEnemy);
           combatScreen.update();
         }
@@ -172,13 +181,13 @@ public class PlayLevelScreen extends Screen {
 
     // print tile location mouse is over, to find tiles to place entities on
 
-    if (Mouse.isButtonDown(Mouse.LEFT_MOUSE_BUTTON) && LevelManager.getCurrentLevel() != null) {
-      Map map = LevelManager.getCurrentLevel().getMap();
-      float x = map.getCamera().getX();
-      float y = map.getCamera().getY() - map.getCamera().getHeight() + 21;
-      map.getTileByPosition(Mouse.getMouseLoction().x, Mouse.getMouseLoction().y).getLocation();
-      System.out.println(x + "  " + y);
-    }
+    // if (Mouse.isButtonDown(Mouse.LEFT_MOUSE_BUTTON) && LevelManager.getCurrentLevel() != null) {
+    //   Map map = LevelManager.getCurrentLevel().getMap();
+    //   float x = map.getCamera().getX();
+    //   float y = map.getCamera().getY() - map.getCamera().getHeight() + 21;
+    //   map.getTileByPosition(Mouse.getMouseLoction().x, Mouse.getMouseLoction().y).getLocation();
+    //   System.out.println(x + "  " + y);
+    // }
 
   }
 
@@ -201,7 +210,12 @@ public class PlayLevelScreen extends Screen {
   public void resumeLevel() {
     getSoundPlayer().play();
     System.out.println("playing music");
-    this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+    if(activeCombat){
+      this.playLevelScreenState = PlayLevelScreenState.COMBAT;
+    }else{
+      this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+    }
+    
   }
 
   public void setCurrentVolume(float volume) {
@@ -226,6 +240,25 @@ public class PlayLevelScreen extends Screen {
 
   public Inventory getInventory() {
     return inventory;
+  }
+
+  private void runCombat(NPC npc, String flagName){
+    if (!combatScreen.gameOver()) {
+      currEnemy = npc;
+      if(this.playLevelScreenState != PlayLevelScreenState.PAUSED){
+        this.playLevelScreenState = PlayLevelScreenState.COMBAT;
+      }
+      activeCombat = true;
+      this.getMap().getNPCById(6).setIsHidden(false);
+    }else if(!combatScreen.playerWin() && combatScreen.gameOver()){
+        GlobalFlagManager.FLAG_MANAGER.unsetFlag(flagName);
+        combatScreen = new CombatScreen(this);
+        activeCombat = false;
+        this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+    }else{
+      activeCombat = false;
+    }
+      
   }
 
   // This enum represents the different states this screen can be in
