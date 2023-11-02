@@ -66,6 +66,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboyTwice", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasBeatCowboy", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("evilCowboyDefeated", false);
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
     pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer,
@@ -105,20 +106,11 @@ public class PlayLevelScreen extends Screen {
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(3), "hasTalkedToCowboy");
-    //   if (!combatScreen.gameOver()) {
-    //     currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
-    //     if(this.playLevelScreenState != PlayLevelScreenState.PAUSED)
-    //       this.playLevelScreenState = PlayLevelScreenState.COMBAT;
-    //     activeCombat = true;
-    //     this.getMap().getNPCById(6).setIsHidden(false);
-    //   }else if(!combatScreen.playerWin() && combatScreen.gameOver()){
-    //     GlobalFlagManager.FLAG_MANAGER.unsetFlag("hasTalkedToCowboy");
-    //     combatScreen = new CombatScreen(this);
-    //     activeCombat = false;
-    //     this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-    //   }else{
-    //     activeCombat = false;
-    //   }
+    }
+
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated") && LevelManager.getCurrentLevel() == LevelManager.LAB) {
+        LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("prehistoric"));
+        System.out.println("changed to prehistoric");
     }
 
 
@@ -256,6 +248,10 @@ public class PlayLevelScreen extends Screen {
         activeCombat = false;
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }else{
+      if (LevelManager.getCurrentLevel() == LevelManager.WILDWEST) {
+        GlobalFlagManager.FLAG_MANAGER.setFlag("evilCowboyDefeated");
+       // System.out.println("evil cowboy defeated flag set");
+      }
       activeCombat = false;
     }
       
