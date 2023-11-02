@@ -60,6 +60,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToScientist", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboyTwice", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasBeatCowboy", false);
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
     pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer,
