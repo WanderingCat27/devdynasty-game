@@ -19,8 +19,11 @@ import Level.LevelManager;
 import Level.Map;
 import Level.SoundPlayer;
 import Level.Trigger;
+import Maps.ScienceLabMap;
 import Maps.WildWestMap;
 import NPCs.EvilCowboy;
+import Scripts.ChangeLevelByString;
+import Scripts.ChangeLevelScript;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
@@ -103,6 +106,9 @@ public class PlayLevelScreen extends Screen {
         currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
         this.playLevelScreenState = PlayLevelScreenState.COMBAT;
         this.getMap().getNPCById(6).setIsHidden(false);
+      }
+      if (LevelManager.getCurrentLevel() == LevelManager.LAB) {
+        LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("prehistoric"));
       }
     }
 

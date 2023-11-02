@@ -25,8 +25,8 @@ public class PrehistoricMap extends Map {
   public PrehistoricMap() {
     super("prehistoric_map.txt", new PrehistoricTileset());
     addMusic("Resources/Audio/saloon.wav");
-    this.playerStartPosition = getMapTile(5, 0).getLocation();
-    setCenterCamera();
+    this.playerStartPosition = getMapTile(5, 3).getLocation();
+    //setCenterCamera();
 
   }
 

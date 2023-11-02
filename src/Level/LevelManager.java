@@ -1,6 +1,7 @@
 package Level;
 
 import Maps.NewMap;
+import Maps.PrehistoricMap;
 import Maps.SaloonMap;
 import Maps.ScienceLabMap;
 import Maps.TestMap;
@@ -22,6 +23,15 @@ public class LevelManager {
     @Override
     protected Map getMapInstance() {
       return new ScienceLabMap();
+    }
+
+  };
+
+    public static final Level PREHISTORIC = new Level() {
+
+    @Override
+    protected Map getMapInstance() {
+      return new PrehistoricMap();
     }
 
   };
