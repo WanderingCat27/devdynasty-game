@@ -88,6 +88,9 @@ public abstract class Map {
   // map's textbox instance
   protected TextboxHandler textbox;
 
+  //map's image instance, need this for the table script
+  protected ImageHandler tableImage;
+
   // Maps sound player
   public SoundPlayer soundPlayer;
 
@@ -151,6 +154,7 @@ public abstract class Map {
 
     this.camera = new Camera(0, 0, tileset.getScaledSpriteWidth(), tileset.getScaledSpriteHeight(), this);
     this.textbox = new TextboxHandler(this);
+    this.tableImage = new ImageHandler(this);
   }
 
   // reads in a map file to create the map's tilemap
@@ -587,6 +591,10 @@ public abstract class Map {
     camera.update(player);
     if (textbox.getTextbox().isActive()) {
       textbox.update();
+    }
+    if(tableImage.getImage().isActive())
+    {
+      tableImage.update();
     }
   }
 
