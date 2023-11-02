@@ -98,45 +98,25 @@ public class PlayLevelScreen extends Screen {
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
-      if (!combatScreen.gameOver() && !combatScreen.playerRun()) {
-        if(!combatScreen.isInitialized()){
-          currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
-          this.playLevelScreenState = PlayLevelScreenState.COMBAT;
-          this.getMap().getNPCById(6).setIsHidden(false);
-        }
-        else{
-          System.out.println("Initialized, " + combatScreen.playerRun() + "  " + combatScreen.gameOver());
-        }
-        
-      }
-      else if(combatScreen.playerRun() && !combatScreen.gameOver()){
-         GlobalFlagManager.FLAG_MANAGER.unsetFlag("hasTalkedToCowboy");
-         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-        
+      if (!combatScreen.gameOver()) {
+        currEnemy = LevelManager.getCurrentLevel().getMap().getNPCById(3);
+        this.playLevelScreenState = PlayLevelScreenState.COMBAT;
+        this.getMap().getNPCById(6).setIsHidden(false);
       }
     }
 
 
     if (Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC)) {
       keyLocker.lockKey(ESC);
-      if (playLevelScreenState == PlayLevelScreenState.RUNNING || playLevelScreenState == PlayLevelScreenState.COMBAT){
-        if(playLevelScreenState == PlayLevelScreenState.COMBAT){
-          this.playLevelScreenState = PlayLevelScreenState.PAUSED;
-          combatScreen.pauseCombat();
-          System.out.println("Pause");
-        }
-        else{
-          this.playLevelScreenState = PlayLevelScreenState.PAUSED;
-        }
-
-      }
+      if (playLevelScreenState == PlayLevelScreenState.RUNNING)
+        this.playLevelScreenState = PlayLevelScreenState.PAUSED;
       else
         resumeLevel();
-
     }
     if (keyLocker.isKeyLocked(ESC) && Keyboard.isKeyUp(ESC)) {
       keyLocker.unlockKey(ESC);
     }
+
 
     // based on screen state, perform specific actions
     switch (playLevelScreenState) {
@@ -155,9 +135,8 @@ public class PlayLevelScreen extends Screen {
         break;
       case COMBAT:
         if (combatScreen.isInitialized()) {
-          combatScreen.unPauseCombat();
           combatScreen.update();
-        } else {
+        }else {
           combatScreen = new CombatScreen(this, currEnemy);
           combatScreen.update();
         }
