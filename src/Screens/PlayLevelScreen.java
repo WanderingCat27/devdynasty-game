@@ -19,8 +19,12 @@ import Level.LevelManager;
 import Level.Map;
 import Level.SoundPlayer;
 import Level.Trigger;
+import Maps.ScienceLabMap;
+import Maps.WildWestMap;
 import Maps.FutureMap;
 import NPCs.EvilCowboy;
+import Scripts.ChangeLevelByString;
+import Scripts.ChangeLevelScript;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
@@ -61,6 +65,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToScientist", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToOldCowboyTwice", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasBeatCowboy", false);
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
     pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer,
