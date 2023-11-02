@@ -69,6 +69,7 @@ public class CombatScreen extends Screen {
   private final int initialTextboxHeight = 130;
   private final int initialFontSize = 30;
   private float prevScaleX, prevScaleY;
+  private boolean playerWin;
 
   protected Textbox textbox;
   protected SpriteUI enemy;
@@ -84,7 +85,7 @@ public class CombatScreen extends Screen {
   private PositioningContainer bagContainer;
   private CenterContainer runContainer;
   private PositioningContainer useItemContainer;
-
+ 
   public CombatScreen(PlayLevelScreen playLevelScreen) {
     this.playLevelScreen = playLevelScreen;
     // this.npc = new NPC(3, 13f, 19f, new
@@ -103,6 +104,7 @@ public class CombatScreen extends Screen {
 
   public void initialize() {
     gameOver = false;
+    playerWin = false;
     isInitialized = true;
 
     fightContainer = new UIContainer(0, 0) {
@@ -416,6 +418,10 @@ public class CombatScreen extends Screen {
     return gameOver;
   }
 
+  public boolean playerWin(){
+    return playerWin;
+  }
+
   public void pauseMusic() {
     combatSoundPlayer.pause();
     LevelManager.getCurrentLevel().getSoundPlayer().play();
@@ -428,6 +434,12 @@ public class CombatScreen extends Screen {
     LevelManager.getCurrentLevel().getSoundPlayer().play();
     // playLevelScreen.getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
     gameOver = true;
+    if(healthZero()){
+      playerWin = true;
+    }else{
+      playerWin = false;
+    }
+    
   }
 
 }
