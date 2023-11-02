@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Level.Map;
 import Maps.CombatMap;
 import Maps.NewMap;
+import Maps.PrehistoricMap;
 import Maps.SaloonMap;
 import Maps.ScienceLabMap;
 import Maps.TestMap;
@@ -21,6 +22,7 @@ public class EditorMaps {
             add("ScienceLabMap");
             add("CombatMap");
             add("SaloonMap");
+            add("PrehistoricMap");
         }};
     }
 
@@ -40,6 +42,8 @@ public class EditorMaps {
                 return new CombatMap();
             case "SaloonMap":
               return new SaloonMap();
+            case "PrehistoricMap":
+                return new PrehistoricMap();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }
