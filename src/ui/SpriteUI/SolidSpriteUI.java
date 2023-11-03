@@ -28,8 +28,35 @@ public class SolidSpriteUI extends UIContainer{
     if(this.outlineThickness == 0)
     g.drawFilledRectangle(getXAbs(), getYAbs(), getWidth(), getHeight(), color);
     else
-        g.drawFilledRectangleWithBorder(getXAbs(), getYAbs(), getWidth(), getHeight(), color, outlineColor, outlineThickness);
-
+    g.drawFilledRectangleWithBorder(getXAbs(), getYAbs(), getWidth(), getHeight(), color, outlineColor, outlineThickness);
+    
+    super.draw(g);
   }
+
+  public Color getColor() {
+    return color;
+  }
+
+  public void setColor(Color color) {
+    this.color = color;
+  }
+
+  public int getOutlineThickness() {
+    return outlineThickness;
+  }
+
+  public void setOutlineThickness(int outlineThickness) {
+    this.outlineThickness = outlineThickness;
+  }
+
+  public Color getOutlineColor() {
+    return outlineColor;
+  }
+
+  public void setOutlineColor(Color outlineColor) {
+    this.outlineColor = outlineColor;
+  }
+
+  
   
 }

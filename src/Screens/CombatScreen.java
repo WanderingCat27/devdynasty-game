@@ -35,6 +35,7 @@ import Level.TextboxHandler;
 import java.util.Random;
 import GameObject.Sprite;
 import Screens.PlayLevelScreen;
+import Screens.CombatScreenStuff.FightGameContainer;
 import Utils.Colors;
 import Utils.ImageUtils;
 import Level.NPC;
@@ -61,7 +62,7 @@ public class CombatScreen extends Screen {
   private boolean gameOver;
 
   private enum SCREENSTATE {
-    TEXTBOX, INVENTORY, USE_ITEM, RUN
+    TEXTBOX, FIGHT, INVENTORY, USE_ITEM, RUN
   }
 
   private SCREENSTATE screenState = SCREENSTATE.TEXTBOX;
@@ -87,6 +88,7 @@ public class CombatScreen extends Screen {
   private PositioningContainer bagContainer;
   private CenterContainer runContainer;
   private PositioningContainer useItemContainer;
+  private FightGameContainer fightGameContainer;
   private boolean[] usedItems;
 
   public CombatScreen(PlayLevelScreen playLevelScreen) {
@@ -136,6 +138,8 @@ public class CombatScreen extends Screen {
     useItemContainer.setAnchorChildren(true);
     useItemContainer.setfillType(FillType.FILL_SCREEN);
 
+    fightGameContainer = new FightGameContainer(initialTextboxHeight);
+
     // sound
     combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/combat.wav");
     LevelManager.getCurrentLevel().getSoundPlayer().pause();
@@ -172,14 +176,10 @@ public class CombatScreen extends Screen {
 
           @Override
           public void run() {
-            screenState = SCREENSTATE.TEXTBOX;
-            if (health > 0) {
-              System.out.println("Attacked");
-              health -= 10;
-              System.out.println("Health: " + health);
-              textbox.setText("You did 10 damage." + "\n\nEnemy Health: " + health);
-
-            }
+            if (healthZero() || screenState == SCREENSTATE.FIGHT)
+              return;
+            screenState = SCREENSTATE.FIGHT;
+            fightGameContainer.start();
           }
 
         });
@@ -326,6 +326,17 @@ public class CombatScreen extends Screen {
         break;
       case USE_ITEM:
         useItemContainer.update();
+      case FIGHT:
+        fightGameContainer.update();
+        if (fightGameContainer.isGameOver()) {
+          screenState = SCREENSTATE.TEXTBOX;
+          System.out.println("Attacked");
+          int damage = (int) (fightGameContainer.getScore() * 10 + .5f);
+          health -= damage;
+          System.out.println("Health: " + health);
+          textbox.setText("You did " + damage + " damage." + "\n\nEnemy Health: " + health);
+        }
+        break;
       default:
         textBoxContainer.update();
         break;
@@ -353,6 +364,9 @@ public class CombatScreen extends Screen {
         break;
       case USE_ITEM:
         useItemContainer.draw(graphicsHandler);
+        break;
+      case FIGHT:
+        fightGameContainer.draw(graphicsHandler);
         break;
       default:
         textBoxContainer.draw(graphicsHandler);
@@ -382,6 +396,7 @@ public class CombatScreen extends Screen {
       // scale y
       prevScaleY = scaleY;
       textbox.setHeight((int) (initialTextboxHeight * scaleY));
+      fightGameContainer.setChildrenHeight((int) (initialTextboxHeight * scaleY));
       textbox.getSpriteFont().setFontSize((int) (initialFontSize * scaleY));
 
       bagContainer.children().forEach((b) -> {
@@ -443,7 +458,7 @@ public class CombatScreen extends Screen {
       for (int i = usedItems.length - 1; i >= 0; i--) {
         if (usedItems[i])
           Inventory.remove(i);
-          usedItems[i] = false;
+        usedItems[i] = false;
       }
     } else {
       playerWin = false;
