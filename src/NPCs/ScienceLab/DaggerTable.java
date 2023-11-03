@@ -1,4 +1,4 @@
-package NPCs;
+package NPCs.ScienceLab;
 
 import java.util.HashMap;
 
@@ -25,7 +25,7 @@ public class DaggerTable extends NPC
         super.draw(graphicsHandler);
     }
 
-     @Override
+    @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)
     {
         return new HashMap<String, Frame[]>() {{

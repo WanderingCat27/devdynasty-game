@@ -11,7 +11,7 @@ import Level.LevelManager;
 import Level.Map;
 import Level.NPC;
 import NPCs.Dinosaur;
-import NPCs.MadScientist;
+import NPCs.ScienceLab.MadScientist;
 import Scripts.ChangeLevelScript;
 import Scripts.NewMap.DinoCombatScript;
 import Scripts.NewMap.madScientistScript;
