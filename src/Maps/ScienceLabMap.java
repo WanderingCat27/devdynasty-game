@@ -76,14 +76,14 @@ public class ScienceLabMap extends Map
         npcs.add(itemTable);
         
         return npcs;
-    }
+    } 
 
     @Override
     public ArrayList<Trigger> loadTriggers()
     {
         ArrayList<Trigger> triggers = new ArrayList<>();
         //just comment out the line below if you want to test the map without the trigger
-        //triggers.add(new Trigger(770, 1042, 50,10, new triggerForScientistScriptV2(), "hasTalkedToScientist"));
+        triggers.add(new Trigger(770, 1042, 50,10, new triggerForScientistScriptV2(), "hasTalkedToScientist"));
         return triggers;
     }
 }

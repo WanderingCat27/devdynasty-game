@@ -25,7 +25,7 @@ public class TilePicker extends JPanel {
   private SelectedTileIndexHolder selectedTileIndexHolder;
 
   public TilePicker(SelectedTileIndexHolder selectedTileIndexHolder) {
-    setBackground(Colors.MAGENTA);
+    setBackground(Colors.CORNFLOWER_BLUE);
     setLocation(0, 0);
     setPreferredSize(new Dimension(187, 391));
     setBorder(BorderFactory.createLineBorder(Color.black, 2));
