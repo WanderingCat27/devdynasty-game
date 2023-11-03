@@ -84,10 +84,25 @@ public class FutureTileset extends Tileset {
         .add(createFrame(getSubImageNoOffset(6, 1), ImageEffect.NONE, TileType.NOT_PASSABLE));
     mapTiles.addAll(multiFlippedFrames(getSubImageNoOffset(7, 0), TileType.NOT_PASSABLE, ImageEffect.NONE,
         ImageEffect.FLIP_HORIZONTAL));
-    mapTiles.add(createFrame(getSubImageNoOffset(7, 1),  ImageEffect.NONE, TileType.NOT_PASSABLE));
-    mapTiles.addAll(multiFlippedFrames(getSubImageNoOffset(7, 2), TileType.NOT_PASSABLE, ImageEffect.FLIP_HORIZONTAL, ImageEffect.NONE));
+    mapTiles.add(createFrame(getSubImageNoOffset(7, 1), ImageEffect.NONE, TileType.NOT_PASSABLE));
+    mapTiles.addAll(multiFlippedFrames(getSubImageNoOffset(7, 2), TileType.NOT_PASSABLE, ImageEffect.FLIP_HORIZONTAL,
+        ImageEffect.NONE));
     mapTiles.add(createFrame(getSubImageNoOffset(5, 2), ImageEffect.NONE, TileType.PASSABLE));
+
+    // lab building
+    for (int row = 0; row < 3; row++) {
+      for (int col = 0; col < 5; col++) {
+        if (col == 1 || (row != 2 && col == 3))
+          continue;
+        if (row != 2)
+          mapTiles.add(createFrame(getSubImageNoOffset(row, 3 + col), ImageEffect.NONE, TileType.NOT_PASSABLE));
+        else
+          mapTiles.add(createFrame(getSubImageNoOffset(row+2, 3 + col), grassFrame,ImageEffect.NONE, TileType.NOT_PASSABLE));
+
+      }
+    }
     return mapTiles;
+
   }
 
   private ArrayList<MapTileBuilder> multiFlippedFrames(java.awt.image.BufferedImage image, ImageEffect... effects) {
@@ -116,6 +131,18 @@ public class FutureTileset extends Tileset {
         .withScale(tileScale)
         .withImageEffect(effect)
         .build()).withTileType(passable);
+  }
+
+  private MapTileBuilder createFrame(java.awt.image.BufferedImage image, Frame bottomLayer, ImageEffect effect,
+      TileType passable) {
+
+    return new MapTileBuilder(bottomLayer)
+        .withTopLayer(new FrameBuilder(image)
+            .withScale(tileScale)
+            .withImageEffect(effect)
+            .build())
+        .withTileType(passable);
+
   }
 
   private MapTileBuilder createFrame(java.awt.image.BufferedImage image) {
