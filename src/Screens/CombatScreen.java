@@ -165,6 +165,8 @@ public class CombatScreen extends Screen {
 
     float buttonScale = 2.67f;
     SpriteButton runButton = new SpriteButton(0, 0, buttonScale, ImageLoader.load("run_button.png"), () -> {
+      if (fightGameContainer.isGameAwaitingFinish())
+        return;
       if (screenState == SCREENSTATE.RUN)
         screenState = SCREENSTATE.TEXTBOX;
       else
@@ -176,7 +178,7 @@ public class CombatScreen extends Screen {
 
           @Override
           public void run() {
-            if (healthZero() || screenState == SCREENSTATE.TEXTBOX)
+            if (healthZero() || screenState == SCREENSTATE.FIGHTGAME)
               return;
             screenState = SCREENSTATE.FIGHTGAME;
             fightGameContainer.start();
@@ -189,6 +191,8 @@ public class CombatScreen extends Screen {
 
           @Override
           public void run() {
+            if (fightGameContainer.isGameAwaitingFinish())
+              return;
             if (screenState == SCREENSTATE.INVENTORY)
               screenState = SCREENSTATE.TEXTBOX;
             else
