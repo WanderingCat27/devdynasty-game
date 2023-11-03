@@ -20,6 +20,7 @@ import Scripts.ChangeLevelScript;
 import Scripts.NewMap.madScientistScript;
 import Scripts.ScienceLab.AnimatedTableScript;
 import Scripts.ScienceLab.DaggerTableScript;
+import Scripts.ScienceLab.ItemTableScript;
 import Scripts.ScienceLab.secondMadScientistScript;
 import Scripts.ScienceLab.triggerForScientist;
 import Scripts.ScienceLab.triggerForScientistScriptV2;
