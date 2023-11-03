@@ -62,7 +62,7 @@ public class CombatScreen extends Screen {
   private boolean gameOver;
 
   private enum SCREENSTATE {
-    TEXTBOX, FIGHT, INVENTORY, USE_ITEM, RUN
+    TEXTBOX, FIGHTGAME, INVENTORY, USE_ITEM, RUN
   }
 
   private SCREENSTATE screenState = SCREENSTATE.TEXTBOX;
@@ -176,9 +176,9 @@ public class CombatScreen extends Screen {
 
           @Override
           public void run() {
-            if (healthZero() || screenState == SCREENSTATE.FIGHT)
+            if (healthZero() || screenState == SCREENSTATE.TEXTBOX)
               return;
-            screenState = SCREENSTATE.FIGHT;
+            screenState = SCREENSTATE.FIGHTGAME;
             fightGameContainer.start();
           }
 
@@ -319,14 +319,14 @@ public class CombatScreen extends Screen {
     switch (screenState) {
       case INVENTORY:
         bagContainer.update();
-        ;
         break;
       case RUN:
         runContainer.update();
         break;
       case USE_ITEM:
         useItemContainer.update();
-      case FIGHT:
+        break;
+      case FIGHTGAME:
         fightGameContainer.update();
         if (fightGameContainer.isGameOver()) {
           screenState = SCREENSTATE.TEXTBOX;
@@ -365,7 +365,7 @@ public class CombatScreen extends Screen {
       case USE_ITEM:
         useItemContainer.draw(graphicsHandler);
         break;
-      case FIGHT:
+      case FIGHTGAME:
         fightGameContainer.draw(graphicsHandler);
         break;
       default:
