@@ -129,10 +129,13 @@ public class FightGameContainer extends PositioningContainer {
 
   }
 
+  public boolean isGameAwaitingFinish() {
+    return isStopped && !isGameOver();
+  }
+
   public boolean isGameOver() {
     // isStopped and some delay so you can see where you got it
     return isStopped && ((System.currentTimeMillis() / 1000) - 1) > secStop;
   }
-
 
 }
