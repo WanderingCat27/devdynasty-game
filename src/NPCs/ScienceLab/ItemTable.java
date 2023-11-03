@@ -30,7 +30,7 @@ public class ItemTable extends NPC
             put("CHILL", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(3f)
-                            .withBounds(0, 10, 72, 29)
+                            .withBounds(0, 10, 72, 10)
                             .build()
             });
         }};

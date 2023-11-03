@@ -24,6 +24,7 @@ import Scripts.ScienceLab.secondMadScientistScript;
 import Scripts.ScienceLab.triggerForScientist;
 import Scripts.ScienceLab.triggerForScientistScriptV2;
 import Tilesets.ScienceLabTilset;
+import Scripts.ScienceLab.ItemTableScript;
 
 public class ScienceLabMap extends Map
 {
@@ -71,7 +72,7 @@ public class ScienceLabMap extends Map
         // DaggerTable daggerTable2 = new DaggerTable(6, getMapTile(20, 17).getLocation().subtractY(7));
         // npcs.add(daggerTable2);
         ItemTable itemTable = new ItemTable(7, getMapTile(19, 18).getLocation().subtractY(7));
-        //itemTable.setInteractScript()
+        itemTable.setInteractScript(new ItemTableScript());
         npcs.add(itemTable);
         
         return npcs;
@@ -82,8 +83,7 @@ public class ScienceLabMap extends Map
     {
         ArrayList<Trigger> triggers = new ArrayList<>();
         //just comment out the line below if you want to test the map without the trigger
-        triggers.add(new Trigger(770, 1042, 50,10, new triggerForScientistScriptV2(), "hasTalkedToScientist"));
+        //triggers.add(new Trigger(770, 1042, 50,10, new triggerForScientistScriptV2(), "hasTalkedToScientist"));
         return triggers;
     }
-
 }

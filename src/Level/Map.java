@@ -32,7 +32,7 @@ import Utils.Point;
     5. calculating which tile a game object is currently on based on its x and y location
 */
 
-public abstract class Map {
+public abstract class Map {  
   // the tile map (map tiles that make up the entire map image)
   protected MapTile[] mapTiles;
 
@@ -88,14 +88,10 @@ public abstract class Map {
   // map's textbox instance
   protected TextboxHandler textbox;
 
-  //map's image instance, need this for the table script
-  protected ImageHandler tableImage;
-
   // Maps sound player
   public SoundPlayer soundPlayer;
 
   public Map(String mapFileName, Tileset tileset) {
-    System.out.println(mapFileName + " created");
 
     this.mapFileName = mapFileName;
     this.tileset = tileset;
@@ -154,7 +150,6 @@ public abstract class Map {
 
     this.camera = new Camera(0, 0, tileset.getScaledSpriteWidth(), tileset.getScaledSpriteHeight(), this);
     this.textbox = new TextboxHandler(this);
-    this.tableImage = new ImageHandler(this);
   }
 
   // reads in a map file to create the map's tilemap
@@ -591,10 +586,6 @@ public abstract class Map {
     camera.update(player);
     if (textbox.getTextbox().isActive()) {
       textbox.update();
-    }
-    if(tableImage.getImage().isActive())
-    {
-      tableImage.update();
     }
   }
 
