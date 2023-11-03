@@ -113,5 +113,5 @@ public class ItemTableScript extends Script<NPC>
         }
         return false;
     }
-    
 }
+

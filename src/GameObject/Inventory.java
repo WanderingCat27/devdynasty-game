@@ -204,9 +204,8 @@ public class Inventory extends Sprite {
   public static boolean canAdd() {
     return itemsInInventory.size() < 4;
   }
-
-  public static ArrayList<Item> getInventory()
-  {
-      return itemsInInventory;
+  
+  public static ArrayList<Item> getInventory() {
+    return itemsInInventory;
   }
 }

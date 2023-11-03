@@ -4,5 +4,5 @@ import GameObject.Item;
 
 public class MysteryBox extends Item
 {
-    
+
 }

@@ -32,7 +32,7 @@ import Utils.Point;
     5. calculating which tile a game object is currently on based on its x and y location
 */
 
-public abstract class Map {
+public abstract class Map {  
   // the tile map (map tiles that make up the entire map image)
   protected MapTile[] mapTiles;
 
@@ -92,7 +92,6 @@ public abstract class Map {
   public SoundPlayer soundPlayer;
 
   public Map(String mapFileName, Tileset tileset) {
-    System.out.println(mapFileName + " created");
 
     this.mapFileName = mapFileName;
     this.tileset = tileset;

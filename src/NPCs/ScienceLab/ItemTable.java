@@ -16,7 +16,7 @@ public class ItemTable extends NPC
     
     public ItemTable(int id, Point point)
     {
-        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("table_for_items.png"), 48, 48), "CHILL");
+        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("table_for_items.png"), 72, 28), "CHILL");
     }
 
      public void update() {
