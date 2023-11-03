@@ -12,13 +12,15 @@ import Level.LevelManager;
 import Level.Map;
 import Level.NPC;
 import Level.Trigger;
-import NPCs.AnimatedTable;
-import NPCs.DaggerTable;
-import NPCs.MadScientist;
+import NPCs.ScienceLab.AnimatedTable;
+import NPCs.ScienceLab.DaggerTable;
+import NPCs.ScienceLab.ItemTable;
+import NPCs.ScienceLab.MadScientist;
 import Scripts.ChangeLevelScript;
 import Scripts.NewMap.madScientistScript;
 import Scripts.ScienceLab.AnimatedTableScript;
 import Scripts.ScienceLab.DaggerTableScript;
+import Scripts.ScienceLab.ItemTableScript;
 import Scripts.ScienceLab.secondMadScientistScript;
 import Scripts.ScienceLab.triggerForScientist;
 import Scripts.ScienceLab.triggerForScientistScriptV2;
@@ -66,7 +68,8 @@ public class ScienceLabMap extends Map
         daggerTable.setInteractScript(new DaggerTableScript());
         npcs.add(daggerTable);
 
-        DaggerTable daggerTable2 = new DaggerTable(6, getMapTile(20, 17).getLocation().subtractY(7));
+        DaggerTable daggerTable2 = new DaggerTable(7, getMapTile(20, 17).getLocation().subtractY(7));
+        daggerTable2.setInteractScript(new ItemTableScript());
         npcs.add(daggerTable2);
         
         return npcs;

@@ -1,4 +1,4 @@
-package NPCs;
+package NPCs.ScienceLab;
 
 import java.util.HashMap;
 
