@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.nio.Buffer;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import javax.sound.sampled.Clip;
@@ -85,7 +87,8 @@ public class CombatScreen extends Screen {
   private PositioningContainer bagContainer;
   private CenterContainer runContainer;
   private PositioningContainer useItemContainer;
- 
+  private boolean[] usedItems;
+
   public CombatScreen(PlayLevelScreen playLevelScreen) {
     this.playLevelScreen = playLevelScreen;
     // this.npc = new NPC(3, 13f, 19f, new
@@ -106,6 +109,7 @@ public class CombatScreen extends Screen {
     gameOver = false;
     playerWin = false;
     isInitialized = true;
+    usedItems = new boolean[4];
 
     fightContainer = new UIContainer(0, 0) {
 
@@ -235,16 +239,14 @@ public class CombatScreen extends Screen {
 
     useItemContainer.addComponent(new TextButton(0, 0, 300, 150, Color.CYAN, "Use Item?",
         new Font("Comic Sans", Font.BOLD, 20), Color.MAGENTA, () -> {
-          Item item =Inventory.remove(inventoryIndex);
-          System.out.println(
-              "used item in inventory at index " + inventoryIndex + " : " + item);
+          usedItems[inventoryIndex] = true;
           createBagContainer(); // update bag since item is removed
           screenState = SCREENSTATE.TEXTBOX;
 
           // Items need a name field or smth to identify them as
           // this kinda works for now since the class name will be similar to its name
           // but not final
-          textbox.setText("You used: " + item.getClass().getName());
+          textbox.setText("You used: " + Inventory.get(inventoryIndex).getClass().getName());
         }));
 
   }
@@ -254,12 +256,11 @@ public class CombatScreen extends Screen {
     bagContainer.setAnchorChildren(true);
     bagContainer.setfillType(FillType.FILL_SCREEN);
 
-    bagContainer.addComponent(new SolidSpriteUI(0, 0, 100, 100, Color.GREEN));
-
     for (int count = 0; count < 4; count++) {
       final int c = count;
       // if nothing in that slot draw a blank rect
-      if (Inventory.itemsInInventorySprites.size() - 1 < count) {
+      System.out.println(usedItems[count]);
+      if (Inventory.itemsInInventorySprites.size() - 1 < count || usedItems[count]) {
         bagContainer.addComponent(new SolidSpriteUI(0, 0, 0, 0, Color.GRAY) {
           private final int index = c;
 
@@ -418,7 +419,7 @@ public class CombatScreen extends Screen {
     return gameOver;
   }
 
-  public boolean playerWin(){
+  public boolean playerWin() {
     return playerWin;
   }
 
@@ -434,12 +435,20 @@ public class CombatScreen extends Screen {
     LevelManager.getCurrentLevel().getSoundPlayer().play();
     // playLevelScreen.getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
     gameOver = true;
-    if(healthZero()){
+    if (healthZero()) {
       playerWin = true;
-    }else{
+      // remove used items from inventory
+      System.out.println(Arrays.toString(usedItems));
+
+      for (int i = usedItems.length - 1; i >= 0; i--) {
+        if (usedItems[i])
+          Inventory.remove(i);
+          usedItems[i] = false;
+      }
+    } else {
       playerWin = false;
     }
-    
+
   }
 
 }
