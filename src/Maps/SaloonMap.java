@@ -24,7 +24,7 @@ import Utils.Point;
 public class SaloonMap extends Map {
   public SaloonMap() {
     super("saloon_map.txt", new SaloonTileset());
-    addMusic("Resources/Audio/scienceLab.wav");
+    addMusic("Resources/Audio/saloon.wav");
     this.playerStartPosition = getMapTile(13, 19).getLocation();
     //setCenterCamera();
   }
