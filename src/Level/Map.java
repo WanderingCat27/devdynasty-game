@@ -99,7 +99,7 @@ public abstract class Map {
     this.startBoundX = 0;
     this.startBoundY = 0;
     this.endBoundX = width * tileset.getScaledSpriteWidth();
-    this.endBoundY = height * tileset.getScaledSpriteHeight();
+    this.endBoundY = height * tileset.getScaledSpriteHeight(); 
     this.playerStartPosition = new Point(0, 0);
     setAdjustCamera();
     // this.soundPlayer.pause();

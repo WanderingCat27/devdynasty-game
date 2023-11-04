@@ -452,7 +452,6 @@ public class CombatScreen extends Screen {
     pauseMusic();
     playLevelScreen.resumeLevel();
     LevelManager.getCurrentLevel().getSoundPlayer().play();
-    // playLevelScreen.getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
     gameOver = true;
     if (healthZero()) {
       playerWin = true;
