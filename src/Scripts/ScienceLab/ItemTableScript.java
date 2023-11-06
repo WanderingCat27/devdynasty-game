@@ -78,7 +78,7 @@ public class ItemTableScript extends Script<NPC>
             System.out.println("Correct item was detected");
             for(int i = 0; i < Inventory.getInventory().size();i++)
             {
-                if(Inventory.getInventory().get(i) instanceof Crystal || Inventory.getInventory().get(i) instanceof Metal || Inventory.getInventory().get(i) instanceof Microchip || Inventory.getInventory().get(i) instanceof MysteryBox || Inventory.getInventory().get(i) instanceof Sword)
+                if(Inventory.getInventory().get(i) instanceof Crystal || Inventory.getInventory().get(i) instanceof Metal || Inventory.getInventory().get(i) instanceof Microchip || Inventory.getInventory().get(i) instanceof MysteryBox)
                 {
                     //add the inventory onto the table, remove it from the players inventory
                     itemsOnTable.add(Inventory.getInventory().get(i));
@@ -110,7 +110,7 @@ public class ItemTableScript extends Script<NPC>
         ArrayList<Item> items = Inventory.getInventory();
         for(Item item : items)
         {
-            if(item instanceof Crystal || item instanceof Metal || item instanceof Microchip || item instanceof MysteryBox || item instanceof Sword)
+            if(item instanceof Crystal || item instanceof Metal || item instanceof Microchip || item instanceof MysteryBox)
             {
                 return true;
             }
