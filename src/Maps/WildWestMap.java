@@ -25,6 +25,8 @@ import Scripts.ChangeLevelScript;
 import NPCs.OldCowboy;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.TestMap.DinoScript;
+import Scripts.WildWestMap.CowboyThreeScript;
+import Scripts.WildWestMap.CowboyTwoScript;
 import Scripts.WildWestMap.EvilCowboyScript;
 import Scripts.WildWestMap.OldCowboyScript;
 import Tilesets.WestTileset;
@@ -69,7 +71,7 @@ public class WildWestMap extends Map {
         redPotion.setInteractScript(new RedPotionScript());
         npcs.add(redPotion);
 
-        CowboyOne cowboyOne = new CowboyOne(2, getMapTile(13, 4).getLocation());
+        CowboyOne cowboyOne = new CowboyOne(2, getMapTile(22, 12).getLocation());
         //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
         cowboyOne.setInteractScript(new DinoScript());
         npcs.add(cowboyOne);
@@ -79,16 +81,16 @@ public class WildWestMap extends Map {
         evilCowboy.setInteractScript(new EvilCowboyScript());
         npcs.add(evilCowboy);
 
-        OldCowboy oldCowboy = new OldCowboy(9, getMapTile(20, 10).getLocation());
+        OldCowboy oldCowboy = new OldCowboy(9, getMapTile(15, 15).getLocation());
         oldCowboy.setInteractScript(new OldCowboyScript());
         npcs.add(oldCowboy);
 
-        CowboyTwo cowboyTwo = new CowboyTwo(9, getMapTile(15, 10).getLocation());
-        cowboyTwo.setInteractScript(new OldCowboyScript());
+        CowboyTwo cowboyTwo = new CowboyTwo(9, getMapTile(26, 17).getLocation());
+        cowboyTwo.setInteractScript(new CowboyTwoScript());
         npcs.add(cowboyTwo);
 
-        CowboyThree cowboyThree = new CowboyThree(9, getMapTile(5, 10).getLocation());
-        cowboyThree.setInteractScript(new OldCowboyScript());
+        CowboyThree cowboyThree = new CowboyThree(9, getMapTile(21, 25).getLocation());
+        cowboyThree.setInteractScript(new CowboyThreeScript());
         npcs.add(cowboyThree);
 
         TimeMachine timeMachine = new TimeMachine(6, getMapTile(4, 5).getLocation(), 26, 37);

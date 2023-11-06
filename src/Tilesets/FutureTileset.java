@@ -64,15 +64,48 @@ public class FutureTileset extends Tileset {
     mapTiles.addAll(multiFlippedFrames(getSubImageNoOffset(2, 0), ImageEffect.NONE, ImageEffect.FLIP_HORIZONTAL,
         ImageEffect.FLIP_VERTICAL, ImageEffect.FLIP_H_AND_V));
 
+    // building
+    mapTiles.addAll(multiFlippedFrames(getSubImageNoOffset(3, 0), TileType.NOT_PASSABLE, ImageEffect.NONE,
+        ImageEffect.FLIP_H_AND_V, ImageEffect.FLIP_HORIZONTAL, ImageEffect.FLIP_VERTICAL));
+    mapTiles.addAll(multiFlippedFrames(getSubImageNoOffset(3, 1), TileType.NOT_PASSABLE, ImageEffect.NONE,
+        ImageEffect.FLIP_HORIZONTAL));
+
+    for (int row = 0; row < 2; row++) {
+      for (int col = 0; col < 2; col++) {
+        mapTiles.add(createFrame(getSubImageNoOffset(4 + row, col), ImageEffect.NONE, TileType.NOT_PASSABLE));
+      }
+    }
+
+    mapTiles
+        .add(createFrame(getSubImageNoOffset(6, 0), ImageEffect.NONE, TileType.NOT_PASSABLE));
+    mapTiles.addAll(multiFlippedFrames(getSubImageNoOffset(6, 2), TileType.NOT_PASSABLE, ImageEffect.NONE,
+        ImageEffect.FLIP_VERTICAL));
+    mapTiles
+        .add(createFrame(getSubImageNoOffset(6, 1), ImageEffect.NONE, TileType.NOT_PASSABLE));
+    mapTiles.addAll(multiFlippedFrames(getSubImageNoOffset(7, 0), TileType.NOT_PASSABLE, ImageEffect.NONE,
+        ImageEffect.FLIP_HORIZONTAL));
+    mapTiles.add(createFrame(getSubImageNoOffset(7, 1),  ImageEffect.NONE, TileType.NOT_PASSABLE));
+    mapTiles.addAll(multiFlippedFrames(getSubImageNoOffset(7, 2), TileType.NOT_PASSABLE, ImageEffect.FLIP_HORIZONTAL, ImageEffect.NONE));
+    mapTiles.add(createFrame(getSubImageNoOffset(5, 2), ImageEffect.NONE, TileType.PASSABLE));
     return mapTiles;
   }
 
   private ArrayList<MapTileBuilder> multiFlippedFrames(java.awt.image.BufferedImage image, ImageEffect... effects) {
+    return multiFlippedFrames(image, TileType.PASSABLE, effects);
+  }
+
+  private ArrayList<MapTileBuilder> multiFlippedFramesAll(java.awt.image.BufferedImage image, TileType passable) {
+    return multiFlippedFrames(image, passable, ImageEffect.NONE, ImageEffect.FLIP_HORIZONTAL, ImageEffect.FLIP_H_AND_V,
+        ImageEffect.FLIP_VERTICAL);
+  }
+
+  private ArrayList<MapTileBuilder> multiFlippedFrames(java.awt.image.BufferedImage image, TileType passable,
+      ImageEffect... effects) {
 
     ArrayList<MapTileBuilder> frames = new ArrayList<>();
 
     for (ImageEffect e : effects) {
-      frames.add(createFrame(image, e, TileType.PASSABLE));
+      frames.add(createFrame(image, e, passable));
     }
 
     return frames;

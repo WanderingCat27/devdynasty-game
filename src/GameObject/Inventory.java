@@ -38,7 +38,7 @@ public class Inventory extends Sprite {
   protected Map map; // new NewMap();
 
   // This will be used to keep track of the items in the inventory
-  protected static ArrayList<Item> itemsInInventory = new ArrayList<Item>();
+  public static ArrayList<Item> itemsInInventory = new ArrayList<Item>();
   public static ArrayList<Sprite> itemsInInventorySprites = new ArrayList<Sprite>();
 
   // Keeps track of which inventory key is pressed and draws the correct image
@@ -203,5 +203,12 @@ public class Inventory extends Sprite {
 
   public static boolean canAdd() {
     return itemsInInventory.size() < 4;
+  }
+
+  public static Item get(int index) {
+    return itemsInInventory.get(index);
+}  
+  public static ArrayList<Item> getInventory() {
+    return itemsInInventory;
   }
 }
