@@ -86,6 +86,10 @@ public class ItemTableScript extends Script<NPC>
                     Inventory.itemsInInventorySprites.remove(i);
                     //going to have to add logic to see the item drawn on the map
                 }
+                if(itemsOnTable.size() == 1)
+                {
+                   this.entity.setCurrentAnimationName("ONE_ITEM");
+                }
             }
             end();
             return ScriptState.COMPLETED;
