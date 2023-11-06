@@ -98,7 +98,7 @@ public class CombatScreen extends Screen {
   public CombatScreen(PlayLevelScreen playLevelScreen, NPC enemy) { // Add NPC parameter to know Enemy
     this(playLevelScreen);
     this.npc = enemy;
-    enemyHealth = 100; //npc.getHealth();
+    enemyHealth = npc.getHealth();
 
     initialize();
   }

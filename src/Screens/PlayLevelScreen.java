@@ -99,8 +99,6 @@ public class PlayLevelScreen extends Screen {
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
-      NPC npc = LevelManager.getCurrentLevel().getMap().getNPCById(3);
-      System.out.println();
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(3), "hasTalkedToCowboy");
     }
 
