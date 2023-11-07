@@ -19,6 +19,8 @@ import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.Dinosaur;
+import NPCs.Prehistoric.BlueDino;
+import NPCs.Prehistoric.YellowDino;
 import NPCs.ScienceLab.AnimatedTable;
 import NPCs.ScienceLab.DaggerTable;
 import NPCs.ScienceLab.ItemTable;
@@ -48,6 +50,12 @@ public class PrehistoricMap extends Map {
         
         Dinosaur dinosaur = new Dinosaur(1, getMapTile(16, 4).getLocation());
         npcs.add(dinosaur);
+
+        BlueDino blueDino = new BlueDino(3, getMapTile(8, 2).getLocation());
+        npcs.add(blueDino);
+
+        YellowDino yellowDino = new YellowDino(4, getMapTile(22, 14).getLocation());
+        npcs.add(yellowDino);
 
         TimeMachine timeMachine = new TimeMachine(2, getMapTile(25, 4).getLocation(), 26, 37);
         timeMachine.setInteractScript(new ChangeLevelScript(LevelManager.LAB));
