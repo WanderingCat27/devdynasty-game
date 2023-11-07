@@ -1,4 +1,4 @@
-package NPCs.ScienceLab;
+package NPCs.Saloon;
 
 import java.util.HashMap;
 
@@ -8,13 +8,14 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.NPC;
+import NPCs.ScienceLab.DaggerTable;
 import Utils.Point;
 
-public class DaggerTable extends NPC
+public class RoundTable extends NPC
 {
-    public DaggerTable(int id, Point point) 
+    public RoundTable(int id, Point point)
     {
-        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("dagger_table.png"), 48, 48), "CHILL");
+        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("round_table.png"), 30, 30), "CHILL");
     }
 
     public void update() {
@@ -25,14 +26,14 @@ public class DaggerTable extends NPC
         super.draw(graphicsHandler);
     }
 
-     @Override
+    @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet)
     {
         return new HashMap<String, Frame[]>() {{
             put("CHILL", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 7)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(3f)
-                            .withBounds(3, 15, 38, 15)
+                            .withBounds(0, 0, 27, 30)
                             .build()
             });
         }};
