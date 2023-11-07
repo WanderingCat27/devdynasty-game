@@ -366,7 +366,7 @@ public class CombatScreen extends Screen {
     {
       winContainer.update();
     }
-    else
+    else{
       fightContainer.update();
     }
     // scale items that should scale
@@ -395,12 +395,10 @@ public class CombatScreen extends Screen {
         break;
     }
 
-    if (healthZero()){
+    if (healthZero())
       winContainer.draw(graphicsHandler);
-    }
-    else{
+    else
       fightContainer.draw(graphicsHandler);
-    }
   }
 
   protected void scaleAll() {
@@ -450,7 +448,7 @@ public class CombatScreen extends Screen {
   }
 
   public boolean healthZero() {
-    return health <= 0;
+    return enemyHealth <= 0;
   }
 
   //the item name in this case is just the name of the class, for example,
