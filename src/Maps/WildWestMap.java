@@ -76,7 +76,7 @@ public class WildWestMap extends Map {
         cowboyOne.setInteractScript(new DinoScript());
         npcs.add(cowboyOne);
 
-        EvilCowboy evilCowboy = new EvilCowboy(3, getMapTile(18, 3).getLocation(), 100);
+        EvilCowboy evilCowboy = new EvilCowboy(3, getMapTile(18, 3).getLocation(), 20);
         //evilCowboy.setExistenceFlag("hasTalkedToCowboy");
         evilCowboy.setInteractScript(new EvilCowboyScript());
         npcs.add(evilCowboy);

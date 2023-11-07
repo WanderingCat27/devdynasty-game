@@ -149,7 +149,7 @@ public class CombatScreen extends Screen {
     // images
     youWinPopup = new SpriteUI(0, -40, ImageLoader.load("GameOver.png"), 5);
     winContainer.addComponent(youWinPopup);
-    BufferedImage enemyImage = ImageLoader.loadSubImage("EvilCowboy.png", Colors.MAGENTA, 0, 0, 14, 19);
+    BufferedImage enemyImage = ImageLoader.loadSubImage(npc.getPathToImage(), Colors.MAGENTA, 0, 0, 14, 19);
     enemy = new SpriteUI(0, 0, enemyImage, 15);
     enemy.setAnchor(Anchor.BOTTOM_CENTER);
     CenterContainer enemyContainer = new CenterContainer();
@@ -337,9 +337,20 @@ public class CombatScreen extends Screen {
           screenState = SCREENSTATE.TEXTBOX;
           System.out.println("Attacked");
           int damage = (int) (fightGameContainer.getScore() * 10 + .5f);
-          enemyHealth -= damage;
+          if(damage > enemyHealth){
+            enemyHealth = 0;
+          }else{
+            enemyHealth -= damage;
+          }
+          
           System.out.println("Health: " + playerHealth);
-          textbox.setText("You did " + damage + " damage." + "\n\nEnemy Health: " + enemyHealth);
+          if(healthZero()){
+            textbox.setText("You did " + damage + " damage." + "\n\nYou have defeated the Enemy!");
+          }else{
+            textbox.setText("You did " + damage + " damage." + "\n\nEnemy Health: " + enemyHealth);
+          }
+          
+          
         }
         break;
       default:
@@ -347,11 +358,12 @@ public class CombatScreen extends Screen {
         break;
     }
 
-    if (healthZero())
+    if (healthZero()){
       winContainer.update();
-    else
+    }
+    else{
       fightContainer.update();
-
+    }
     // scale items that should scale
     scaleAll();
 
@@ -378,11 +390,12 @@ public class CombatScreen extends Screen {
         break;
     }
 
-    if (healthZero())
+    if (healthZero()){
       winContainer.draw(graphicsHandler);
-    else
+    }
+    else{
       fightContainer.draw(graphicsHandler);
-
+    }
   }
 
   protected void scaleAll() {
@@ -453,7 +466,6 @@ public class CombatScreen extends Screen {
     pauseMusic();
     playLevelScreen.resumeLevel();
     LevelManager.getCurrentLevel().getSoundPlayer().play();
-    gameOver = true;
     if (healthZero()) {
       playerWin = true;
       // remove used items from inventory
@@ -467,7 +479,7 @@ public class CombatScreen extends Screen {
     } else {
       playerWin = false;
     }
-
+    gameOver = true;
   }
 
 }
