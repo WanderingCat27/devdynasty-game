@@ -1,4 +1,4 @@
-package NPCs.ScienceLab;
+package NPCs.Saloon;
 
 import java.util.HashMap;
 
@@ -8,19 +8,22 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.NPC;
+import NPCs.ScienceLab.DaggerTable;
 import Utils.Point;
 
-public class ItemTable extends NPC
+public class RoundTable extends NPC
 {
-    public static final int MAX_ITEMS = 4;
-    
-    public ItemTable(int id, Point point)
+    public RoundTable(int id, Point point)
     {
-        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("table_for_items.png"), 72, 28), "CHILL");
+        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("round_table.png"), 30, 30), "CHILL");
     }
 
-     public void update() {
+    public void update() {
         super.update();
+    }
+
+    public void draw(GraphicsHandler graphicsHandler) {
+        super.draw(graphicsHandler);
     }
 
     @Override
@@ -30,15 +33,10 @@ public class ItemTable extends NPC
             put("CHILL", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(3f)
-                            .withBounds(0, 2, 72, 20)
-                            .build()
-            });
-            put("ONE_ITEM", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 1))
-                            .withScale(3f)
-                            .withBounds(0, 2, 72, 20)
+                            .withBounds(0, 0, 27, 30)
                             .build()
             });
         }};
     }
+
 }

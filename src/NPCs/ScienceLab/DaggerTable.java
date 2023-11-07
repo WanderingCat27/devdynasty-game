@@ -17,7 +17,7 @@ public class DaggerTable extends NPC
         super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("dagger_table.png"), 48, 48), "CHILL");
     }
 
-     public void update() {
+    public void update() {
         super.update();
     }
 

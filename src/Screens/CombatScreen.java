@@ -20,9 +20,11 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Sprite;
 import GameObject.SpriteSheet;
+import Items.BossItems.Crystal;
 import Level.Level;
 import Level.LevelManager;
 import Level.Map;
+import Level.MapEntityStatus;
 import Level.NPC;
 import Level.SoundPlayer;
 import Level.TextboxHandler;
@@ -36,8 +38,10 @@ import java.util.Random;
 import GameObject.Sprite;
 import Screens.PlayLevelScreen;
 import Screens.CombatScreenStuff.FightGameContainer;
+import Scripts.NewMap.SwordScript;
 import Utils.Colors;
 import Utils.ImageUtils;
+import Utils.Point;
 import Level.NPC;
 import Maps.NewMap;
 import ui.Container.Anchor;
@@ -358,10 +362,11 @@ public class CombatScreen extends Screen {
         break;
     }
 
-    if (healthZero()){
+    if (healthZero())
+    {
       winContainer.update();
     }
-    else{
+    else
       fightContainer.update();
     }
     // scale items that should scale
@@ -445,7 +450,22 @@ public class CombatScreen extends Screen {
   }
 
   public boolean healthZero() {
-    return (enemyHealth <= 0);
+    return health <= 0;
+  }
+
+  //the item name in this case is just the name of the class, for example,
+  //the crystal class is called "Crystal"
+  private void spawnWinningNPC(String itemName)
+  {
+      //as we add more items, just add more cases
+      if(itemName.toLowerCase().equals("crystal"))
+      {
+        NPC crystal = new Crystal(10, LevelManager.getCurrentLevel().getPlayer().getLocation());
+        LevelManager.getCurrentLevel().getMap().addNPC(crystal);
+        crystal.setMap(LevelManager.getCurrentLevel().getMap());
+        crystal.getInteractScript().setIsActive(true);
+        crystal.getInteractScript().setMap(LevelManager.getCurrentLevel().getMap());
+      }
   }
 
   public boolean gameOver() {
@@ -468,14 +488,15 @@ public class CombatScreen extends Screen {
     LevelManager.getCurrentLevel().getSoundPlayer().play();
     if (healthZero()) {
       playerWin = true;
-      // remove used items from inventory
       System.out.println(Arrays.toString(usedItems));
-
       for (int i = usedItems.length - 1; i >= 0; i--) {
         if (usedItems[i])
           Inventory.remove(i);
         usedItems[i] = false;
       }
+      // spawn item
+      spawnWinningNPC("crystal");
+      System.out.println("Spawning a new item");
     } else {
       playerWin = false;
     }

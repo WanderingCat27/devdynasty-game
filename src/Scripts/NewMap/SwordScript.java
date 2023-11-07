@@ -26,12 +26,11 @@ public class SwordScript extends Script<Item>
     @Override
     protected void cleanup()
     {
-        System.out.println("Sword script cleaned up");
+        
     }
 
     @Override
     protected ScriptState execute() {
-        System.out.println("Sword script executed");
         start();
         end();
         return ScriptState.COMPLETED;
