@@ -38,7 +38,7 @@ import Utils.Point;
 public class PrehistoricMap extends Map {
   public PrehistoricMap() {
     super("prehistoric_map.txt", new PrehistoricTileset());
-    addMusic("Resources/Audio/saloon.wav");
+    addMusic("Resources/Audio/prehistoric theme.wav");
     this.playerStartPosition = getMapTile(5, 3).getLocation();
     //setCenterCamera();
 
