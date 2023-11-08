@@ -21,15 +21,15 @@ public class ChangeLevelByString extends Script {
     start();
     LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sounds 
     Level level = null;
-    if (this.levelStr.toLowerCase() == "wildwest")
+    if (this.levelStr.equalsIgnoreCase("wildwest"))
       level = LevelManager.WILDWEST;
-    else if (this.levelStr.toLowerCase() == "lab")
+    else if (this.levelStr.equalsIgnoreCase("lab"))
       level = LevelManager.LAB;
-    else if (this.levelStr.toLowerCase() == "saloon")
+    else if (this.levelStr.equalsIgnoreCase("saloon"))
       level = LevelManager.SALOON_INSIDE;
-    else if (this.levelStr.toLowerCase() == "WWBuildingOne")
+    else if (this.levelStr.equalsIgnoreCase("buildingone"))
       level = LevelManager.SALOON_INSIDE;
-    else if (this.levelStr.toLowerCase() == "prehistoric")
+    else if (this.levelStr.equalsIgnoreCase("prehistoric"))
       level = LevelManager.PREHISTORIC;
 
 
