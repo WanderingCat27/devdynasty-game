@@ -91,15 +91,19 @@ public class FutureTileset extends Tileset {
 
     // lab building
     for (int row = 0; row < 3; row++) {
-      for (int col = 0; col < 5; col++) {
-        if (col == 1 || (row != 2 && col == 3))
-          continue;
-        if (row != 2)
-          mapTiles.add(createFrame(getSubImageNoOffset(row, 3 + col), ImageEffect.NONE, TileType.NOT_PASSABLE));
-        else
-          mapTiles.add(createFrame(getSubImageNoOffset(row+2, 3 + col), grassFrame,ImageEffect.NONE, TileType.NOT_PASSABLE));
+      for (int col = 0; col < 2; col++) {
+        ImageEffect[] imageEffects;
+        if(col == 0) imageEffects = new ImageEffect[]{ImageEffect.NONE, ImageEffect.FLIP_HORIZONTAL};
+        else imageEffects = new ImageEffect[]{ImageEffect.NONE};
 
+        for(ImageEffect effect : imageEffects) {
+        if (row < 2)
+          mapTiles.add(createFrame(getSubImageNoOffset(row, 3 + col), effect, TileType.NOT_PASSABLE));
+        else
+          mapTiles.add(
+              createFrame(getSubImageNoOffset(row, 3 + col), grassFrame, effect, TileType.NOT_PASSABLE));
       }
+    }
     }
     return mapTiles;
 
