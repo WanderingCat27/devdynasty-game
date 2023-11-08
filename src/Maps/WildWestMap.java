@@ -47,10 +47,15 @@ public class WildWestMap extends Map {
   public ArrayList<Item> loadItems() {
     ArrayList list = new ArrayList<>();
 
-    BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(23, 11).getLocation(), 96, 32, "saloon");
+    BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(23, 11).getLocation(), 96, 20, "saloon");
     list.add(saloonEntrance);
+
+    BuildingEntrance wwBuildingOne = new BuildingEntrance(1, getMapTile(23, 40).getLocation(), 96, 20, "buildingOne");
+    list.add(wwBuildingOne);
     return list;
   }
+
+  
 
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {

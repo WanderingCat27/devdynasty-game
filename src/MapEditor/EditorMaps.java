@@ -11,6 +11,7 @@ import Maps.ScienceLabMap;
 import Maps.TestMap;
 import Maps.TitleScreenMap;
 import Maps.FutureMap;
+import Maps.WWBuildingOne;
 
 public class EditorMaps {
     public static ArrayList<String> getMapNames() {
@@ -24,6 +25,7 @@ public class EditorMaps {
             add("SaloonMap");
             add("PrehistoricMap");
             add("FutureMap");
+            add("WWBuildingOne");
         }};
     }
 
@@ -47,6 +49,8 @@ public class EditorMaps {
                 return new PrehistoricMap();
             case "FutureMap":
               return new FutureMap();
+            case "WWBuildingOne":
+              return new WWBuildingOne();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }

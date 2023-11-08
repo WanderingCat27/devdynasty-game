@@ -27,8 +27,11 @@ public class ChangeLevelByString extends Script {
       level = LevelManager.LAB;
     else if (this.levelStr.toLowerCase() == "saloon")
       level = LevelManager.SALOON_INSIDE;
+    else if (this.levelStr.toLowerCase() == "WWBuildingOne")
+      level = LevelManager.SALOON_INSIDE;
     else if (this.levelStr.toLowerCase() == "prehistoric")
       level = LevelManager.PREHISTORIC;
+
 
     if (level != null) {
       LevelManager.setLevel(level);
