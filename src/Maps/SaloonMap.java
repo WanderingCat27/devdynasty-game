@@ -17,14 +17,14 @@ public class SaloonMap extends Map {
   public SaloonMap() {
     super("saloon_map.txt", new SaloonTileset());
     addMusic("Resources/Audio/saloon.wav");
-    this.playerStartPosition = getMapTile(13, 19).getLocation();
-    //setCenterCamera();
+    this.playerStartPosition = getMapTile(8, 14).getLocation();
+    setCenterCamera();
   }
 
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList<Item> list = new ArrayList<>();
-    BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(12, 20).getLocation(), 160, 32, "wildwest");
+    BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(7, 14).getLocation(), 160, 32, "wildwest");
     list.add(saloonEntrance);
     return list;
   }
@@ -33,13 +33,13 @@ public class SaloonMap extends Map {
   public ArrayList<NPC> loadNPCs()
   {
       ArrayList<NPC> npcs = new ArrayList<>();
-      NPC barTable = new BarTable(1, getMapTile(10, 9).getLocation());
+      NPC barTable = new BarTable(1, getMapTile(5, 5).getLocation());
       npcs.add(barTable);
 
-      NPC roundTable = new RoundTable(2, getMapTile(8, 15).getLocation());
+      NPC roundTable = new RoundTable(2, getMapTile(4, 10).getLocation());
       npcs.add(roundTable);
 
-      NPC roundTable2 = new RoundTable(3, getMapTile(17, 15).getLocation());
+      NPC roundTable2 = new RoundTable(3, getMapTile(11, 10).getLocation());
       npcs.add(roundTable2);
 
       return npcs;
