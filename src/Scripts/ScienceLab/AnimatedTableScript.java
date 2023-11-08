@@ -10,7 +10,7 @@ public class AnimatedTableScript extends Script<NPC> {
     protected void setup() {
         lockPlayer();
         showTextbox();
-        addTextToTextboxQueue("The mad scientist is making something, but\nwho know's what.");
+        addTextToTextboxQueue("The mad scientist is making something, but\nwho knows what.");
     }
 
     @Override

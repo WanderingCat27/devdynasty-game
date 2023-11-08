@@ -15,7 +15,7 @@ public class CowboyTwoScript extends Script<NPC> {
 
         // changes what walrus says when talking to him the first time (flag is not set) vs talking to him afterwards (flag is set)
         if (!isFlagSet("hasTalkedToWalrus")) {
-            addTextToTextboxQueue( "Greetings Partner!");
+            addTextToTextboxQueue( "Greetings, Partner!");
             addTextToTextboxQueue( "Feel free to enter any of these buildings...");
             addTextToTextboxQueue( "Might help you get more comfortable here...");
             addTextToTextboxQueue( "Welcome to Westville!");
