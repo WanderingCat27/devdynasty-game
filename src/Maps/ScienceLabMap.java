@@ -13,6 +13,7 @@ import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.ScienceLab.AnimatedTable;
+import NPCs.ScienceLab.Bed;
 import NPCs.ScienceLab.DaggerTable;
 import NPCs.ScienceLab.ItemTable;
 import NPCs.ScienceLab.MadScientist;
@@ -41,8 +42,8 @@ public class ScienceLabMap extends Map
     {
         ArrayList<NPC> npcs = new ArrayList<>();
         
-        Sword sword = new Sword(1, getMapTile(16, 28).getLocation());
-        npcs.add(sword);
+        // Sword sword = new Sword(1, getMapTile(16, 28).getLocation());
+        // npcs.add(sword);
 
         TimeMachine timeMachine = new TimeMachine(2, getMapTile(25, 14).getLocation(), 26, 37);
         timeMachine.setInteractScript(new ChangeLevelScript(LevelManager.WILDWEST));
@@ -75,6 +76,9 @@ public class ScienceLabMap extends Map
         ItemTable itemTable = new ItemTable(7, getMapTile(19, 18).getLocation().subtractY(7));
         itemTable.setInteractScript(new ItemTableScript());
         npcs.add(itemTable);
+
+        Bed bed = new Bed(8, getMapTile(12, 28).getLocation());
+        npcs.add(bed);
         
         return npcs;
     } 
