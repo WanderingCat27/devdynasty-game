@@ -36,10 +36,10 @@ public class SaloonMap extends Map {
       NPC barTable = new BarTable(1, getMapTile(5, 5).getLocation());
       npcs.add(barTable);
 
-      NPC roundTable = new RoundTable(2, getMapTile(4, 10).getLocation());
+      NPC roundTable = new RoundTable(2, getMapTile(3, 11).getLocation());
       npcs.add(roundTable);
 
-      NPC roundTable2 = new RoundTable(3, getMapTile(11, 10).getLocation());
+      NPC roundTable2 = new RoundTable(3, getMapTile(12, 11).getLocation());
       npcs.add(roundTable2);
 
       return npcs;
