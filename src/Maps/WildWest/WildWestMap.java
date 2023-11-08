@@ -1,4 +1,4 @@
-package Maps;
+package Maps.WildWest;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

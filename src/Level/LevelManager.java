@@ -2,11 +2,15 @@ package Level;
 
 import Maps.NewMap;
 import Maps.PrehistoricMap;
-import Maps.SaloonMap;
 import Maps.ScienceLabMap;
 import Maps.TestMap;
-import Maps.WildWestMap;
-import Maps.FutureMap;
+import Maps.Future.FloorOneMap;
+import Maps.Future.FloorThreeMap;
+import Maps.Future.FloorTwoMap;
+import Maps.Future.FutureMap;
+import Maps.Future.ReceptionMap;
+import Maps.WildWest.SaloonMap;
+import Maps.WildWest.WildWestMap;
 
 public class LevelManager {
 
@@ -36,6 +40,31 @@ public class LevelManager {
     }
 
   };
+    public static final Level RECEPTION = new Level() {
+      @Override
+      protected Map getMapInstance() {
+        return new ReceptionMap();
+      };
+    };
+    public static final Level FLOOR1 = new Level() {
+      @Override
+      protected Map getMapInstance() {
+        return new FloorOneMap();
+      };
+    };
+
+    public static final Level FLOOR2 = new Level() {
+      @Override
+      protected Map getMapInstance() {
+        return new FloorTwoMap();
+      };
+    };
+    public static final Level FLOOR3 = new Level() {
+      @Override
+      protected Map getMapInstance() {
+        return new FloorThreeMap();
+      };
+    };
   // public static final Level OLD_TEST = new Level(new TestMap());
   public static Level SALOON_INSIDE = new Level() {
 
