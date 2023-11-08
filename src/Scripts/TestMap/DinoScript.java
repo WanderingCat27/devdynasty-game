@@ -71,7 +71,7 @@ public class DinoScript extends Script<NPC> {
     private void resetDialogue() {
         showTextbox();
         addTextToTextboxQueue("Why hello there!");
-        addTextToTextboxQueue("You must be knew to town...");
+        addTextToTextboxQueue("You must be new to town...");
         addTextToTextboxQueue("Say, have you made your way to the saloon?");
         addTextToTextboxQueue("I have. (PRESS UP ARROW)\nI have not. (PRESS DOWN ARROW)");
         isChoosing = true;
