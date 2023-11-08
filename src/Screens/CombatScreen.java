@@ -150,7 +150,7 @@ public class CombatScreen extends Screen {
     LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
 
     // images
-    youWinPopup = new SpriteUI(0, -40, ImageLoader.load("GameOver.png"), 5);
+    youWinPopup = new SpriteUI(0, -40, ImageLoader.load("you_win.png"), 1.5f);
     winContainer.addComponent(youWinPopup);
     BufferedImage enemyImage = ImageLoader.loadSubImage("EvilCowboy.png", Colors.MAGENTA, 0, 0, 14, 19);
     enemy = new SpriteUI(0, 0, enemyImage, 15);
