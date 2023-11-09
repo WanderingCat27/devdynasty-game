@@ -7,6 +7,8 @@ import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.sound.sampled.Clip;
 
@@ -71,12 +73,14 @@ public class CombatScreen extends Screen {
 
   private SCREENSTATE screenState = SCREENSTATE.TEXTBOX;
 
-  private int health;
+  private double enemyHealth;
+  private double playerHealth;
   private int inventoryIndex;
   private final int initialTextboxHeight = 130;
   private final int initialFontSize = 30;
   private float prevScaleX, prevScaleY;
   private boolean playerWin;
+  private boolean playerTurn;
 
   protected Textbox textbox;
   protected SpriteUI enemy;
@@ -99,23 +103,25 @@ public class CombatScreen extends Screen {
     this.playLevelScreen = playLevelScreen;
     // this.npc = new NPC(3, 13f, 19f, new
     // SpriteSheet(ImageLoader.load("EvilCowboy.png"), 14, 19), "STAND_DOWN");
-    health = 20;
+    enemyHealth = 20;
 
   }
 
   public CombatScreen(PlayLevelScreen playLevelScreen, NPC enemy) { // Add NPC parameter to know Enemy
     this(playLevelScreen);
     this.npc = enemy;
-    health = 20;
-
+    enemyHealth = npc.getHealth();
+    playerHealth = 20;
     initialize();
   }
 
   public void initialize() {
     gameOver = false;
     playerWin = false;
+    playerTurn = true;
     isInitialized = true;
     usedItems = new boolean[4];
+    playerHealth = 50;
 
     fightContainer = new UIContainer(0, 0) {
 
@@ -152,7 +158,7 @@ public class CombatScreen extends Screen {
     // images
     youWinPopup = new SpriteUI(0, -40, ImageLoader.load("you_win.png"), 1.5f);
     winContainer.addComponent(youWinPopup);
-    BufferedImage enemyImage = ImageLoader.loadSubImage("EvilCowboy.png", Colors.MAGENTA, 0, 0, 14, 19);
+    BufferedImage enemyImage = ImageLoader.loadSubImage(npc.getPathToImage(), Colors.MAGENTA, 0, 0, 14, 19);
     enemy = new SpriteUI(0, 0, enemyImage, 15);
     enemy.setAnchor(Anchor.BOTTOM_CENTER);
     CenterContainer enemyContainer = new CenterContainer();
@@ -327,45 +333,115 @@ public class CombatScreen extends Screen {
 
   }
 
+  public void enemyAttack(){
+    screenState = SCREENSTATE.TEXTBOX;
+    textbox.setText("Enemy's turn");
+    System.out.println("Running Enemy Attack");
+    Timer timer = new Timer();
+    TimerTask gameDelay = new TimerTask() {
+      @Override
+      public void run(){
+        int damage = 5;
+        playerHealth -= damage;
+        textbox.setText("Enemy did " + damage + " damage" + "\n\nYour Health: " + playerHealth);
+        timer.cancel();
+      }
+
+    };
+
+    
+    timer.schedule(gameDelay, 0, 2000);
+    playerTurn = true;
+    
+  }
   public void update() {
     background.update(null);
+    if(playerTurn && playerAlive()){
+      switch (screenState) {
+        case INVENTORY:
+          bagContainer.update();
+          break;
+        case RUN:
+          runContainer.update();
+          break;
+        case USE_ITEM:
+          useItemContainer.update();
+          break;
+        case FIGHTGAME:
+          fightGameContainer.update();
+          if (fightGameContainer.isGameOver()) {
+            screenState = SCREENSTATE.TEXTBOX;
+            textbox.setText("Your turn");
+            System.out.println("Attacked");
+            int damage = (int) (fightGameContainer.getScore() * 10 + .5f);
+            if(damage > enemyHealth){
+              enemyHealth = 0;
+            }else{
+              enemyHealth -= damage;
+            }
+            
+           
+            Timer timer = new Timer();
+            TimerTask gameDelay = new TimerTask() {
+              @Override
+              public void run(){
+                 System.out.println("Health: " + playerHealth);
+                if(healthZero()){
+                textbox.setText("You did " + damage + " damage." + "\n\nYou have defeated the Enemy!");
+                }else{
+                  textbox.setText("You did " + damage + " damage." + "\n\nEnemy Health: " + enemyHealth);
+                }
+                timer.cancel();
+              }
 
-    switch (screenState) {
-      case INVENTORY:
-        bagContainer.update();
-        break;
-      case RUN:
-        runContainer.update();
-        break;
-      case USE_ITEM:
-        useItemContainer.update();
-        break;
-      case FIGHTGAME:
-        fightGameContainer.update();
-        if (fightGameContainer.isGameOver()) {
-          screenState = SCREENSTATE.TEXTBOX;
-          System.out.println("Attacked");
-          int damage = (int) (fightGameContainer.getScore() * 10 + .5f);
-          health -= damage;
-          System.out.println("Health: " + health);
-          textbox.setText("You did " + damage + " damage." + "\n\nEnemy Health: " + health);
+            };
+            timer.schedule(gameDelay, 0, 3000);
+            if(!healthZero()){
+               playerTurn = false;
+            }
+           
+            
+            
+          }
+          break;
+        default:
+          textBoxContainer.update();
+          break;
+      }
+    }else{
+      Timer timer = new Timer();
+      TimerTask delay = new TimerTask() {
+        @Override
+        public void run(){
+          enemyAttack();
+          timer.cancel();
         }
-        break;
-      default:
-        textBoxContainer.update();
-        break;
+      };
+      timer.schedule(delay, 2000, 2000);
+      playerTurn = true;
     }
+
 
     if (healthZero())
     {
       winContainer.update();
     }
-    else
+    else if(!playerAlive()){
+      textbox.setText("You lose");
+      winContainer.update();
+      playerWin = false;
+    }
+    else{
       fightContainer.update();
-
+    }
     // scale items that should scale
     scaleAll();
 
+  }
+
+
+  public boolean playerAlive(){
+    return playerHealth > 0;
   }
 
   public void draw(GraphicsHandler graphicsHandler) {
@@ -393,7 +469,6 @@ public class CombatScreen extends Screen {
       winContainer.draw(graphicsHandler);
     else
       fightContainer.draw(graphicsHandler);
-
   }
 
   protected void scaleAll() {
@@ -442,9 +517,8 @@ public class CombatScreen extends Screen {
     return isInitialized;
   }
 
-  public boolean healthZero()
-  {
-    return health <= 0;
+  public boolean healthZero() {
+    return enemyHealth <= 0;
   }
 
   //the item name in this case is just the name of the class, for example,
@@ -477,11 +551,11 @@ public class CombatScreen extends Screen {
   }
 
   private void endCombat() {
+    gameOver = true;
     pauseMusic();
     playLevelScreen.resumeLevel();
     LevelManager.getCurrentLevel().getSoundPlayer().play();
-    gameOver = true;
-    if (healthZero()) {
+    if (healthZero() && playerAlive()) {
       playerWin = true;
       System.out.println(Arrays.toString(usedItems));
       for (int i = usedItems.length - 1; i >= 0; i--) {
@@ -495,7 +569,6 @@ public class CombatScreen extends Screen {
     } else {
       playerWin = false;
     }
-
   }
 
 }
