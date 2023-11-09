@@ -14,6 +14,8 @@ import Level.NPC;
 import Level.Trigger;
 import NPCs.ScienceLab.AnimatedTable;
 import NPCs.ScienceLab.Bed;
+import NPCs.ScienceLab.BedroomDoor;
+import NPCs.ScienceLab.Bookshelf;
 import NPCs.ScienceLab.DaggerTable;
 import NPCs.ScienceLab.ItemTable;
 import NPCs.ScienceLab.MadScientist;
@@ -21,6 +23,7 @@ import Scripts.ChangeLevelScript;
 import Scripts.NewMap.madScientistScript;
 import Scripts.ScienceLab.AnimatedTableScript;
 import Scripts.ScienceLab.DaggerTableScript;
+import Scripts.ScienceLab.DoorScript;
 import Scripts.ScienceLab.ItemTableScript;
 import Scripts.ScienceLab.secondMadScientistScript;
 import Scripts.ScienceLab.triggerForScientist;
@@ -79,6 +82,12 @@ public class ScienceLabMap extends Map
 
         Bed bed = new Bed(8, getMapTile(12, 28).getLocation());
         npcs.add(bed);
+
+        Bookshelf bookshelf = new Bookshelf(9, getMapTile(18, 28).getLocation());
+        npcs.add(bookshelf);
+
+        BedroomDoor bedroomDoor = new BedroomDoor(10, getMapTile(16, 26).getLocation());
+        npcs.add(bedroomDoor);
         
         return npcs;
     } 
@@ -89,6 +98,7 @@ public class ScienceLabMap extends Map
         ArrayList<Trigger> triggers = new ArrayList<>();
         //just comment out the line below if you want to test the map without the trigger
         triggers.add(new Trigger(770, 1042, 50,10, new triggerForScientistScriptV2(), "hasTalkedToScientist"));
+        triggers.add(new Trigger(770, 1350, 50,2, new DoorScript(), "hasTalkedToScientist"));
         return triggers;
     }
 }

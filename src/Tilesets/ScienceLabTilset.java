@@ -202,6 +202,12 @@ public class ScienceLabTilset extends Tileset
             .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(finalBorderTileBuilder);
 
+        Frame woodenFloor = new FrameBuilder(getSubImage(4, 0))
+            .withScale(tileScale)
+            .build();
+        MapTileBuilder woodenFloorTile = new MapTileBuilder(woodenFloor);
+        mapTiles.add(woodenFloorTile);
+
         return mapTiles;
         
     }
