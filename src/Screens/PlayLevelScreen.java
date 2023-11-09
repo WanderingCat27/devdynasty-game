@@ -117,7 +117,7 @@ public class PlayLevelScreen extends Screen {
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCaveman")) {
-      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(5), "hasTalkedToCaveman");
+      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(5), "hasTalkedToCaveman", "cavemanDefeated");
       // System.out.println("ran caveman combat");
     }
 
