@@ -10,15 +10,15 @@ import Tilesets.SaloonTileset;
 
 public class WWBuildingTwo extends Map {
   public WWBuildingTwo() {
-    super("WWBuildingOTwo.txt", new SaloonTileset());
-    this.playerStartPosition = getMapTile(16, 9).getLocation();
+    super("WWBuildingTwo.txt", new SaloonTileset());
+    this.playerStartPosition = getMapTile(8, 9).getLocation();
     //setCenterCamera();
   }
 
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList<Item> list = new ArrayList<>();
-    BuildingEntrance buildingOneEntrance = new BuildingEntrance(0, getMapTile(17, 9).getLocation(), 50, 100, "wildwest");
+    BuildingEntrance buildingOneEntrance = new BuildingEntrance(0, getMapTile(8, 9).getLocation(), 50, 100, "wildwest");
     list.add(buildingOneEntrance);
     return list;
   }

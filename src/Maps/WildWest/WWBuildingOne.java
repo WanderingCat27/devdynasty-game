@@ -6,6 +6,8 @@ import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import Tilesets.SaloonTileset;
+import NPCs.ScienceLab.Bed;
+import NPCs.ScienceLab.Bookshelf;
 
 
 public class WWBuildingOne extends Map {
@@ -22,6 +24,20 @@ public class WWBuildingOne extends Map {
     list.add(buildingOneEntrance);
     return list;
   }
+
+  @Override 
+    public ArrayList<NPC> loadNPCs()
+    {
+        ArrayList<NPC> npcs = new ArrayList<>();
+      
+        Bed bed = new Bed(8, getMapTile(7, 10).getLocation());
+        npcs.add(bed);
+
+        Bookshelf bookshelf = new Bookshelf(9, getMapTile(8, 7).getLocation());
+        npcs.add(bookshelf);
+
+        return npcs;
+    } 
 
   @Override
   public ArrayList<Trigger> loadTriggers() {
