@@ -12,8 +12,8 @@ public class Config {
     public static final int TARGET_FPS = 60;
     public static final String RESOURCES_PATH = "Resources/";
     public static final String MAP_FILES_PATH = "MapFiles/";
-    public static final int GAME_WINDOW_WIDTH = 800;
-    public static final int GAME_WINDOW_HEIGHT = 605;
+    public static final int GAME_WINDOW_WIDTH = 950;
+    public static final int GAME_WINDOW_HEIGHT = 700;
     public static final Color TRANSPARENT_COLOR = Colors.MAGENTA;
     public static final boolean debugMapChangeKey = true;
     public static final boolean debugFastSprint = true;
