@@ -206,7 +206,7 @@ public class PlayLevelScreen extends Screen {
   public void resumeLevel() {
     getSoundPlayer().play();
     System.out.println("playing music");
-    if(activeCombat){
+    if(activeCombat && !combatScreen.gameOver()){
       this.playLevelScreenState = PlayLevelScreenState.COMBAT;
       System.out.println("resume combat");
     } else {
