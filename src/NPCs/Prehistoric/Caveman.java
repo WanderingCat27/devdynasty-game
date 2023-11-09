@@ -18,9 +18,18 @@ public class Caveman extends NPC
         super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("Caveman.png"), 14, 19), "STAND_DOWN");
     }
 
+    public Caveman(int id, Utils.Point point, double startingHealth){
+        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("Caveman.png"), 14, 19), "STAND_DOWN", startingHealth);
+    }
+
     public void update() {
         super.update();
     }
+
+    public String getPathToImage(){
+        return "Caveman.png";
+    }
+
 
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);

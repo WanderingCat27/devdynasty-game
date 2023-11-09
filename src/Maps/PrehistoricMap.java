@@ -64,7 +64,7 @@ public class PrehistoricMap extends Map {
         timeMachine.setIsHidden(true);
         npcs.add(timeMachine);
 
-        Caveman caveman = new Caveman(5, getMapTile(12, 5).getLocation());
+        Caveman caveman = new Caveman(5, getMapTile(12, 5).getLocation(), 30);
         caveman.setInteractScript(new CavemanScript());
         npcs.add(caveman);
         
