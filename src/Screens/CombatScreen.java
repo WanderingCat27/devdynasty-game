@@ -23,6 +23,7 @@ import Game.ScreenCoordinator;
 import GameObject.Sprite;
 import GameObject.SpriteSheet;
 import Items.BossItems.Crystal;
+import Items.BossItems.Metal;
 import Level.Level;
 import Level.LevelManager;
 import Level.Map;
@@ -531,6 +532,12 @@ public class CombatScreen extends Screen {
         crystal.setMap(LevelManager.getCurrentLevel().getMap());
         crystal.getInteractScript().setIsActive(true);
         crystal.getInteractScript().setMap(LevelManager.getCurrentLevel().getMap());
+      } else if(itemName.toLowerCase().equals("metal")) {
+        NPC metal = new Metal(11, LevelManager.getCurrentLevel().getPlayer().getLocation());
+        LevelManager.getCurrentLevel().getMap().addNPC(metal);
+        metal.setMap(LevelManager.getCurrentLevel().getMap());
+        metal.getInteractScript().setIsActive(true);
+        metal.getInteractScript().setMap(LevelManager.getCurrentLevel().getMap());
       }
   }
 
@@ -562,7 +569,11 @@ public class CombatScreen extends Screen {
         usedItems[i] = false;
       }
       // spawn item
-      spawnWinningNPC("crystal");
+      if (LevelManager.getCurrentLevel() == LevelManager.WILDWEST) {
+        spawnWinningNPC("crystal");
+      } else {
+        spawnWinningNPC("metal");
+      }
       System.out.println("Spawning a new item");
     } else {
       playerWin = false;
