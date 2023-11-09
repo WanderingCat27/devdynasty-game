@@ -16,16 +16,13 @@ public class CavemanScript extends Script<NPC> {
         // changes what walrus says when talking to him the first time (flag is not set) vs talking to him afterwards (flag is set)
         if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCaveman")) {
             showTextbox();
-            addTextToTextboxQueue("Well kid... you beat me fair and square.");
-            addTextToTextboxQueue("You can have my trusty crystal, but I\nnever want to see you again.");
+            addTextToTextboxQueue("Ugh... Me tired. Me no more fight.");
         }
         else if (!GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCaveman")) {
             showTextbox();
-            addTextToTextboxQueue( "Hey, what're you doing here, kid?");
-            addTextToTextboxQueue( "...You don't look like you belong round these parts.");
-            addTextToTextboxQueue( "Either way... this is my patch of grass here, fella.");
-            addTextToTextboxQueue( "Get the hell out...");
-            addTextToTextboxQueue( "Get the hell out...\nbefore I make you!");
+            addTextToTextboxQueue( "Who walks here....");
+            addTextToTextboxQueue( "Me not expect visitors!");
+            addTextToTextboxQueue( "Must protect precious metal! Grunt.");
         }
         entity.facePlayer(player);
     }
