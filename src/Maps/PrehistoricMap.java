@@ -20,6 +20,7 @@ import Level.NPC;
 import Level.Trigger;
 import NPCs.Dinosaur;
 import NPCs.Prehistoric.BlueDino;
+import NPCs.Prehistoric.Caveman;
 import NPCs.Prehistoric.YellowDino;
 import NPCs.ScienceLab.AnimatedTable;
 import NPCs.ScienceLab.DaggerTable;
@@ -27,6 +28,7 @@ import NPCs.ScienceLab.ItemTable;
 import NPCs.ScienceLab.MadScientist;
 import Scripts.ChangeLevelByString;
 import Scripts.ChangeLevelScript;
+import Scripts.Prehistoric.CavemanScript;
 import Scripts.ScienceLab.AnimatedTableScript;
 import Scripts.ScienceLab.DaggerTableScript;
 import Scripts.ScienceLab.ItemTableScript;
@@ -59,7 +61,12 @@ public class PrehistoricMap extends Map {
 
         TimeMachine timeMachine = new TimeMachine(2, getMapTile(25, 4).getLocation(), 26, 37);
         timeMachine.setInteractScript(new ChangeLevelScript(LevelManager.LAB));
+        timeMachine.setIsHidden(true);
         npcs.add(timeMachine);
+
+        Caveman caveman = new Caveman(5, getMapTile(12, 5).getLocation());
+        caveman.setInteractScript(new CavemanScript());
+        npcs.add(caveman);
         
         return npcs;
     } 
