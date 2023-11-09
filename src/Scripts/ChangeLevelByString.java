@@ -28,7 +28,11 @@ public class ChangeLevelByString extends Script {
     else if (this.levelStr.equalsIgnoreCase("saloon"))
       level = LevelManager.SALOON_INSIDE;
     else if (this.levelStr.equalsIgnoreCase("buildingone"))
-      level = LevelManager.SALOON_INSIDE;
+      level = LevelManager.WWBUILDINGLEFT;
+    else if (this.levelStr.equalsIgnoreCase("wwbuildingone"))
+      level = LevelManager.WWBUILDINGLEFT;
+    else if (this.levelStr.equalsIgnoreCase("wwbuildingtwo"))
+      level = LevelManager.WWBUILDINGRIGHT;
     else if (this.levelStr.equalsIgnoreCase("prehistoric"))
       level = LevelManager.PREHISTORIC;
     else if (this.levelStr.equalsIgnoreCase("reception"))

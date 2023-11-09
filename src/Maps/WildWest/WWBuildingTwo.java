@@ -8,9 +8,9 @@ import Level.Trigger;
 import Tilesets.SaloonTileset;
 
 
-public class WWBuildingOne extends Map {
-  public WWBuildingOne() {
-    super("WWBuildingOne.txt", new SaloonTileset());
+public class WWBuildingTwo extends Map {
+  public WWBuildingTwo() {
+    super("WWBuildingOTwo.txt", new SaloonTileset());
     this.playerStartPosition = getMapTile(16, 9).getLocation();
     //setCenterCamera();
   }

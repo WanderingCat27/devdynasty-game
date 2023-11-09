@@ -50,8 +50,22 @@ public class WildWestMap extends Map {
     BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(23, 11).getLocation(), 96, 20, "saloon");
     list.add(saloonEntrance);
 
-    BuildingEntrance wwBuildingOne = new BuildingEntrance(1, getMapTile(23, 40).getLocation(), 96, 20, "buildingOne");
+    BuildingEntrance wwBuildingOne = new BuildingEntrance(1, getMapTile(21, 16).getLocation(), 20, 200, "buildingOne");
     list.add(wwBuildingOne);
+    BuildingEntrance wwBuildingOneTwo = new BuildingEntrance(1, getMapTile(21, 15).getLocation(), 20, 100, "buildingOne");
+    list.add(wwBuildingOneTwo);
+
+    BuildingEntrance wwBuildingTwo = new BuildingEntrance(1, getMapTile(21, 12).getLocation(), 20, 100, "buildingOne");
+    list.add(wwBuildingTwo);
+    
+    BuildingEntrance wwBuildingThree = new BuildingEntrance(1, getMapTile(21, 20).getLocation(), 20, 50, "buildingOne");
+    list.add(wwBuildingThree);
+
+    BuildingEntrance wwBuildingFour = new BuildingEntrance(1, getMapTile(20, 24).getLocation(), 20, 50, "buildingOne");
+    list.add(wwBuildingFour);
+    BuildingEntrance wwBuildingFourTwo = new BuildingEntrance(1, getMapTile(20, 25).getLocation(), 20, 50, "buildingOne");
+    list.add(wwBuildingFourTwo);
+
     return list;
   }
 
@@ -76,7 +90,7 @@ public class WildWestMap extends Map {
         redPotion.setInteractScript(new RedPotionScript());
         npcs.add(redPotion);
 
-        CowboyOne cowboyOne = new CowboyOne(2, getMapTile(22, 12).getLocation());
+        CowboyOne cowboyOne = new CowboyOne(2, getMapTile(22, 13).getLocation());
         //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
         cowboyOne.setInteractScript(new DinoScript());
         npcs.add(cowboyOne);
@@ -94,7 +108,7 @@ public class WildWestMap extends Map {
         cowboyTwo.setInteractScript(new CowboyTwoScript());
         npcs.add(cowboyTwo);
 
-        CowboyThree cowboyThree = new CowboyThree(9, getMapTile(21, 25).getLocation());
+        CowboyThree cowboyThree = new CowboyThree(9, getMapTile(27, 25).getLocation());
         cowboyThree.setInteractScript(new CowboyThreeScript());
         npcs.add(cowboyThree);
 
