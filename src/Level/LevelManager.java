@@ -10,6 +10,8 @@ import Maps.Future.FloorTwoMap;
 import Maps.Future.FutureMap;
 import Maps.Future.ReceptionMap;
 import Maps.WildWest.SaloonMap;
+import Maps.WildWest.WWBuildingOne;
+import Maps.WildWest.WWBuildingTwo;
 import Maps.WildWest.WildWestMap;
 
 public class LevelManager {
@@ -40,6 +42,25 @@ public class LevelManager {
     }
 
   };
+
+  public static final Level WWBUILDINGLEFT = new Level() {
+
+    @Override
+    protected Map getMapInstance() {
+      return new WWBuildingOne();
+    }
+
+  };
+
+  public static final Level WWBUILDINGRIGHT = new Level() {
+
+    @Override
+    protected Map getMapInstance() {
+      return new WWBuildingTwo();
+    }
+
+  };
+
     public static final Level RECEPTION = new Level() {
       @Override
       protected Map getMapInstance() {

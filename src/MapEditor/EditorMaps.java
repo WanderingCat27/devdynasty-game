@@ -16,6 +16,7 @@ import Maps.Future.FutureMap;
 import Maps.Future.ReceptionMap;
 import Maps.WildWest.SaloonMap;
 import Maps.WildWest.WWBuildingOne;
+import Maps.WildWest.WWBuildingTwo;
 
 public class EditorMaps {
     public static ArrayList<String> getMapNames() {
@@ -30,6 +31,7 @@ public class EditorMaps {
             add("PrehistoricMap");
             add("FutureMap");
             add("WWBuildingOne");
+            add("WWBuildingTwo");
             add("Reception");
             add("Floor1");
             add("Floor2");
@@ -59,6 +61,8 @@ public class EditorMaps {
               return new FutureMap();
             case "WWBuildingOne":
               return new WWBuildingOne();
+            case "WWBuildingTwo":
+              return new WWBuildingTwo();
             case "Reception":
               return new ReceptionMap();
             case "Floor1": return new FloorOneMap();

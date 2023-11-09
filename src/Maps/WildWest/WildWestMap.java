@@ -50,8 +50,33 @@ public class WildWestMap extends Map {
     BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(23, 11).getLocation(), 96, 20, "saloon");
     list.add(saloonEntrance);
 
-    BuildingEntrance wwBuildingOne = new BuildingEntrance(1, getMapTile(23, 40).getLocation(), 96, 20, "buildingOne");
+    BuildingEntrance wwBuildingOne = new BuildingEntrance(1, getMapTile(20, 16).getLocation(), 20, 200, "buildingOne");
     list.add(wwBuildingOne);
+    BuildingEntrance wwBuildingOneTwo = new BuildingEntrance(1, getMapTile(20, 15).getLocation(), 20, 100, "buildingOne");
+    list.add(wwBuildingOneTwo);
+
+    BuildingEntrance wwBuildingTwo = new BuildingEntrance(1, getMapTile(20, 12).getLocation(), 20, 100, "buildingOne");
+    list.add(wwBuildingTwo);
+    
+    BuildingEntrance wwBuildingThree = new BuildingEntrance(1, getMapTile(20, 20).getLocation(), 20, 50, "buildingOne");
+    list.add(wwBuildingThree);
+
+    BuildingEntrance wwBuildingFour = new BuildingEntrance(1, getMapTile(19, 24).getLocation(), 20, 50, "buildingOne");
+    list.add(wwBuildingFour);
+    BuildingEntrance wwBuildingFourTwo = new BuildingEntrance(1, getMapTile(19, 25).getLocation(), 20, 50, "buildingOne");
+    list.add(wwBuildingFourTwo);
+
+    BuildingEntrance wwBuildingFive = new BuildingEntrance(1, getMapTile(4, 43).getLocation(), 20, 50, "buildingOne");
+    list.add(wwBuildingFive);
+    BuildingEntrance wwBuildingFiveTwo = new BuildingEntrance(1, getMapTile(4, 42).getLocation(), 20, 50, "buildingOne");
+    list.add(wwBuildingFiveTwo);
+
+    BuildingEntrance wwBuildingSix = new BuildingEntrance(1, getMapTile(26, 20).getLocation(), 20, 50, "buildingOne");
+    list.add(wwBuildingSix);
+
+    BuildingEntrance wwBuildingSeven = new BuildingEntrance(1, getMapTile(26, 15).getLocation(), 20, 50, "buildingTwo");
+    list.add(wwBuildingSeven);
+
     return list;
   }
 
@@ -76,12 +101,12 @@ public class WildWestMap extends Map {
         redPotion.setInteractScript(new RedPotionScript());
         npcs.add(redPotion);
 
-        CowboyOne cowboyOne = new CowboyOne(2, getMapTile(22, 12).getLocation());
+        CowboyOne cowboyOne = new CowboyOne(2, getMapTile(22, 13).getLocation());
         //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
         cowboyOne.setInteractScript(new DinoScript());
         npcs.add(cowboyOne);
 
-        EvilCowboy evilCowboy = new EvilCowboy(3, getMapTile(18, 3).getLocation());
+        EvilCowboy evilCowboy = new EvilCowboy(3, getMapTile(18, 3).getLocation(), 20);
         //evilCowboy.setExistenceFlag("hasTalkedToCowboy");
         evilCowboy.setInteractScript(new EvilCowboyScript());
         npcs.add(evilCowboy);
@@ -90,11 +115,11 @@ public class WildWestMap extends Map {
         oldCowboy.setInteractScript(new OldCowboyScript());
         npcs.add(oldCowboy);
 
-        CowboyTwo cowboyTwo = new CowboyTwo(9, getMapTile(26, 17).getLocation());
+        CowboyTwo cowboyTwo = new CowboyTwo(9, getMapTile(26, 18).getLocation());
         cowboyTwo.setInteractScript(new CowboyTwoScript());
         npcs.add(cowboyTwo);
 
-        CowboyThree cowboyThree = new CowboyThree(9, getMapTile(21, 25).getLocation());
+        CowboyThree cowboyThree = new CowboyThree(9, getMapTile(27, 25).getLocation());
         cowboyThree.setInteractScript(new CowboyThreeScript());
         npcs.add(cowboyThree);
 

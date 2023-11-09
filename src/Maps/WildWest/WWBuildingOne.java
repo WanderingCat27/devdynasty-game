@@ -6,22 +6,38 @@ import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import Tilesets.SaloonTileset;
+import NPCs.ScienceLab.Bed;
+import NPCs.ScienceLab.Bookshelf;
 
 
 public class WWBuildingOne extends Map {
   public WWBuildingOne() {
     super("WWBuildingOne.txt", new SaloonTileset());
-    this.playerStartPosition = getMapTile(8, 8).getLocation();
+    this.playerStartPosition = getMapTile(16, 9).getLocation();
     //setCenterCamera();
   }
 
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList<Item> list = new ArrayList<>();
-    BuildingEntrance buildingOneEntrance = new BuildingEntrance(0, getMapTile(10, 10).getLocation(), 160, 32, "WWBuildingOne");
+    BuildingEntrance buildingOneEntrance = new BuildingEntrance(0, getMapTile(17, 9).getLocation(), 50, 100, "wildwest");
     list.add(buildingOneEntrance);
     return list;
   }
+
+  @Override 
+    public ArrayList<NPC> loadNPCs()
+    {
+        ArrayList<NPC> npcs = new ArrayList<>();
+      
+        Bed bed = new Bed(8, getMapTile(7, 10).getLocation());
+        npcs.add(bed);
+
+        Bookshelf bookshelf = new Bookshelf(9, getMapTile(8, 7).getLocation());
+        npcs.add(bookshelf);
+
+        return npcs;
+    } 
 
   @Override
   public ArrayList<Trigger> loadTriggers() {
