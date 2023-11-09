@@ -111,9 +111,14 @@ public class PlayLevelScreen extends Screen {
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(3), "hasTalkedToCowboy", "evilCowboyDefeated");
     }
 
-    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")
-        && LevelManager.getCurrentLevel() == LevelManager.LAB) {
-      LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("prehistoric"));
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")){
+        if(LevelManager.getCurrentLevel() == LevelManager.LAB) {
+          LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("prehistoric"));
+        }
+        if(LevelManager.getCurrentLevel() == LevelManager.WILDWEST){
+          LevelManager.getCurrentLevel().getMap().getNPCById(6).setIsHidden(false);
+          System.out.println("Time machine visible");
+      }
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCaveman") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("cavemanDefeated")) {
@@ -121,9 +126,13 @@ public class PlayLevelScreen extends Screen {
       // System.out.println("ran caveman combat");
     }
 
-    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("cavemanDefeated")
-        && LevelManager.getCurrentLevel() == LevelManager.LAB) {
-      LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("future"));
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("cavemanDefeated")){
+        if(LevelManager.getCurrentLevel() == LevelManager.LAB) {
+          LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("future"));
+        }
+        if(LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC){
+          LevelManager.getCurrentLevel().getMap().getNPCById(2).setIsHidden(false);
+      }
     }
 
     if (Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC)) {
@@ -153,7 +162,6 @@ public class PlayLevelScreen extends Screen {
         pauseScreen.update();
         break;
       case COMBAT:
-      System.out.println("ScreenInitialized = " + combatScreen.isInitialized());
         if (combatScreen.isInitialized()) {
           combatScreen.update();
         } else {
