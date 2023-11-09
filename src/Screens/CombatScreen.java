@@ -262,6 +262,7 @@ public class CombatScreen extends Screen {
           // but not final
           if(Inventory.get(inventoryIndex).getClass().getName() == "Items.RedPotion"){
             textbox.setText("25 health regenerated");
+            playerHealth += 25;
           }
           else{
             textbox.setText("You used: " + Inventory.get(inventoryIndex).getClass().getName());
