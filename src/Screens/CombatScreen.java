@@ -156,7 +156,7 @@ public class CombatScreen extends Screen {
     LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
 
     // images
-    youWinPopup = new SpriteUI(0, -40, ImageLoader.load("you_win.png"), 1.5f);
+    youWinPopup = new SpriteUI(0, -40, ImageLoader.load("winPopup.png"), 5f);
     winContainer.addComponent(youWinPopup);
     BufferedImage enemyImage = ImageLoader.loadSubImage(npc.getPathToImage(), Colors.MAGENTA, 0, 0, 14, 19);
     enemy = new SpriteUI(0, 0, enemyImage, 15);
@@ -174,7 +174,7 @@ public class CombatScreen extends Screen {
     background = new CombatMap();
 
     float buttonScale = 2.67f;
-    SpriteButton runButton = new SpriteButton(0, 0, buttonScale, ImageLoader.load("run_button.png"), () -> {
+    SpriteButton runButton = new SpriteButton(0, 0, buttonScale, ImageLoader.load("RunButtonNew.png"), () -> {
       if (fightGameContainer.isGameAwaitingFinish())
         return;
       if (screenState == SCREENSTATE.RUN)
@@ -183,7 +183,7 @@ public class CombatScreen extends Screen {
         screenState = SCREENSTATE.RUN;
     });
 
-    SpriteButton fightButton = new SpriteButton(0, 0, buttonScale, ImageLoader.load("fight_button.png"),
+    SpriteButton fightButton = new SpriteButton(0, 0, buttonScale, ImageLoader.load("FightButtonNew.png"),
         new Runnable() { // 330, 374
 
           @Override
@@ -196,7 +196,7 @@ public class CombatScreen extends Screen {
 
         });
 
-    bagButton = new SpriteButton(0, 0, buttonScale, ImageLoader.load("bag_button.png"),
+    bagButton = new SpriteButton(0, 0, buttonScale, ImageLoader.load("BagButtonNew.png"),
         new Runnable() { // 555, 374
 
           @Override
@@ -349,8 +349,6 @@ public class CombatScreen extends Screen {
       }
 
     };
-
-    
     timer.schedule(gameDelay, 0, 2000);
     playerTurn = true;
     
