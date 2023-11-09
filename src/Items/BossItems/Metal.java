@@ -12,7 +12,7 @@ public class Metal extends Item
     {
         super(id,point,"rare_metal.png");
         this.setIsUncollidable(true);
-        //this.setInteractScript(new SwordScript());
+        this.setInteractScript(new SwordScript());
     }
 
     @Override
