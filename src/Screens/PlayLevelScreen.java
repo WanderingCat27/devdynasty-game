@@ -107,7 +107,7 @@ public class PlayLevelScreen extends Screen {
       doReload = false;
     }
 
-    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy")) {
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")) {
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(3), "hasTalkedToCowboy", "evilCowboyDefeated");
     }
 
@@ -116,7 +116,7 @@ public class PlayLevelScreen extends Screen {
       LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("prehistoric"));
     }
 
-    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCaveman")) {
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCaveman") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("cavemanDefeated")) {
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(5), "hasTalkedToCaveman", "cavemanDefeated");
       // System.out.println("ran caveman combat");
     }
@@ -153,6 +153,7 @@ public class PlayLevelScreen extends Screen {
         pauseScreen.update();
         break;
       case COMBAT:
+      System.out.println("ScreenInitialized = " + combatScreen.isInitialized());
         if (combatScreen.isInitialized()) {
           combatScreen.update();
         } else {
@@ -251,7 +252,7 @@ public class PlayLevelScreen extends Screen {
   }
 
   private void runCombat(NPC npc, String flagName, String defeatedFlagName) {
-    if (!combatScreen.gameOver()) {
+    if (!combatScreen.gameOver() ) {
       currEnemy = npc;
       if (this.playLevelScreenState != PlayLevelScreenState.PAUSED) {
         this.playLevelScreenState = PlayLevelScreenState.COMBAT;
@@ -262,16 +263,13 @@ public class PlayLevelScreen extends Screen {
       GlobalFlagManager.FLAG_MANAGER.unsetFlag(flagName);
       activeCombat = false;
       this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-      combatScreen = new CombatScreen(this);
+      combatScreen = new CombatScreen(null);
     } else {
-      if (LevelManager.getCurrentLevel() == LevelManager.WILDWEST) {
         GlobalFlagManager.FLAG_MANAGER.setFlag(defeatedFlagName);
-        // System.out.println("evil cowboy defeated flag set");
-      } else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC) {
-        GlobalFlagManager.FLAG_MANAGER.setFlag("cavemanDefeated");
-        System.out.println("caveman defeated");
-      }
-      activeCombat = false;
+        System.out.println(defeatedFlagName);
+        activeCombat = false;
+        combatScreen = new CombatScreen(null);
+        this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }
 
   }

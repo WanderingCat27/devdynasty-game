@@ -156,7 +156,7 @@ public class CombatScreen extends Screen {
     LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
 
     // images
-    youWinPopup = new SpriteUI(0, -40, ImageLoader.load("winPopup.png"), 5f);
+    youWinPopup = new SpriteUI(0, -40, ImageLoader.load("winPopup.png"), 7f);
     winContainer.addComponent(youWinPopup);
     BufferedImage enemyImage = ImageLoader.loadSubImage(npc.getPathToImage(), Colors.MAGENTA, 0, 0, 14, 19);
     enemy = new SpriteUI(0, 0, enemyImage, 15);
@@ -344,7 +344,7 @@ public class CombatScreen extends Screen {
       public void run(){
         int damage = 5;
         playerHealth -= damage;
-        textbox.setText("Enemy did " + damage + " damage" + "\n\nYour Health: " + playerHealth);
+        textbox.setText("Enemy did " + damage + " damage" + "\nYour Health: " + playerHealth + "\nWhat will you do?");
         timer.cancel();
       }
 
@@ -370,7 +370,6 @@ public class CombatScreen extends Screen {
           fightGameContainer.update();
           if (fightGameContainer.isGameOver()) {
             screenState = SCREENSTATE.TEXTBOX;
-            textbox.setText("Your turn");
             System.out.println("Attacked");
             int damage = (int) (fightGameContainer.getScore() * 10 + .5f);
             if(damage > enemyHealth){
@@ -568,6 +567,7 @@ public class CombatScreen extends Screen {
     } else {
       playerWin = false;
     }
+    isInitialized = false;
   }
 
 }
