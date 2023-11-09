@@ -151,6 +151,7 @@ public class SaloonTileset extends Tileset
         MapTileBuilder finalMiddleBarBorderTile = new MapTileBuilder(finalMiddleBarBorderFrame)
             .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(finalMiddleBarBorderTile);
+
         
         return mapTiles;
 
