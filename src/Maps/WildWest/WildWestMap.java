@@ -50,20 +50,20 @@ public class WildWestMap extends Map {
     BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(23, 11).getLocation(), 96, 20, "saloon");
     list.add(saloonEntrance);
 
-    BuildingEntrance wwBuildingOne = new BuildingEntrance(1, getMapTile(21, 16).getLocation(), 20, 200, "buildingOne");
+    BuildingEntrance wwBuildingOne = new BuildingEntrance(1, getMapTile(20, 16).getLocation(), 20, 200, "buildingOne");
     list.add(wwBuildingOne);
-    BuildingEntrance wwBuildingOneTwo = new BuildingEntrance(1, getMapTile(21, 15).getLocation(), 20, 100, "buildingOne");
+    BuildingEntrance wwBuildingOneTwo = new BuildingEntrance(1, getMapTile(20, 15).getLocation(), 20, 100, "buildingOne");
     list.add(wwBuildingOneTwo);
 
-    BuildingEntrance wwBuildingTwo = new BuildingEntrance(1, getMapTile(21, 12).getLocation(), 20, 100, "buildingOne");
+    BuildingEntrance wwBuildingTwo = new BuildingEntrance(1, getMapTile(20, 12).getLocation(), 20, 100, "buildingOne");
     list.add(wwBuildingTwo);
     
-    BuildingEntrance wwBuildingThree = new BuildingEntrance(1, getMapTile(21, 20).getLocation(), 20, 50, "buildingOne");
+    BuildingEntrance wwBuildingThree = new BuildingEntrance(1, getMapTile(20, 20).getLocation(), 20, 50, "buildingOne");
     list.add(wwBuildingThree);
 
-    BuildingEntrance wwBuildingFour = new BuildingEntrance(1, getMapTile(20, 24).getLocation(), 20, 50, "buildingOne");
+    BuildingEntrance wwBuildingFour = new BuildingEntrance(1, getMapTile(19, 24).getLocation(), 20, 50, "buildingOne");
     list.add(wwBuildingFour);
-    BuildingEntrance wwBuildingFourTwo = new BuildingEntrance(1, getMapTile(20, 25).getLocation(), 20, 50, "buildingOne");
+    BuildingEntrance wwBuildingFourTwo = new BuildingEntrance(1, getMapTile(19, 25).getLocation(), 20, 50, "buildingOne");
     list.add(wwBuildingFourTwo);
 
     BuildingEntrance wwBuildingFive = new BuildingEntrance(1, getMapTile(4, 43).getLocation(), 20, 50, "buildingOne");
@@ -71,8 +71,11 @@ public class WildWestMap extends Map {
     BuildingEntrance wwBuildingFiveTwo = new BuildingEntrance(1, getMapTile(4, 42).getLocation(), 20, 50, "buildingOne");
     list.add(wwBuildingFiveTwo);
 
-    BuildingEntrance wwBuildingSix = new BuildingEntrance(1, getMapTile(25, 20).getLocation(), 20, 50, "buildingOne");
+    BuildingEntrance wwBuildingSix = new BuildingEntrance(1, getMapTile(26, 20).getLocation(), 20, 50, "buildingOne");
     list.add(wwBuildingSix);
+
+    BuildingEntrance wwBuildingSeven = new BuildingEntrance(1, getMapTile(26, 15).getLocation(), 20, 50, "buildingTwo");
+    list.add(wwBuildingSeven);
 
     return list;
   }
@@ -112,7 +115,7 @@ public class WildWestMap extends Map {
         oldCowboy.setInteractScript(new OldCowboyScript());
         npcs.add(oldCowboy);
 
-        CowboyTwo cowboyTwo = new CowboyTwo(9, getMapTile(26, 17).getLocation());
+        CowboyTwo cowboyTwo = new CowboyTwo(9, getMapTile(26, 18).getLocation());
         cowboyTwo.setInteractScript(new CowboyTwoScript());
         npcs.add(cowboyTwo);
 
