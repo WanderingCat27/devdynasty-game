@@ -9,12 +9,12 @@ public class CowboyThreeScript extends Script<NPC> {
 
     @Override
     protected void setup() {
-        System.out.println("Walrus script started");
+        System.out.println("Test script started");
         lockPlayer();
         showTextbox();
 
         // changes what walrus says when talking to him the first time (flag is not set) vs talking to him afterwards (flag is set)
-        if (!isFlagSet("hasTalkedToWalrus")) {
+        if (!isFlagSet("hasTalkedToTest")) {
             addTextToTextboxQueue( "Good day to you!");
             addTextToTextboxQueue( "Hope you're enjoying your time in Westville...");
             addTextToTextboxQueue( "If ya haven't already, check out the saloon!");
@@ -34,7 +34,7 @@ public class CowboyThreeScript extends Script<NPC> {
         hideTextbox();
 
         // set flag so that if walrus is talked to again after the first time, what he says changes
-        setFlag("hasTalkedToWalrus");
+        setFlag("hasTalkedToTest");
     }
 
     @Override

@@ -40,7 +40,7 @@ public class ItemTableScript extends Script<NPC>
             {
                 case 0:
                     showTextbox();
-                    addTextToTextboxQueue("You are let to collect any items,\nbetter get going.");
+                    addTextToTextboxQueue("You are yet to collect any items,\nbetter get going.");
                     break;
                 case 1:
                     showTextbox();

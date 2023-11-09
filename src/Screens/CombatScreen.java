@@ -156,7 +156,7 @@ public class CombatScreen extends Screen {
     LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
 
     // images
-    youWinPopup = new SpriteUI(0, -40, ImageLoader.load("GameOver.png"), 5);
+    youWinPopup = new SpriteUI(0, -40, ImageLoader.load("you_win.png"), 1.5f);
     winContainer.addComponent(youWinPopup);
     BufferedImage enemyImage = ImageLoader.loadSubImage(npc.getPathToImage(), Colors.MAGENTA, 0, 0, 14, 19);
     enemy = new SpriteUI(0, 0, enemyImage, 15);
@@ -260,7 +260,13 @@ public class CombatScreen extends Screen {
           // Items need a name field or smth to identify them as
           // this kinda works for now since the class name will be similar to its name
           // but not final
-          textbox.setText("You used: " + Inventory.get(inventoryIndex).getClass().getName());
+          if(Inventory.get(inventoryIndex).getClass().getName() == "Items.RedPotion"){
+            textbox.setText("25 health regenerated");
+          }
+          else{
+            textbox.setText("You used: " + Inventory.get(inventoryIndex).getClass().getName());
+          }
+          
         }));
 
   }

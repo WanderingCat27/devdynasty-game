@@ -6,11 +6,17 @@ import Level.Map;
 import Maps.CombatMap;
 import Maps.NewMap;
 import Maps.PrehistoricMap;
-import Maps.SaloonMap;
 import Maps.ScienceLabMap;
 import Maps.TestMap;
 import Maps.TitleScreenMap;
-import Maps.FutureMap;
+import Maps.Future.FloorOneMap;
+import Maps.Future.FloorThreeMap;
+import Maps.Future.FloorTwoMap;
+import Maps.Future.FutureMap;
+import Maps.Future.ReceptionMap;
+import Maps.WildWest.SaloonMap;
+import Maps.WildWest.WWBuildingOne;
+import Maps.WildWest.WWBuildingTwo;
 
 public class EditorMaps {
     public static ArrayList<String> getMapNames() {
@@ -24,6 +30,12 @@ public class EditorMaps {
             add("SaloonMap");
             add("PrehistoricMap");
             add("FutureMap");
+            add("WWBuildingOne");
+            add("WWBuildingTwo");
+            add("Reception");
+            add("Floor1");
+            add("Floor2");
+            add("Floor3");
         }};
     }
 
@@ -47,6 +59,15 @@ public class EditorMaps {
                 return new PrehistoricMap();
             case "FutureMap":
               return new FutureMap();
+            case "WWBuildingOne":
+              return new WWBuildingOne();
+            case "WWBuildingTwo":
+              return new WWBuildingTwo();
+            case "Reception":
+              return new ReceptionMap();
+            case "Floor1": return new FloorOneMap();
+            case "Floor2": return new FloorTwoMap();
+            case "Floor3": return new FloorThreeMap();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }

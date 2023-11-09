@@ -20,6 +20,7 @@ import GameObject.Item;
 import GameObject.Rectangle;
 import Utils.Colors;
 import Utils.Direction;
+import Utils.ImageUtils;
 import Utils.Point;
 
 /*
@@ -627,7 +628,7 @@ public abstract class Map {
       MapEntity mapEntity = this.getCurrentlyIntersectingEntity(player);
       if(mapEntity.checkIfInteractScriptExists())
       {
-        graphicsHandler.drawImage(interactIcon, (int) player.getCalibratedXLocation() + 12, (int) player.getCalibratedYLocation() - 20, 10, 10, ImageEffect.NONE);
+        graphicsHandler.drawImage(interactIcon, (int) player.getCalibratedXLocation() + 9, (int) player.getCalibratedYLocation() - 27, 20, 20, ImageEffect.NONE);
       }
     }
   }

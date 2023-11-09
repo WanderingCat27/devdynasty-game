@@ -6,7 +6,7 @@ import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import GameObject.Frame;
 import Level.Player;
-import Maps.WildWestMap;
+import Maps.WildWest.WildWestMap;
 import Utils.Point;
 
 

@@ -21,9 +21,8 @@ import Level.Map;
 import Level.SoundPlayer;
 import Level.Trigger;
 import Maps.ScienceLabMap;
-import Maps.WildWestMap;
-import Maps.FutureMap;
-import Maps.WildWestMap;
+import Maps.Future.FutureMap;
+import Maps.WildWest.WildWestMap;
 import NPCs.EvilCowboy;
 import Scripts.ChangeLevelByString;
 import Scripts.ChangeLevelScript;
@@ -113,7 +112,6 @@ public class PlayLevelScreen extends Screen {
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")
         && LevelManager.getCurrentLevel() == LevelManager.LAB) {
       LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("prehistoric"));
-      System.out.println("changed to prehistoric");
     }
 
     if (Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC)) {

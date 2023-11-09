@@ -19,16 +19,30 @@ public class ChangeLevelByString extends Script {
   public ScriptState execute() {
     // call setup code
     start();
-    LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sounds 
+    LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sounds
     Level level = null;
-    if (this.levelStr.toLowerCase() == "wildwest")
+    if (this.levelStr.equalsIgnoreCase("wildwest"))
       level = LevelManager.WILDWEST;
-    else if (this.levelStr.toLowerCase() == "lab")
+    else if (this.levelStr.equalsIgnoreCase("lab"))
       level = LevelManager.LAB;
-    else if (this.levelStr.toLowerCase() == "saloon")
+    else if (this.levelStr.equalsIgnoreCase("saloon"))
       level = LevelManager.SALOON_INSIDE;
-    else if (this.levelStr.toLowerCase() == "prehistoric")
+    else if (this.levelStr.equalsIgnoreCase("buildingone"))
+      level = LevelManager.WWBUILDINGLEFT;
+    else if (this.levelStr.equalsIgnoreCase("wwbuildingone"))
+      level = LevelManager.WWBUILDINGLEFT;
+    else if (this.levelStr.equalsIgnoreCase("wwbuildingtwo"))
+      level = LevelManager.WWBUILDINGRIGHT;
+    else if (this.levelStr.equalsIgnoreCase("prehistoric"))
       level = LevelManager.PREHISTORIC;
+    else if (this.levelStr.equalsIgnoreCase("reception"))
+      level = LevelManager.RECEPTION;
+    else if (this.levelStr.equalsIgnoreCase("floor1"))
+      level = LevelManager.FLOOR1;
+    else if (this.levelStr.equalsIgnoreCase("floor2"))
+      level = LevelManager.FLOOR2;
+    else if (this.levelStr.equalsIgnoreCase("floor3"))
+      level = LevelManager.FLOOR3;
 
     if (level != null) {
       LevelManager.setLevel(level);
