@@ -25,7 +25,7 @@ public class ReceptionMap extends Map{
     ArrayList<Item> list = new ArrayList<>();
     BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(8, 2).getLocation(), 160, 32, "floor1");
     list.add(elevator);
-    BuildingEntrance receptionExit = new BuildingEntrance(0, getMapTile(7, 16).getLocation(), 160, 32, "wildwest");
+    BuildingEntrance receptionExit = new BuildingEntrance(0, getMapTile(7, 16).getLocation(), 160, 32, "future");
     list.add(receptionExit);
     return list;
   }

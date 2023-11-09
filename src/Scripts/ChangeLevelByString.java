@@ -10,6 +10,7 @@ public class ChangeLevelByString extends Script {
 
   private final String levelStr;
 
+
   public ChangeLevelByString(String level) {
 
     this.levelStr = level;
@@ -21,6 +22,7 @@ public class ChangeLevelByString extends Script {
     start();
     LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sounds
     Level level = null;
+    
     if (this.levelStr.equalsIgnoreCase("wildwest"))
       level = LevelManager.WILDWEST;
     else if (this.levelStr.equalsIgnoreCase("lab"))
@@ -43,6 +45,8 @@ public class ChangeLevelByString extends Script {
       level = LevelManager.FLOOR2;
     else if (this.levelStr.equalsIgnoreCase("floor3"))
       level = LevelManager.FLOOR3;
+    else if (this.levelStr.equalsIgnoreCase("future"))
+      level = LevelManager.FUTURE;
 
     if (level != null) {
       LevelManager.setLevel(level);
