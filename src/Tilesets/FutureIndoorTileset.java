@@ -22,7 +22,7 @@ public class FutureIndoorTileset extends Tileset {
     ArrayList<MapTileBuilder> mapTiles = new ArrayList<>();
 
     // floor
-    Frame floorFrame = new FrameBuilder(getSubImageNoOffset(0, 0))
+    Frame floorFrame = new FrameBuilder(getSubImageNoOffset(2, 0))
         .withScale(tileScale)
         .build();
 
@@ -35,11 +35,25 @@ public class FutureIndoorTileset extends Tileset {
       mapTiles.add(createFrame(getSubImageNoOffset(0, 1 + col), ImageEffect.NONE, pass));
     }
 
-    for (int col = 0; col < 5; col++) {
+    for (int col = 0; col < 6; col++) {
       mapTiles.add(createFrame(getSubImageNoOffset(1, col), floorFrame, ImageEffect.NONE, TileType.NOT_PASSABLE));
     }
     for (int col = 0; col < 3; col++)
       mapTiles.add(createFrame(getSubImageNoOffset(0, col + 5)));
+
+      // chairs
+    for (int col = 0; col < 4; col++) {
+      mapTiles.add(createFrame(getSubImageNoOffset(3, col), floorFrame, ImageEffect.NONE, TileType.NOT_PASSABLE));
+            mapTiles.add(createFrame(getSubImageNoOffset(3, col), floorFrame, ImageEffect.FLIP_HORIZONTAL, TileType.NOT_PASSABLE));
+
+    }
+
+    // table
+    for (int row = 0; row < 3; row++) {
+      mapTiles.add(createFrame(getSubImageNoOffset(row + 4, 0), floorFrame, ImageEffect.NONE, TileType.NOT_PASSABLE));
+
+    }
+
 
     return mapTiles;
 
