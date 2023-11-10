@@ -16,14 +16,14 @@ public class FloorThreeMap extends Map{
   public FloorThreeMap() {
     super("floor3_map.txt", new FutureIndoorTileset());
     addMusic("Resources/Audio/saloon.wav");
-    this.playerStartPosition = getMapTile(9, 2).getLocation();
+    this.playerStartPosition = getMapTile(15, 2).getLocation();
     setCenterCamera();
   }
 
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList<Item> list = new ArrayList<>();
-    BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(8, 2).getLocation(), 160, 32, "reception");
+    BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(14, 2).getLocation(), 160, 32, "floor1");
     list.add(elevator);
     return list;
   }
