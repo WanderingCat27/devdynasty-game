@@ -42,6 +42,7 @@ public class PauseScreen extends Screen
     protected SoundPlayer walkingSoundPlayer;
     protected SpriteFont musicLabel;
     protected SpriteFont walkingLabel;
+    public static float volume = 100;
     //might turn this into spirteButtons eventually!
 
     public PauseScreen(PlayLevelScreen playLevelScreen, SoundPlayer soundPlayer, SoundPlayer walkingSoundPlayer) {
@@ -73,6 +74,8 @@ public class PauseScreen extends Screen
             volumeSlider.addChangeListener(() -> {
                 LevelManager.getCurrentLevel().getSoundPlayer().setVolume((int) volumeSlider.getValue());
                 this.playLevelScreen.setCurrentVolume(volumeSlider.getValue());
+                if(CombatScreen.combatSoundPlayer != null) CombatScreen.combatSoundPlayer.setVolume((int) volumeSlider.getValue());
+                PauseScreen.volume = volumeSlider.getValue();
 
             });
             // position at top of screen and anchor objects to their top center
