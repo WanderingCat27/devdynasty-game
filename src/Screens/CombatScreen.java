@@ -87,7 +87,7 @@ public class CombatScreen extends Screen {
   protected SpriteUI enemy;
   protected SpriteUI youWinPopup;
   protected NPC npc;
-  public SoundPlayer combatSoundPlayer;
+  public static SoundPlayer combatSoundPlayer;
 
   SpriteButton bagButton;
 
@@ -153,6 +153,7 @@ public class CombatScreen extends Screen {
 
     // sound
     combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/combat.wav");
+    combatSoundPlayer.setVolume((int) PauseScreen.volume);
     LevelManager.getCurrentLevel().getSoundPlayer().pause();
     LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
 
