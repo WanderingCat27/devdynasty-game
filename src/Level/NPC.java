@@ -51,11 +51,31 @@ public class NPC extends MapEntity {
     public int getId() { return id; }
 
 
-    public void facePlayer(Player player) {
-        if (Math.round(getBoundsX2()) - (getBounds().getWidth() / 2) < Math.round(player.getBoundsX2())) {
+    public void facePlayer(Player player)
+    {
+        double npcCenterX = getBounds().getX() + (getBounds().getWidth() / 2);
+        double npcCenterY = getBounds().getY() + (getBounds().getHeight() / 2);
+
+        double playerCenterX = player.getBounds().getX() + (player.getBounds().getWidth() / 2);
+        double playerCenterY = player.getBounds().getY() + (player.getBounds().getHeight() / 2);
+
+        double deltaX = playerCenterX - npcCenterX;
+        double deltaY = playerCenterY - npcCenterY;
+
+        // Calculate the angle between NPC and player
+        double angle = Math.atan2(deltaY, deltaX);
+
+        // Convert angle to degrees
+        double angleDegrees = Math.toDegrees(angle);
+
+        // Determine the direction based on the angle
+        if (angleDegrees >= -45 && angleDegrees < 45) {
             this.currentAnimationName = "STAND_RIGHT";
-        }
-        else if (Math.round(getBoundsX1()) + (getBounds().getWidth() / 2) > Math.round(player.getBoundsX1())) {
+        } else if (angleDegrees >= 45 && angleDegrees < 135) {
+            this.currentAnimationName = "STAND_DOWN";
+        } else if (angleDegrees >= -135 && angleDegrees < -45) {
+            this.currentAnimationName = "STAND_UP";
+        } else {
             this.currentAnimationName = "STAND_LEFT";
         }
     }
