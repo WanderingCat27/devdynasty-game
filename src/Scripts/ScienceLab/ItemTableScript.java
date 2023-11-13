@@ -44,17 +44,14 @@ public class ItemTableScript extends Script<NPC>
                     break;
                 case 1:
                     showTextbox();
-                    addTextToTextboxQueue("Only 3 more to go.");
+                    addTextToTextboxQueue("Only 2 more to go.");
                     break;
                 case 2:
                     showTextbox();
-                    addTextToTextboxQueue("Just 2 more to go.");
+                    addTextToTextboxQueue("Just 1 more to go.");
                     break;
                 case 3:
-                    showTextbox();
-                    addTextToTextboxQueue("Only 1 more til we can get home.");
-                case 4:
-                    //end the game
+                    //end the game 
                     break;
             }
         }
@@ -90,6 +87,10 @@ public class ItemTableScript extends Script<NPC>
                 {
                    this.entity.setCurrentAnimationName("ONE_ITEM");
                 }
+                else if(itemsOnTable.size() == 2)
+                {
+                    this.entity.setCurrentAnimationName("TWO_ITEM");
+                }
             }
             end();
             return ScriptState.COMPLETED;
@@ -110,7 +111,7 @@ public class ItemTableScript extends Script<NPC>
         ArrayList<Item> items = Inventory.getInventory();
         for(Item item : items)
         {
-            if(item instanceof Crystal || item instanceof Metal || item instanceof Microchip || item instanceof MysteryBox)
+            if(item instanceof Crystal || item instanceof Metal || item instanceof Microchip)
             {
                 return true;
             }
