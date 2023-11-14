@@ -18,6 +18,8 @@ import GameObject.GameObject;
 import GameObject.ImageEffect;
 import GameObject.Item;
 import GameObject.Rectangle;
+import Screens.PauseScreen;
+import Screens.PlayLevelScreen;
 import Utils.Colors;
 import Utils.Direction;
 import Utils.ImageUtils;
@@ -107,7 +109,7 @@ public abstract class Map {
   }
 
   protected void addMusic(String soundPath) {
-    this.soundPlayer = new SoundPlayer(GameWindow.getGameWindow(), soundPath);
+    this.soundPlayer = new SoundPlayer(GameWindow.getGameWindow(), soundPath, (int) PlayLevelScreen.getCurrentVolume());
     this.soundPlayer.pause();
   }
 
