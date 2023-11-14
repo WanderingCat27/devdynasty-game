@@ -51,8 +51,8 @@ public class PlayLevelScreen extends Screen {
   protected EvilCowboy evilCowboy;
   protected KeyLocker keyLocker = new KeyLocker();
   protected static Key ESC = Key.ESC;
-  protected float currentVolume;
-  protected float currentWalkVolume;
+  public static float currentVolume;
+  public static float currentWalkVolume;
   protected boolean activeCombat = false;
 
   public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
@@ -239,16 +239,16 @@ public class PlayLevelScreen extends Screen {
     this.currentVolume = volume;
   }
 
-  public float getCurrentVolume() {
-    return this.currentVolume;
+  public static float getCurrentVolume() {
+    return currentVolume;
   }
 
   public void setCurrentWalkVolume(float volume) {
     this.currentWalkVolume = volume;
   }
 
-  public float getCurrentWalkVolume() {
-    return this.currentWalkVolume;
+  public static float getCurrentWalkVolume() {
+    return currentWalkVolume;
   }
 
   public void goBackToMenu() {

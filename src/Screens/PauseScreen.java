@@ -77,6 +77,7 @@ public class PauseScreen extends Screen
                 if(CombatScreen.combatSoundPlayer != null) CombatScreen.combatSoundPlayer.setVolume((int) volumeSlider.getValue());
                 PauseScreen.volume = volumeSlider.getValue();
 
+
             });
             // position at top of screen and anchor objects to their top center
             sliderContainer = new PositioningContainer(Anchor.CENTER);

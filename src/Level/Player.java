@@ -19,6 +19,7 @@ import Utils.Direction;
 import java.awt.Point;
 import Maps.NewMap;
 import Maps.TitleScreenMap;
+import Screens.PlayLevelScreen;
 import Level.Map;
 import Level.Player;
 
@@ -67,7 +68,7 @@ public abstract class Player extends GameObject {
     playerState = PlayerState.STANDING;
     previousPlayerState = playerState;
     this.affectedByTriggers = true;
-    walkingSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/footstep.wav");
+    walkingSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/footstep.wav", (int) PlayLevelScreen.getCurrentWalkVolume());
     walkingSoundPlayer.pause();
   }
 
