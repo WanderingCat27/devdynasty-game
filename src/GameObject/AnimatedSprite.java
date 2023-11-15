@@ -39,7 +39,8 @@ public class AnimatedSprite implements IntersectableRectangle {
   // frame delay before transitioning into the next frame of an animation
   private int frameDelayCounter;
 
-  public AnimatedSprite(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
+  public AnimatedSprite(SpriteSheet spriteSheet, float x, float y, String startingAnimationName)
+  {
     this.x = x;
     this.y = y;
     this.animations = loadAnimations(spriteSheet);
