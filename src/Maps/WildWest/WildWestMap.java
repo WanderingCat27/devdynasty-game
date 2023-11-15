@@ -71,7 +71,7 @@ public class WildWestMap extends Map {
     BuildingEntrance wwBuildingFiveTwo = new BuildingEntrance(1, getMapTile(4, 42).getLocation(), 20, 50, "buildingOne");
     list.add(wwBuildingFiveTwo);
 
-    BuildingEntrance wwBuildingSix = new BuildingEntrance(1, getMapTile(26, 20).getLocation(), 20, 50, "buildingOne");
+    BuildingEntrance wwBuildingSix = new BuildingEntrance(1, getMapTile(26, 20).getLocation(), 20, 50, "buildingTwo");
     list.add(wwBuildingSix);
 
     BuildingEntrance wwBuildingSeven = new BuildingEntrance(1, getMapTile(26, 15).getLocation(), 20, 50, "buildingTwo");
@@ -124,7 +124,7 @@ public class WildWestMap extends Map {
         npcs.add(cowboyThree);
 
         TimeMachine timeMachine = new TimeMachine(6, getMapTile(4, 5).getLocation(), 26, 37);
-        timeMachine.setInteractScript(new ChangeLevelScript(LevelManager.LAB));
+        //timeMachine.setInteractScript(new ChangeLevelScript(LevelManager.LAB));
         npcs.add(timeMachine);
         // time machine is not visible before you defeat evil cowboy
         timeMachine.setIsHidden(true);

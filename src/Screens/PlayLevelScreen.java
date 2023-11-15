@@ -27,6 +27,9 @@ import Maps.WildWest.WildWestMap;
 import NPCs.EvilCowboy;
 import Scripts.ChangeLevelByString;
 import Scripts.ChangeLevelScript;
+import Scripts.ScienceLab.CheckDroppedItemScript;
+import Scripts.ScienceLab.ItemTableScript;
+import Scripts.ScienceLab.PickUpItemScript;
 import Utils.Point;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
@@ -73,6 +76,9 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("evilCowboyDefeated", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("cavemanDefeated", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("win", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpCrystal", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasDroppedCrystalOff", false);
+    
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
     pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer,
@@ -113,12 +119,25 @@ public class PlayLevelScreen extends Screen {
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")){
-        if(LevelManager.getCurrentLevel() == LevelManager.LAB) {
+        if(LevelManager.getCurrentLevel() == LevelManager.LAB && GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasDroppedCrystalOff")) {
           LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("prehistoric"));
         }
-        if(LevelManager.getCurrentLevel() == LevelManager.WILDWEST){
+        else if(LevelManager.getCurrentLevel() == LevelManager.LAB && ItemTableScript.itemsOnTable.size() == 0)
+        {
+          LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new CheckDroppedItemScript());
+        }
+        //LevelManager.getCurrentLevel().getMap().getNPCById(2).setIsHidden(false);
+        if(LevelManager.getCurrentLevel() == LevelManager.WILDWEST)
+        {
           LevelManager.getCurrentLevel().getMap().getNPCById(6).setIsHidden(false);
-          System.out.println("Time machine visible");
+          if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasPickedUpCrystal"))
+          {
+            LevelManager.getCurrentLevel().getMap().getNPCById(6).setInteractScript(new ChangeLevelScript(LevelManager.LAB));
+          }
+          else
+          {
+            LevelManager.getCurrentLevel().getMap().getNPCById(6).setInteractScript(new PickUpItemScript());
+          }
       }
     }
 
