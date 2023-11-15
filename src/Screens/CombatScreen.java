@@ -126,7 +126,6 @@ public class CombatScreen extends Screen {
     isInitialized = true;
     usedItems = new boolean[4];
     playerHealth = 50;
-    enemyHealth = 1;
 
     fightContainer = new UIContainer(0, 0) {
 
