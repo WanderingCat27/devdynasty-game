@@ -52,6 +52,7 @@ import ui.Container.CenterContainer;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer;
 import ui.Container.UIContainer.FillType;
+import ui.SpriteUI.HealthBar;
 import ui.SpriteUI.SolidSpriteUI;
 import ui.SpriteUI.SpriteUI;
 import NPCs.EvilCowboy;
@@ -74,8 +75,8 @@ public class CombatScreen extends Screen {
 
   private SCREENSTATE screenState = SCREENSTATE.TEXTBOX;
 
-  private double enemyHealth;
-  private double playerHealth;
+  private int enemyHealth;
+  private int playerHealth;
   private int inventoryIndex;
   private final int initialTextboxHeight = 130;
   private final int initialFontSize = 30;
@@ -86,6 +87,8 @@ public class CombatScreen extends Screen {
   protected Textbox textbox;
   protected SpriteUI enemy;
   protected SpriteUI youWinPopup;
+  protected HealthBar enemyHealthBar;
+  protected HealthBar playerHealthBar;
   protected NPC npc;
   public static SoundPlayer combatSoundPlayer;
 
@@ -163,6 +166,7 @@ public class CombatScreen extends Screen {
     BufferedImage enemyImage = ImageLoader.loadSubImage(npc.getPathToImage(), Colors.MAGENTA, 0, 0, 14, 19);
     enemy = new SpriteUI(0, 0, enemyImage, 15);
     enemy.setAnchor(Anchor.BOTTOM_CENTER);
+    enemyHealthBar = new HealthBar((ScreenManager.getScreenWidth()/2)-100, 30, 200, 30, Colors.LIGHT_GREEN, Colors.BLACK, enemyHealth);
     CenterContainer enemyContainer = new CenterContainer();
     enemyContainer.setfillType(FillType.FILL_PARENT);
     enemyContainer.setAnchorChildren(false);
@@ -212,17 +216,18 @@ public class CombatScreen extends Screen {
           }
 
         });
+    playerHealthBar = new HealthBar(10, -275, 200, 30, Colors.LIGHT_GREEN, Colors.BLACK, playerHealth);
 
     PositioningContainer left = new PositioningContainer(Anchor.BOTTOM_LEFT);
     left.setAnchorChildren(true);
     left.setfillType(FillType.FILL_PARENT);
     left.addComponent(fightButton);
+    left.addComponent(playerHealthBar);
 
     PositioningContainer middle = new PositioningContainer(Anchor.BOTTOM_CENTER);
     middle.setfillType(FillType.FILL_PARENT);
     middle.addComponent(bagButton);
     middle.setAnchorChildren(true);
-
     PositioningContainer right = new PositioningContainer(Anchor.BOTTOM_RIGHT);
     right.setfillType(FillType.FILL_PARENT);
     right.addComponent(runButton);
@@ -344,8 +349,9 @@ public class CombatScreen extends Screen {
     TimerTask gameDelay = new TimerTask() {
       @Override
       public void run(){
-        int damage = 5;
+        int damage = (int)(Math.random()*12)+4;
         playerHealth -= damage;
+        playerHealthBar.update(playerHealth);
         textbox.setText("Enemy did " + damage + " damage" + "\nYour Health: " + playerHealth + "\nWhat will you do?");
         timer.cancel();
       }
@@ -396,6 +402,7 @@ public class CombatScreen extends Screen {
 
             };
             timer.schedule(gameDelay, 0, 3000);
+            enemyHealthBar.update(enemyHealth);
             if(!healthZero()){
                playerTurn = false;
             }
@@ -419,6 +426,7 @@ public class CombatScreen extends Screen {
       };
       timer.schedule(delay, 2000, 2000);
       playerTurn = true;
+
     }
 
 
@@ -432,7 +440,8 @@ public class CombatScreen extends Screen {
       playerWin = false;
     }
     else{
-      fightContainer.update();
+      if(playerTurn)
+        fightContainer.update();
     }
     // scale items that should scale
     scaleAll();
@@ -469,6 +478,8 @@ public class CombatScreen extends Screen {
       winContainer.draw(graphicsHandler);
     else
       fightContainer.draw(graphicsHandler);
+      enemyHealthBar.draw(graphicsHandler);
+      
   }
 
   protected void scaleAll() {

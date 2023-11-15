@@ -8,6 +8,7 @@ public class Colors {
     public static final Color CORNFLOWER_BLUE = new Color(100, 149, 237);
     public static final Color WHITE = new Color(255, 255, 255);
     public static final Color BLACK = new Color(0, 0, 0);
+    public static final Color LIGHT_GREEN = new Color(10, 235, 2);
 
     private Colors() { }
 }

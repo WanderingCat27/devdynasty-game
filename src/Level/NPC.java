@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class NPC extends MapEntity {
     protected int id = 0;
     protected String pathToImage;
-    protected double health;
+    protected int health;
 
     public NPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
@@ -38,13 +38,13 @@ public class NPC extends MapEntity {
         this.id = id;
     }
 
-    public NPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation, double startingHealth) {
+    public NPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation, int startingHealth) {
         super(x, y, spriteSheet, startingAnimation);
         this.id = id;
         this.health = startingHealth;
     }
 
-    public double getHealth(){
+    public int getHealth(){
         return health;
     }
     
