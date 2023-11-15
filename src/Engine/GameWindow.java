@@ -35,6 +35,7 @@ public class GameWindow {
     MyWindowFocusListener listener = new MyWindowFocusListener();
     gameWindow.addWindowFocusListener(listener);
     gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // it'd be nice if this actually worked more than 1/3rd
+    gameWindow.setTitle("devDynasty game placeholder title");
 
     Toolkit toolkit = Toolkit.getDefaultToolkit();
     Image image = ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("cursor.png"), 1.5f);

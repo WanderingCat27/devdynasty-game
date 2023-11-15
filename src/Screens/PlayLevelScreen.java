@@ -8,6 +8,7 @@ import Engine.KeyLocker;
 import Engine.Keyboard;
 import Engine.Mouse;
 import Engine.Screen;
+import Engine.ScreenManager;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Inventory;
@@ -74,6 +75,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasBeatCowboy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("evilCowboyDefeated", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("cavemanDefeated", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("win", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpCrystal", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasDroppedCrystalOff", false);
     
@@ -96,7 +98,6 @@ public class PlayLevelScreen extends Screen {
     if (combatScreen == null)
       combatScreen = new CombatScreen(this);
 
-    // LevelManager.getCurrentLevel().getMap().soundPlayer.play();
     if (LevelManager.getCurrentLevel().getSoundPlayer() != null) {
       LevelManager.getCurrentLevel().getSoundPlayer().setVolume((int) currentVolume);
       LevelManager.getCurrentLevel().getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -154,6 +155,10 @@ public class PlayLevelScreen extends Screen {
       }
     }
 
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("win")) {
+      playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+    }
+
     if (Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC)) {
       keyLocker.lockKey(ESC);
       if (playLevelScreenState == PlayLevelScreenState.RUNNING || playLevelScreenState == PlayLevelScreenState.COMBAT)
@@ -164,6 +169,7 @@ public class PlayLevelScreen extends Screen {
     if (keyLocker.isKeyLocked(ESC) && Keyboard.isKeyUp(ESC)) {
       keyLocker.unlockKey(ESC);
     }
+    
 
     // based on screen state, perform specific actions
     switch (playLevelScreenState) {

@@ -12,6 +12,7 @@ import Engine.Keyboard;
 import GameObject.ImageEffect;
 import GameObject.Inventory;
 import GameObject.Item;
+import Level.GlobalFlagManager;
 import Level.Map;
 import Level.NPC;
 import Level.Script;
@@ -39,6 +40,7 @@ public class ItemTableScript extends Script<NPC>
             switch (itemsOnTable.size())
             {
                 case 0:
+                    GlobalFlagManager.FLAG_MANAGER.setFlag("win");
                     showTextbox();
                     addTextToTextboxQueue("You are yet to collect any items,\nbetter get going.");
                     break;
@@ -47,11 +49,13 @@ public class ItemTableScript extends Script<NPC>
                     addTextToTextboxQueue("Only 2 more to go.");
                     break;
                 case 2:
+                    // test, change to case 3 once final boss fight is ready
+                    GlobalFlagManager.FLAG_MANAGER.setFlag("win");
                     showTextbox();
                     addTextToTextboxQueue("Just 1 more to go.");
                     break;
                 case 3:
-                    //end the game 
+                    GlobalFlagManager.FLAG_MANAGER.setFlag("win");
                     break;
             }
         }

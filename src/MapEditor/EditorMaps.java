@@ -17,6 +17,7 @@ import Maps.Future.ReceptionMap;
 import Maps.WildWest.SaloonMap;
 import Maps.WildWest.WWBuildingOne;
 import Maps.WildWest.WWBuildingTwo;
+import Maps.WinMap;
 
 public class EditorMaps {
     public static ArrayList<String> getMapNames() {
@@ -36,6 +37,7 @@ public class EditorMaps {
             add("Floor1");
             add("Floor2");
             add("Floor3");
+            add("WinMap");
         }};
     }
 
@@ -68,6 +70,7 @@ public class EditorMaps {
             case "Floor1": return new FloorOneMap();
             case "Floor2": return new FloorTwoMap();
             case "Floor3": return new FloorThreeMap();
+            case "WinMap": return new WinMap();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }
