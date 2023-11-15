@@ -3,6 +3,7 @@ package Items.BossItems;
 import Engine.GraphicsHandler;
 import GameObject.Item;
 import Scripts.NewMap.SwordScript;
+import Scripts.WildWestMap.CrystalScript;
 
 public class Crystal extends Item
 {
@@ -12,7 +13,7 @@ public class Crystal extends Item
     {
         super(id,point,"crystal.png");
         this.setIsUncollidable(true);
-        this.setInteractScript(new SwordScript());
+        this.setInteractScript(new CrystalScript());
     }
 
     @Override

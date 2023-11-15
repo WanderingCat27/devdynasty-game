@@ -22,7 +22,7 @@ import Items.BossItems.*;
 public class ItemTableScript extends Script<NPC>
 {
     private boolean hasItem;
-    private static ArrayList<Item> itemsOnTable = new ArrayList<>();
+    public static ArrayList<Item> itemsOnTable = new ArrayList<>();
     
     //Need keyboard
     protected KeyLocker keyLocker = new KeyLocker();
@@ -85,6 +85,7 @@ public class ItemTableScript extends Script<NPC>
                 }
                 if(itemsOnTable.size() == 1)
                 {
+                    setFlag("hasDroppedCrystalOff");
                    this.entity.setCurrentAnimationName("ONE_ITEM");
                 }
                 else if(itemsOnTable.size() == 2)
