@@ -40,7 +40,9 @@ import Level.TextboxHandler;
 import java.util.Random;
 import GameObject.Sprite;
 import Screens.PlayLevelScreen;
+import Screens.CombatScreenStuff.DodgeFightGameContainer;
 import Screens.CombatScreenStuff.FightGameContainer;
+import Screens.CombatScreenStuff.MiniGameContainer;
 import Scripts.NewMap.SwordScript;
 import Utils.Colors;
 import Utils.ImageUtils;
@@ -97,8 +99,9 @@ public class CombatScreen extends Screen {
   private PositioningContainer bagContainer;
   private CenterContainer runContainer;
   private PositioningContainer useItemContainer;
-  private FightGameContainer fightGameContainer;
+  private MiniGameContainer miniGameContainer;
   private boolean[] usedItems;
+  private boolean awaitingAttack = false;
 
   public CombatScreen(PlayLevelScreen playLevelScreen) {
     this.playLevelScreen = playLevelScreen;
@@ -149,7 +152,10 @@ public class CombatScreen extends Screen {
     useItemContainer.setAnchorChildren(true);
     useItemContainer.setfillType(FillType.FILL_SCREEN);
 
-    fightGameContainer = new FightGameContainer(initialTextboxHeight);
+    if(LevelManager.getCurrentLevel() == LevelManager.WILDWEST)
+    miniGameContainer = new FightGameContainer(initialTextboxHeight);
+    else if(LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC)
+    miniGameContainer = new DodgeFightGameContainer(initialTextboxHeight);
 
     // sound
     combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/combat.wav");
@@ -176,7 +182,7 @@ public class CombatScreen extends Screen {
 
     float buttonScale = 2.67f;
     SpriteButton runButton = new SpriteButton(0, 0, buttonScale, ImageLoader.load("RunButtonNew.png"), () -> {
-      if (fightGameContainer.isGameAwaitingFinish())
+      if (miniGameContainer.isGameAwaitingFinish())
         return;
       if (screenState == SCREENSTATE.RUN)
         screenState = SCREENSTATE.TEXTBOX;
@@ -189,10 +195,10 @@ public class CombatScreen extends Screen {
 
           @Override
           public void run() {
-            if (healthZero() || screenState == SCREENSTATE.FIGHTGAME)
+            if (healthZero() || screenState == SCREENSTATE.FIGHTGAME || awaitingAttack)
               return;
             screenState = SCREENSTATE.FIGHTGAME;
-            fightGameContainer.start();
+            miniGameContainer.start();
           }
 
         });
@@ -202,7 +208,7 @@ public class CombatScreen extends Screen {
 
           @Override
           public void run() {
-            if (fightGameContainer.isGameAwaitingFinish())
+            if (miniGameContainer.isGameAwaitingFinish())
               return;
             if (screenState == SCREENSTATE.INVENTORY)
               screenState = SCREENSTATE.TEXTBOX;
@@ -343,6 +349,7 @@ public class CombatScreen extends Screen {
     TimerTask gameDelay = new TimerTask() {
       @Override
       public void run(){
+        awaitingAttack = false;
         int damage = 5;
         playerHealth -= damage;
         textbox.setText("Enemy did " + damage + " damage" + "\nYour Health: " + playerHealth + "\nWhat will you do?");
@@ -350,7 +357,7 @@ public class CombatScreen extends Screen {
       }
 
     };
-    timer.schedule(gameDelay, 0, 2000);
+    timer.schedule(gameDelay, 2000, 2000);
     playerTurn = true;
     
   }
@@ -368,11 +375,11 @@ public class CombatScreen extends Screen {
           useItemContainer.update();
           break;
         case FIGHTGAME:
-          fightGameContainer.update();
-          if (fightGameContainer.isGameOver()) {
+          miniGameContainer.update();
+          if (miniGameContainer.isGameOver()) {
             screenState = SCREENSTATE.TEXTBOX;
             System.out.println("Attacked");
-            int damage = (int) (fightGameContainer.getScore() * 10 + .5f);
+            int damage = (int) (miniGameContainer.getScore() * 10 + .5f);
             if(damage > enemyHealth){
               enemyHealth = 0;
             }else{
@@ -409,6 +416,7 @@ public class CombatScreen extends Screen {
       }
     }else{
       Timer timer = new Timer();
+      awaitingAttack = true;
       TimerTask delay = new TimerTask() {
         @Override
         public void run(){
@@ -457,7 +465,7 @@ public class CombatScreen extends Screen {
         useItemContainer.draw(graphicsHandler);
         break;
       case FIGHTGAME:
-        fightGameContainer.draw(graphicsHandler);
+        miniGameContainer.draw(graphicsHandler);
         break;
       default:
         textBoxContainer.draw(graphicsHandler);
@@ -486,7 +494,7 @@ public class CombatScreen extends Screen {
       // scale y
       prevScaleY = scaleY;
       textbox.setHeight((int) (initialTextboxHeight * scaleY));
-      fightGameContainer.setChildrenHeight((int) (initialTextboxHeight * scaleY));
+      miniGameContainer.setChildrenHeight((int) (initialTextboxHeight * scaleY));
       textbox.getSpriteFont().setFontSize((int) (initialFontSize * scaleY));
 
       bagContainer.children().forEach((b) -> {
