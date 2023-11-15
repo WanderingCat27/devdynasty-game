@@ -6,6 +6,7 @@ import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import Tilesets.SaloonTileset;
+import NPCs.Saloon.RoundTable;
 import NPCs.ScienceLab.Bed;
 import NPCs.ScienceLab.Bookshelf;
 
@@ -35,6 +36,10 @@ public class WWBuildingOne extends Map {
 
         Bookshelf bookshelf = new Bookshelf(9, getMapTile(8, 7).getLocation());
         npcs.add(bookshelf);
+
+        NPC roundTable = new RoundTable(2, getMapTile(12, 9).getLocation());
+        npcs.add(roundTable);
+
 
         return npcs;
     } 

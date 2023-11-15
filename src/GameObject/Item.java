@@ -10,6 +10,8 @@ import Utils.Point;
 //Pretty dumb class, but I guess its fine???
 public class Item extends NPC {
   String pathToImage;
+  String name;
+  String desc;
 
   // Makes an item appear at a certain location
   public Item(int id, Point point, String pathToImage) {
@@ -46,5 +48,23 @@ public class Item extends NPC {
   public String getPathToImage() {
     return pathToImage;
   }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getDesc() {
+    return desc;
+  }
+
+  public void setDesc(String desc) {
+    this.desc = desc;
+  }
+
+  
 
 }

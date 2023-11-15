@@ -3,13 +3,9 @@ package Screens.CombatScreenStuff;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.xml.crypto.dsig.spec.HMACParameterSpec;
-
 import Engine.Config;
-import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.Keyboard;
-import Engine.Screen;
 import Engine.ScreenManager;
 import ui.Button.TextButton;
 import ui.Container.Anchor;
@@ -17,21 +13,15 @@ import ui.Container.CenterContainer;
 import ui.Container.PositioningContainer;
 import ui.SpriteUI.SolidSpriteUI;
 
-public class FightGameContainer extends PositioningContainer {
+public class FightGameContainer extends MiniGameContainer {
 
   TextButton stopButton;
   SolidSpriteUI bar, greenCenter, perfectCenter, ticker;
 
   float speed = 10f;
-  boolean isStopped = false;
-  long secStop;
   float step;
 
   public FightGameContainer(int height) {
-    super(Anchor.BOTTOM_LEFT);
-    this.setAnchorChildren(true);
-    this.setfillType(FillType.FILL_SCREEN);
-
     stopButton = new TextButton(0, 0, 200, height, Color.RED, "Stop", new Font("Comic Sans", Font.BOLD, 20),
         Color.GREEN, () -> stop());
 
@@ -97,11 +87,13 @@ public class FightGameContainer extends PositioningContainer {
 
   }
 
+  @Override
   public void setChildrenHeight(int height) {
     bar.setHeight(height);
     stopButton.setHeight(height);
   }
 
+  @Override
   public void start() {
     isStopped = false;
   }
@@ -117,25 +109,12 @@ public class FightGameContainer extends PositioningContainer {
       stop();
   }
 
-  private void stop() {
-    if (isStopped)
-      return;
-    isStopped = true;
-    secStop = (long) (System.currentTimeMillis() / 1000);
-  }
-
+  
+  @Override
   public float getScore() {
     return ((40 - Utils.MathUtils.clamp(Math.abs(step - 50) - 1, 0, 20))) / 40f;
 
   }
 
-  public boolean isGameAwaitingFinish() {
-    return isStopped && !isGameOver();
-  }
-
-  public boolean isGameOver() {
-    // isStopped and some delay so you can see where you got it
-    return isStopped && ((System.currentTimeMillis() / 1000) - 1) > secStop;
-  }
-
+  
 }
