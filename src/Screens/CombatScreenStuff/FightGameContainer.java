@@ -2,6 +2,7 @@ package Screens.CombatScreenStuff;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.security.SecureRandom;
 
 import Engine.Config;
 import Engine.Key;
@@ -16,7 +17,9 @@ import ui.SpriteUI.SolidSpriteUI;
 public class FightGameContainer extends MiniGameContainer {
 
   TextButton stopButton;
-  SolidSpriteUI bar, greenCenter, perfectCenter, ticker;
+  SolidSpriteUI bar, yellowCenter, perfectCenter, ticker;
+  private static SecureRandom random = new SecureRandom();
+  int hitLocation;
 
   float speed = 10f;
   float step;
@@ -59,16 +62,25 @@ public class FightGameContainer extends MiniGameContainer {
     ticker.setfillTypeY(FillType.FILL_PARENT);
 
     CenterContainer centerContainer = new CenterContainer();
-    greenCenter = new SolidSpriteUI(0, 0, 200, height, Color.ORANGE) {
+    yellowCenter = new SolidSpriteUI(0, 0, 200, height, Color.ORANGE) {
       @Override
       public int getWidth() {
         return (int) (((float) ScreenManager.getScreenWidth() / Config.GAME_WINDOW_WIDTH) * 200);
 
       }
+
+      @Override
+      public int getXOrigin() {
+        return (int) (hitLocation/100.0 * bar.getWidth());
+      }
     };
-    greenCenter.setfillTypeY(FillType.FILL_PARENT);
+    yellowCenter.setfillTypeY(FillType.FILL_PARENT);
 
     perfectCenter = new SolidSpriteUI(0, 0, 200, height, Color.GREEN) {
+      @Override
+      public int getxOff() {
+        return yellowCenter.getXAbs() + yellowCenter.getWidth()/2 - perfectCenter.getWidth()/2;
+      }
       @Override
       public int getWidth() {
         return (int) (((float) ScreenManager.getScreenWidth() / Config.GAME_WINDOW_WIDTH) * 30);
@@ -77,9 +89,10 @@ public class FightGameContainer extends MiniGameContainer {
     };
     perfectCenter.setfillTypeY(FillType.FILL_PARENT);
 
-    centerContainer.addComponent(greenCenter);
-    centerContainer.addComponent(perfectCenter);
-    bar.addComponent(centerContainer);
+    bar.addComponent(yellowCenter);
+    yellowCenter.setAnchor(Anchor.TOP_CENTER);
+    bar.addComponent(perfectCenter);
+    // bar.addComponent(centerContainer);
     bar.addComponent(ticker);
 
     addComponent(bar);
@@ -96,6 +109,7 @@ public class FightGameContainer extends MiniGameContainer {
   @Override
   public void start() {
     isStopped = false;
+    hitLocation = random.nextInt(2, 80);
   }
 
   @Override
@@ -112,7 +126,7 @@ public class FightGameContainer extends MiniGameContainer {
   
   @Override
   public float getScore() {
-    return ((40 - Utils.MathUtils.clamp(Math.abs(step - 50) - 1, 0, 20))) / 40f;
+    return ((40 - Utils.MathUtils.clamp(Math.abs(step - hitLocation) - 2, 0, 20))) / 40f;
 
   }
 
