@@ -15,7 +15,6 @@ import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.Dinosaur;
-import NPCs.EvilCowboy;
 import NPCs.CowboyOne;
 import NPCs.CowboyTwo;
 import NPCs.CowboyThree;
@@ -27,7 +26,6 @@ import Scripts.NewMap.RedPotionScript;
 import Scripts.TestMap.DinoScript;
 import Scripts.WildWestMap.CowboyThreeScript;
 import Scripts.WildWestMap.CowboyTwoScript;
-import Scripts.WildWestMap.EvilCowboyScript;
 import Scripts.WildWestMap.OldCowboyScript;
 import Tilesets.WestTileset;
 import Utils.Point;
@@ -106,10 +104,7 @@ public class WildWestMap extends Map {
         cowboyOne.setInteractScript(new DinoScript());
         npcs.add(cowboyOne);
 
-        EvilCowboy evilCowboy = new EvilCowboy(3, getMapTile(18, 3).getLocation(), 20);
-        //evilCowboy.setExistenceFlag("hasTalkedToCowboy");
-        evilCowboy.setInteractScript(new EvilCowboyScript());
-        npcs.add(evilCowboy);
+        
 
         OldCowboy oldCowboy = new OldCowboy(9, getMapTile(15, 15).getLocation());
         oldCowboy.setInteractScript(new OldCowboyScript());
