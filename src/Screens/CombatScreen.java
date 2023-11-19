@@ -152,7 +152,7 @@ public class CombatScreen extends Screen {
     useItemContainer.setAnchorChildren(true);
     useItemContainer.setfillType(FillType.FILL_SCREEN);
 
-    if (LevelManager.getCurrentLevel() == LevelManager.WILDWEST)
+    if (LevelManager.getCurrentLevel() == LevelManager.SALOON_INSIDE)
       miniGameContainer = new FightGameContainer(initialTextboxHeight);
     else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC)
       miniGameContainer = new DodgeFightGameContainer(initialTextboxHeight);
@@ -602,7 +602,7 @@ public class CombatScreen extends Screen {
         usedItems[i] = false;
       }
       // spawn item
-      if (LevelManager.getCurrentLevel() == LevelManager.WILDWEST) {
+      if (LevelManager.getCurrentLevel() == LevelManager.SALOON_INSIDE) {
         spawnWinningNPC("crystal");
       } else {
         spawnWinningNPC("metal");

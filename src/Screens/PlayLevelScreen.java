@@ -115,7 +115,7 @@ public class PlayLevelScreen extends Screen {
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")) {
-      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(3), "hasTalkedToCowboy", "evilCowboyDefeated");
+      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(4), "hasTalkedToCowboy", "evilCowboyDefeated");
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")){
