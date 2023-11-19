@@ -40,7 +40,6 @@ public class ItemTableScript extends Script<NPC>
             switch (itemsOnTable.size())
             {
                 case 0:
-                    GlobalFlagManager.FLAG_MANAGER.setFlag("win");
                     showTextbox();
                     addTextToTextboxQueue("You are yet to collect any items,\nbetter get going.");
                     break;

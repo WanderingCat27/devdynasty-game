@@ -1,6 +1,7 @@
 package Screens;
 
 import java.awt.Color;
+import java.awt.Image;
 
 import Engine.Config;
 import Engine.GraphicsHandler;
@@ -29,6 +30,7 @@ public class WinScreen extends Screen {
     protected SpriteFont winMessage;
     protected SpriteFont instructions;
     protected SpriteUI youWinPopup;
+    protected SpriteUI winPopup;
     protected KeyLocker keyLocker = new KeyLocker();
     protected PlayLevelScreen playLevelScreen;
      protected ScreenCoordinator screenCoordinator;
@@ -81,9 +83,13 @@ public class WinScreen extends Screen {
                 centerContainer.addComponent(creditButton);      
 
                         centerContainer.addComponent(controlsButton); */
-        youWinPopup = new SpriteUI(0, 0, ImageLoader.load("youWin.png"), 13f);
-        youWinPopup.setAnchor(Anchor.TOP_CENTER);
-        winContainer.addComponent(youWinPopup);    
+        youWinPopup = new SpriteUI(0, 0, ImageLoader.load("you.png"), 13f);
+        youWinPopup.setAnchor(Anchor.BOTTOM_RIGHT);
+        winContainer.addComponent(youWinPopup);
+        
+        winPopup = new SpriteUI(0, 0, ImageLoader.load("win.png"), 13f);
+        winPopup.setAnchor(Anchor.BOTTOM_LEFT);
+        winContainer.addComponent(winPopup);
 
         centerContainer.addComponent(container);
         centerContainer.addComponent(container2);
@@ -104,6 +110,7 @@ public class WinScreen extends Screen {
        // creditButton.scale(scale);
        // controlsButton.scale(scale);
         youWinPopup.scale(scale);
+        winPopup.scale(scale);
 
     }
 
