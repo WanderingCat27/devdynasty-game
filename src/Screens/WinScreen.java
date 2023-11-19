@@ -1,6 +1,7 @@
 package Screens;
 
 import java.awt.Color;
+import java.awt.Image;
 
 import Engine.Config;
 import Engine.GraphicsHandler;
@@ -22,11 +23,14 @@ import ui.Container.CenterContainer;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
 import ui.SpriteFont.SpriteFont;
+import ui.SpriteUI.SpriteUI;
 
 // This class is for the win level screen
 public class WinScreen extends Screen {
     protected SpriteFont winMessage;
     protected SpriteFont instructions;
+    protected SpriteUI youWinPopup;
+    protected SpriteUI winPopup;
     protected KeyLocker keyLocker = new KeyLocker();
     protected PlayLevelScreen playLevelScreen;
      protected ScreenCoordinator screenCoordinator;
@@ -34,6 +38,7 @@ public class WinScreen extends Screen {
 
     protected AnimatedSpriteButton creditButton, controlsButton;
     protected CenterContainer centerContainer;
+    protected CenterContainer winContainer;
 
     public WinScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
@@ -47,22 +52,28 @@ public class WinScreen extends Screen {
         background.setCenterCamera();
 
         centerContainer = new CenterContainer();
+
         centerContainer.setfillType(FillType.FILL_SCREEN);
         centerContainer.setAnchorChildren(false);
         screenCoordinator = new ScreenCoordinator();
+
+        winContainer = new CenterContainer();
+        winContainer.setfillType(FillType.FILL_SCREEN);
+        winContainer.setAnchorChildren(false);
         
 
           PositioningContainer container = new PositioningContainer(Anchor.TOP_CENTER);
+          PositioningContainer container2 = new PositioningContainer(Anchor.TOP_CENTER);
           container.setYOrigin(20);
           container.setAnchorChildren(false);
           container.setfillType(FillType.NONE);
-            controlsButton = new AnimatedSpriteButton(-20,20, 5f, new SpriteSheet(ImageLoader.loadAllowTransparent("second_controls_button.png"), 64, 24), () ->{
+         /*    controlsButton = new AnimatedSpriteButton(-20,20, 5f, new SpriteSheet(ImageLoader.loadAllowTransparent("second_controls_button.png"), 64, 24), () ->{
             screenCoordinator.setGameState(GameState.CONTROLS);
             });
-            controlsButton.setAnchor(Anchor.TOP_RIGHT);
+            controlsButton.setAnchor(Anchor.TOP_RIGHT); */
         
           
-           creditButton = new AnimatedSpriteButton(20, 20, 5, new SpriteSheet(ImageLoader.loadAllowTransparent("credits_button.png"), 64, 24), () ->{
+         /*   creditButton = new AnimatedSpriteButton(20, 20, 5, new SpriteSheet(ImageLoader.loadAllowTransparent("credits_button.png"), 64, 24), () ->{
                 screenCoordinator.setGameState(GameState.CREDITS);
                 System.out.println("executed");
             });
@@ -71,9 +82,18 @@ public class WinScreen extends Screen {
            
                 centerContainer.addComponent(creditButton);      
 
-                        centerContainer.addComponent(controlsButton);      
+                        centerContainer.addComponent(controlsButton); */
+        youWinPopup = new SpriteUI(0, 0, ImageLoader.load("you.png"), 13f);
+        youWinPopup.setAnchor(Anchor.BOTTOM_RIGHT);
+        winContainer.addComponent(youWinPopup);
+        
+        winPopup = new SpriteUI(0, 0, ImageLoader.load("win.png"), 13f);
+        winPopup.setAnchor(Anchor.BOTTOM_LEFT);
+        winContainer.addComponent(winPopup);
 
         centerContainer.addComponent(container);
+        centerContainer.addComponent(container2);
+
     }
 
 
@@ -87,8 +107,10 @@ public class WinScreen extends Screen {
         background.update(null);
         centerContainer.update();
         float scale = getScaleFactor();
-        creditButton.scale(scale);
-        controlsButton.scale(scale);
+       // creditButton.scale(scale);
+       // controlsButton.scale(scale);
+        youWinPopup.scale(scale);
+        winPopup.scale(scale);
 
     }
 
@@ -97,6 +119,7 @@ public class WinScreen extends Screen {
         // graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 191, 163));
 
         centerContainer.draw(graphicsHandler);
+        winContainer.draw(graphicsHandler);
     }
 /*
     @Override
