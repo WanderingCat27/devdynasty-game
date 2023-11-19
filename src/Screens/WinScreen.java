@@ -22,11 +22,13 @@ import ui.Container.CenterContainer;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
 import ui.SpriteFont.SpriteFont;
+import ui.SpriteUI.SpriteUI;
 
 // This class is for the win level screen
 public class WinScreen extends Screen {
     protected SpriteFont winMessage;
     protected SpriteFont instructions;
+    protected SpriteUI youWinPopup;
     protected KeyLocker keyLocker = new KeyLocker();
     protected PlayLevelScreen playLevelScreen;
      protected ScreenCoordinator screenCoordinator;
@@ -53,6 +55,7 @@ public class WinScreen extends Screen {
         
 
           PositioningContainer container = new PositioningContainer(Anchor.TOP_CENTER);
+          PositioningContainer container2 = new PositioningContainer(Anchor.TOP_CENTER);
           container.setYOrigin(20);
           container.setAnchorChildren(false);
           container.setfillType(FillType.NONE);
@@ -71,9 +74,14 @@ public class WinScreen extends Screen {
            
                 centerContainer.addComponent(creditButton);      
 
-                        centerContainer.addComponent(controlsButton);      
+                        centerContainer.addComponent(controlsButton); 
+        youWinPopup = new SpriteUI(0, 0, ImageLoader.load("youWin.png"), 13f);
+        youWinPopup.setAnchor(Anchor.TOP_CENTER);
+        centerContainer.addComponent(youWinPopup);    
 
         centerContainer.addComponent(container);
+        centerContainer.addComponent(container2);
+
     }
 
 
