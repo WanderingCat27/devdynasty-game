@@ -36,6 +36,7 @@ public class WinScreen extends Screen {
 
     protected AnimatedSpriteButton creditButton, controlsButton;
     protected CenterContainer centerContainer;
+    protected CenterContainer winContainer;
 
     public WinScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
@@ -49,9 +50,14 @@ public class WinScreen extends Screen {
         background.setCenterCamera();
 
         centerContainer = new CenterContainer();
+
         centerContainer.setfillType(FillType.FILL_SCREEN);
         centerContainer.setAnchorChildren(false);
         screenCoordinator = new ScreenCoordinator();
+
+        winContainer = new CenterContainer();
+        winContainer.setfillType(FillType.FILL_SCREEN);
+        winContainer.setAnchorChildren(false);
         
 
           PositioningContainer container = new PositioningContainer(Anchor.TOP_CENTER);
@@ -59,13 +65,13 @@ public class WinScreen extends Screen {
           container.setYOrigin(20);
           container.setAnchorChildren(false);
           container.setfillType(FillType.NONE);
-            controlsButton = new AnimatedSpriteButton(-20,20, 5f, new SpriteSheet(ImageLoader.loadAllowTransparent("second_controls_button.png"), 64, 24), () ->{
+         /*    controlsButton = new AnimatedSpriteButton(-20,20, 5f, new SpriteSheet(ImageLoader.loadAllowTransparent("second_controls_button.png"), 64, 24), () ->{
             screenCoordinator.setGameState(GameState.CONTROLS);
             });
-            controlsButton.setAnchor(Anchor.TOP_RIGHT);
+            controlsButton.setAnchor(Anchor.TOP_RIGHT); */
         
           
-           creditButton = new AnimatedSpriteButton(20, 20, 5, new SpriteSheet(ImageLoader.loadAllowTransparent("credits_button.png"), 64, 24), () ->{
+         /*   creditButton = new AnimatedSpriteButton(20, 20, 5, new SpriteSheet(ImageLoader.loadAllowTransparent("credits_button.png"), 64, 24), () ->{
                 screenCoordinator.setGameState(GameState.CREDITS);
                 System.out.println("executed");
             });
@@ -74,10 +80,10 @@ public class WinScreen extends Screen {
            
                 centerContainer.addComponent(creditButton);      
 
-                        centerContainer.addComponent(controlsButton); 
+                        centerContainer.addComponent(controlsButton); */
         youWinPopup = new SpriteUI(0, 0, ImageLoader.load("youWin.png"), 13f);
         youWinPopup.setAnchor(Anchor.TOP_CENTER);
-        centerContainer.addComponent(youWinPopup);    
+        winContainer.addComponent(youWinPopup);    
 
         centerContainer.addComponent(container);
         centerContainer.addComponent(container2);
@@ -95,8 +101,9 @@ public class WinScreen extends Screen {
         background.update(null);
         centerContainer.update();
         float scale = getScaleFactor();
-        creditButton.scale(scale);
-        controlsButton.scale(scale);
+       // creditButton.scale(scale);
+       // controlsButton.scale(scale);
+        youWinPopup.scale(scale);
 
     }
 
@@ -105,6 +112,7 @@ public class WinScreen extends Screen {
         // graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 191, 163));
 
         centerContainer.draw(graphicsHandler);
+        winContainer.draw(graphicsHandler);
     }
 /*
     @Override
