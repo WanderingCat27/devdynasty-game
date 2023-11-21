@@ -78,6 +78,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("win", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpCrystal", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasDroppedCrystalOff", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCB1", false);
     
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
