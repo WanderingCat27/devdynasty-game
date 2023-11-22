@@ -90,6 +90,7 @@ public class CombatScreen extends Screen {
   protected SpriteUI youWinPopup;
   protected NPC npc;
   public static SoundPlayer combatSoundPlayer;
+  public static SoundPlayer combatSoundFXPlayer;
 
   SpriteButton bagButton;
 
@@ -164,6 +165,12 @@ public class CombatScreen extends Screen {
     combatSoundPlayer.setVolume((int) PauseScreen.volume);
     LevelManager.getCurrentLevel().getSoundPlayer().pause();
     LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
+
+    // sound effects
+    combatSoundFXPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/punch1.wav");
+    combatSoundPlayer.setVolume((int) PauseScreen.volume);
+    combatSoundFXPlayer.clip.loop(0);
+    combatSoundFXPlayer.pause();
 
     // images
     youWinPopup = new SpriteUI(0, -40, ImageLoader.load("winPopup.png"), 5f) {
@@ -384,6 +391,7 @@ public class CombatScreen extends Screen {
     TimerTask gameDelay = new TimerTask() {
       @Override
       public void run() {
+        combatSoundFXPlayer.play();
         awaitingAttack = false;
         int damage = 5;
         playerHealth -= damage;
