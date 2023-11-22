@@ -169,7 +169,6 @@ public class CombatScreen extends Screen {
     // sound effects
     combatSoundFXPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/punch1.wav");
     combatSoundPlayer.setVolume((int) PauseScreen.volume);
-    combatSoundFXPlayer.clip.loop(0);
     combatSoundFXPlayer.pause();
 
     // images
@@ -391,6 +390,7 @@ public class CombatScreen extends Screen {
     TimerTask gameDelay = new TimerTask() {
       @Override
       public void run() {
+        combatSoundFXPlayer.clip.setMicrosecondPosition(0);
         combatSoundFXPlayer.play();
         awaitingAttack = false;
         int damage = 5;
