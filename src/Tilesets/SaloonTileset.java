@@ -152,6 +152,30 @@ public class SaloonTileset extends Tileset
             .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(finalMiddleBarBorderTile);
 
+        Frame cornerborder1 = new FrameBuilder(getSubImage(0, 4)).withScale(tileScale)
+            .build();
+        MapTileBuilder cornerborder1Tile = new MapTileBuilder(cornerborder1)
+            .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(cornerborder1Tile);
+
+        Frame cornerborder2 = new FrameBuilder(getSubImage(1, 4)).withScale(tileScale)
+            .build();
+        MapTileBuilder cornerborder2Tile = new MapTileBuilder(cornerborder2)
+            .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(cornerborder2Tile);
+
+        Frame cornerborder3 = new FrameBuilder(getSubImage(2, 4)).withScale(tileScale)
+            .build();
+        MapTileBuilder cornerborder3Tile = new MapTileBuilder(cornerborder3)
+            .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(cornerborder3Tile);
+
+        Frame cornerborder4 = new FrameBuilder(getSubImage(3, 4)).withScale(tileScale)
+            .build();
+        MapTileBuilder cornerborder4Tile = new MapTileBuilder(cornerborder4)
+            .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(cornerborder4Tile);
+
         
         return mapTiles;
 

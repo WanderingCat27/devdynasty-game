@@ -24,7 +24,6 @@ import Scripts.ChangeLevelScript;
 import NPCs.OldCowboy;
 import Scripts.NewMap.RedPotionScript;
 import Scripts.TestMap.DinoScript;
-import Scripts.WildWestMap.CowboyOneScript;
 import Scripts.WildWestMap.CowboyThreeScript;
 import Scripts.WildWestMap.CowboyTwoScript;
 import Scripts.WildWestMap.OldCowboyScript;
@@ -76,6 +75,9 @@ public class WildWestMap extends Map {
     BuildingEntrance wwBuildingSeven = new BuildingEntrance(1, getMapTile(26, 15).getLocation(), 20, 50, "buildingTwo");
     list.add(wwBuildingSeven);
 
+    BuildingEntrance ocHouse = new BuildingEntrance(2, getMapTile(14, 6).getLocation(), 20, 50, "OldCowboyHouseMap");
+    list.add(ocHouse);
+
     return list;
   }
 
@@ -102,12 +104,12 @@ public class WildWestMap extends Map {
 
         CowboyOne cowboyOne = new CowboyOne(2, getMapTile(22, 13).getLocation());
         //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
-        cowboyOne.setInteractScript(new CowboyOneScript());
+        cowboyOne.setInteractScript(new DinoScript());
         npcs.add(cowboyOne);
 
         
 
-        OldCowboy oldCowboy = new OldCowboy(9, getMapTile(15, 15).getLocation());
+        OldCowboy oldCowboy = new OldCowboy(9, getMapTile(13, 6).getLocation());
         oldCowboy.setInteractScript(new OldCowboyScript());
         npcs.add(oldCowboy);
 

@@ -47,6 +47,8 @@ public class ChangeLevelByString extends Script {
       level = LevelManager.FLOOR3;
     else if (this.levelStr.equalsIgnoreCase("future"))
       level = LevelManager.FUTURE;
+    else if (this.levelStr.equalsIgnoreCase("OldCowboyHouseMap"))
+      level = LevelManager.OCHOUSE;
 
     if (level != null) {
       LevelManager.setLevel(level);
