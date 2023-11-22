@@ -90,7 +90,7 @@ public class CombatScreen extends Screen {
   protected SpriteUI youWinPopup;
   protected NPC npc;
   public static SoundPlayer combatSoundPlayer;
-  public static SoundPlayer combatSoundFXPlayer;
+  public static SoundPlayer combatSoundFXPlayer, weakSoundPlayer, strongSoundPlayer, bagSoundPlayer, runSoundPlayer;
 
   SpriteButton bagButton;
 
@@ -167,9 +167,26 @@ public class CombatScreen extends Screen {
     LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
 
     // sound effects
+    // enemy attack sound
     combatSoundFXPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/punch1.wav");
     combatSoundPlayer.setVolume((int) PauseScreen.volume);
     combatSoundFXPlayer.pause();
+    // player weak attack
+    weakSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/weakPunch.wav");
+    weakSoundPlayer.setVolume((int) PauseScreen.volume);
+    weakSoundPlayer.pause();
+    // player strong attack
+    strongSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/strongPunch.wav");
+    strongSoundPlayer.setVolume((int) PauseScreen.volume);
+    strongSoundPlayer.pause();
+    // run
+    runSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/buttonClick.wav");
+    runSoundPlayer.setVolume((int) PauseScreen.volume);
+    runSoundPlayer.pause();
+    // bag
+    bagSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/bag.wav");
+    bagSoundPlayer.setVolume((int) PauseScreen.volume);
+    bagSoundPlayer.pause();
 
     // images
     youWinPopup = new SpriteUI(0, -40, ImageLoader.load("winPopup.png"), 5f) {
@@ -200,8 +217,11 @@ public class CombatScreen extends Screen {
         return;
       if (screenState == SCREENSTATE.RUN)
         screenState = SCREENSTATE.TEXTBOX;
-      else
+      else {
+        runSoundPlayer.clip.setMicrosecondPosition(0);
+        runSoundPlayer.play();
         screenState = SCREENSTATE.RUN;
+      }
     });
 
     SpriteButton fightButton = new SpriteButton(0, 0, buttonScale, ImageLoader.load("FightButtonNew.png"),
@@ -226,8 +246,11 @@ public class CombatScreen extends Screen {
               return;
             if (screenState == SCREENSTATE.INVENTORY)
               screenState = SCREENSTATE.TEXTBOX;
-            else
+            else {
               screenState = SCREENSTATE.INVENTORY;
+              bagSoundPlayer.clip.setMicrosecondPosition(0);
+              bagSoundPlayer.play();
+            }
           }
 
         });
@@ -434,6 +457,13 @@ public class CombatScreen extends Screen {
             TimerTask gameDelay = new TimerTask() {
               @Override
               public void run() {
+                if (damage >= 8) {
+                  strongSoundPlayer.clip.setMicrosecondPosition(0);
+                  strongSoundPlayer.play();
+                } else {
+                  weakSoundPlayer.clip.setMicrosecondPosition(0);
+                  weakSoundPlayer.play();
+                }
                 System.out.println("Health: " + playerHealth);
                 if (healthZero()) {
                   textbox.setText("You did " + damage + " damage." + "\n\nYou have defeated the Enemy!");
