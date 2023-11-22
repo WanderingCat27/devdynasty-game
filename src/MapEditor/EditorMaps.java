@@ -14,9 +14,11 @@ import Maps.Future.FloorThreeMap;
 import Maps.Future.FloorTwoMap;
 import Maps.Future.FutureMap;
 import Maps.Future.ReceptionMap;
+import Maps.WildWest.OldCowboyHouseMap;
 import Maps.WildWest.SaloonMap;
 import Maps.WildWest.WWBuildingOne;
 import Maps.WildWest.WWBuildingTwo;
+import Maps.WildWest.WildWestMap;
 import Maps.WinMap;
 
 public class EditorMaps {
@@ -33,6 +35,7 @@ public class EditorMaps {
             add("FutureMap");
             add("WWBuildingOne");
             add("WWBuildingTwo");
+            add("OCHouseMap");
             add("Reception");
             add("Floor1");
             add("Floor2");
@@ -50,7 +53,7 @@ public class EditorMaps {
             case "NewMap":
                 return new NewMap();
             case "WildWestMap":
-                return new FutureMap();
+                return new WildWestMap();
             case "ScienceLabMap":
                 return new ScienceLabMap();
             case "CombatMap":
@@ -65,6 +68,7 @@ public class EditorMaps {
               return new WWBuildingOne();
             case "WWBuildingTwo":
               return new WWBuildingTwo();
+            case "OCHouseMap": return new OldCowboyHouseMap();
             case "Reception":
               return new ReceptionMap();
             case "Floor1": return new FloorOneMap();

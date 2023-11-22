@@ -9,6 +9,7 @@ import Maps.Future.FloorThreeMap;
 import Maps.Future.FloorTwoMap;
 import Maps.Future.FutureMap;
 import Maps.Future.ReceptionMap;
+import Maps.WildWest.OldCowboyHouseMap;
 import Maps.WildWest.SaloonMap;
 import Maps.WildWest.WWBuildingOne;
 import Maps.WildWest.WWBuildingTwo;
@@ -101,6 +102,15 @@ public class LevelManager {
     @Override
     protected Map getMapInstance() {
       return new FutureMap();
+    }
+
+  };
+
+  public static Level OCHOUSE = new Level() {
+
+    @Override
+    protected Map getMapInstance() {
+      return new OldCowboyHouseMap();
     }
 
   };

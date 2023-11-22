@@ -75,6 +75,9 @@ public class WildWestMap extends Map {
     BuildingEntrance wwBuildingSeven = new BuildingEntrance(1, getMapTile(26, 15).getLocation(), 20, 50, "buildingTwo");
     list.add(wwBuildingSeven);
 
+    BuildingEntrance ocHouse = new BuildingEntrance(2, getMapTile(14, 6).getLocation(), 20, 50, "OldCowboyHouseMap");
+    list.add(ocHouse);
+
     return list;
   }
 
@@ -95,8 +98,9 @@ public class WildWestMap extends Map {
         ArrayList<NPC> npcs = new ArrayList<>();
 
 
-        RedPotion redPotion = new RedPotion(4, getMapTile(4, 4).getLocation());
+        RedPotion redPotion = new RedPotion(4, getMapTile(26, 25).getLocation());
         redPotion.setInteractScript(new RedPotionScript());
+        redPotion.setIsHidden(true);
         npcs.add(redPotion);
 
         CowboyOne cowboyOne = new CowboyOne(2, getMapTile(22, 13).getLocation());
@@ -106,15 +110,15 @@ public class WildWestMap extends Map {
 
         
 
-        OldCowboy oldCowboy = new OldCowboy(9, getMapTile(15, 15).getLocation());
+        OldCowboy oldCowboy = new OldCowboy(9, getMapTile(13, 6).getLocation());
         oldCowboy.setInteractScript(new OldCowboyScript());
         npcs.add(oldCowboy);
 
-        CowboyTwo cowboyTwo = new CowboyTwo(9, getMapTile(26, 18).getLocation());
+        CowboyTwo cowboyTwo = new CowboyTwo(10, getMapTile(26, 18).getLocation());
         cowboyTwo.setInteractScript(new CowboyTwoScript());
         npcs.add(cowboyTwo);
 
-        CowboyThree cowboyThree = new CowboyThree(9, getMapTile(27, 25).getLocation());
+        CowboyThree cowboyThree = new CowboyThree(11, getMapTile(27, 25).getLocation());
         cowboyThree.setInteractScript(new CowboyThreeScript());
         npcs.add(cowboyThree);
 

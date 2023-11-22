@@ -156,6 +156,8 @@ public class CombatScreen extends Screen {
       miniGameContainer = new FightGameContainer(initialTextboxHeight);
     else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC)
       miniGameContainer = new DodgeFightGameContainer(initialTextboxHeight);
+    else // default case
+      miniGameContainer = new FightGameContainer(initialTextboxHeight);
 
     // sound
     combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/combat.wav");
@@ -604,7 +606,7 @@ public class CombatScreen extends Screen {
       // spawn item
       if (LevelManager.getCurrentLevel() == LevelManager.SALOON_INSIDE) {
         spawnWinningNPC("crystal");
-      } else {
+      } else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC){
         spawnWinningNPC("metal");
       }
       System.out.println("Spawning a new item");
