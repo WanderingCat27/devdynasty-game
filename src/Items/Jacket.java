@@ -7,6 +7,7 @@ import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import GameObject.Item;
 import Scripts.NewMap.SwordScript;
+import Scripts.WildWestMap.JacketScript;
 
 public class Jacket extends Item
 {
@@ -16,7 +17,7 @@ public class Jacket extends Item
     {
         super(id,point,"jacket.png");
         this.setIsUncollidable(true);
-        this.setInteractScript(new SwordScript());
+        this.setInteractScript(new JacketScript());
     }
 
     @Override

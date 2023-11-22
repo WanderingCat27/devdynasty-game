@@ -1,14 +1,12 @@
 package Scripts.WildWestMap;
 
-import Level.NPC;
-import Level.Script;
-import Level.ScriptState;
 import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
 import Engine.Key;
 import Engine.Keyboard;
 import GameObject.Frame;
 import GameObject.Inventory;
+import Items.Jacket;
 import Level.*;
 import Utils.Direction;
 import Utils.Point;
@@ -24,11 +22,14 @@ public class CowboyThreeScript extends Script<NPC> {
 
         if (!GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCB3")) {
             resetDialogue(); // Reset the dialogue
-        } else if (jacketPickedUp) {
+        } else if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("jacketPickedUp")) {
             questWin();
         }
         else if (!isChoosing) {
             hideTextbox();
+        } else {
+            showTextbox();
+            addTextToTextboxQueue("Great, thank you partner!");
         }
 
         entity.facePlayer(player);
@@ -38,7 +39,18 @@ public class CowboyThreeScript extends Script<NPC> {
         System.out.println("quest win");
         showTextbox();
         addTextToTextboxQueue("Great, thank you partner!");
-        jacketPickedUp = false;
+        for (int i = 0; i < 4; i++) {
+            if (Inventory.get(i) instanceof Jacket) {
+                Inventory.remove(i);
+                break;
+            }
+        }
+        addTextToTextboxQueue("Here, take this.");
+        LevelManager.getCurrentLevel().getMap().getNPCById(4).setIsHidden(false);
+        addTextToTextboxQueue("A health potion.");
+        addTextToTextboxQueue("Might come in handy later...\nYou never know who you'll run into 'round here.");
+        
+        GlobalFlagManager.FLAG_MANAGER.unsetFlag("jacketPickedUp");
     }
 
     @Override

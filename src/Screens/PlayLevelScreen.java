@@ -82,6 +82,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("acceptedCBquest", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToBat", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("batDefeated", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("jacketPickedUp", false);
     
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
