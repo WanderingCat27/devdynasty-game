@@ -109,6 +109,18 @@ public enum Anchor {
         }
     },
 
+    BOTTOM_CENTER_EXTRA {
+        @Override
+        public int getXOffset(UIContainer c) {
+            return -c.getWidth()/2;
+        }
+
+        @Override
+        public int getYOffset(UIContainer c) {
+            return -c.getHeight()-10;
+        }
+    },
+
     BOTTOM_RIGHT
  {
         @Override
