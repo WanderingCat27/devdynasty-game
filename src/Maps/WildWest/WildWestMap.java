@@ -108,8 +108,6 @@ public class WildWestMap extends Map {
         cowboyOne.setInteractScript(new DinoScript());
         npcs.add(cowboyOne);
 
-        
-
         OldCowboy oldCowboy = new OldCowboy(9, getMapTile(13, 6).getLocation());
         oldCowboy.setInteractScript(new OldCowboyScript());
         npcs.add(oldCowboy);
