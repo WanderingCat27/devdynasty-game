@@ -157,7 +157,7 @@ public class CombatScreen extends Screen {
     useItemContainer.setAnchorChildren(true);
     useItemContainer.setfillType(FillType.FILL_SCREEN);
 
-    if (LevelManager.getCurrentLevel() == LevelManager.SALOON_INSIDE)
+    if (LevelManager.getCurrentLevel() == LevelManager.SALOON_INSIDE || LevelManager.getCurrentLevel() == LevelManager.OCHOUSE)
       miniGameContainer = new FightGameContainer(initialTextboxHeight);
     else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC)
       miniGameContainer = new DodgeFightGameContainer(initialTextboxHeight);
