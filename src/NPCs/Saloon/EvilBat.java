@@ -18,7 +18,7 @@ public class EvilBat extends NPC
         super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("EvilBat.png"), 14, 19), "STAND_DOWN");
     }
 
-    public EvilBat(int id, Utils.Point point, double startingHealth){
+    public EvilBat(int id, Utils.Point point, int startingHealth){
         super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("EvilBat.png"), 14, 19), "STAND_DOWN", startingHealth);
     }
 

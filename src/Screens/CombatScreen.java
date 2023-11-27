@@ -215,8 +215,8 @@ public class CombatScreen extends Screen {
     youWinPopup.setAnchor(Anchor.TOP_CENTER);
     winContainer.addComponent(youWinPopup);
 
-    playerHealthText = new SpriteFont(""+playerHealth, 210, -270, "Comic Sans", 30, Color.white);
-    enemyHealthText = new SpriteFont(""+enemyHealth, (ScreenManager.getScreenWidth()/2)+100, 25, "Comic Sans", 30, Color.white);
+    playerHealthText = new SpriteFont(""+playerHealth, 225, -270, "Comic Sans", 30, Color.white);
+    enemyHealthText = new SpriteFont(""+enemyHealth, (ScreenManager.getScreenWidth()/2)+115, 25, "Comic Sans", 30, Color.white);
     // map background
     background = new CombatMap();
 

@@ -109,7 +109,7 @@ public class FightGameContainer extends MiniGameContainer {
   @Override
   public void start() {
     isStopped = false;
-    hitLocation = random.nextInt(2, 80);
+    hitLocation = random.nextInt(80-2+1)+2;
   }
 
   @Override
