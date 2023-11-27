@@ -73,6 +73,9 @@ public class CombatScreen extends Screen {
   private boolean isInitialized;
   private boolean gameOver;
 
+  private double attackAnimationAngle = 0;
+  private BufferedImage enemyImage;
+
   private enum SCREENSTATE {
     TEXTBOX, FIGHTGAME, INVENTORY, USE_ITEM, RUN
   }
@@ -204,6 +207,7 @@ public class CombatScreen extends Screen {
     };
     winContainer.addComponent(youWinPopup);
     BufferedImage enemyImage = ImageLoader.loadSubImage(npc.getPathToImage(), Colors.MAGENTA, 0, 0, 14, 19);
+    this.enemyImage = enemyImage;
     enemy = new SpriteUI(0, 0, enemyImage, 15);
     enemy.setAnchor(Anchor.BOTTOM_CENTER);
     enemyHealthBar = new HealthBar((ScreenManager.getScreenWidth()/2)-100, 30, 200, 30, Colors.LIGHT_GREEN, Colors.BLACK, enemyHealth);
@@ -427,6 +431,7 @@ public class CombatScreen extends Screen {
       public void run() {
         combatSoundFXPlayer.clip.setMicrosecondPosition(0);
         combatSoundFXPlayer.play();
+        attackAnimation();
         awaitingAttack = false;
         int damage = (int)(Math.random()*12)+4;
         playerHealth -= damage;
@@ -563,6 +568,31 @@ public class CombatScreen extends Screen {
       enemyHealthBar.draw(graphicsHandler);
       enemyHealthText.draw(graphicsHandler);
       
+  }
+
+  private void attackAnimation()
+  {
+       double radius = 40; // Adjust the radius as needed
+       double speed = 2 * Math.PI / 60.0; // One full circle in one second at 60 fps
+
+       for (int frame = 0; frame < 60; frame++) {
+           // Update the enemy's position for each frame
+           enemy.setX((int) (0 + radius * Math.cos(speed * frame)));
+           enemy.setY((int) (0 + radius * Math.sin(speed * frame)));
+
+           // Render or do other necessary actions here
+
+           // Sleep to achieve 60 fps (assuming this method is called in a loop)
+           try {
+               Thread.sleep(7); // Adjust sleep time as needed
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           }
+       }
+
+       // After the animation, return to the original location
+       enemy.setX(0);
+       enemy.setY(0);
   }
 
   protected void scaleAll() {

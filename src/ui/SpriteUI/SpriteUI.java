@@ -42,4 +42,5 @@ public class SpriteUI extends UIContainer {
     setImage(ImageUtils.scaleImage(originalImage, scale));
   }
 
+
 }
