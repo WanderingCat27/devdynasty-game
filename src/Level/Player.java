@@ -417,4 +417,9 @@ public abstract class Player extends GameObject {
     walkingSoundPlayer.pause();
   }
 
+  public void changeCostume(SpriteSheet spriteSheet, String startingAnimationName) {
+    this.animations = loadAnimations(spriteSheet);
+    this.currentAnimationName = startingAnimationName;
+  }
+
 }

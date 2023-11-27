@@ -18,6 +18,12 @@ public class PlayerAsh extends Player
         walkSpeed = 2.3f;
     }
 
+    public PlayerAsh(float x, float y, String startingAnimation)
+    {
+        super(new SpriteSheet(ImageLoader.load("CowboyPlayer.png"), 14, 19), x, y, startingAnimation);
+        walkSpeed = 2.3f;
+    }
+
     public void update() {
         super.update();
     }
@@ -135,4 +141,5 @@ public class PlayerAsh extends Player
             });
         }};
     }
+
 }
