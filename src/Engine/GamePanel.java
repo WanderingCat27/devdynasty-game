@@ -124,6 +124,8 @@ public class GamePanel extends JPanel {
         level = LevelManager.PREHISTORIC;
       else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC)
         level = LevelManager.FUTURE;
+      else if (LevelManager.getCurrentLevel() == LevelManager.FUTURE)
+        level = LevelManager.OCHOUSE;
 
       LevelManager.setLevel(level);
 

@@ -8,6 +8,7 @@ import Engine.KeyLocker;
 import Engine.Keyboard;
 import Engine.Mouse;
 import Engine.Screen;
+import Engine.ScreenManager;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Inventory;
@@ -26,6 +27,9 @@ import Maps.WildWest.WildWestMap;
 import NPCs.EvilCowboy;
 import Scripts.ChangeLevelByString;
 import Scripts.ChangeLevelScript;
+import Scripts.ScienceLab.CheckDroppedItemScript;
+import Scripts.ScienceLab.ItemTableScript;
+import Scripts.ScienceLab.PickUpItemScript;
 import Utils.Point;
 import ui.Container.Anchor;
 import ui.Container.PositioningContainer;
@@ -71,6 +75,17 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasBeatCowboy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("evilCowboyDefeated", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("cavemanDefeated", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("win", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpCrystal", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasDroppedCrystalOff", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCB3", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("acceptedCBquest", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToBat", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("batDefeated", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("jacketPickedUp", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasChangedCostume", false);
+
+    
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
     pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer,
@@ -90,7 +105,6 @@ public class PlayLevelScreen extends Screen {
     if (combatScreen == null)
       combatScreen = new CombatScreen(this);
 
-    // LevelManager.getCurrentLevel().getMap().soundPlayer.play();
     if (LevelManager.getCurrentLevel().getSoundPlayer() != null) {
       LevelManager.getCurrentLevel().getSoundPlayer().setVolume((int) currentVolume);
       LevelManager.getCurrentLevel().getSoundPlayer().clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -108,16 +122,31 @@ public class PlayLevelScreen extends Screen {
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")) {
-      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(3), "hasTalkedToCowboy", "evilCowboyDefeated");
+      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(4), "hasTalkedToCowboy", "evilCowboyDefeated");
     }
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToBat") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("batDefeated"))
+      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(6), "hasTalkedToBat", "batDefeated");
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")){
-        if(LevelManager.getCurrentLevel() == LevelManager.LAB) {
+        if(LevelManager.getCurrentLevel() == LevelManager.LAB && GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasDroppedCrystalOff")) {
           LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("prehistoric"));
         }
-        if(LevelManager.getCurrentLevel() == LevelManager.WILDWEST){
+        else if(LevelManager.getCurrentLevel() == LevelManager.LAB && ItemTableScript.itemsOnTable.size() == 0)
+        {
+          LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new CheckDroppedItemScript());
+        }
+        //LevelManager.getCurrentLevel().getMap().getNPCById(2).setIsHidden(false);
+        if(LevelManager.getCurrentLevel() == LevelManager.WILDWEST)
+        {
           LevelManager.getCurrentLevel().getMap().getNPCById(6).setIsHidden(false);
-          System.out.println("Time machine visible");
+          if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasPickedUpCrystal"))
+          {
+            LevelManager.getCurrentLevel().getMap().getNPCById(6).setInteractScript(new ChangeLevelScript(LevelManager.LAB));
+          }
+          else
+          {
+            LevelManager.getCurrentLevel().getMap().getNPCById(6).setInteractScript(new PickUpItemScript());
+          }
       }
     }
 
@@ -135,6 +164,10 @@ public class PlayLevelScreen extends Screen {
       }
     }
 
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("win")) {
+      playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+    }
+
     if (Keyboard.isKeyDown(ESC) && !keyLocker.isKeyLocked(ESC)) {
       keyLocker.lockKey(ESC);
       if (playLevelScreenState == PlayLevelScreenState.RUNNING || playLevelScreenState == PlayLevelScreenState.COMBAT)
@@ -145,6 +178,7 @@ public class PlayLevelScreen extends Screen {
     if (keyLocker.isKeyLocked(ESC) && Keyboard.isKeyUp(ESC)) {
       keyLocker.unlockKey(ESC);
     }
+    
 
     // based on screen state, perform specific actions
     switch (playLevelScreenState) {
