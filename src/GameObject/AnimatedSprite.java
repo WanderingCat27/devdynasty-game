@@ -122,6 +122,13 @@ public class AnimatedSprite implements IntersectableRectangle {
     return null;
   }
 
+  public void changeCostume(SpriteSheet spriteSheet, String startingAnimationName)
+  {
+    this.animations = loadAnimations(spriteSheet);
+    this.currentAnimationName = startingAnimationName;
+    updateCurrentFrame();
+  }
+
   public HashMap<String, Frame[]> getAnimations() {
     return this.animations;
   }

@@ -27,6 +27,7 @@ import Scripts.TestMap.DinoScript;
 import Scripts.WildWestMap.CowboyThreeScript;
 import Scripts.WildWestMap.CowboyTwoScript;
 import Scripts.WildWestMap.OldCowboyScript;
+import Scripts.WildWestMap.SaloonBounderScript;
 import Tilesets.WestTileset;
 import Utils.Point;
 import java.awt.AlphaComposite;
@@ -45,8 +46,8 @@ public class WildWestMap extends Map {
   public ArrayList<Item> loadItems() {
     ArrayList list = new ArrayList<>();
 
-    BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(23, 11).getLocation(), 96, 20, "saloon");
-    list.add(saloonEntrance);
+    // BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(23, 11).getLocation(), 96, 20, "saloon");
+    // list.add(saloonEntrance);
 
     BuildingEntrance wwBuildingOne = new BuildingEntrance(1, getMapTile(20, 16).getLocation(), 20, 200, "buildingOne");
     list.add(wwBuildingOne);
@@ -103,9 +104,9 @@ public class WildWestMap extends Map {
         redPotion.setIsHidden(true);
         npcs.add(redPotion);
 
-        CowboyOne cowboyOne = new CowboyOne(2, getMapTile(22, 13).getLocation());
+        CowboyOne cowboyOne = new CowboyOne(2, getMapTile(24, 11).getLocation());
         //dinosaur.setExistenceFlag("hasTalkedToDinosaur");
-        cowboyOne.setInteractScript(new DinoScript());
+        cowboyOne.setInteractScript(new SaloonBounderScript());
         npcs.add(cowboyOne);
 
         OldCowboy oldCowboy = new OldCowboy(9, getMapTile(13, 6).getLocation());

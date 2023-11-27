@@ -39,7 +39,28 @@ public abstract class Level {
     if (playerPosition == null) {
       playerPosition = this.map.getPlayerStartPosition();
     }
-    this.player = new PlayerAsh(playerPosition.x, playerPosition.y);
+    if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasDroppedCrystalOff"))
+    {
+      this.player = new PlayerAsh(playerPosition.x, playerPosition.y);
+    }
+    else if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasChangedCostume"))
+    {
+      this.player = new PlayerAsh(playerPosition.x, playerPosition.y, "STAND_RIGHT");
+    }
+    else
+    {
+      this.player = new PlayerAsh(playerPosition.x, playerPosition.y);
+    }
+    // if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated") && GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasDroppedCrystalOff")) {
+    //   this.player = new PlayerAsh(playerPosition.x, playerPosition.y, "STAND_RIGHT");
+    // } else if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasChangedCostume")) {
+    //   this.player = new PlayerAsh(playerPosition.x, playerPosition.y);
+    // }
+    // else
+    // {
+    //   this.player = new PlayerAsh(playerPosition.x, playerPosition.y);
+    // }
+    //this.player = new PlayerAsh(playerPosition.x, playerPosition.y);
     if (map.soundPlayer != null)
       map.soundPlayer.pause();
     this.player.setMap(map);
@@ -111,6 +132,10 @@ public abstract class Level {
 
   public Player getPlayer() {
     return player;
+  }
+
+  public void setPlayer(Player player) {
+    this.player = player;
   }
 
   public Map getMap() {
