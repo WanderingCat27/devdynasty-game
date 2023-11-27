@@ -61,6 +61,7 @@ import NPCs.EvilCowboy;
 import GameObject.Inventory;
 import GameObject.Item;
 import ui.Textbox.Textbox;
+import ui.SpriteFont.SpriteFont;
 
 public class CombatScreen extends Screen {
 
@@ -91,6 +92,8 @@ public class CombatScreen extends Screen {
   protected SpriteUI youWinPopup;
   protected HealthBar enemyHealthBar;
   protected HealthBar playerHealthBar;
+  protected SpriteFont enemyHealthText;
+  protected SpriteFont playerHealthText;
   protected NPC npc;
   public static SoundPlayer combatSoundPlayer;
 
@@ -182,6 +185,8 @@ public class CombatScreen extends Screen {
     youWinPopup.setAnchor(Anchor.BOTTOM_CENTER);
     winContainer.addComponent(youWinPopup);
 
+    playerHealthText = new SpriteFont(""+playerHealth, 210, -270, "Comic Sans", 30, Color.white);
+    enemyHealthText = new SpriteFont(""+enemyHealth, (ScreenManager.getScreenWidth()/2)+100, 25, "Comic Sans", 30, Color.white);
     // map background
     background = new CombatMap();
 
@@ -223,12 +228,13 @@ public class CombatScreen extends Screen {
 
         });
     playerHealthBar = new HealthBar(10, -275, 200, 30, Colors.LIGHT_GREEN, Colors.BLACK, playerHealth);
-
+    
     PositioningContainer left = new PositioningContainer(Anchor.BOTTOM_LEFT);
     left.setAnchorChildren(true);
     left.setfillType(FillType.FILL_PARENT);
     left.addComponent(fightButton);
     left.addComponent(playerHealthBar);
+    left.addComponent(playerHealthText);
 
     PositioningContainer middle = new PositioningContainer(Anchor.BOTTOM_CENTER);
     middle.setfillType(FillType.FILL_PARENT);
@@ -359,6 +365,7 @@ public class CombatScreen extends Screen {
         int damage = (int)(Math.random()*12)+4;
         playerHealth -= damage;
         playerHealthBar.update(playerHealth);
+        playerHealthText.setText(""+playerHealth);
         textbox.setText("Enemy did " + damage + " damage" + "\nYour Health: " + playerHealth + "\nWhat will you do?");
         timer.cancel();
       }
@@ -410,6 +417,7 @@ public class CombatScreen extends Screen {
             };
             timer.schedule(gameDelay, 0, 3000);
             enemyHealthBar.update(enemyHealth);
+            enemyHealthText.setText(""+enemyHealth);
             if(!healthZero()){
                playerTurn = false;
             }
@@ -487,6 +495,7 @@ public class CombatScreen extends Screen {
     else
       fightContainer.draw(graphicsHandler);
       enemyHealthBar.draw(graphicsHandler);
+      enemyHealthText.draw(graphicsHandler);
       
   }
 
