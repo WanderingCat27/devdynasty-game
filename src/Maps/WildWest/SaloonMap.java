@@ -8,8 +8,10 @@ import Items.BuildingEntrance;
 import Level.Map;
 import Level.NPC;
 import Level.Trigger;
+import NPCs.EvilCowboy;
 import NPCs.Saloon.BarTable;
 import NPCs.Saloon.RoundTable;
+import Scripts.WildWestMap.EvilCowboyScript;
 import Tilesets.SaloonTileset;
 
 
@@ -41,6 +43,11 @@ public class SaloonMap extends Map {
 
       NPC roundTable2 = new RoundTable(3, getMapTile(12, 11).getLocation());
       npcs.add(roundTable2);
+
+      EvilCowboy evilCowboy = new EvilCowboy(4, getMapTile(8, 5).getLocation(), 20);
+      //evilCowboy.setExistenceFlag("hasTalkedToCowboy");
+      evilCowboy.setInteractScript(new EvilCowboyScript());
+      npcs.add(evilCowboy);
 
       return npcs;
   }

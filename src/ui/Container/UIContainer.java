@@ -173,6 +173,10 @@ public class UIContainer {
     this.components.add(comp);
   }
 
+  public void removeComponent(UIContainer comp) {
+    this.components.remove(comp);
+  }
+
   public void setAnchor(Anchor anchor) {
     this.anchor = anchor;
   }

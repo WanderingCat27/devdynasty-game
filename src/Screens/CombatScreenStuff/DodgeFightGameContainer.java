@@ -83,7 +83,7 @@ public class DodgeFightGameContainer extends MiniGameContainer {
   }
 
   private boolean isColliding() {
-    return xPos > 22 && getClosestIndex() < 10 && getObstacleX(getClosestIndex()) >= 0
+    return xPos > 32 && getClosestIndex() < 10 && getObstacleX(getClosestIndex()) >= 0
         && onRoof == points[MathUtils.clamp(getClosestIndex(), 0, 9)];
   }
 

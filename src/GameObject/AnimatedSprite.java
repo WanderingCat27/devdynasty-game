@@ -39,7 +39,8 @@ public class AnimatedSprite implements IntersectableRectangle {
   // frame delay before transitioning into the next frame of an animation
   private int frameDelayCounter;
 
-  public AnimatedSprite(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
+  public AnimatedSprite(SpriteSheet spriteSheet, float x, float y, String startingAnimationName)
+  {
     this.x = x;
     this.y = y;
     this.animations = loadAnimations(spriteSheet);
@@ -119,6 +120,13 @@ public class AnimatedSprite implements IntersectableRectangle {
   // which will be loaded in at initialization time
   public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
     return null;
+  }
+
+  public void changeCostume(SpriteSheet spriteSheet, String startingAnimationName)
+  {
+    this.animations = loadAnimations(spriteSheet);
+    this.currentAnimationName = startingAnimationName;
+    updateCurrentFrame();
   }
 
   public HashMap<String, Frame[]> getAnimations() {

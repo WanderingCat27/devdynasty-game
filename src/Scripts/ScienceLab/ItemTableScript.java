@@ -12,6 +12,7 @@ import Engine.Keyboard;
 import GameObject.ImageEffect;
 import GameObject.Inventory;
 import GameObject.Item;
+import Level.GlobalFlagManager;
 import Level.Map;
 import Level.NPC;
 import Level.Script;
@@ -22,7 +23,7 @@ import Items.BossItems.*;
 public class ItemTableScript extends Script<NPC>
 {
     private boolean hasItem;
-    private static ArrayList<Item> itemsOnTable = new ArrayList<>();
+    public static ArrayList<Item> itemsOnTable = new ArrayList<>();
     
     //Need keyboard
     protected KeyLocker keyLocker = new KeyLocker();
@@ -47,11 +48,13 @@ public class ItemTableScript extends Script<NPC>
                     addTextToTextboxQueue("Only 2 more to go.");
                     break;
                 case 2:
+                    // test, change to case 3 once final boss fight is ready
+                    GlobalFlagManager.FLAG_MANAGER.setFlag("win");
                     showTextbox();
                     addTextToTextboxQueue("Just 1 more to go.");
                     break;
                 case 3:
-                    //end the game 
+                    GlobalFlagManager.FLAG_MANAGER.setFlag("win");
                     break;
             }
         }
@@ -85,6 +88,7 @@ public class ItemTableScript extends Script<NPC>
                 }
                 if(itemsOnTable.size() == 1)
                 {
+                    setFlag("hasDroppedCrystalOff");
                    this.entity.setCurrentAnimationName("ONE_ITEM");
                 }
                 else if(itemsOnTable.size() == 2)

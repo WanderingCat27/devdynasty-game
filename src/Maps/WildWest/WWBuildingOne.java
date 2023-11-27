@@ -6,9 +6,11 @@ import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import Tilesets.SaloonTileset;
+import NPCs.OldCowboy;
 import NPCs.Saloon.RoundTable;
 import NPCs.ScienceLab.Bed;
 import NPCs.ScienceLab.Bookshelf;
+import Scripts.WildWestMap.ChangeCostume;
 
 
 public class WWBuildingOne extends Map {
@@ -31,11 +33,9 @@ public class WWBuildingOne extends Map {
     {
         ArrayList<NPC> npcs = new ArrayList<>();
       
-        Bed bed = new Bed(8, getMapTile(7, 10).getLocation());
-        npcs.add(bed);
-
-        Bookshelf bookshelf = new Bookshelf(9, getMapTile(8, 7).getLocation());
-        npcs.add(bookshelf);
+        NPC oldCowboy = new OldCowboy(1, getMapTile(8, 9).getLocation());
+        oldCowboy.setInteractScript(new ChangeCostume());
+        npcs.add(oldCowboy);
 
         NPC roundTable = new RoundTable(2, getMapTile(12, 9).getLocation());
         npcs.add(roundTable);

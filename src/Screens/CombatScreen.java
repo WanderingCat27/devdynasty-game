@@ -96,14 +96,15 @@ public class CombatScreen extends Screen {
   protected SpriteFont playerHealthText;
   protected NPC npc;
   public static SoundPlayer combatSoundPlayer;
+  public static SoundPlayer combatSoundFXPlayer, weakSoundPlayer, strongSoundPlayer, bagSoundPlayer, runSoundPlayer;
 
   SpriteButton bagButton;
 
   protected PositioningContainer textBoxContainer;
   protected UIContainer fightContainer;
-  protected CenterContainer winContainer;
+  protected PositioningContainer winContainer;
   private PositioningContainer bagContainer;
-  private CenterContainer runContainer;
+  private PositioningContainer runContainer;
   private PositioningContainer useItemContainer;
   private MiniGameContainer miniGameContainer;
   private boolean[] usedItems;
@@ -146,11 +147,11 @@ public class CombatScreen extends Screen {
     textBoxContainer.setAnchorChildren(true);
     textBoxContainer.setfillType(FillType.FILL_SCREEN);
 
-    winContainer = new CenterContainer();
+    winContainer = new PositioningContainer(Anchor.TOP_CENTER);
     winContainer.setfillType(FillType.FILL_SCREEN);
     winContainer.setAnchorChildren(false);
 
-    runContainer = new CenterContainer();
+    runContainer = new PositioningContainer(Anchor.BOTTOM_CENTER);
     runContainer.setfillType(FillType.FILL_SCREEN);
     runContainer.setAnchorChildren(false);
 
@@ -158,10 +159,12 @@ public class CombatScreen extends Screen {
     useItemContainer.setAnchorChildren(true);
     useItemContainer.setfillType(FillType.FILL_SCREEN);
 
-    if(LevelManager.getCurrentLevel() == LevelManager.WILDWEST)
-    miniGameContainer = new FightGameContainer(initialTextboxHeight);
-    else if(LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC)
-    miniGameContainer = new DodgeFightGameContainer(initialTextboxHeight);
+    if (LevelManager.getCurrentLevel() == LevelManager.SALOON_INSIDE)
+      miniGameContainer = new FightGameContainer(initialTextboxHeight);
+    else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC)
+      miniGameContainer = new DodgeFightGameContainer(initialTextboxHeight);
+    else // default case
+      miniGameContainer = new FightGameContainer(initialTextboxHeight);
 
     // sound
     combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/combat.wav");
@@ -169,8 +172,35 @@ public class CombatScreen extends Screen {
     LevelManager.getCurrentLevel().getSoundPlayer().pause();
     LevelManager.getCurrentLevel().getPlayer().stopSound(); // stops walking sound
 
+    // sound effects
+    // enemy attack sound
+    combatSoundFXPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/punch1.wav");
+    combatSoundPlayer.setVolume((int) PauseScreen.volume);
+    combatSoundFXPlayer.pause();
+    // player weak attack
+    weakSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/weakPunch.wav");
+    weakSoundPlayer.setVolume((int) PauseScreen.volume);
+    weakSoundPlayer.pause();
+    // player strong attack
+    strongSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/strongPunch.wav");
+    strongSoundPlayer.setVolume((int) PauseScreen.volume);
+    strongSoundPlayer.pause();
+    // run
+    runSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/buttonClick.wav");
+    runSoundPlayer.setVolume((int) PauseScreen.volume);
+    runSoundPlayer.pause();
+    // bag
+    bagSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/bag.wav");
+    bagSoundPlayer.setVolume((int) PauseScreen.volume);
+    bagSoundPlayer.pause();
+
     // images
-    youWinPopup = new SpriteUI(0, -40, ImageLoader.load("winPopup.png"), 7f);
+    youWinPopup = new SpriteUI(0, -40, ImageLoader.load("winPopup.png"), 5f) {
+      @Override
+      public int getyOff() {
+        return textbox.getHeight() + 50;
+      };
+    };
     winContainer.addComponent(youWinPopup);
     BufferedImage enemyImage = ImageLoader.loadSubImage(npc.getPathToImage(), Colors.MAGENTA, 0, 0, 14, 19);
     enemy = new SpriteUI(0, 0, enemyImage, 15);
@@ -182,7 +212,7 @@ public class CombatScreen extends Screen {
     enemyContainer.addComponent(enemy);
     fightContainer.addComponent(enemyContainer);
 
-    youWinPopup.setAnchor(Anchor.BOTTOM_CENTER);
+    youWinPopup.setAnchor(Anchor.TOP_CENTER);
     winContainer.addComponent(youWinPopup);
 
     playerHealthText = new SpriteFont(""+playerHealth, 210, -270, "Comic Sans", 30, Color.white);
@@ -196,8 +226,11 @@ public class CombatScreen extends Screen {
         return;
       if (screenState == SCREENSTATE.RUN)
         screenState = SCREENSTATE.TEXTBOX;
-      else
+      else {
+        runSoundPlayer.clip.setMicrosecondPosition(0);
+        runSoundPlayer.play();
         screenState = SCREENSTATE.RUN;
+      }
     });
 
     SpriteButton fightButton = new SpriteButton(0, 0, buttonScale, ImageLoader.load("FightButtonNew.png"),
@@ -222,8 +255,11 @@ public class CombatScreen extends Screen {
               return;
             if (screenState == SCREENSTATE.INVENTORY)
               screenState = SCREENSTATE.TEXTBOX;
-            else
+            else {
               screenState = SCREENSTATE.INVENTORY;
+              bagSoundPlayer.clip.setMicrosecondPosition(0);
+              bagSoundPlayer.play();
+            }
           }
 
         });
@@ -258,20 +294,42 @@ public class CombatScreen extends Screen {
     textBoxContainer.addComponent(textbox);
 
     TextButton returnButton = new TextButton(0, 0, 300, 150,
-        Color.gray, "Return to game", new Font("Comic Sans", Font.PLAIN, 20), Color.WHITE, () -> endCombat());
+        Color.GRAY, "Return", new Font("Comic Sans", Font.PLAIN, 30), Color.WHITE, () -> endCombat()) {
+      @Override
+      public int getWidth() {
+        return ScreenManager.getScreenWidth();
+      }
+
+      @Override
+      public int getHeight() {
+        return textbox.getHeight();
+      }
+    };
 
     returnButton.setAnchor(Anchor.TOP_CENTER);
     winContainer.addComponent(returnButton);
 
     TextButton returnButtonRUN = new TextButton(0, 0, 300, 100,
-        Color.gray, "Are you sure?", new Font("Comic Sans", Font.PLAIN, 20), Color.WHITE, () -> endCombat());
+        new Color(50, 75, 237), "Are you sure?", new Font("Comic Sans", Font.PLAIN, 30), Color.WHITE,
+        () -> endCombat()) {
+      @Override
+      public int getWidth() {
+        return ScreenManager.getScreenWidth();
+      }
+
+      @Override
+      public int getHeight() {
+        return textbox.getHeight();
+      }
+    };
     returnButtonRUN.setAnchor(Anchor.BOTTOM_CENTER);
     runContainer.addComponent(returnButtonRUN);
 
     createBagContainer();
 
-    useItemContainer.addComponent(new TextButton(0, 0, 300, 150, Color.CYAN, "Use Item?",
-        new Font("Comic Sans", Font.BOLD, 20), Color.MAGENTA, () -> {
+    TextButton useItemButton = new TextButton(0, 0, 300, 150, new Color(242, 196,
+        12), "Use Item?",
+        new Font("Comic Sans", Font.BOLD, 40), Color.WHITE, () -> {
           usedItems[inventoryIndex] = true;
           createBagContainer(); // update bag since item is removed
           screenState = SCREENSTATE.TEXTBOX;
@@ -279,15 +337,20 @@ public class CombatScreen extends Screen {
           // Items need a name field or smth to identify them as
           // this kinda works for now since the class name will be similar to its name
           // but not final
-          if(Inventory.get(inventoryIndex).getClass().getName() == "Items.RedPotion"){
+          if (Inventory.get(inventoryIndex).getClass().getName() == "Items.RedPotion") {
             textbox.setText("25 health regenerated");
             playerHealth += 25;
-          }
-          else{
+          } else {
             textbox.setText("You used: " + Inventory.get(inventoryIndex).getClass().getName());
           }
-          
-        }));
+
+        }) {
+      public int getHeight() {
+        return textbox.getHeight();
+      };
+    };
+    useItemButton.setfillTypeX(FillType.FILL_SCREEN);
+    useItemContainer.addComponent(useItemButton);
 
   }
 
@@ -353,14 +416,16 @@ public class CombatScreen extends Screen {
 
   }
 
-  public void enemyAttack(){
+  public void enemyAttack() {
     screenState = SCREENSTATE.TEXTBOX;
     textbox.setText("Enemy's turn");
     System.out.println("Running Enemy Attack");
     Timer timer = new Timer();
     TimerTask gameDelay = new TimerTask() {
       @Override
-      public void run(){
+      public void run() {
+        combatSoundFXPlayer.clip.setMicrosecondPosition(0);
+        combatSoundFXPlayer.play();
         awaitingAttack = false;
         int damage = (int)(Math.random()*12)+4;
         playerHealth -= damage;
@@ -373,11 +438,12 @@ public class CombatScreen extends Screen {
     };
     timer.schedule(gameDelay, 2000, 2000);
     playerTurn = true;
-    
+
   }
+
   public void update() {
     background.update(null);
-    if(playerTurn && playerAlive()){
+    if (playerTurn && playerAlive()) {
       switch (screenState) {
         case INVENTORY:
           bagContainer.update();
@@ -394,21 +460,27 @@ public class CombatScreen extends Screen {
             screenState = SCREENSTATE.TEXTBOX;
             System.out.println("Attacked");
             int damage = (int) (miniGameContainer.getScore() * 10 + .5f);
-            if(damage > enemyHealth){
+            if (damage > enemyHealth) {
               enemyHealth = 0;
-            }else{
+            } else {
               enemyHealth -= damage;
             }
-            
-           
+
             Timer timer = new Timer();
             TimerTask gameDelay = new TimerTask() {
               @Override
-              public void run(){
-                 System.out.println("Health: " + playerHealth);
-                if(healthZero()){
-                textbox.setText("You did " + damage + " damage." + "\n\nYou have defeated the Enemy!");
-                }else{
+              public void run() {
+                if (damage >= 8) {
+                  strongSoundPlayer.clip.setMicrosecondPosition(0);
+                  strongSoundPlayer.play();
+                } else {
+                  weakSoundPlayer.clip.setMicrosecondPosition(0);
+                  weakSoundPlayer.play();
+                }
+                System.out.println("Health: " + playerHealth);
+                if (healthZero()) {
+                  textbox.setText("You did " + damage + " damage." + "\n\nYou have defeated the Enemy!");
+                } else {
                   textbox.setText("You did " + damage + " damage." + "\n\nEnemy Health: " + enemyHealth);
                 }
                 timer.cancel();
@@ -418,24 +490,22 @@ public class CombatScreen extends Screen {
             timer.schedule(gameDelay, 0, 3000);
             enemyHealthBar.update(enemyHealth);
             enemyHealthText.setText(""+enemyHealth);
-            if(!healthZero()){
-               playerTurn = false;
+            if (!healthZero()) {
+              playerTurn = false;
             }
-           
-            
-            
+
           }
           break;
         default:
           textBoxContainer.update();
           break;
       }
-    }else{
+    } else {
       Timer timer = new Timer();
       awaitingAttack = true;
       TimerTask delay = new TimerTask() {
         @Override
-        public void run(){
+        public void run() {
           enemyAttack();
           timer.cancel();
         }
@@ -445,17 +515,13 @@ public class CombatScreen extends Screen {
 
     }
 
-
-    if (healthZero())
-    {
+    if (healthZero()) {
       winContainer.update();
-    }
-    else if(!playerAlive()){
+    } else if (!playerAlive()) {
       textbox.setText("You lose");
       winContainer.update();
       playerWin = false;
-    }
-    else{
+    } else {
       if(playerTurn)
         fightContainer.update();
     }
@@ -464,8 +530,7 @@ public class CombatScreen extends Screen {
 
   }
 
-
-  public boolean playerAlive(){
+  public boolean playerAlive() {
     return playerHealth > 0;
   }
 
@@ -514,6 +579,7 @@ public class CombatScreen extends Screen {
     if (prevScaleY != scaleY) {
       // scale y
       prevScaleY = scaleY;
+      youWinPopup.scale(scaleY);
       textbox.setHeight((int) (initialTextboxHeight * scaleY));
       miniGameContainer.setChildrenHeight((int) (initialTextboxHeight * scaleY));
       textbox.getSpriteFont().setFontSize((int) (initialFontSize * scaleY));
@@ -549,25 +615,23 @@ public class CombatScreen extends Screen {
     return enemyHealth <= 0;
   }
 
-  //the item name in this case is just the name of the class, for example,
-  //the crystal class is called "Crystal"
-  private void spawnWinningNPC(String itemName)
-  {
-      //as we add more items, just add more cases
-      if(itemName.toLowerCase().equals("crystal"))
-      {
-        NPC crystal = new Crystal(10, LevelManager.getCurrentLevel().getPlayer().getLocation());
-        LevelManager.getCurrentLevel().getMap().addNPC(crystal);
-        crystal.setMap(LevelManager.getCurrentLevel().getMap());
-        crystal.getInteractScript().setIsActive(true);
-        crystal.getInteractScript().setMap(LevelManager.getCurrentLevel().getMap());
-      } else if(itemName.toLowerCase().equals("metal")) {
-        NPC metal = new Metal(11, LevelManager.getCurrentLevel().getPlayer().getLocation());
-        LevelManager.getCurrentLevel().getMap().addNPC(metal);
-        metal.setMap(LevelManager.getCurrentLevel().getMap());
-        metal.getInteractScript().setIsActive(true);
-        metal.getInteractScript().setMap(LevelManager.getCurrentLevel().getMap());
-      }
+  // the item name in this case is just the name of the class, for example,
+  // the crystal class is called "Crystal"
+  private void spawnWinningNPC(String itemName) {
+    // as we add more items, just add more cases
+    if (itemName.toLowerCase().equals("crystal")) {
+      NPC crystal = new Crystal(10, LevelManager.getCurrentLevel().getPlayer().getLocation());
+      LevelManager.getCurrentLevel().getMap().addNPC(crystal);
+      crystal.setMap(LevelManager.getCurrentLevel().getMap());
+      crystal.getInteractScript().setIsActive(true);
+      crystal.getInteractScript().setMap(LevelManager.getCurrentLevel().getMap());
+    } else if (itemName.toLowerCase().equals("metal")) {
+      NPC metal = new Metal(11, LevelManager.getCurrentLevel().getPlayer().getLocation());
+      LevelManager.getCurrentLevel().getMap().addNPC(metal);
+      metal.setMap(LevelManager.getCurrentLevel().getMap());
+      metal.getInteractScript().setIsActive(true);
+      metal.getInteractScript().setMap(LevelManager.getCurrentLevel().getMap());
+    }
   }
 
   public boolean gameOver() {
@@ -598,9 +662,9 @@ public class CombatScreen extends Screen {
         usedItems[i] = false;
       }
       // spawn item
-      if (LevelManager.getCurrentLevel() == LevelManager.WILDWEST) {
+      if (LevelManager.getCurrentLevel() == LevelManager.SALOON_INSIDE) {
         spawnWinningNPC("crystal");
-      } else {
+      } else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC){
         spawnWinningNPC("metal");
       }
       System.out.println("Spawning a new item");
