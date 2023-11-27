@@ -17,7 +17,6 @@ public class FloorOneMap extends Map{
     super("floor1_map.txt", new FutureIndoorTileset());
     addMusic("Resources/Audio/saloon.wav");
     this.playerStartPosition = getMapTile(15, 2).getLocation();
-    setCenterCamera();
   }
 
   @Override

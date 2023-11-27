@@ -42,6 +42,7 @@ import GameObject.Sprite;
 import Screens.PlayLevelScreen;
 import Screens.CombatScreenStuff.DodgeFightGameContainer;
 import Screens.CombatScreenStuff.FightGameContainer;
+import Screens.CombatScreenStuff.FinalFightGameContainer;
 import Screens.CombatScreenStuff.MiniGameContainer;
 import Scripts.NewMap.SwordScript;
 import Utils.Colors;
@@ -163,8 +164,8 @@ public class CombatScreen extends Screen {
       miniGameContainer = new FightGameContainer(initialTextboxHeight);
     else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC)
       miniGameContainer = new DodgeFightGameContainer(initialTextboxHeight);
-    else // default case
-      miniGameContainer = new FightGameContainer(initialTextboxHeight);
+    else 
+      miniGameContainer = new FinalFightGameContainer(initialTextboxHeight);
 
     // sound
     combatSoundPlayer = new SoundPlayer(GameWindow.getGameWindow(), "Resources/Audio/combat.wav");
