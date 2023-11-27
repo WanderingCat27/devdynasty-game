@@ -12,12 +12,16 @@ import Engine.Keyboard;
 
 public class FinalFightGameContainer extends MiniGameContainer {
 
+  private final int MAX_ROUNDS = 10;
   SolidSpriteUI bg;
 
   int[] xValues;
   int curr = 0;
   int xPos = 2;
   float speed = 1f;
+  int round;
+
+  float score = 10;
 
   Color boxColor = Color.GREEN;
   private static SecureRandom random = new SecureRandom();
@@ -86,15 +90,19 @@ public class FinalFightGameContainer extends MiniGameContainer {
   @Override
   public void start() {
     xValues = new int[5];
-
+    round = 0;
+    score = 10;
     Timer timer = new Timer();
     TimerTask timerTask = new TimerTask() {
       @Override
       public void run() {
+        round++;
         int bottom = curr * getWidth() / xValues.length;
         int top = (curr + 1) * getWidth() / xValues.length;
         xValues[curr] = random.nextInt(bottom, top);
         curr = (curr + 1) % xValues.length;
+        if (round >= MAX_ROUNDS)
+          stop();
       }
     };
     timer.schedule(timerTask, 0, 200);
@@ -107,7 +115,7 @@ public class FinalFightGameContainer extends MiniGameContainer {
 
   @Override
   public float getScore() {
-    return 0;
+    return score;
   }
 
 }
