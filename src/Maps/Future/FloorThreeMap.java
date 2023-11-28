@@ -15,7 +15,7 @@ import Tilesets.SaloonTileset;
 public class FloorThreeMap extends Map{
   public FloorThreeMap() {
     super("floor3_map.txt", new FutureIndoorTileset());
-    addMusic("Resources/Audio/saloon.wav");
+    addMusic("Resources/Audio/future.wav");
     this.playerStartPosition = getMapTile(15, 2).getLocation();
     setCenterCamera();
   }

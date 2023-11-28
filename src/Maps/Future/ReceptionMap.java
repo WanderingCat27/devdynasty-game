@@ -15,7 +15,7 @@ import Tilesets.SaloonTileset;
 public class ReceptionMap extends Map{
   public ReceptionMap() {
     super("reception_map.txt", new FutureIndoorTileset());
-    addMusic("Resources/Audio/saloon.wav");
+    addMusic("Resources/Audio/future.wav");
     this.playerStartPosition = getMapTile(9, 16).getLocation();
     setCenterCamera();
   }

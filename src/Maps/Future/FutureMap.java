@@ -18,6 +18,7 @@ public class FutureMap extends Map {
 
   public FutureMap() {
     super("future_map.txt", new FutureTileset());
+    addMusic("Resources/Audio/future.wav");
     this.playerStartPosition = getMapTile(19, 54).getLocation();
   }
 

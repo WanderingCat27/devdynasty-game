@@ -118,6 +118,9 @@ public class CombatScreen extends Screen {
   private boolean showEnemyDamage = false;
   private boolean showPlayerDamage = false;
 
+  // for purple potion
+  private boolean boostNextAttack = false;
+
   public CombatScreen(PlayLevelScreen playLevelScreen) {
     this.playLevelScreen = playLevelScreen;
     // this.npc = new NPC(3, 13f, 19f, new
@@ -350,6 +353,9 @@ public class CombatScreen extends Screen {
           if (Inventory.get(inventoryIndex).getClass().getName() == "Items.RedPotion") {
             textbox.setText("25 health regenerated");
             playerHealth += 25;
+          } else if (Inventory.get(inventoryIndex).getClass().getName() == "Items.PurplePotion") {
+            textbox.setText("Next attack boosted");
+            boostNextAttack = true;
           } else {
             textbox.setText("You used: " + Inventory.get(inventoryIndex).getClass().getName());
           }
@@ -484,7 +490,14 @@ public class CombatScreen extends Screen {
           if (miniGameContainer.isGameOver()) {
             screenState = SCREENSTATE.TEXTBOX;
             System.out.println("Attacked");
-            int damage = (int) (miniGameContainer.getScore() * 10 + .5f);
+            int damage;
+            if (boostNextAttack) {
+              damage = (int) (miniGameContainer.getScore() * 10 + .5f) + 5;
+              boostNextAttack = false;
+              System.out.println("attack boosted");
+            } else {
+              damage = (int) (miniGameContainer.getScore() * 10 + .5f);
+            }
             if (damage > enemyHealth) {
               enemyHealth = 0;
             } else {
