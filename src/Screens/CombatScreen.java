@@ -98,6 +98,8 @@ public class CombatScreen extends Screen {
   protected HealthBar playerHealthBar;
   protected SpriteFont enemyHealthText;
   protected SpriteFont playerHealthText;
+  protected SpriteFont enemyDamageIndicator;
+  protected SpriteFont playerDamageIndicator;
   protected NPC npc;
   public static SoundPlayer combatSoundPlayer;
   public static SoundPlayer combatSoundFXPlayer, weakSoundPlayer, strongSoundPlayer, bagSoundPlayer, runSoundPlayer;
@@ -113,6 +115,8 @@ public class CombatScreen extends Screen {
   private MiniGameContainer miniGameContainer;
   private boolean[] usedItems;
   private boolean awaitingAttack = false;
+  private boolean showEnemyDamage = false;
+  private boolean showPlayerDamage = false;
 
   public CombatScreen(PlayLevelScreen playLevelScreen) {
     this.playLevelScreen = playLevelScreen;
@@ -332,6 +336,7 @@ public class CombatScreen extends Screen {
 
     createBagContainer();
 
+
     TextButton useItemButton = new TextButton(0, 0, 300, 150, new Color(242, 196,
         12), "Use Item?",
         new Font("Comic Sans", Font.BOLD, 40), Color.WHITE, () -> {
@@ -423,6 +428,7 @@ public class CombatScreen extends Screen {
 
   public void enemyAttack() {
     screenState = SCREENSTATE.TEXTBOX;
+    showEnemyDamage = false;
     textbox.setText("Enemy's turn");
     System.out.println("Running Enemy Attack");
     Timer timer = new Timer();
@@ -435,14 +441,27 @@ public class CombatScreen extends Screen {
         awaitingAttack = false;
         int damage = (int)(Math.random()*12)+4;
         playerHealth -= damage;
+        playerDamageIndicator = new SpriteFont("-"+damage, 270, ScreenManager.getScreenHeight()/2 - 50, "Itallic", 50, Color.RED);
+        showPlayerDamage = true;
         playerHealthBar.update(playerHealth);
         playerHealthText.setText(""+playerHealth);
+        Timer timer2 = new Timer();
+        TimerTask healthDelay = new TimerTask() {
+          @Override
+          public void run(){
+            showPlayerDamage = false;
+            timer2.cancel();
+          }
+      
+        };
+        timer2.schedule(healthDelay, 3000, 2000);
         textbox.setText("Enemy did " + damage + " damage" + "\nYour Health: " + playerHealth + "\nWhat will you do?");
         timer.cancel();
       }
 
     };
     timer.schedule(gameDelay, 2000, 2000);
+    
     playerTurn = true;
 
   }
@@ -471,7 +490,8 @@ public class CombatScreen extends Screen {
             } else {
               enemyHealth -= damage;
             }
-
+            enemyDamageIndicator = new SpriteFont("-"+damage, (ScreenManager.getScreenWidth()/2)+enemy.getWidth()/2, enemy.getYOrigin()+(enemy.getHeight()/2), "Itallic", 50, Color.RED);
+            showEnemyDamage = true;
             Timer timer = new Timer();
             TimerTask gameDelay = new TimerTask() {
               @Override
@@ -484,6 +504,7 @@ public class CombatScreen extends Screen {
                   weakSoundPlayer.play();
                 }
                 System.out.println("Health: " + playerHealth);
+                
                 if (healthZero()) {
                   textbox.setText("You did " + damage + " damage." + "\n\nYou have defeated the Enemy!");
                 } else {
@@ -559,6 +580,15 @@ public class CombatScreen extends Screen {
       default:
         textBoxContainer.draw(graphicsHandler);
         break;
+    }
+
+    if(showEnemyDamage){
+      //System.out.println("Show:"+showEnemyDamage);
+      enemyDamageIndicator.draw(graphicsHandler);
+    }
+
+    if(showPlayerDamage){
+      playerDamageIndicator.draw(graphicsHandler);
     }
 
     if (healthZero())
