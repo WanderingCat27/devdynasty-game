@@ -15,7 +15,7 @@ import Tilesets.SaloonTileset;
 public class FloorOneMap extends Map{
   public FloorOneMap() {
     super("floor1_map.txt", new FutureIndoorTileset());
-    addMusic("Resources/Audio/saloon.wav");
+    addMusic("Resources/Audio/future.wav");
     this.playerStartPosition = getMapTile(15, 2).getLocation();
   }
 

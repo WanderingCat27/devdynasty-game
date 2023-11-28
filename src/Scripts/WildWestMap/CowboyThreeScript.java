@@ -91,7 +91,7 @@ public class CowboyThreeScript extends Script<NPC> {
             GlobalFlagManager.FLAG_MANAGER.setFlag("hasTalkedToCB3");
             isChoosing = false;
         } else if (Keyboard.isKeyDown(Key.DOWN)) {
-            addTextToTextboxQueue("Come back to me after you have fella...");
+            addTextToTextboxQueue("Darn...");
             isChoosing = false;
         }
     }
