@@ -12,6 +12,7 @@ import GameObject.Frame;
 import GameObject.Item;
 import Items.BuildingEntrance;
 import Items.Computer;
+import Items.PurplePotion;
 import Items.Sword;
 import Items.TimeMachine;
 import Level.LevelManager;
@@ -75,9 +76,9 @@ public class PrehistoricMap extends Map {
   public ArrayList<Item> loadItems() {
     ArrayList list = new ArrayList<>();
 
-       // BuildingEntrance saloonEntrance = new BuildingEntrance(0, getMapTile(4, 0).getLocation(), 96, 32, "wildwest");
+       PurplePotion purplePotion = new PurplePotion(0, getMapTile(4, 3).getLocation());
 
-   // list.add(saloonEntrance);
+      list.add(purplePotion);
     return list;
   }
 
