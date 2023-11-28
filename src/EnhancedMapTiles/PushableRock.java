@@ -19,6 +19,11 @@ public class PushableRock extends EnhancedMapTile {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Rock.png"), 16, 16), TileType.NOT_PASSABLE);
     }
 
+
+    public PushableRock(Point location, String imageFileName){
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load(imageFileName), 16, 16), TileType.NOT_PASSABLE);
+    }
+
     @Override
     public void update(Player player) {
         super.update(player);
