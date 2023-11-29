@@ -93,6 +93,7 @@ public class ItemTableScript extends Script<NPC>
                 }
                 else if(itemsOnTable.size() == 2)
                 {
+                    setFlag("hasDroppedMetalOff");
                     this.entity.setCurrentAnimationName("TWO_ITEM");
                 }
             }

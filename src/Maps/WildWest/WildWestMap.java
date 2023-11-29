@@ -65,7 +65,7 @@ public class WildWestMap extends Map {
     BuildingEntrance wwBuildingFourTwo = new BuildingEntrance(1, getMapTile(19, 25).getLocation(), 20, 50, "buildingOne");
     list.add(wwBuildingFourTwo);
 
-    BuildingEntrance wwBuildingFive = new BuildingEntrance(1, getMapTile(4, 43).getLocation(), 20, 50, "buildingOne");
+    BuildingEntrance wwBuildingFive = new BuildingEntrance(1, getMapTile(4, 43).getLocation(), 20, 50, "costumeChange");
     list.add(wwBuildingFive);
     BuildingEntrance wwBuildingFiveTwo = new BuildingEntrance(1, getMapTile(4, 42).getLocation(), 20, 50, "buildingOne");
     list.add(wwBuildingFiveTwo);
