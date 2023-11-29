@@ -1,5 +1,6 @@
 package Scripts.NewMap;
 
+import Level.GlobalFlagManager;
 import Level.MapEntityStatus;
 import Level.NPC;
 import Level.Script;
@@ -20,6 +21,7 @@ public class SwordScript extends Script<Item>
         {
             Inventory.addNPC(this.entity);
             this.entity.setMapEntityStatus(MapEntityStatus.REMOVED);
+            GlobalFlagManager.FLAG_MANAGER.setFlag("swordPickedUp");
         }
     }
     

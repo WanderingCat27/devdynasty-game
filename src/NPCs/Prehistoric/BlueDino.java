@@ -18,6 +18,18 @@ public class BlueDino extends NPC {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("BlueDino.png"), 14, 17), "STAND_LEFT");
     }
 
+    public BlueDino(int id, Utils.Point point, int startingHealth){
+        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("BlueDino.png"), 14, 17), "STAND_LEFT", startingHealth);
+    }
+
+    public void update() {
+        super.update();
+    }
+
+    public String getPathToImage(){
+        return "BlueDino.png";
+    }
+
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{

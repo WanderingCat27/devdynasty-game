@@ -79,11 +79,13 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpCrystal", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasDroppedCrystalOff", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCB3", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCaveman2", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("acceptedCBquest", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToBat", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("batDefeated", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("jacketPickedUp", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasChangedCostume", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("swordPickedUp", false);
 
     
     this.currentVolume = 100;
