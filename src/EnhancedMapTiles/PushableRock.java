@@ -30,22 +30,22 @@ public class PushableRock extends EnhancedMapTile {
         if (player.overlaps(this) && player.getPlayerState() == PlayerState.WALKING) {
             if (player.getCurrentWalkingXDirection() == Direction.LEFT) {
                 if (canMoveLeft(player)) {
-                    moveXHandleCollision(-1);
+                    moveXHandleCollision(-3);
                 }
             }
             else if (player.getCurrentWalkingXDirection() == Direction.RIGHT) {
                 if (canMoveRight(player)) {
-                    moveXHandleCollision(1);
+                    moveXHandleCollision(3);
                 }
             }
              if (player.getCurrentWalkingYDirection() == Direction.UP) {
                 if (canMoveUp(player)) {
-                    moveYHandleCollision(-1);
+                    moveYHandleCollision(-3);
                 }
             }
             else if (player.getCurrentWalkingYDirection() == Direction.DOWN) {
                 if (canMoveDown(player)) {
-                    moveYHandleCollision(1);
+                    moveYHandleCollision(3);
                 }
             }
         }

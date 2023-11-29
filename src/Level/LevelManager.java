@@ -14,6 +14,7 @@ import Maps.WildWest.SaloonMap;
 import Maps.WildWest.WWBuildingOne;
 import Maps.WildWest.WWBuildingTwo;
 import Maps.WildWest.WildWestMap;
+import Maps.CaveMap;
 
 public class LevelManager {
 
@@ -87,6 +88,14 @@ public class LevelManager {
         return new FloorThreeMap();
       };
     };
+
+    public static final Level CAVE = new Level(){
+      @Override
+      protected Map getMapInstance(){
+        return new CaveMap();
+      };
+    };
+
   // public static final Level OLD_TEST = new Level(new TestMap());
   public static Level SALOON_INSIDE = new Level() {
 

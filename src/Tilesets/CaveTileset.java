@@ -77,8 +77,7 @@ public class CaveTileset extends Tileset{
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder rockHoleTile = new MapTileBuilder(rockHoleFrame)
-            .withTileType(TileType.NOT_PASSABLE);
+        MapTileBuilder rockHoleTile = new MapTileBuilder(rockHoleFrame);
 
         mapTiles.add(rockHoleTile);
 
