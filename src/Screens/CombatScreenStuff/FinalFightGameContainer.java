@@ -22,7 +22,7 @@ public class FinalFightGameContainer extends MiniGameContainer {
   // num of blocks to spawn
   private static final int MAX_ROUNDS = 10;
   // speed of blocks incoming
-  private static final float SPEED = 8f;
+  private static final float SPEED = 10f;
   SolidSpriteUI bg;
 
   private boolean[][] pressBoxes;
@@ -99,10 +99,9 @@ public class FinalFightGameContainer extends MiniGameContainer {
       prevIndex = index;
     }
     xPos++;
-    // greater than not >= to allow for some time for the last block to travel off
-    if (index > MAX_ROUNDS)
+    if (index >= MAX_ROUNDS)
       stop();
-    if (index >= 0 && getBoxX(getClosestIndex()) > 0) {
+    else if (index >= 0 && getBoxX(getClosestIndex()) > 0) {
       if (checkKey(Key.A))
         rowPressed(0);
       else if (checkKey(Key.S))
