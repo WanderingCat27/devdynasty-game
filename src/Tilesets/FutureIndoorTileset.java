@@ -54,6 +54,10 @@ public class FutureIndoorTileset extends Tileset {
 
     }
 
+    mapTiles.add(createFrame(getSubImageNoOffset(1, 7), floorFrame, ImageEffect.NONE, TileType.NOT_PASSABLE));
+    mapTiles.add(createFrame(getSubImageNoOffset(2, 7), floorFrame, ImageEffect.NONE, TileType.NOT_PASSABLE));
+    mapTiles.add(createFrame(getSubImageNoOffset(2, 7), floorFrame, ImageEffect.FLIP_HORIZONTAL, TileType.NOT_PASSABLE));
+
 
     return mapTiles;
 
