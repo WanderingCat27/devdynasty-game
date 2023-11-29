@@ -20,6 +20,8 @@ public class SaloonBounderScript extends Script<NPC>
             addTextToTextboxQueue("You don't look from around these ends...");
             addTextToTextboxQueue("Sorry pal, but you ain't getting in here.");
             addTextToTextboxQueue("Maybe switch up your look and come back.");
+            addTextToTextboxQueue("Theres an old feller deep to the south-west\nthat could give you a costume.");
+            addTextToTextboxQueue("He's a bit of a weirdo, but\nhe's got the goods in his store.");
         }
         else
         {
