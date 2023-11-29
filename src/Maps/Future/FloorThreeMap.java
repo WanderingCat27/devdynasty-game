@@ -56,7 +56,7 @@ public class FloorThreeMap extends Map{
 
 
           // boss
-      Robot robotEvil = new Robot(9, getMapTile(4, 8).getLocation(), 5);
+      Robot robotEvil = new Robot(9, getMapTile(4, 8).getLocation(), 50);
       robotEvil.setInteractScript(new RobotEnemy());
       npcs.add(robotEvil);
 

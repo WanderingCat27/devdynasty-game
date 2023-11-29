@@ -493,11 +493,11 @@ public class CombatScreen extends Screen {
             System.out.println("Attacked");
             int damage;
             if (boostNextAttack) {
-              damage = (int) (miniGameContainer.getScore() * 10 + .5f) + 5;
+              damage = Math.round(miniGameContainer.getScore());
               boostNextAttack = false;
               System.out.println("attack boosted");
             } else {
-              damage = (int) (miniGameContainer.getScore() * 10 + .5f);
+              damage = Math.round(miniGameContainer.getScore());
             }
             if (damage > enemyHealth) {
               enemyHealth = 0;
