@@ -4,6 +4,7 @@ import Engine.GraphicsHandler;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Utils.Direction;
+import Utils.Point;
 
 import java.util.HashMap;
 
@@ -31,6 +32,10 @@ public class NPC extends MapEntity {
     public NPC(int id, float x, float y, Frame frame) {
         super(x, y, frame);
         this.id = id;
+    }
+
+    public NPC(int id, Point point, Frame frame) {
+        this(id, point.x, point.y, frame);
     }
 
     public NPC(int id, float x, float y) {
