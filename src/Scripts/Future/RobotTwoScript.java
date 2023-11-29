@@ -5,28 +5,23 @@ import Level.Script;
 import Level.ScriptState;
 
 // script for talking to walrus npc
-public class RobotOneScript extends Script<NPC> {
+public class RobotTwoScript extends Script<NPC> {
 
     @Override
     protected void setup() {
-        System.out.println("RobotOne script started");
+        System.out.println("RobotTwo script started");
         lockPlayer();
         showTextbox();
 
         // changes what walrus says when talking to him the first time (flag is not set) vs talking to him afterwards (flag is set)
-        if (!isFlagSet("hasTalkedToRobotOne")) {
+        if (!isFlagSet("hasTalkedToRobotTwo")) {
             addTextToTextboxQueue( "HELLO HUMAN INDIVIDUAL");
-            addTextToTextboxQueue( "I DID NOT KNOW YOUR KIND EXISTED ANYMORE...");
-            addTextToTextboxQueue( "WELCOME");
-            addTextToTextboxQueue( "USE THE ELEVATOR TO CHANGE FLOORS");
-            addTextToTextboxQueue( "THE TOP FLOOR IS OFF LIMITS");
-            addTextToTextboxQueue("WITHOUT THE CODE THAT IS...");
+            addTextToTextboxQueue( "THIS IS OUR FILE ROOM");
+            addTextToTextboxQueue( "YOU MAY BROWSE BUT DO NOT TAKE ANYTHING...");
         }
         else {
-            addTextToTextboxQueue("FEEL FREE TO USE THE ELEVATOR HUMAN...");
-            addTextToTextboxQueue("THE TOP FLOOR IS OFF LIMITS");
-            addTextToTextboxQueue("UNLESS YOU HAVE THE CODE...");
-            addTextToTextboxQueue("THE FIRST NUMBER IN THE CODE IS 7");
+            addTextToTextboxQueue("YOU MAY LOOK AROUND THE FILE ROOM");
+            addTextToTextboxQueue("DO NOT TAKE ANY INFORMATION");
         }
         entity.facePlayer(player);
     }
@@ -37,7 +32,7 @@ public class RobotOneScript extends Script<NPC> {
         hideTextbox();
 
         // set flag so that if walrus is talked to again after the first time, what he says changes
-        setFlag("hasTalkedToRobotOne");
+        setFlag("hasTalkedToRobotTwo");
     }
 
     @Override

@@ -36,11 +36,6 @@ public class FutureMap extends Map {
 
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
-
-        Robot robotEvil = new Robot(9, getMapTile(13, 15).getLocation(), 50);
-        robotEvil.setInteractScript(new RobotEnemy());
-        npcs.add(robotEvil);
-
         return npcs;
     }
 
