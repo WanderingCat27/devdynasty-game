@@ -47,7 +47,7 @@ public class CowboyThreeScript extends Script<NPC> {
         }
         addTextToTextboxQueue("Here, take this.");
         LevelManager.getCurrentLevel().getMap().getNPCById(4).setIsHidden(false);
-        addTextToTextboxQueue("A health potion.");
+        addTextToTextboxQueue("A health potion to regenerate a portion of your health.");
         addTextToTextboxQueue("Might come in handy later...\nYou never know who you'll run into 'round here.");
         
         GlobalFlagManager.FLAG_MANAGER.unsetFlag("jacketPickedUp");

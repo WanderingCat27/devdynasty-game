@@ -11,8 +11,10 @@ import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.InteractableObject;
+import NPCs.Future.RobotNPCS;
 import NPCs.Saloon.BarTable;
 import NPCs.Saloon.RoundTable;
+import Scripts.Future.RobotTwoScript;
 import Tilesets.FutureIndoorTileset;
 import Tilesets.SaloonTileset;
 import Utils.ImageUtils;
@@ -32,13 +34,14 @@ public class FloorOneMap extends Map {
     return list;
   }
 
+
   @Override
   public ArrayList<NPC> loadNPCs() {
     ArrayList<NPC> list = new ArrayList<>();
 
     // spawn cabinets
     for (int row = 0; row < 3; row++)
-      for (int col = 0; col < 7; col++) {
+      for (int col = 0; col < 7; col++) 
         if (row == 0 && col == 0) // the row and col of the special filing cabinet
 
           list.add(new InteractableObject(col + 1, getMapTile(26 + col * 2, 6 + row * 4).getLocation(),
@@ -48,8 +51,15 @@ public class FloorOneMap extends Map {
           list.add(new InteractableObject(col + 1, getMapTile(26 + col * 2, 6 + row * 4).getLocation(),
               new String[] { "Nothing here" },
               new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("file_cabinet.png"), 3))));
-      }
-    return list;
+      
+
+      RobotNPCS robot1 = new RobotNPCS(9, getMapTile(17, 10).getLocation());
+      robot1.setInteractScript(new RobotTwoScript());
+      list.add(robot1);
+
+      return list;
   }
+
+
 
 }

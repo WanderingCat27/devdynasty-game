@@ -3,6 +3,7 @@ package Items.BossItems;
 import Engine.GraphicsHandler;
 import GameObject.Item;
 import Scripts.NewMap.SwordScript;
+import Scripts.Prehistoric.MetalScript;
 
 public class Metal extends Item
 {
@@ -12,7 +13,7 @@ public class Metal extends Item
     {
         super(id,point,"rare_metal.png");
         this.setIsUncollidable(true);
-        this.setInteractScript(new SwordScript());
+        this.setInteractScript(new MetalScript());
     }
 
     @Override
