@@ -16,13 +16,13 @@ public class FloorTwoMap extends Map{
   public FloorTwoMap() {
     super("floor2_map.txt", new FutureIndoorTileset());
     addMusic("Resources/Audio/future.wav");
-    this.playerStartPosition = getMapTile(23, 2).getLocation();
+    this.playerStartPosition = getMapTile(38, 2).getLocation();
   }
 
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList<Item> list = new ArrayList<>();
-    BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(22, 2).getLocation(), 160, 32, "floor3");
+    BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "floor3");
     list.add(elevator);
     return list;
   }
