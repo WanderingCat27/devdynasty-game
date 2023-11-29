@@ -9,6 +9,7 @@ import Level.Map;
 import Level.NPC;
 import NPCs.OldCowboy;
 import NPCs.Robot;
+import NPCs.RobotNPCS;
 import Scripts.WildWestMap.EvilBatScript;
 import Scripts.WildWestMap.OldCowboyScript;
 import Scripts.RobotEnemy;
@@ -35,8 +36,12 @@ public class FutureMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Robot robot1 = new Robot(9, getMapTile(13, 15).getLocation(), 50);
-        robot1.setInteractScript(new RobotEnemy());
+        Robot robotEvil = new Robot(9, getMapTile(13, 15).getLocation(), 50);
+        robotEvil.setInteractScript(new RobotEnemy());
+        npcs.add(robotEvil);
+
+        RobotNPCS robot1 = new RobotNPCS(9, getMapTile(15, 15).getLocation());
+        robot1.setInteractScript(new OldCowboyScript());
         npcs.add(robot1);
 
         return npcs;
