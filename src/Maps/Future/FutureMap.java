@@ -8,11 +8,12 @@ import Items.TimeMachine;
 import Level.Map;
 import Level.NPC;
 import NPCs.OldCowboy;
-import NPCs.Robot;
-import NPCs.RobotNPCS;
+import NPCs.Future.Robot;
+import NPCs.Future.RobotNPCS;
 import Scripts.WildWestMap.EvilBatScript;
 import Scripts.WildWestMap.OldCowboyScript;
-import Scripts.RobotEnemy;
+import Scripts.Future.RobotEnemy;
+import Scripts.Future.RobotOneScript;
 import Tilesets.FutureTileset;
 import Tilesets.WestTileset;
 
@@ -22,7 +23,7 @@ public class FutureMap extends Map {
   public FutureMap() {
     super("future_map.txt", new FutureTileset());
     addMusic("Resources/Audio/future.wav");
-    this.playerStartPosition = getMapTile(19, 54).getLocation();
+    this.playerStartPosition = getMapTile(19, 20).getLocation();
   }
 
   @Override
@@ -39,10 +40,6 @@ public class FutureMap extends Map {
         Robot robotEvil = new Robot(9, getMapTile(13, 15).getLocation(), 50);
         robotEvil.setInteractScript(new RobotEnemy());
         npcs.add(robotEvil);
-
-        RobotNPCS robot1 = new RobotNPCS(9, getMapTile(15, 15).getLocation());
-        robot1.setInteractScript(new OldCowboyScript());
-        npcs.add(robot1);
 
         return npcs;
     }

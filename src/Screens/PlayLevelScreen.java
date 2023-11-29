@@ -88,6 +88,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpMetal", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotEnemy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("robotEnemyDefeated", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotOne", false);
     
     this.currentVolume = 100;
     this.currentWalkVolume = 100;

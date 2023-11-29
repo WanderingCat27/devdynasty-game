@@ -1,4 +1,4 @@
-package Scripts;
+package Scripts.Future;
 
 import Level.GlobalFlagManager;
 import Level.LevelManager;
@@ -15,7 +15,7 @@ public class RobotEnemy extends Script<NPC> {
         if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotEnemy")) {
             showTextbox();
             addTextToTextboxQueue( "ROBOT HEALTH AT MINIMUM CAPACITY");
-            addTextToTextboxQueue( "POWERING DOWN....");
+            addTextToTextboxQueue( "POWERING DOWN.....");
         }
         else if (!GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotEnemy")) {
             showTextbox();
