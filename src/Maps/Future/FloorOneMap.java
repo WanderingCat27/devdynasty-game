@@ -32,7 +32,7 @@ public class FloorOneMap extends Map{
   public ArrayList<NPC> loadNPCs() {
       ArrayList<NPC> npcs = new ArrayList<>();
 
-      RobotNPCS robot1 = new RobotNPCS(9, getMapTile(8, 6).getLocation());
+      RobotNPCS robot1 = new RobotNPCS(9, getMapTile(17, 10).getLocation());
       robot1.setInteractScript(new RobotTwoScript());
       npcs.add(robot1);
 
