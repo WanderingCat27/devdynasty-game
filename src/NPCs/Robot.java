@@ -17,8 +17,16 @@ public class Robot extends NPC
         super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("Robot.png"), 14, 19), "STAND_DOWN");
     }
 
+    public Robot(int id, Utils.Point point, int startingHealth){
+        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("Robot.png"), 14, 19), "STAND_DOWN", startingHealth);
+    }
+
     public void update() {
         super.update();
+    }
+
+    public String getPathToImage(){
+        return "Robot.png";
     }
 
     public void draw(GraphicsHandler graphicsHandler) {

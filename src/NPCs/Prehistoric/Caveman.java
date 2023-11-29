@@ -1,5 +1,4 @@
 package NPCs.Prehistoric;
-
 import java.awt.Point;
 import java.util.HashMap;
 
