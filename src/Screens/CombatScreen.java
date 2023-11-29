@@ -24,6 +24,7 @@ import GameObject.Sprite;
 import GameObject.SpriteSheet;
 import Items.BossItems.Crystal;
 import Items.BossItems.Metal;
+import Items.BossItems.Microchip;
 import Level.Level;
 import Level.LevelManager;
 import Level.Map;
@@ -706,6 +707,13 @@ public class CombatScreen extends Screen {
       metal.getInteractScript().setIsActive(true);
       metal.getInteractScript().setMap(LevelManager.getCurrentLevel().getMap());
     }
+    else if (itemName.toLowerCase().equals("chip")) {
+      NPC chip = new Microchip(11, LevelManager.getCurrentLevel().getPlayer().getLocation());
+      LevelManager.getCurrentLevel().getMap().addNPC(chip);
+      chip.setMap(LevelManager.getCurrentLevel().getMap());
+      chip.getInteractScript().setIsActive(true);
+      chip.getInteractScript().setMap(LevelManager.getCurrentLevel().getMap());
+    }
   }
 
   public boolean gameOver() {
@@ -740,6 +748,9 @@ public class CombatScreen extends Screen {
         spawnWinningNPC("crystal");
       } else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC){
         spawnWinningNPC("metal");
+      }
+      else if (LevelManager.getCurrentLevel() == LevelManager.FLOOR3){
+        spawnWinningNPC("chip");
       }
       System.out.println("Spawning a new item");
     } else {

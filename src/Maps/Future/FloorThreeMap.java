@@ -35,7 +35,7 @@ public class FloorThreeMap extends Map{
   public ArrayList<NPC> loadNPCs() {
       ArrayList<NPC> npcs = new ArrayList<>();
 
-      Robot robotEvil = new Robot(9, getMapTile(3, 8).getLocation(), 50);
+      Robot robotEvil = new Robot(9, getMapTile(3, 8).getLocation(), 5);
       robotEvil.setInteractScript(new RobotEnemy());
       npcs.add(robotEvil);
 

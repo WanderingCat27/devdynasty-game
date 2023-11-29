@@ -165,7 +165,7 @@ public class PlayLevelScreen extends Screen {
    
       if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("robotEnemyDefeated")){
         if(LevelManager.getCurrentLevel() == LevelManager.LAB && GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasDroppedChipOff")) {
-          LevelManager.getCurrentLevel().getMap().getNPCById(9).setInteractScript(new ChangeLevelByString("future"));
+          LevelManager.getCurrentLevel().getMap().getNPCById(9).setInteractScript(new ChangeLevelByString("floor3"));
         }
         else if(LevelManager.getCurrentLevel() == LevelManager.LAB && ItemTableScript.itemsOnTable.size() == 2)
         {
