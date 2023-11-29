@@ -126,7 +126,7 @@ public class FightGameContainer extends MiniGameContainer {
   
   @Override
   public float getScore() {
-    return ((40 - Utils.MathUtils.clamp(Math.abs(step - hitLocation) - 2, 0, 20))) / 40f;
+    return Math.max((((40 - Utils.MathUtils.clamp(Math.abs(step - hitLocation) - 2, 0, 20))) / 40f) * 10f, 5);
 
   }
 

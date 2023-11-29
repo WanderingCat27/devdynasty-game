@@ -121,7 +121,7 @@ public class DodgeFightGameContainer extends MiniGameContainer {
     for (boolean c : collided)
       if (c)
         score--;
-    return score / 10f;
+    return Math.max(score, 3);
   }
 
 }

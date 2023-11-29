@@ -4,6 +4,7 @@ import ui.SpriteUI.SolidSpriteUI;
 import java.awt.Color;
 import java.net.CookieHandler;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,22 +17,22 @@ import Utils.MathUtils;
 public class FinalFightGameContainer extends MiniGameContainer {
 
   // offset before first collision
-  private static final int START_OFFSET = 500;
+  private static final int START_OFFSET = 1200;
   // gap between blocks
   private static final int GAP = 400;
   // num of blocks to spawn
-  private static final int MAX_ROUNDS = 10;
+  private static final int MAX_ROUNDS = 15;
   // speed of blocks incoming
-  private static final float SPEED = 10f;
+  private static final float SPEED = 12f;
   SolidSpriteUI bg;
 
-  private boolean[][] pressBoxes;
-  private Color[] success;
-  private int curr = 0;
-  private int xPos = 2;
-  private int round;
+  enum Score {
+    NONE, PERFECT, GOOD, MISS;
+  }
 
-  private float score = 10;
+  private boolean[][] pressBoxes;
+  private Score[][] scores;
+  private int xPos = 0;
 
   private int prevIndex = -1;
 
@@ -86,16 +87,15 @@ public class FinalFightGameContainer extends MiniGameContainer {
       // if didnt press the key at all and should have -.5f
       if (prevIndex >= 0 && prevIndex < MAX_ROUNDS) {
         if (!keyLocker.isKeyLocked(Key.A) && pressBoxes[prevIndex][0])
-          score -= .5f;
+          scores[prevIndex][0] = Score.MISS;
         if (!keyLocker.isKeyLocked(Key.S) && pressBoxes[prevIndex][1])
-          score -= .5f;
+          scores[prevIndex][1] = Score.MISS;
         if (!keyLocker.isKeyLocked(Key.D) && pressBoxes[prevIndex][2])
-          score -= .5f;
+          scores[prevIndex][2] = Score.MISS;
       }
       keyLocker.unlockKey(Key.A);
       keyLocker.unlockKey(Key.S);
       keyLocker.unlockKey(Key.D);
-      success = new Color[3];
       prevIndex = index;
     }
     xPos++;
@@ -121,14 +121,15 @@ public class FinalFightGameContainer extends MiniGameContainer {
   }
 
   private boolean rowPressed(int row) {
-    if (pressBoxes[getClosestIndex()][row]) { // is a correct press
+    int index = getClosestIndex();
+    if (pressBoxes[index][row]) { // is a correct press
       float val = 1 - getScoreClosest();
-      score -= val;
-      success[row] = val <= .1 ? Color.GREEN : Color.ORANGE;
+      // good press, give score
+      scores[index][row] = val <= .3 ? Score.PERFECT : Score.GOOD;
       return true;
     }
-    score -= 0.5f; // was an incorrect press
-    success[row] = Color.RED;
+    // was an incorrect press
+    scores[index][row] = Score.MISS;
     return false;
 
   }
@@ -153,14 +154,18 @@ public class FinalFightGameContainer extends MiniGameContainer {
     g.drawFilledRectangle(0, bg.getYAbs(), 300, bg.getHeight(), new Color(252, 236, 118, 100));
     g.drawFilledRectangle(125, bg.getYAbs(), 50, bg.getHeight(), new Color(252, 0, 50, 100));
 
-    // success/failure markers
-    if (keyLocker.isKeyLocked(Key.A))
-      g.drawFilledRectangle(125, bg.getYAbs(), 50, bg.getHeight() / 3, success[0]);
-    if (keyLocker.isKeyLocked(Key.S))
-      g.drawFilledRectangle(125, bg.getYAbs() + bg.getHeight() / 3, 50, bg.getHeight() / 3, success[1]);
-    if (keyLocker.isKeyLocked(Key.D))
-      g.drawFilledRectangle(125, bg.getYAbs() + 2 * bg.getHeight() / 3, 50, bg.getHeight() / 3, success[2]);
-
+    int index = getClosestIndex();
+    if (index < MAX_ROUNDS && index >= 0) {
+      // success/failure markers
+      if (keyLocker.isKeyLocked(Key.A))
+        g.drawFilledRectangle(125, bg.getYAbs(), 50, bg.getHeight() / 3, getColor(scores[index][0]));
+      if (keyLocker.isKeyLocked(Key.S))
+        g.drawFilledRectangle(125, bg.getYAbs() + bg.getHeight() / 3, 50, bg.getHeight() / 3,
+            getColor(scores[index][1]));
+      if (keyLocker.isKeyLocked(Key.D))
+        g.drawFilledRectangle(125, bg.getYAbs() + 2 * bg.getHeight() / 3, 50, bg.getHeight() / 3,
+            getColor(scores[index][2]));
+    }
   }
 
   private Color getColor(int i) {
@@ -172,12 +177,27 @@ public class FinalFightGameContainer extends MiniGameContainer {
       return Color.BLUE;
   }
 
+  private Color getColor(Score score) {
+    if (score == null)
+      return new Color(0, 0, 0, 0);
+    switch (score) {
+      case PERFECT:
+        return Color.GREEN;
+      case GOOD:
+        return Color.YELLOW;
+      case MISS:
+        return Color.RED;
+      default:
+        return new Color(0, 0, 0, 0); // transparent
+    }
+  }
+
   @Override
   public void start() {
     isStopped = false;
     xPos = 0;
-    score = 10;
     pressBoxes = new boolean[MAX_ROUNDS][3];
+    scores = new Score[MAX_ROUNDS][3];
     for (int i = 0; i < pressBoxes.length; i++)
       for (int j = 0; j < 3; j++)
         pressBoxes[i][j] = random.nextInt(3) == 2; // 0 - 2;
@@ -191,7 +211,26 @@ public class FinalFightGameContainer extends MiniGameContainer {
 
   @Override
   public float getScore() {
-    return score / 10;
+    float max = 0;
+    float total = 0;
+    for (int round = 0; round < scores.length; round++) {
+      for (int row = 0; row < 3; row++) {
+        Score sc = scores[round][row];
+        if (sc == null)
+          continue;
+        max++;
+        switch (sc) {
+          case PERFECT:
+            total += 1;
+            break;
+          case GOOD:
+            total += .75f;
+            break;
+        }
+      }
+    }
+
+    return 10*total / max;
   }
 
   @Override
