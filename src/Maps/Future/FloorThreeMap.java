@@ -2,11 +2,14 @@ package Maps.Future;
 
 import java.util.ArrayList;
 
+import Engine.ImageLoader;
+import GameObject.Frame;
 import GameObject.Item;
 import Items.BuildingEntrance;
 import Level.Map;
 import Level.NPC;
 import Level.Trigger;
+import NPCs.InteractableObject;
 import NPCs.Future.Robot;
 import NPCs.Future.RobotNPCS;
 import NPCs.Saloon.BarTable;
@@ -15,6 +18,7 @@ import NPCs.Saloon.RoundTable;
 import Scripts.Future.RobotOneScript;
 import Tilesets.FutureIndoorTileset;
 import Tilesets.SaloonTileset;
+import Utils.ImageUtils;
 
 public class FloorThreeMap extends Map{
   public FloorThreeMap() {
@@ -35,7 +39,24 @@ public class FloorThreeMap extends Map{
   public ArrayList<NPC> loadNPCs() {
       ArrayList<NPC> npcs = new ArrayList<>();
 
-      Robot robotEvil = new Robot(9, getMapTile(3, 8).getLocation(), 5);
+      // furniture 
+      npcs.add(new InteractableObject(10, getMapTile(10, 12).getLocation(),
+        new String[] { "Looks like a printer, but more advanced?" },
+        new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("printer.png"), 2))));
+
+      npcs.add(new InteractableObject(11, getMapTile(4, 1).getLocation(),
+          new String[] { "Evil supplies" },
+          new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("shelf.png"), 2))));
+      npcs.add(new InteractableObject(12, getMapTile(8, 1).getLocation(),
+          new String[] { "Evil supplies" },
+          new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("shelf.png"), 2))));
+          npcs.add(new InteractableObject(13, getMapTile(2, 1).getLocation(),
+          new String[] { "locked" },
+          new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("file_cabinet.png"), 3))));
+
+
+          // boss
+      Robot robotEvil = new Robot(9, getMapTile(4, 8).getLocation(), 5);
       robotEvil.setInteractScript(new RobotEnemy());
       npcs.add(robotEvil);
 

@@ -39,10 +39,10 @@ public class FloorTwoMap extends Map {
     // main room
     // shelfs
     list.add(new InteractableObject(id++, getMapTile(10, 1).getLocation(),
-        new String[] { "Storage for cleaning products" },
+        new String[] { "Bunch of office supplies" },
         new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("shelf.png"), 2))));
     list.add(new InteractableObject(id++, getMapTile(13, 1).getLocation(),
-        new String[] { "Storage for cleaning products" },
+        new String[] { "Bunch of office supplies" },
         new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("shelf.png"), 2))));
 
     // printer
