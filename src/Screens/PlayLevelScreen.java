@@ -80,12 +80,14 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasDroppedCrystalOff", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCB3", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCaveman2", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToBlueDino", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("acceptedCBquest", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToBat", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("batDefeated", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("jacketPickedUp", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasChangedCostume", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("swordPickedUp", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("dinoDefeated", false);
 
     
     this.currentVolume = 100;
@@ -125,6 +127,9 @@ public class PlayLevelScreen extends Screen {
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")) {
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(4), "hasTalkedToCowboy", "evilCowboyDefeated");
+    }
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToBlueDino") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("dinoDefeated")) {
+      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(3), "hasTalkedToBlueDino", "dinoDefeated");
     }
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToBat") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("batDefeated"))
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(6), "hasTalkedToBat", "batDefeated");
