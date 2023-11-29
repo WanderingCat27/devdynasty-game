@@ -84,6 +84,8 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("batDefeated", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("jacketPickedUp", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasChangedCostume", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasDroppedMetalOff", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpMetal", false);
 
     
     this.currentVolume = 100;
@@ -158,11 +160,23 @@ public class PlayLevelScreen extends Screen {
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("cavemanDefeated")){
-        if(LevelManager.getCurrentLevel() == LevelManager.LAB) {
+        if(LevelManager.getCurrentLevel() == LevelManager.LAB && GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasDroppedMetalOff")) {
           LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("future"));
+        }
+        else if(LevelManager.getCurrentLevel() == LevelManager.LAB && ItemTableScript.itemsOnTable.size() == 1)
+        {
+          LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new CheckDroppedItemScript());
         }
         if(LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC){
           LevelManager.getCurrentLevel().getMap().getNPCById(2).setIsHidden(false);
+          if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasPickedUpMetal"))
+          {
+            LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelScript(LevelManager.LAB));
+          }
+          else
+          {
+            LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new PickUpItemScript());
+          }
       }
     }
 
