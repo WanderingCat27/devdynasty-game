@@ -12,12 +12,14 @@ import Level.NPC;
 import Level.Trigger;
 import NPCs.InteractableObject;
 import NPCs.Future.Robot;
+import NPCs.Future.RobotNPCS;
 import Scripts.Future.RobotSecurityScript;
 import NPCs.Future.RobotSecurity;
 import Scripts.Future.RobotEnemy;
 import NPCs.Saloon.BarTable;
 import NPCs.Saloon.RoundTable;
 import Scripts.Future.RobotEnemy;
+import Scripts.Future.RobotThreeScript;
 import Tilesets.FutureIndoorTileset;
 import Tilesets.SaloonTileset;
 import Utils.ImageUtils;
@@ -46,6 +48,15 @@ public class FloorTwoMap extends Map {
 
   public ArrayList<NPC> loadNPCs() {
     ArrayList<NPC> list = new ArrayList<>();
+
+    RobotSecurity robot = new RobotSecurity(2, getMapTile(7, 16).getLocation(), 35);
+    robot.setInteractScript(new RobotSecurityScript());
+    list.add(robot);
+
+    RobotNPCS robot5 = new RobotNPCS(2, getMapTile(31, 10).getLocation());
+    robot.setInteractScript(new RobotThreeScript());
+    list.add(robot5);
+
 
     int id = 10;
 

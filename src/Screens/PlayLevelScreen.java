@@ -100,6 +100,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpChip", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotOne", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotTwo", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotThree", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("returnedToLab", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("tasksCompleted", false);
     

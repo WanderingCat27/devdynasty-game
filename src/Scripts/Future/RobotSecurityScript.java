@@ -17,10 +17,11 @@ public class RobotSecurityScript extends Script<NPC> {
         entity.facePlayer(player);
 
            if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToSecurityRobot")) {
-            BuildingEntrance elevator1 = new BuildingEntrance(0, getMapTile(2, 8).getLocation(), 96, 20, "Floor3");
+            BuildingEntrance elevator1 = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 96, 20, "Floor3");
             showTextbox();
             addTextToTextboxQueue( "ROBOT HEALTH AT MINIMUM CAPACITY");
             addTextToTextboxQueue( "FINAL CODE NUMBER IS 9");
+            addTextToTextboxQueue( "TOP FLOOR UNLOCKED");
             addTextToTextboxQueue( "POWERING DOWN.....");
             this.map.addItem(elevator1);
         }
