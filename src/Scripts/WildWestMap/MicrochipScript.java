@@ -2,6 +2,7 @@ package Scripts.WildWestMap;
 
 import GameObject.Inventory;
 import GameObject.Item;
+import Level.GlobalFlagManager;
 import Level.MapEntityStatus;
 import Level.Script;
 import Level.ScriptState;
@@ -17,7 +18,7 @@ public class MicrochipScript extends Script<Item>
         {
             Inventory.addNPC(this.entity);
             this.entity.setMapEntityStatus(MapEntityStatus.REMOVED);
-            setFlag("hasPickedUpMicrochip");
+            GlobalFlagManager.FLAG_MANAGER.setFlag("hasPickedUpChip");
         }
     }
     
