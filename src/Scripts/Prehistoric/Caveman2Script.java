@@ -48,7 +48,7 @@ public class Caveman2Script extends Script<NPC> {
         }
         addTextToTextboxQueue("Here... a token of my gratitude");
         LevelManager.getCurrentLevel().getMap().getItemById(0).setIsHidden(false);
-        addTextToTextboxQueue("A strength potion.");
+        addTextToTextboxQueue("A strength potion to boost attack for a turn.");
         addTextToTextboxQueue("Stay safe, it's a dangerous world out here.");
         
         GlobalFlagManager.FLAG_MANAGER.unsetFlag("swordPickedUp");
