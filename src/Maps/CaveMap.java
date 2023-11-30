@@ -57,7 +57,7 @@ public class CaveMap extends Map{
 
     Item lock = new Item(2, getMapTile(25, 23).getLocation(), "Lock.png", 25, 25);
     list.add(lock);
-    lock.setIsHidden(true);
+    //lock.setIsHidden(true);
 
     Item doorUnlocked = new Item(3, getMapTile(25, 22).getLocation(), "DoorOpened.png", 16, 16);
     doorUnlocked.setScale(3f);
@@ -93,8 +93,6 @@ public class CaveMap extends Map{
     @Override
     public void draw(Player player,GraphicsHandler g){
       super.draw(player, g);
-      System.out.println("Draw Running");
-      System.out.println(ScreenManager.getScreenHeight()/2 > player.getLocation().getY());
       if(!GlobalFlagManager.FLAG_MANAGER.isFlagSet("flashlightPickedUp")){
         g.drawDarkScreenOverlay(ScreenManager.getScreenWidth(), ScreenManager.getScreenWidth(), Colors.MAGENTA);
         //g.drawFlashlightLight(player.getLocation().getX(), player.getLocation().getY());
