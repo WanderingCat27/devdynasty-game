@@ -9,6 +9,7 @@ import Maps.Future.FloorThreeMap;
 import Maps.Future.FloorTwoMap;
 import Maps.Future.FutureMap;
 import Maps.Future.ReceptionMap;
+import Maps.WildWest.LeftSideBuildings;
 import Maps.WildWest.OldCowboyHouseMap;
 import Maps.WildWest.SaloonMap;
 import Maps.WildWest.WWBuildingOne;
@@ -31,6 +32,15 @@ public class LevelManager {
     @Override
     protected Map getMapInstance() {
       return new ScienceLabMap();
+    }
+
+  };
+
+  public static final Level LEFTSIDEBUILDINGS = new Level() {
+
+    @Override
+    protected Map getMapInstance() {
+      return new LeftSideBuildings();
     }
 
   };

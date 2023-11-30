@@ -7,8 +7,12 @@ import Items.BuildingEntrance;
 import Level.Map;
 import Level.NPC;
 import Level.Trigger;
+import NPCs.Future.Robot;
+import NPCs.Future.RobotNPCS;
+import Scripts.Future.RobotOneScript;
 import NPCs.Saloon.BarTable;
 import NPCs.Saloon.RoundTable;
+import Scripts.Future.RobotEnemy;
 import Tilesets.FutureIndoorTileset;
 import Tilesets.SaloonTileset;
 
@@ -28,6 +32,16 @@ public class ReceptionMap extends Map{
     BuildingEntrance receptionExit = new BuildingEntrance(0, getMapTile(8, 16).getLocation(), 160, 32, "future");
     list.add(receptionExit);
     return list;
+  }
+
+  public ArrayList<NPC> loadNPCs() {
+      ArrayList<NPC> npcs = new ArrayList<>();
+
+      RobotNPCS robot1 = new RobotNPCS(9, getMapTile(8, 6).getLocation());
+      robot1.setInteractScript(new RobotOneScript());
+      npcs.add(robot1);
+
+      return npcs;
   }
 
 

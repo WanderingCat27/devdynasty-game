@@ -509,9 +509,9 @@ public abstract class Map {
         }
       }
       interactedEntity = currentLargestAreaOverlappedEntity;
-      System.out.println("Player is currently intersecting" + interactedEntity.getClass().toGenericString());
     }
     if (interactedEntity != null) {
+      System.out.println("Player is currently intersecting" + interactedEntity.getClass().toGenericString());
       System.out.println("interacted" + interactedEntity.getClass().toGenericString());
       System.out.println("Intersected");
       interactedEntity.getInteractScript().setIsActive(true);

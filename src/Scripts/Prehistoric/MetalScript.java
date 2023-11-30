@@ -1,12 +1,14 @@
-package Scripts.WildWestMap;
+package Scripts.Prehistoric;
 
-import GameObject.Inventory;
-import GameObject.Item;
 import Level.MapEntityStatus;
+import Level.NPC;
 import Level.Script;
 import Level.ScriptState;
+import GameObject.Inventory;
+//import GameObject.Item; //since we will need to access the item class
+import GameObject.Item;
 
-public class MicrochipScript extends Script<Item>
+public class MetalScript extends Script<Item>
 {
     @Override
     protected void setup()
@@ -17,7 +19,7 @@ public class MicrochipScript extends Script<Item>
         {
             Inventory.addNPC(this.entity);
             this.entity.setMapEntityStatus(MapEntityStatus.REMOVED);
-            setFlag("hasPickedUpMicrochip");
+            setFlag("hasPickedUpMetal");
         }
     }
     

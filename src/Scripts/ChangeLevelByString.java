@@ -30,9 +30,9 @@ public class ChangeLevelByString extends Script {
     else if (this.levelStr.equalsIgnoreCase("saloon"))
       level = LevelManager.SALOON_INSIDE;
     else if (this.levelStr.equalsIgnoreCase("buildingone"))
-      level = LevelManager.WWBUILDINGLEFT;
+      level = LevelManager.LEFTSIDEBUILDINGS;
     else if (this.levelStr.equalsIgnoreCase("wwbuildingone"))
-      level = LevelManager.WWBUILDINGLEFT;
+      level = LevelManager.LEFTSIDEBUILDINGS;
     else if (this.levelStr.equalsIgnoreCase("buildingtwo"))
       level = LevelManager.WWBUILDINGRIGHT;
     else if (this.levelStr.equalsIgnoreCase("prehistoric"))
@@ -49,6 +49,8 @@ public class ChangeLevelByString extends Script {
       level = LevelManager.FUTURE;
     else if (this.levelStr.equalsIgnoreCase("OldCowboyHouseMap"))
       level = LevelManager.OCHOUSE;
+    else if(this.levelStr.equalsIgnoreCase("costumeChange"))
+      level = LevelManager.WWBUILDINGLEFT;
 
     if (level != null) {
       LevelManager.setLevel(level);

@@ -1,4 +1,4 @@
-package NPCs.Prehistoric;
+package NPCs.Future;
 import java.awt.Point;
 import java.util.HashMap;
 
@@ -10,25 +10,16 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.NPC;
 
-public class Caveman extends NPC
+public class RobotNPCS extends NPC
 {
-    public Caveman(int id, Utils.Point point)
+    public RobotNPCS(int id, Utils.Point point)
     {
-        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("Caveman.png"), 14, 19), "STAND_DOWN");
-    }
-
-    public Caveman(int id, Utils.Point point, int startingHealth){
-        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("Caveman.png"), 14, 19), "STAND_DOWN", startingHealth);
+        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("Robot.png"), 14, 19), "STAND_DOWN");
     }
 
     public void update() {
         super.update();
     }
-
-    public String getPathToImage(){
-        return "Caveman.png";
-    }
-
 
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);

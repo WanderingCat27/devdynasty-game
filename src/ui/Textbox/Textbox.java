@@ -69,9 +69,7 @@ public class Textbox extends UIContainer {
     if ((!textQueue.isEmpty() && keyLocker.isKeyLocked(interactKey))
         || (!textQueue.isEmpty() && keyLocker.isKeyLocked(interactKey2))
         || (!textQueue.isEmpty() && keyLocker.isKeyLocked(interactKey3))) {
-      String next = textQueue.peek();
-
-      text.setText(next);
+     next();
     }
 
     // if interact key is pressed, remove the current text from the queue to prepare
@@ -138,6 +136,12 @@ public class Textbox extends UIContainer {
 
   public void setText(String string) {
     this.text.setText(string);
+  }
+
+  public void next() {
+     String next = textQueue.peek();
+
+      text.setText(next);
   }
 
 }
