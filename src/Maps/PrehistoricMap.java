@@ -105,7 +105,8 @@ public class PrehistoricMap extends Map {
       BuildingEntrance caveEntrance = new BuildingEntrance(1, getMapTile(20, 16).getLocation(), 20, 200, "cave");
       list.add(caveEntrance);
       purplePotion.setIsHidden(true);
-      Sword sword = new Sword(1, getMapTile(4, 4).getLocation());
+      
+      Sword sword = new Sword(2, getMapTile(4, 4).getLocation());
       sword.setIsHidden(true);
       list.add(sword);
 

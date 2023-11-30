@@ -216,7 +216,7 @@ public class PlayLevelScreen extends Screen {
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("dinoDefeated") && LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("swordSpawn")) {
-      LevelManager.getCurrentLevel().getMap().getItemById(1).setIsHidden(false);
+      LevelManager.getCurrentLevel().getMap().getItemById(2).setIsHidden(false);
       GlobalFlagManager.FLAG_MANAGER.setFlag("swordSpawn");
     }
 
