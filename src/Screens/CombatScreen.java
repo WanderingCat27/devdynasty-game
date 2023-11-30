@@ -24,6 +24,7 @@ import GameObject.Sprite;
 import GameObject.SpriteSheet;
 import Items.BossItems.Crystal;
 import Items.BossItems.Metal;
+import Level.GlobalFlagManager;
 import Items.BossItems.Microchip;
 import Level.Level;
 import Level.LevelManager;
@@ -113,6 +114,7 @@ public class CombatScreen extends Screen {
   private PositioningContainer bagContainer;
   private PositioningContainer runContainer;
   private PositioningContainer useItemContainer;
+  private PositioningContainer enemyHealthBarContainer;
   private MiniGameContainer miniGameContainer;
   private boolean[] usedItems;
   private boolean awaitingAttack = false;
@@ -171,11 +173,16 @@ public class CombatScreen extends Screen {
     useItemContainer.setAnchorChildren(true);
     useItemContainer.setfillType(FillType.FILL_SCREEN);
 
-    if (LevelManager.getCurrentLevel() == LevelManager.SALOON_INSIDE || LevelManager.getCurrentLevel() == LevelManager.OCHOUSE)
+    enemyHealthBarContainer = new PositioningContainer(Anchor.TOP_RIGHT);
+    enemyHealthBarContainer.setAnchorChildren(true);
+    enemyHealthBarContainer.setfillType(FillType.FILL_SCREEN);
+
+    if (LevelManager.getCurrentLevel() == LevelManager.SALOON_INSIDE
+        || LevelManager.getCurrentLevel() == LevelManager.OCHOUSE)
       miniGameContainer = new FightGameContainer(initialTextboxHeight);
     else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC)
       miniGameContainer = new DodgeFightGameContainer(initialTextboxHeight);
-    else 
+    else
       miniGameContainer = new FinalFightGameContainer(initialTextboxHeight);
 
     // sound
@@ -218,7 +225,9 @@ public class CombatScreen extends Screen {
     this.enemyImage = enemyImage;
     enemy = new SpriteUI(0, 0, enemyImage, 15);
     enemy.setAnchor(Anchor.BOTTOM_CENTER);
-    enemyHealthBar = new HealthBar((ScreenManager.getScreenWidth()/2)-100, 30, 200, 30, Colors.LIGHT_GREEN, Colors.BLACK, enemyHealth);
+    enemyHealthBar = new HealthBar(-20, 30, 200, 30, Colors.LIGHT_GREEN,
+        Colors.BLACK, enemyHealth);
+    enemyHealthBarContainer.addComponent(enemyHealthBar);
     CenterContainer enemyContainer = new CenterContainer();
     enemyContainer.setfillType(FillType.FILL_PARENT);
     enemyContainer.setAnchorChildren(false);
@@ -228,8 +237,32 @@ public class CombatScreen extends Screen {
     youWinPopup.setAnchor(Anchor.TOP_CENTER);
     winContainer.addComponent(youWinPopup);
 
-    playerHealthText = new SpriteFont(""+playerHealth, 225, -270, "Comic Sans", 30, Color.white);
-    enemyHealthText = new SpriteFont(""+enemyHealth, (ScreenManager.getScreenWidth()/2)+115, 25, "Comic Sans", 30, Color.white);
+    playerHealthText = new SpriteFont("" + playerHealth, 0, 0, "Comic Sans", 30, Color.white) {
+      @Override
+      public int getYAbs() {
+        return playerHealthBar.getYAbs() - getHeight();
+      }
+
+      @Override
+      public int getXAbs() {
+        return playerHealthBar.getXAbs();
+      }
+    };
+    playerHealthText.setAnchor(Anchor.BOTTOM_CENTER);
+    enemyHealthText = new SpriteFont("" + enemyHealth, 0, 0, "Comic Sans", 30,
+        Color.white) {
+      @Override
+      public int getYAbs() {
+        return enemyHealthBar.getYAbs() + getHeight();
+      }
+
+      @Override
+      public int getXAbs() {
+        return enemyHealthBar.getXAbs();
+      }
+    };
+
+    enemyHealthText.setAnchor(Anchor.TOP_CENTER);
     // map background
     background = new CombatMap();
 
@@ -254,7 +287,7 @@ public class CombatScreen extends Screen {
             if (healthZero() || screenState == SCREENSTATE.FIGHTGAME || awaitingAttack)
               return;
             screenState = SCREENSTATE.FIGHTGAME;
-            miniGameContainer.start();
+            miniGameContainer.init();
           }
 
         });
@@ -276,14 +309,16 @@ public class CombatScreen extends Screen {
           }
 
         });
-    playerHealthBar = new HealthBar(10, -275, 200, 30, Colors.LIGHT_GREEN, Colors.BLACK, playerHealth);
-    
+    playerHealthBar = new HealthBar(10, 0, 200, 30, Colors.LIGHT_GREEN, Colors.BLACK, playerHealth) {
+      @Override
+      public int getYAbs() {
+        return fightButton.getYAbs() - getHeight()*2;
+      };
+    };
     PositioningContainer left = new PositioningContainer(Anchor.BOTTOM_LEFT);
     left.setAnchorChildren(true);
     left.setfillType(FillType.FILL_PARENT);
     left.addComponent(fightButton);
-    left.addComponent(playerHealthBar);
-    left.addComponent(playerHealthText);
 
     PositioningContainer middle = new PositioningContainer(Anchor.BOTTOM_CENTER);
     middle.setfillType(FillType.FILL_PARENT);
@@ -340,7 +375,6 @@ public class CombatScreen extends Screen {
 
     createBagContainer();
 
-
     TextButton useItemButton = new TextButton(0, 0, 300, 150, new Color(242, 196,
         12), "Use Item?",
         new Font("Comic Sans", Font.BOLD, 40), Color.WHITE, () -> {
@@ -351,14 +385,18 @@ public class CombatScreen extends Screen {
           // Items need a name field or smth to identify them as
           // this kinda works for now since the class name will be similar to its name
           // but not final
-          if (Inventory.get(inventoryIndex).getClass().getName() == "Items.RedPotion") {
+          if (Inventory.get(inventoryIndex).getName() == null) {
+            textbox.setText("Item Cannot be used");
+            usedItems[inventoryIndex] = false;
+          } else if (Inventory.get(inventoryIndex).getName().equals("Red Potion")) {
             textbox.setText("25 health regenerated");
             playerHealth += 25;
-          } else if (Inventory.get(inventoryIndex).getClass().getName() == "Items.PurplePotion") {
+          } else if (Inventory.get(inventoryIndex).getName().equals("Purple Potion")) {
             textbox.setText("Next attack boosted");
             boostNextAttack = true;
           } else {
-            textbox.setText("You used: " + Inventory.get(inventoryIndex).getClass().getName());
+            textbox.setText("Item Cannot be used");
+            usedItems[inventoryIndex] = false;
           }
 
         }) {
@@ -446,20 +484,21 @@ public class CombatScreen extends Screen {
         combatSoundFXPlayer.play();
         attackAnimation();
         awaitingAttack = false;
-        int damage = (int)(Math.random()*12)+4;
+        int damage = (int) (Math.random() * 12) + 4;
         playerHealth -= damage;
-        playerDamageIndicator = new SpriteFont("-"+damage, 270, ScreenManager.getScreenHeight()/2 - 50, "Itallic", 50, Color.RED);
+        playerDamageIndicator = new SpriteFont("-" + damage, 270, ScreenManager.getScreenHeight() / 2 - 50, "Itallic",
+            50, Color.RED);
         showPlayerDamage = true;
         playerHealthBar.update(playerHealth);
-        playerHealthText.setText(""+playerHealth);
+        playerHealthText.setText("" + playerHealth);
         Timer timer2 = new Timer();
         TimerTask healthDelay = new TimerTask() {
           @Override
-          public void run(){
+          public void run() {
             showPlayerDamage = false;
             timer2.cancel();
           }
-      
+
         };
         timer2.schedule(healthDelay, 3000, 2000);
         textbox.setText("Enemy did " + damage + " damage" + "\nYour Health: " + playerHealth + "\nWhat will you do?");
@@ -468,7 +507,7 @@ public class CombatScreen extends Screen {
 
     };
     timer.schedule(gameDelay, 2000, 2000);
-    
+
     playerTurn = true;
 
   }
@@ -476,6 +515,8 @@ public class CombatScreen extends Screen {
   public void update() {
     background.update(null);
     if (playerTurn && playerAlive()) {
+      enemyHealthBarContainer.update();
+      playerHealthBar.update();
       switch (screenState) {
         case INVENTORY:
           bagContainer.update();
@@ -493,18 +534,20 @@ public class CombatScreen extends Screen {
             System.out.println("Attacked");
             int damage;
             if (boostNextAttack) {
-              damage = (int) (miniGameContainer.getScore() * 10 + .5f) + 5;
+              damage = Math.round(miniGameContainer.getScore() * 2);
               boostNextAttack = false;
               System.out.println("attack boosted");
             } else {
-              damage = (int) (miniGameContainer.getScore() * 10 + .5f);
+              damage = Math.round(miniGameContainer.getScore());
             }
             if (damage > enemyHealth) {
               enemyHealth = 0;
             } else {
               enemyHealth -= damage;
             }
-            enemyDamageIndicator = new SpriteFont("-"+damage, (ScreenManager.getScreenWidth()/2)+enemy.getWidth()/2, enemy.getYOrigin()+(enemy.getHeight()/2), "Itallic", 50, Color.RED);
+            enemyDamageIndicator = new SpriteFont("-" + damage,
+                (ScreenManager.getScreenWidth() / 2) + enemy.getWidth() / 2,
+                enemy.getYOrigin() + (enemy.getHeight() / 2), "Itallic", 50, Color.RED);
             showEnemyDamage = true;
             Timer timer = new Timer();
             TimerTask gameDelay = new TimerTask() {
@@ -518,7 +561,7 @@ public class CombatScreen extends Screen {
                   weakSoundPlayer.play();
                 }
                 System.out.println("Health: " + playerHealth);
-                
+
                 if (healthZero()) {
                   textbox.setText("You did " + damage + " damage." + "\n\nYou have defeated the Enemy!");
                 } else {
@@ -530,7 +573,7 @@ public class CombatScreen extends Screen {
             };
             timer.schedule(gameDelay, 0, 3000);
             enemyHealthBar.update(enemyHealth);
-            enemyHealthText.setText(""+enemyHealth);
+            enemyHealthText.setText("" + enemyHealth);
             if (!healthZero()) {
               playerTurn = false;
             }
@@ -541,7 +584,7 @@ public class CombatScreen extends Screen {
           textBoxContainer.update();
           break;
       }
-    } else {
+    } else if(playerAlive()){
       Timer timer = new Timer();
       awaitingAttack = true;
       TimerTask delay = new TimerTask() {
@@ -562,8 +605,9 @@ public class CombatScreen extends Screen {
       textbox.setText("You lose");
       winContainer.update();
       playerWin = false;
+      endCombat();
     } else {
-      if(playerTurn)
+      if (playerTurn)
         fightContainer.update();
     }
     // scale items that should scale
@@ -596,47 +640,49 @@ public class CombatScreen extends Screen {
         break;
     }
 
-    if(showEnemyDamage){
-      //System.out.println("Show:"+showEnemyDamage);
+    if (showEnemyDamage) {
+      // System.out.println("Show:"+showEnemyDamage);
       enemyDamageIndicator.draw(graphicsHandler);
     }
 
-    if(showPlayerDamage){
+    if (showPlayerDamage) {
       playerDamageIndicator.draw(graphicsHandler);
     }
 
     if (healthZero())
       winContainer.draw(graphicsHandler);
-    else
+    else {
       fightContainer.draw(graphicsHandler);
-      enemyHealthBar.draw(graphicsHandler);
+      enemyHealthBarContainer.draw(graphicsHandler);
+      playerHealthBar.draw(graphicsHandler);
       enemyHealthText.draw(graphicsHandler);
-      
+      playerHealthText.draw(graphicsHandler);
+    }
+
   }
 
-  private void attackAnimation()
-  {
-       double radius = 40; // Adjust the radius as needed
-       double speed = 2 * Math.PI / 60.0; // One full circle in one second at 60 fps
+  private void attackAnimation() {
+    double radius = 40; // Adjust the radius as needed
+    double speed = 2 * Math.PI / 60.0; // One full circle in one second at 60 fps
 
-       for (int frame = 0; frame < 60; frame++) {
-           // Update the enemy's position for each frame
-           enemy.setX((int) (0 + radius * Math.cos(speed * frame)));
-           enemy.setY((int) (0 + radius * Math.sin(speed * frame)));
+    for (int frame = 0; frame < 60; frame++) {
+      // Update the enemy's position for each frame
+      enemy.setX((int) (0 + radius * Math.cos(speed * frame)));
+      enemy.setY((int) (0 + radius * Math.sin(speed * frame)));
 
-           // Render or do other necessary actions here
+      // Render or do other necessary actions here
 
-           // Sleep to achieve 60 fps (assuming this method is called in a loop)
-           try {
-               Thread.sleep(7); // Adjust sleep time as needed
-           } catch (InterruptedException e) {
-               e.printStackTrace();
-           }
-       }
+      // Sleep to achieve 60 fps (assuming this method is called in a loop)
+      try {
+        Thread.sleep(7); // Adjust sleep time as needed
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
 
-       // After the animation, return to the original location
-       enemy.setX(0);
-       enemy.setY(0);
+    // After the animation, return to the original location
+    enemy.setX(0);
+    enemy.setY(0);
   }
 
   protected void scaleAll() {
@@ -706,8 +752,7 @@ public class CombatScreen extends Screen {
       metal.setMap(LevelManager.getCurrentLevel().getMap());
       metal.getInteractScript().setIsActive(true);
       metal.getInteractScript().setMap(LevelManager.getCurrentLevel().getMap());
-    }
-    else if (itemName.toLowerCase().equals("chip")) {
+    } else if (itemName.toLowerCase().equals("chip")) {
       NPC chip = new Microchip(11, LevelManager.getCurrentLevel().getPlayer().getLocation());
       LevelManager.getCurrentLevel().getMap().addNPC(chip);
       chip.setMap(LevelManager.getCurrentLevel().getMap());
@@ -746,10 +791,9 @@ public class CombatScreen extends Screen {
       // spawn item
       if (LevelManager.getCurrentLevel() == LevelManager.SALOON_INSIDE) {
         spawnWinningNPC("crystal");
-      } else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC){
+      } else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC && this.npc == LevelManager.getCurrentLevel().getMap().getNPCById(5)){
         spawnWinningNPC("metal");
-      }
-      else if (LevelManager.getCurrentLevel() == LevelManager.FLOOR3){
+      } else if (LevelManager.getCurrentLevel() == LevelManager.FLOOR3) {
         spawnWinningNPC("chip");
       }
       System.out.println("Spawning a new item");

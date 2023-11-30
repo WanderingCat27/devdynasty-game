@@ -18,6 +18,18 @@ public class BlueDino extends NPC {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("BlueDino.png"), 14, 17), "STAND_LEFT");
     }
 
+    public BlueDino(int id, Utils.Point point, int startingHealth){
+        super(id, point.x, point.y, new SpriteSheet(ImageLoader.load("BlueDino.png"), 14, 17), "STAND_LEFT", startingHealth);
+    }
+
+    public void update() {
+        super.update();
+    }
+
+    public String getPathToImage(){
+        return "BlueDino.png";
+    }
+
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
@@ -36,23 +48,23 @@ public class BlueDino extends NPC {
            });
 
             put("WALK_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(3)
                             .withBounds(4, 5, 5, 10)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
                             .withBounds(4, 5, 5, 10)
                             .build()
             });
 
             put("WALK_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 5, 5, 10)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 5, 5, 10)

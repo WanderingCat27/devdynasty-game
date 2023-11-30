@@ -58,6 +58,7 @@ public class PlayLevelScreen extends Screen {
   public static float currentVolume;
   public static float currentWalkVolume;
   protected boolean activeCombat = false;
+  protected boolean move = true;
 
   public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
     this.screenCoordinator = screenCoordinator;
@@ -79,19 +80,28 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpCrystal", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasDroppedCrystalOff", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCB3", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToCaveman2", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToBlueDino", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("acceptedCBquest", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToBat", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("batDefeated", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("jacketPickedUp", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasChangedCostume", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("swordPickedUp", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("dinoDefeated", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("swordSpawn", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasDroppedMetalOff", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpMetal", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotEnemy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("robotEnemyDefeated", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToSecurityRobot", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("securityRobotDefeated", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasDroppedChipOff", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpChip", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotOne", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotTwo", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("returnedToLab", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("tasksCompleted", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("redJewelCorrect", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("greenJewelCorrect", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("blueJewelCorrect", false);
@@ -135,8 +145,14 @@ public class PlayLevelScreen extends Screen {
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCowboy") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")) {
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(4), "hasTalkedToCowboy", "evilCowboyDefeated");
     }
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToBlueDino") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("dinoDefeated")) {
+      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(3), "hasTalkedToBlueDino", "dinoDefeated");
+    }
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToBat") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("batDefeated"))
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(6), "hasTalkedToBat", "batDefeated");
+
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToSecurityRobot") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("securityRobotDefeated"))
+      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(50), "hasTalkedToSecurityRobot", "securityRobotDefeated");
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")){
         if(LevelManager.getCurrentLevel() == LevelManager.LAB && GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasDroppedCrystalOff")) {
@@ -161,15 +177,14 @@ public class PlayLevelScreen extends Screen {
       }
     }
 
-
-    
-
-
-
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotEnemy") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("robotEnemyDefeated")) {
         runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(9), "hasTalkedToRobotEnemy", "robotEnemyDefeated");
         // System.out.println("ran robot combat");
       }
+
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotOne")) {
+      GlobalFlagManager.FLAG_MANAGER.setFlag("tasksCompleted");
+    }
    
    
       if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("robotEnemyDefeated")){
@@ -181,14 +196,14 @@ public class PlayLevelScreen extends Screen {
           LevelManager.getCurrentLevel().getMap().getNPCById(9).setInteractScript(new CheckDroppedItemScript());
         }
         if(LevelManager.getCurrentLevel() == LevelManager.FUTURE){
-          LevelManager.getCurrentLevel().getMap().getNPCById(9).setIsHidden(false);
+          LevelManager.getCurrentLevel().getMap().getNPCById(2).setIsHidden(false);
           if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasPickedUpChip"))
           {
-            LevelManager.getCurrentLevel().getMap().getNPCById(9).setInteractScript(new ChangeLevelScript(LevelManager.LAB));
+            LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelScript(LevelManager.LAB));
           }
           else
           {
-            LevelManager.getCurrentLevel().getMap().getNPCById(9).setInteractScript(new PickUpItemScript());
+            LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new PickUpItemScript());
           }
       }
       
@@ -198,7 +213,12 @@ public class PlayLevelScreen extends Screen {
       // System.out.println("ran caveman combat");
     }
 
-    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("cavemanDefeated")){
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("dinoDefeated") && LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("swordSpawn")) {
+      LevelManager.getCurrentLevel().getMap().getItemById(1).setIsHidden(false);
+      GlobalFlagManager.FLAG_MANAGER.setFlag("swordSpawn");
+    }
+
+    if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("cavemanDefeated")){
         if(LevelManager.getCurrentLevel() == LevelManager.LAB && GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasDroppedMetalOff")) {
           LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("future"));
         }
@@ -219,6 +239,16 @@ public class PlayLevelScreen extends Screen {
       }
       
     }
+
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("returnedToLab") && LevelManager.getCurrentLevel() == LevelManager.LAB) {
+      if (move == true) {
+          LevelManager.getCurrentLevel().getMap().getNPCById(3).setLocation((LevelManager.getCurrentLevel().getMap().getNPCById(2).getLocation().getX() - 100), LevelManager.getCurrentLevel().getMap().getNPCById(2).getLocation().getY());
+          System.out.println("moving");
+          move = false;
+      }
+        
+    }
+
 
     if(LevelManager.getCurrentLevel() == LevelManager.CAVE){
 

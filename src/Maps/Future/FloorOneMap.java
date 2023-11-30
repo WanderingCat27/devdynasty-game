@@ -48,11 +48,11 @@ public class FloorOneMap extends Map {
         if (row == 0 && col == 0) // the row and col of the special filing cabinet
 
           list.add(new InteractableObject(id++, getMapTile(26 + col * 2, 9 + row * 3).getLocation(),
-              new String[] { "Wait there is something in here.", "You a note \"7\"" },
+              new String[] { "Wait there is something in here.", "You see the second code number is \"4\"" },
               new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("file_cabinet.png"), 3))));
         else
           list.add(new InteractableObject(id++, getMapTile(26 + col * 2, 9 + row * 3).getLocation(),
-              new String[] { "Nothing here" },
+              new String[] { "No code number here" },
               new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("file_cabinet.png"), 3))));
 
     // spawn shelfs

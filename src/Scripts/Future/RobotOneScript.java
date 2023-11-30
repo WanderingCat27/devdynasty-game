@@ -21,12 +21,13 @@ public class RobotOneScript extends Script<NPC> {
             addTextToTextboxQueue( "USE THE ELEVATOR TO CHANGE FLOORS");
             addTextToTextboxQueue( "THE TOP FLOOR IS OFF LIMITS");
             addTextToTextboxQueue("WITHOUT THE CODE THAT IS...");
+            addTextToTextboxQueue("EACH FLOOR CONTAINS ONE CODE NUMBER");
+            addTextToTextboxQueue("THE FIRST NUMBER IN THE CODE IS 7");
         }
         else {
             addTextToTextboxQueue("FEEL FREE TO USE THE ELEVATOR HUMAN...");
             addTextToTextboxQueue("THE TOP FLOOR IS OFF LIMITS");
             addTextToTextboxQueue("UNLESS YOU HAVE THE CODE...");
-            addTextToTextboxQueue("THE FIRST NUMBER IN THE CODE IS 7");
         }
         entity.facePlayer(player);
     }

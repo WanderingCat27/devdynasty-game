@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import GameObject.Item;
 import Items.BuildingEntrance;
 import Items.TimeMachine;
+import Level.LevelManager;
 import Level.Map;
 import Level.NPC;
 import NPCs.OldCowboy;
@@ -12,6 +13,7 @@ import NPCs.Future.Robot;
 import NPCs.Future.RobotNPCS;
 import Scripts.WildWestMap.EvilBatScript;
 import Scripts.WildWestMap.OldCowboyScript;
+import Scripts.ChangeLevelScript;
 import Scripts.Future.RobotEnemy;
 import Scripts.Future.RobotOneScript;
 import Tilesets.FutureTileset;
@@ -36,6 +38,12 @@ public class FutureMap extends Map {
 
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
+
+        TimeMachine timeMachine = new TimeMachine(2, getMapTile(32, 15).getLocation(), 26, 37);
+        timeMachine.setInteractScript(new ChangeLevelScript(LevelManager.LAB));
+        timeMachine.setIsHidden(true);
+        npcs.add(timeMachine);
+
         return npcs;
     }
 

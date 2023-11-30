@@ -49,7 +49,6 @@ public class ItemTableScript extends Script<NPC>
                     break;
                 case 2:
                     // test, change to case 3 once final boss fight is ready
-                    GlobalFlagManager.FLAG_MANAGER.setFlag("win");
                     showTextbox();
                     addTextToTextboxQueue("Just 1 more to go.");
                     break;
@@ -78,7 +77,7 @@ public class ItemTableScript extends Script<NPC>
             System.out.println("Correct item was detected");
             for(int i = 0; i < Inventory.getInventory().size();i++)
             {
-                if(Inventory.getInventory().get(i) instanceof Crystal || Inventory.getInventory().get(i) instanceof Metal || Inventory.getInventory().get(i) instanceof Microchip || Inventory.getInventory().get(i) instanceof MysteryBox)
+                if(Inventory.getInventory().get(i) instanceof Crystal || Inventory.getInventory().get(i) instanceof Metal || Inventory.getInventory().get(i) instanceof Microchip)
                 {
                     //add the inventory onto the table, remove it from the players inventory
                     itemsOnTable.add(Inventory.getInventory().get(i));
@@ -95,6 +94,10 @@ public class ItemTableScript extends Script<NPC>
                 {
                     setFlag("hasDroppedMetalOff");
                     this.entity.setCurrentAnimationName("TWO_ITEM");
+                }
+                else if(itemsOnTable.size() == 3)
+                {
+                    this.entity.setCurrentAnimationName("THREE_ITEM");
                 }
             }
             end();

@@ -6,12 +6,17 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.Item;
 import Items.BuildingEntrance;
+import Level.GlobalFlagManager;
 import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.InteractableObject;
+import NPCs.Future.Robot;
+import NPCs.Future.RobotSecurity;
+import Scripts.Future.RobotEnemy;
 import NPCs.Saloon.BarTable;
 import NPCs.Saloon.RoundTable;
+import Scripts.Future.RobotEnemy;
 import Tilesets.FutureIndoorTileset;
 import Tilesets.SaloonTileset;
 import Utils.ImageUtils;
@@ -26,8 +31,15 @@ public class FloorTwoMap extends Map {
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList<Item> list = new ArrayList<>();
-    BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "floor3");
-    list.add(elevator);
+    if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotOne")){
+      BuildingEntrance elevator1 = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "floor3");
+      list.add(elevator1);
+    }
+    else{
+      BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "reception");
+      list.add(elevator);
+    }
+    
     return list;
   }
 
@@ -85,8 +97,13 @@ public class FloorTwoMap extends Map {
     // camera room
     list.add(new InteractableObject(id++, getMapTile(0, 9).getLocation(), new String[] {"Seems to be a camera monitor", "Hopefully I am not caught on camera"}, new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("camera_display.png"), 3))));
         list.add(new InteractableObject(id++, getMapTile(5, 9).getLocation(), new String[] {"Seems to be a camera monitor", "Hopefully I am not caught on camera"}, new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("camera_display.png"), 3))));
+
+    //RobotSecurity robotEvil = new RobotSecurity(50, getMapTile(4, 8).getLocation(), 35);
+    //robotEvil.setInteractScript(new RobotEnemy());
+    //npcs.add(robotEvil);
+
     
-        return list;
+    return list;
   }
 
 }
