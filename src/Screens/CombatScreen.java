@@ -145,7 +145,7 @@ public class CombatScreen extends Screen {
     playerTurn = true;
     isInitialized = true;
     usedItems = new boolean[4];
-    playerHealth = 50;
+    playerHealth = 2;
 
     fightContainer = new UIContainer(0, 0) {
 
@@ -583,7 +583,7 @@ public class CombatScreen extends Screen {
           textBoxContainer.update();
           break;
       }
-    } else {
+    } else if(playerAlive()){
       Timer timer = new Timer();
       awaitingAttack = true;
       TimerTask delay = new TimerTask() {
@@ -604,6 +604,7 @@ public class CombatScreen extends Screen {
       textbox.setText("You lose");
       winContainer.update();
       playerWin = false;
+      endCombat();
     } else {
       if (playerTurn)
         fightContainer.update();
