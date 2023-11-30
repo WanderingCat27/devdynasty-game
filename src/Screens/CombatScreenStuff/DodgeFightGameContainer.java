@@ -11,6 +11,7 @@ import Utils.MathUtils;
 import ui.SpriteUI.SolidSpriteUI;
 
 public class DodgeFightGameContainer extends MiniGameContainer {
+  public static boolean HAS_COMPLETED_TUTORIAL = false;
 
   protected SolidSpriteUI box, bg;
   protected KeyLocker keyLocker = new KeyLocker();
@@ -24,6 +25,7 @@ public class DodgeFightGameContainer extends MiniGameContainer {
   int collisions = 0;
 
   public DodgeFightGameContainer(int height) {
+    super("This game is controlled using only space bar.", "The goal is to dodge the black squares", "Hitting a block makes your attack less effective, you can lose up to 70% of your attack effectiveness", "Press space to move between the floor and the roof. Avoid the black blocks.");
     box = new SolidSpriteUI(0, 0, 50, 50, Color.WHITE) {
       @Override
       public int getHeight() {
@@ -56,6 +58,8 @@ public class DodgeFightGameContainer extends MiniGameContainer {
 
   @Override
   public void start() {
+    HAS_COMPLETED_TUTORIAL = true;
+
     generateRandomObstacles();
     xPos = 0;
     isStopped = false;
@@ -63,6 +67,9 @@ public class DodgeFightGameContainer extends MiniGameContainer {
 
   @Override
   public void update() {
+    super.update();
+    if (!isTutorialOver)
+      return;
     if (Keyboard.isKeyDown(Key.SPACE) && !keyLocker.isKeyLocked(Key.SPACE)) {
       keyLocker.lockKey(Key.SPACE);
       onRoof = !onRoof;
@@ -89,12 +96,14 @@ public class DodgeFightGameContainer extends MiniGameContainer {
 
   private int getClosestIndex() {
     int w = box.getHeight();
-    return (int) ((w + (w * xPos / (10/speed)) - (w * 8)) / (w * 4));
+    return (int) ((w + (w * xPos / (10 / speed)) - (w * 8)) / (w * 4));
   }
 
   @Override
   public void draw(GraphicsHandler g) {
     super.draw(g);
+    if (!isTutorialOver)
+      return;
     int w = box.getHeight();
     for (int index = 0; index < points.length; index++)
       g.drawFilledRectangle(getObstacleX(index),
@@ -106,7 +115,7 @@ public class DodgeFightGameContainer extends MiniGameContainer {
 
   protected int getObstacleX(int index) {
     int w = box.getWidth();
-    return (int) ((w * 8 + index * w * 4) - (w * xPos / (10/speed)));
+    return (int) ((w * 8 + index * w * 4) - (w * xPos / (10 / speed)));
   }
 
   @Override
@@ -122,6 +131,17 @@ public class DodgeFightGameContainer extends MiniGameContainer {
       if (c)
         score--;
     return Math.max(score, 3);
+  }
+
+  @Override
+  public boolean hasCompletedTutorial() {
+    // TODO Auto-generated method stub
+    return HAS_COMPLETED_TUTORIAL;
+  }
+
+  @Override
+  public int textboxHeight() {
+    return bg.getHeight();
   }
 
 }

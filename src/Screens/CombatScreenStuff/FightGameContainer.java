@@ -16,6 +16,8 @@ import ui.SpriteUI.SolidSpriteUI;
 
 public class FightGameContainer extends MiniGameContainer {
 
+  public static boolean HAS_COMPLETED_TUTORIAL = false;
+
   TextButton stopButton;
   SolidSpriteUI bar, yellowCenter, perfectCenter, ticker;
   private static SecureRandom random = new SecureRandom();
@@ -25,6 +27,7 @@ public class FightGameContainer extends MiniGameContainer {
   float step;
 
   public FightGameContainer(int height) {
+    super("Every time era has its own unique combat minigame.", "To play this minigame, the goal is to \nland moving bar in the center of the green target.", "You can either press the stop button, or \npress 'space' to stop the bar.", "The closer to the green the better your score. \nBut don't worry, for this game you can \nonly lose 50% of your attack effectiveness.");
     stopButton = new TextButton(0, 0, 200, height, Color.RED, "Stop", new Font("Comic Sans", Font.BOLD, 20),
         Color.GREEN, () -> stop());
 
@@ -108,6 +111,7 @@ public class FightGameContainer extends MiniGameContainer {
 
   @Override
   public void start() {
+    HAS_COMPLETED_TUTORIAL = true;
     isStopped = false;
     hitLocation = random.nextInt(80-2+1)+2;
   }
@@ -115,6 +119,7 @@ public class FightGameContainer extends MiniGameContainer {
   @Override
   public void update() {
     super.update();
+    if(!isTutorialOver) return;
     if (!isStopped) {
       step = Math.abs(((System.currentTimeMillis() % (int) (20000 * (1 / speed))) / (100 * (1 / speed))) - 100);
     }
@@ -128,6 +133,16 @@ public class FightGameContainer extends MiniGameContainer {
   public float getScore() {
     return Math.max((((40 - Utils.MathUtils.clamp(Math.abs(step - hitLocation) - 2, 0, 20))) / 40f) * 10f, 5);
 
+  }
+
+  @Override
+  public boolean hasCompletedTutorial() {
+    return HAS_COMPLETED_TUTORIAL;
+  }
+
+  @Override
+  public int textboxHeight() {
+    return bar.getHeight();
   }
 
   
