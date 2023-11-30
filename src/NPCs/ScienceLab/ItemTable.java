@@ -45,6 +45,12 @@ public class ItemTable extends NPC
                             .withBounds(0, 2, 72, 20)
                             .build()
             });
+            put("THREE_ITEM", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(0, 3))
+                            .withScale(3f)
+                            .withBounds(0, 2, 72, 20)
+                            .build()
+            });
         }};
     }
 }
