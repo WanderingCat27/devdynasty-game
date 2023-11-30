@@ -7,7 +7,7 @@ import Level.NPC;
 import Level.Script;
 import Level.ScriptState;
 
-public class RobotSecurity extends Script<NPC> {
+public class RobotSecurityScript extends Script<NPC> {
 
 
    @Override
@@ -22,8 +22,8 @@ public class RobotSecurity extends Script<NPC> {
             addTextToTextboxQueue( "FINAL CODE NUMBER IS 9");
             addTextToTextboxQueue( "POWERING DOWN.....");
         }
-        else if (!GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotEnemy")) {
-            BuildingEntrance elevator1 = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 96, 20, "Floor3");
+        else if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotEnemy")) {
+            BuildingEntrance elevator1 = new BuildingEntrance(0, getMapTile(37, 3).getLocation(), 96, 20, "Floor3");
             showTextbox();
             addTextToTextboxQueue("ACCESS TO SECURITY ROOM PROHIBITED");
             addTextToTextboxQueue("ATTACK MODE INITIATED");

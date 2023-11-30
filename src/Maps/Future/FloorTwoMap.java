@@ -12,6 +12,7 @@ import Level.NPC;
 import Level.Trigger;
 import NPCs.InteractableObject;
 import NPCs.Future.Robot;
+import Scripts.Future.RobotSecurityScript;
 import NPCs.Future.RobotSecurity;
 import Scripts.Future.RobotEnemy;
 import NPCs.Saloon.BarTable;
@@ -36,16 +37,20 @@ public class FloorTwoMap extends Map {
       list.add(elevator1);
     }
     else{
-      BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "reception");
+      BuildingEntrance elevator = new BuildingEntrance(1, getMapTile(37, 2).getLocation(), 160, 32, "reception");
       list.add(elevator);
     }
     
     return list;
   }
 
-  @Override
   public ArrayList<NPC> loadNPCs() {
     ArrayList<NPC> list = new ArrayList<>();
+
+    RobotSecurity robot = new RobotSecurity(2, getMapTile(0, 8).getLocation(), 35);
+    robot.setInteractScript(new RobotSecurityScript());
+    npcs.add(robot);
+
     int id = 10;
 
     // main room
@@ -97,11 +102,6 @@ public class FloorTwoMap extends Map {
     // camera room
     list.add(new InteractableObject(id++, getMapTile(0, 9).getLocation(), new String[] {"Seems to be a camera monitor", "Hopefully I am not caught on camera"}, new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("camera_display.png"), 3))));
         list.add(new InteractableObject(id++, getMapTile(5, 9).getLocation(), new String[] {"Seems to be a camera monitor", "Hopefully I am not caught on camera"}, new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("camera_display.png"), 3))));
-
-    //RobotSecurity robotEvil = new RobotSecurity(50, getMapTile(4, 8).getLocation(), 35);
-    //robotEvil.setInteractScript(new RobotEnemy());
-    //npcs.add(robotEvil);
-
     
     return list;
   }
