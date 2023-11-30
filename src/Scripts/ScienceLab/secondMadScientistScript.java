@@ -1,5 +1,6 @@
 package Scripts.ScienceLab;
 
+import Level.LevelManager;
 import Level.NPC;
 import Level.Script;
 import Level.ScriptState;
@@ -15,10 +16,15 @@ public class secondMadScientistScript extends Script<NPC>
     {
         System.out.println("Mad scientist setup");
         lockPlayer();
-        if(isFlagSet("hasTalkedToScientist"))
+        if(isFlagSet("returnedToLab"))
         {
+            entity.stand(Direction.RIGHT);
+            unsetFlag("returnedToLab");
             showTextbox();
-            addTextToTextboxQueue("Leave me, for I am busy\nbeyond belief.");
+            addTextToTextboxQueue("Ah, welcome back.");
+            addTextToTextboxQueue("You look exhausted from your travels.");
+            addTextToTextboxQueue("I can heal you here.");
+            
         }
         else if(!isFlagSet("hasTalkedToScientist"))
         {
@@ -63,6 +69,10 @@ public class secondMadScientistScript extends Script<NPC>
             {
                 entity.stand(Direction.UP);
             }
+        }
+        else {
+            showTextbox();
+            addTextToTextboxQueue("Leave me, for I am busy\nbeyond belief.");
         }
     }
 
@@ -119,6 +129,7 @@ public class secondMadScientistScript extends Script<NPC>
         if(isFlagSet("hasTalkedToScientist"))
         {
             start();
+            
             if(!isTextboxQueueEmpty())
             {
                 return ScriptState.RUNNING;
