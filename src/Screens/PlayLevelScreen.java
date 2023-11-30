@@ -100,6 +100,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpChip", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotOne", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotTwo", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotThree", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("returnedToLab", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("tasksCompleted", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("redJewelCorrect", false);
@@ -153,7 +154,7 @@ public class PlayLevelScreen extends Screen {
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(6), "hasTalkedToBat", "batDefeated");
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToSecurityRobot") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("securityRobotDefeated"))
-      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(50), "hasTalkedToSecurityRobot", "securityRobotDefeated");
+      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(2), "hasTalkedToSecurityRobot", "securityRobotDefeated");
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")){
         if(LevelManager.getCurrentLevel() == LevelManager.LAB && GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasDroppedCrystalOff")) {

@@ -41,6 +41,7 @@ public abstract class MiniGameContainer extends PositioningContainer {
   public void init() {
     if (!hasCompletedTutorial()) {
       System.out.println("starting tutorial");
+      tutorialTextbox.addText("Press 'enter' to continue");
       tutorialTextbox.addText(tutorialStrings);
       // replay tutorials message
       tutorialTextbox.addText(

@@ -12,11 +12,14 @@ import Level.NPC;
 import Level.Trigger;
 import NPCs.InteractableObject;
 import NPCs.Future.Robot;
+import NPCs.Future.RobotNPCS;
+import Scripts.Future.RobotSecurityScript;
 import NPCs.Future.RobotSecurity;
 import Scripts.Future.RobotEnemy;
 import NPCs.Saloon.BarTable;
 import NPCs.Saloon.RoundTable;
 import Scripts.Future.RobotEnemy;
+import Scripts.Future.RobotThreeScript;
 import Tilesets.FutureIndoorTileset;
 import Tilesets.SaloonTileset;
 import Utils.ImageUtils;
@@ -31,21 +34,24 @@ public class FloorTwoMap extends Map {
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList<Item> list = new ArrayList<>();
-    if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotOne")){
-      BuildingEntrance elevator1 = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "floor3");
-      list.add(elevator1);
-    }
-    else{
-      BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "reception");
+      BuildingEntrance elevator = new BuildingEntrance(1, getMapTile(37, 2).getLocation(), 160, 32, "reception");
       list.add(elevator);
-    }
     
     return list;
   }
 
-  @Override
   public ArrayList<NPC> loadNPCs() {
     ArrayList<NPC> list = new ArrayList<>();
+
+    RobotSecurity robot = new RobotSecurity(2, getMapTile(7, 16).getLocation(), 40);
+    robot.setInteractScript(new RobotSecurityScript());
+    list.add(robot);
+
+    RobotNPCS robot5 = new RobotNPCS(2, getMapTile(31, 10).getLocation());
+    robot5.setInteractScript(new RobotThreeScript());
+    list.add(robot5);
+
+
     int id = 10;
 
     // main room
@@ -97,11 +103,6 @@ public class FloorTwoMap extends Map {
     // camera room
     list.add(new InteractableObject(id++, getMapTile(0, 9).getLocation(), new String[] {"Seems to be a camera monitor", "Hopefully I am not caught on camera"}, new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("camera_display.png"), 3))));
         list.add(new InteractableObject(id++, getMapTile(5, 9).getLocation(), new String[] {"Seems to be a camera monitor", "Hopefully I am not caught on camera"}, new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("camera_display.png"), 3))));
-
-    //RobotSecurity robotEvil = new RobotSecurity(50, getMapTile(4, 8).getLocation(), 35);
-    //robotEvil.setInteractScript(new RobotEnemy());
-    //npcs.add(robotEvil);
-
     
     return list;
   }
