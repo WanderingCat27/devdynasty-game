@@ -6,6 +6,7 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.Item;
 import Items.BuildingEntrance;
+import Level.GlobalFlagManager;
 import Level.Map;
 import Level.NPC;
 import Level.Trigger;
@@ -30,8 +31,16 @@ public class FloorTwoMap extends Map {
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList<Item> list = new ArrayList<>();
-    BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "floor3");
-    list.add(elevator);
+    if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotOne") && 
+    GlobalFlagManager.FLAG_MANAGER.isFlagSet("securityRobotDefeated")){
+      BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "floor3");
+      list.add(elevator);
+    }
+    else{
+      BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "reception");
+      list.add(elevator);
+    }
+    
     return list;
   }
 
