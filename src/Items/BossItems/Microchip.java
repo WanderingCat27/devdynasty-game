@@ -2,7 +2,7 @@ package Items.BossItems;
 
 import Engine.GraphicsHandler;
 import GameObject.Item;
-import Scripts.Future.MicrochipScript;
+import Scripts.WildWestMap.MicrochipScript;
 
 public class Microchip extends Item
 {
@@ -25,6 +25,3 @@ public class Microchip extends Item
         return pathToImage;
     }
 }
-
-    
-
