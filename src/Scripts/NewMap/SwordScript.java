@@ -11,6 +11,8 @@ import GameObject.Item;
 
 public class SwordScript extends Script<Item>
 {
+
+    private boolean setFlag = false;
     
     @Override
     protected void setup()
@@ -21,7 +23,9 @@ public class SwordScript extends Script<Item>
         {
             Inventory.addNPC(this.entity);
             this.entity.setMapEntityStatus(MapEntityStatus.REMOVED);
-            GlobalFlagManager.FLAG_MANAGER.setFlag("swordPickedUp");
+            setFlag = true;
+
+            
         }
     }
     
@@ -34,6 +38,8 @@ public class SwordScript extends Script<Item>
     @Override
     protected ScriptState execute() {
         start();
+        if (setFlag)
+            GlobalFlagManager.FLAG_MANAGER.setFlag("swordPickedUp");
         end();
         return ScriptState.COMPLETED;
     }
