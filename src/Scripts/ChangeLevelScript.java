@@ -26,6 +26,7 @@ public class ChangeLevelScript extends Script {
         PlayLevelScreen.doReload = true;
         System.out.println(level);
         LevelManager.setLevel(level);
+        setFlag("returnedToLab");
 
         // script ends
         return ScriptState.COMPLETED;
