@@ -8,10 +8,14 @@ import java.nio.Buffer;
 import java.util.ArrayList;
 
 import Engine.GraphicsHandler;
+import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.Item;
+import GameObject.Sprite;
 import Items.BuildingEntrance;
+import Items.Cave;
 import Items.Computer;
+import Items.Flashlight;
 import Items.PurplePotion;
 import Items.Sword;
 import Items.TimeMachine;
@@ -42,7 +46,9 @@ import Scripts.ScienceLab.ItemTableScript;
 import Scripts.ScienceLab.secondMadScientistScript;
 import Tilesets.PrehistoricTileset;
 import Tilesets.ScienceLabTilset;
+import Utils.Colors;
 import Utils.Point;
+import ui.SpriteUI.SpriteUI;
 
 public class PrehistoricMap extends Map {
   public PrehistoricMap() {
@@ -50,7 +56,6 @@ public class PrehistoricMap extends Map {
     addMusic("Resources/Audio/prehistoric theme.wav");
     this.playerStartPosition = getMapTile(5, 3).getLocation();
     //setCenterCamera();
-
   }
 
   public ArrayList<NPC> loadNPCs()
@@ -74,10 +79,10 @@ public class PrehistoricMap extends Map {
         timeMachine.setIsHidden(true);
         npcs.add(timeMachine);
 
-        Caveman caveman = new Caveman(5, getMapTile(12, 5).getLocation(), 30);
-        caveman.setInteractScript(new CavemanScript());
-        npcs.add(caveman);
 
+        Cave cave = new Cave(7, getMapTile(20, 15).getLocation(), 67, 67);
+        cave.setInteractScript(new ChangeLevelScript(LevelManager.CAVE));
+        npcs.add(cave);
         Caveman2 caveman2 = new Caveman2(6, getMapTile(18, 2).getLocation());
         caveman2.setInteractScript(new Caveman2Script());
         npcs.add(caveman2);
@@ -90,8 +95,15 @@ public class PrehistoricMap extends Map {
   public ArrayList<Item> loadItems() {
     ArrayList<Item> list = new ArrayList<>();
 
-       PurplePotion purplePotion = new PurplePotion(0, getMapTile(17, 2).getLocation());
+      PurplePotion purplePotion = new PurplePotion(0, getMapTile(17, 2).getLocation());
       list.add(purplePotion);
+
+      Flashlight flashlight = new Flashlight(8, getMapTile(21, 14).getLocation());
+
+      list.add(flashlight);
+
+      BuildingEntrance caveEntrance = new BuildingEntrance(1, getMapTile(20, 16).getLocation(), 20, 200, "cave");
+      list.add(caveEntrance);
       purplePotion.setIsHidden(true);
       Sword sword = new Sword(1, getMapTile(4, 4).getLocation());
       sword.setIsHidden(true);
@@ -108,5 +120,8 @@ public class PrehistoricMap extends Map {
     // "hasTalkedToScientist"));
     return triggers;
   }
+
+
+  
 
 }

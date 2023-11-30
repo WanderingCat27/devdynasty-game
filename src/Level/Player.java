@@ -60,6 +60,7 @@ public abstract class Player extends GameObject {
   protected boolean mouseOnScreen;
   protected Point p;
   private float sprintMultiplier = 1.8f;
+  private boolean isCarryingJewel = false;
   
 
   public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
@@ -147,8 +148,13 @@ public abstract class Player extends GameObject {
       // walkingSoundPlayer.pause();
       playerState = PlayerState.STANDING;
     }
-
-    float adjustedSpeed = Keyboard.isKeyDown(SPRINT_KEY) ? walkSpeed * sprintMultiplier : walkSpeed;
+    float adjustedSpeed;
+    if(isCarryingJewel){
+      adjustedSpeed = walkSpeed;
+    }else{
+      adjustedSpeed = Keyboard.isKeyDown(SPRINT_KEY) ? walkSpeed * sprintMultiplier : walkSpeed;
+    }
+    
     if(Config.debugFastSprint && Keyboard.isKeyDown(Key.Q)) adjustedSpeed = walkSpeed*5;
 
     if (!keyLocker.isKeyLocked(INTERACT_KEY) && Keyboard.isKeyDown(INTERACT_KEY)) {
@@ -319,6 +325,10 @@ public abstract class Player extends GameObject {
     this.facingDirection = facingDirection;
   }
 
+  public void setIsCarryingJewel(boolean input){
+    isCarryingJewel = input;
+  }
+
   public void addListener(PlayerListener listener) {
     listeners.add(listener);
   }
@@ -406,11 +416,11 @@ public abstract class Player extends GameObject {
   }
 
   public float getMoveAmountX() {
-    return 0;
+    return moveAmountX;
   }
 
   public float getMoveAmountY() {
-    return 0;
+    return moveAmountX;
   }
 
   public void stopSound() {

@@ -791,7 +791,7 @@ public class CombatScreen extends Screen {
       // spawn item
       if (LevelManager.getCurrentLevel() == LevelManager.SALOON_INSIDE) {
         spawnWinningNPC("crystal");
-      } else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC && this.npc == LevelManager.getCurrentLevel().getMap().getNPCById(5)){
+      } else if (LevelManager.getCurrentLevel() == LevelManager.CAVE && this.npc == LevelManager.getCurrentLevel().getMap().getNPCById(5)){
         spawnWinningNPC("metal");
       } else if (LevelManager.getCurrentLevel() == LevelManager.FLOOR3) {
         spawnWinningNPC("chip");

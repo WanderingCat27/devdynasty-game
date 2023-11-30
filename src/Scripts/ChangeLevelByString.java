@@ -51,6 +51,8 @@ public class ChangeLevelByString extends Script {
       level = LevelManager.FUTURE;
     else if (this.levelStr.equalsIgnoreCase("OldCowboyHouseMap"))
       level = LevelManager.OCHOUSE;
+    else if(this.levelStr.equalsIgnoreCase("cave"))
+      level = LevelManager.CAVE;
     else if(this.levelStr.equalsIgnoreCase("costumeChange"))
       level = LevelManager.WWBUILDINGLEFT;
 

@@ -103,7 +103,12 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotThree", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("returnedToLab", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("tasksCompleted", false);
-    
+    GlobalFlagManager.FLAG_MANAGER.addFlag("redJewelCorrect", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("greenJewelCorrect", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("blueJewelCorrect", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("allJewelsCorrect", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("flashlightPickedUp", false);
+
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
     pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer,
@@ -173,7 +178,6 @@ public class PlayLevelScreen extends Screen {
           }
       }
     }
-    
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotEnemy") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("robotEnemyDefeated")) {
         runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(9), "hasTalkedToRobotEnemy", "robotEnemyDefeated");
@@ -247,6 +251,30 @@ public class PlayLevelScreen extends Screen {
         
     }
 
+
+    if(LevelManager.getCurrentLevel() == LevelManager.CAVE){
+
+      if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("redJewelCorrect") && GlobalFlagManager.FLAG_MANAGER.isFlagSet("greenJewelCorrect") && GlobalFlagManager.FLAG_MANAGER.isFlagSet("blueJewelCorrect")){
+        GlobalFlagManager.FLAG_MANAGER.setFlag("allJewelsCorrect");
+        System.out.println("Jewels correct");
+        LevelManager.getCurrentLevel().getMap().getItemById(2).setIsHidden(true);
+        LevelManager.getCurrentLevel().getMap().getItemById(3).setIsHidden(false);
+      }
+
+      if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("redJewelCorrect")){
+        System.out.println("Red Correct");
+      }
+
+      if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("greenJewelCorrect")){
+        System.out.println("Green Correct");
+      }
+
+      if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("blueJewelCorrect")){
+        System.out.println("Blue Correct");
+      }
+
+      
+    }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("win")) {
       playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;

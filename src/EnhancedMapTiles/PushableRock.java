@@ -19,56 +19,61 @@ public class PushableRock extends EnhancedMapTile {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Rock.png"), 16, 16), TileType.NOT_PASSABLE);
     }
 
+
+    public PushableRock(Point location, String imageFileName){
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load(imageFileName), 16, 16), TileType.NOT_PASSABLE);
+    }
+
     @Override
     public void update(Player player) {
         super.update(player);
         if (player.overlaps(this) && player.getPlayerState() == PlayerState.WALKING) {
             if (player.getCurrentWalkingXDirection() == Direction.LEFT) {
                 if (canMoveLeft(player)) {
-                    moveXHandleCollision(-1);
+                    moveXHandleCollision(-3);
                 }
             }
             else if (player.getCurrentWalkingXDirection() == Direction.RIGHT) {
                 if (canMoveRight(player)) {
-                    moveXHandleCollision(1);
+                    moveXHandleCollision(3);
                 }
             }
              if (player.getCurrentWalkingYDirection() == Direction.UP) {
                 if (canMoveUp(player)) {
-                    moveYHandleCollision(-1);
+                    moveYHandleCollision(-3);
                 }
             }
             else if (player.getCurrentWalkingYDirection() == Direction.DOWN) {
                 if (canMoveDown(player)) {
-                    moveYHandleCollision(1);
+                    moveYHandleCollision(3);
                 }
             }
         }
     }
 
-    private boolean canMoveLeft(Player player) {
+    protected boolean canMoveLeft(Player player) {
         return player.getBoundsX1() <= getBoundsX2() + 1 && player.getBoundsX2() > getBoundsX2() && canMoveX(player);
     }
 
-    private boolean canMoveRight(Player player) {
+    protected boolean canMoveRight(Player player) {
         return player.getBoundsX2() + 1 >= getBoundsX1() && player.getBoundsX1() < getBoundsX1() && canMoveX(player);
     }
 
-    private boolean canMoveX(Player player) {
+    protected boolean canMoveX(Player player) {
         return (player.getBoundsY1() <= getBoundsY2() && player.getBoundsY2() >= getBoundsY2()) ||
                 (player.getBoundsY2() >= getBoundsY1() && player.getBoundsY1() <= getBoundsY1()) ||
                 (player.getBoundsY2() <= getBoundsY2() && player.getBoundsY1() >= getBoundsY1());
     }
 
-    private boolean canMoveUp(Player player) {
+    protected boolean canMoveUp(Player player) {
         return player.getBoundsY1() <= getBoundsY2() + 1 && player.getBoundsY2() > getBoundsY2() && canMoveY(player);
     }
 
-    private boolean canMoveDown(Player player) {
+    protected boolean canMoveDown(Player player) {
         return player.getBoundsY2() + 1 >= getBoundsY1() && player.getBoundsY1() < getBoundsY1() && canMoveY(player);
     }
 
-    private boolean canMoveY(Player player) {
+    protected boolean canMoveY(Player player) {
         return (player.getBoundsX1() <= getBoundsX2() && player.getBoundsX2() >= getBoundsX2()) ||
                 (player.getBoundsX2() >= getBoundsX1() && player.getBoundsX1() <= getBoundsX1()) ||
                 (player.getBoundsX2() <= getBoundsX2() && player.getBoundsX1() >= getBoundsX1());

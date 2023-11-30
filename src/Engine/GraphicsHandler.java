@@ -1,6 +1,8 @@
 package Engine;
 
 import GameObject.ImageEffect;
+import Level.LevelManager;
+import Utils.Colors;
 
 import java.awt.*;
 import java.awt.font.GlyphVector;
@@ -103,4 +105,19 @@ public class GraphicsHandler {
         g.setStroke(originalStroke);
         g.setRenderingHints(originalHints);
     }
+
+    public void drawDarkScreenOverlay(int width, int height, Color transparentColory){
+        g.setColor(new Color(0, 0, 0, 235));
+        g.fillRect(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight());
+        //g.fillOval((int)LevelManager.getCurrentLevel().getPlayer().getX(),(int)LevelManager.getCurrentLevel().getPlayer().getY(), 150, 150);
+
+    }
+
+    // public void drawFlashlightLight(int x, int y){
+    //     g.setXORMode(Color.WHITE);
+    //     g.fillOval(x, y, 150, 150);
+    //     g.setPaintMode();
+    //     System.out.println();
+
+    // }
 }
