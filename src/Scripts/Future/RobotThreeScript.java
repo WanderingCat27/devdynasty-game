@@ -17,11 +17,11 @@ public class RobotThreeScript extends Script<NPC> {
         if (!isFlagSet("hasTalkedToRobotThree")) {
             addTextToTextboxQueue( "HELLO HUMAN INDIVIDUAL");
             addTextToTextboxQueue( "THE SECURITY ROOM BELOW IS OFF LIMITS");
-            addTextToTextboxQueue( "IT IS GAURDED BY AN ENEMY ROBOT");
+            addTextToTextboxQueue( "IT IS GUARDED BY AN ENEMY ROBOT");
             addTextToTextboxQueue( "DEFEAT HIM AND HE WILL GIVE YOU THE \nFINAL CODE NUMBER");
         }
         else {
-            addTextToTextboxQueue("DEFEAT THE GAURD TO FINISH THE CODE");
+            addTextToTextboxQueue("DEFEAT THE GUARD TO FINISH THE CODE");
         }
         entity.facePlayer(player);
     }

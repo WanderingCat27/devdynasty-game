@@ -34,14 +34,8 @@ public class FloorTwoMap extends Map {
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList<Item> list = new ArrayList<>();
-    if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotOne")){
-      BuildingEntrance elevator1 = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "floor3");
-      list.add(elevator1);
-    }
-    else{
       BuildingEntrance elevator = new BuildingEntrance(1, getMapTile(37, 2).getLocation(), 160, 32, "reception");
       list.add(elevator);
-    }
     
     return list;
   }
@@ -49,12 +43,12 @@ public class FloorTwoMap extends Map {
   public ArrayList<NPC> loadNPCs() {
     ArrayList<NPC> list = new ArrayList<>();
 
-    RobotSecurity robot = new RobotSecurity(2, getMapTile(7, 16).getLocation(), 35);
+    RobotSecurity robot = new RobotSecurity(2, getMapTile(7, 16).getLocation(), 40);
     robot.setInteractScript(new RobotSecurityScript());
     list.add(robot);
 
     RobotNPCS robot5 = new RobotNPCS(2, getMapTile(31, 10).getLocation());
-    robot.setInteractScript(new RobotThreeScript());
+    robot5.setInteractScript(new RobotThreeScript());
     list.add(robot5);
 
 
