@@ -44,7 +44,7 @@ public class ReceptionMap extends Map{
       npcs.add(robot1);
       
             
-    RobotSecurity robot = new RobotSecurity(2, getMapTile(0, 8).getLocation(), 3);
+    RobotSecurity robot = new RobotSecurity(2, getMapTile(0, 8).getLocation(), 35);
     robot.setInteractScript(new RobotSecurityScript());
     npcs.add(robot);
 
