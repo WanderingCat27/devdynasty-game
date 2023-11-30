@@ -122,24 +122,25 @@ public class PauseScreen extends Screen {
 
     }
 
-    resetTutorialsButton = new TextButton(0, 0, 300, 100, Color.GREEN, "Replay Tutorials", new Font("Comic Sans", Font.PLAIN, 12), Color.WHITE,
+    resetTutorialsButton = new TextButton(0, 0, 300, 100, new Color(80, 249,
+        64), "Replay Tutorials", new Font("Comic Sans", Font.BOLD, 30), Color.BLACK,
         () -> {
           FinalFightGameContainer.HAS_COMPLETED_TUTORIAL = false;
           DodgeFightGameContainer.HAS_COMPLETED_TUTORIAL = false;
           FightGameContainer.HAS_COMPLETED_TUTORIAL = false;
         }) {
-          @Override
-          public int getXOrigin() {
-            return ScreenManager.getScreenWidth()/2;
-          }
+      @Override
+      public int getXOrigin() {
+        return ScreenManager.getScreenWidth() / 2;
+      }
 
-          @Override
-          public int getYAbs() {
-            return walkSlider.getYAbs() + getHeight()/2;
-          }
-        };
+      @Override
+      public int getYAbs() {
+        return walkSlider.getYAbs() + getHeight() / 2;
+      }
+    };
 
-      resetTutorialsButton.setAnchor(Anchor.TOP_CENTER);
+    resetTutorialsButton.setAnchor(Anchor.TOP_CENTER);
   }
 
   public void draw(GraphicsHandler graphicsHandler) {
