@@ -207,7 +207,7 @@ public class Inventory extends Sprite {
 
   public static Item get(int index) {
     return itemsInInventory.get(index);
-}  
+  }   
   public static ArrayList<Item> getInventory() {
     return itemsInInventory;
   }

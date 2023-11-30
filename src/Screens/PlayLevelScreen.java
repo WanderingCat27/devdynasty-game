@@ -106,6 +106,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("greenJewelCorrect", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("blueJewelCorrect", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("allJewelsCorrect", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("flashlightPickedUp", false);
 
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
@@ -256,6 +257,7 @@ public class PlayLevelScreen extends Screen {
         GlobalFlagManager.FLAG_MANAGER.setFlag("allJewelsCorrect");
         System.out.println("Jewels correct");
         LevelManager.getCurrentLevel().getMap().getItemById(2).setIsHidden(true);
+        LevelManager.getCurrentLevel().getMap().getItemById(3).setIsHidden(false);
       }
 
       if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("redJewelCorrect")){
