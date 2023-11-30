@@ -41,7 +41,7 @@ public class MenuScreen extends Screen {
 
         background = new TitleScreenMap();
         background.setCenterCamera();
-        solidBg = new SolidSpriteUI(0, 0, 0, 0, new Color(169, 150, 236));
+        solidBg = new SolidSpriteUI(0, 0, 0, 0, new Color(149, 133, 241));
         solidBg.setfillType(FillType.FILL_SCREEN);
 
         titleContainer = new PositioningContainer(Anchor.TOP_CENTER);

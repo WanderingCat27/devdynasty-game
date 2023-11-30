@@ -37,7 +37,7 @@ public class ControlsScreen extends Screen {
 
   @Override
   public void initialize() {
-    background = new SolidSpriteUI(0, 0, 0, 0, new Color(169, 150, 236));
+    background = new SolidSpriteUI(0, 0, 0, 0, new Color(149, 133, 241));
     background.setfillType(FillType.FILL_SCREEN);
     posContainer = new PositioningContainer(Anchor.TOP_CENTER);
     posContainer.setAnchorChildren(true);
