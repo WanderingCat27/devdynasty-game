@@ -92,7 +92,11 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpChip", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotOne", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotTwo", false);
-    
+    GlobalFlagManager.FLAG_MANAGER.addFlag("redJewelCorrect", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("greenJewelCorrect", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("blueJewelCorrect", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("allJewelsCorrect", false);
+
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
     pauseScreen = new PauseScreen(this, LevelManager.getCurrentLevel().getMap().soundPlayer,
@@ -158,6 +162,7 @@ public class PlayLevelScreen extends Screen {
     }
 
 
+    
 
 
 
@@ -212,6 +217,29 @@ public class PlayLevelScreen extends Screen {
             LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new PickUpItemScript());
           }
       }
+      
+    }
+
+    if(LevelManager.getCurrentLevel() == LevelManager.CAVE){
+
+      if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("redJewelCorrect") && GlobalFlagManager.FLAG_MANAGER.isFlagSet("greenJewelCorrect") && GlobalFlagManager.FLAG_MANAGER.isFlagSet("blueJewelCorrect")){
+        GlobalFlagManager.FLAG_MANAGER.setFlag("allJewelsCorrect");
+        System.out.println("Jewels correct");
+        LevelManager.getCurrentLevel().getMap().getItemById(2).setIsHidden(true);
+      }
+
+      if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("redJewelCorrect")){
+        System.out.println("Red Correct");
+      }
+
+      if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("greenJewelCorrect")){
+        System.out.println("Green Correct");
+      }
+
+      if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("blueJewelCorrect")){
+        System.out.println("Blue Correct");
+      }
+
       
     }
 

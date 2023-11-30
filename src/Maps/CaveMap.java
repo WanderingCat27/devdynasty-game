@@ -29,6 +29,9 @@ public class CaveMap extends Map{
     BuildingEntrance caveExit = new BuildingEntrance(1, getMapTile(1, 29).getLocation(), 20, 200, "prehistoric");
     list.add(caveExit);
 
+    Item lock = new Item(2, getMapTile(25, 23).getLocation(), "Lock.png", 25, 25);
+    list.add(lock);
+    
     return list;
 
   }
@@ -39,13 +42,13 @@ public class CaveMap extends Map{
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        JewelRock redJewelRock = new JewelRock(getMapTile(6, 16).getLocation(), "RedJewel2.png", 1);
+        JewelRock redJewelRock = new JewelRock(getMapTile(6, 16).getLocation(), "RedJewel2.png", 1, getMapTile(11, 28).getLocation(), "redJewelCorrect");
         enhancedMapTiles.add(redJewelRock);
 
-        JewelRock greenJewelRock = new JewelRock(getMapTile(37, 9).getLocation(), "GreenJewel2.png", 2);
+        JewelRock greenJewelRock = new JewelRock(getMapTile(37, 9).getLocation(), "GreenJewel2.png", 2, getMapTile(4, 9).getLocation(), "greenJewelCorrect");
         enhancedMapTiles.add(greenJewelRock);
 
-        JewelRock blueJewelRock = new JewelRock(getMapTile(1, 2).getLocation(), "BlueJewel2.png", 3);
+        JewelRock blueJewelRock = new JewelRock(getMapTile(2, 2).getLocation(), "BlueJewel2.png", 3, getMapTile(37, 14).getLocation(), "blueJewelCorrect");
         enhancedMapTiles.add(blueJewelRock);
 
 
