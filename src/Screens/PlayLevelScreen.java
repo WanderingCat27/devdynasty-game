@@ -58,6 +58,7 @@ public class PlayLevelScreen extends Screen {
   public static float currentVolume;
   public static float currentWalkVolume;
   protected boolean activeCombat = false;
+  protected boolean move = true;
 
   public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
     this.screenCoordinator = screenCoordinator;
@@ -97,6 +98,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpChip", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotOne", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotTwo", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("returnedToLab", false);
     
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
@@ -164,6 +166,7 @@ public class PlayLevelScreen extends Screen {
           }
       }
     }
+    
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotEnemy") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("robotEnemyDefeated")) {
         runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(9), "hasTalkedToRobotEnemy", "robotEnemyDefeated");
@@ -222,6 +225,15 @@ public class PlayLevelScreen extends Screen {
           }
       }
       
+    }
+
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("returnedToLab") && LevelManager.getCurrentLevel() == LevelManager.LAB) {
+      if (move == true) {
+          LevelManager.getCurrentLevel().getMap().getNPCById(3).setLocation((LevelManager.getCurrentLevel().getMap().getNPCById(2).getLocation().getX() - 100), LevelManager.getCurrentLevel().getMap().getNPCById(2).getLocation().getY());
+          System.out.println("moving");
+          move = false;
+      }
+        
     }
 
 
