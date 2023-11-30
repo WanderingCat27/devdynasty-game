@@ -17,6 +17,8 @@ public class PurplePotion extends Item
         super(id,point,"PurplePotion.png");
         this.setIsUncollidable(true);
         this.setInteractScript(new PurplePotionScript());
+
+        setName("Purple Potion");
     }    
 
     @Override

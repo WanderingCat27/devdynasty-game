@@ -19,6 +19,8 @@ public class RedPotion extends Item
         super(id,point,"RedPotion.png");
         this.setIsUncollidable(true);
         this.setInteractScript(new RedPotionScript());
+
+        setName("Red Potion");
     }    
 
     @Override
