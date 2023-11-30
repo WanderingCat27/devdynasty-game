@@ -180,7 +180,7 @@ public class CombatScreen extends Screen {
     if (LevelManager.getCurrentLevel() == LevelManager.SALOON_INSIDE
         || LevelManager.getCurrentLevel() == LevelManager.OCHOUSE)
       miniGameContainer = new FightGameContainer(initialTextboxHeight);
-    else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC)
+    else if (LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC || LevelManager.getCurrentLevel() == LevelManager.CAVE)
       miniGameContainer = new DodgeFightGameContainer(initialTextboxHeight);
     else
       miniGameContainer = new FinalFightGameContainer(initialTextboxHeight);
