@@ -93,6 +93,8 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpMetal", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotEnemy", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("robotEnemyDefeated", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToSecurityRobot", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("securityRobotDefeated", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasDroppedChipOff", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasPickedUpChip", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotOne", false);
@@ -141,6 +143,9 @@ public class PlayLevelScreen extends Screen {
     }
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToBat") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("batDefeated"))
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(6), "hasTalkedToBat", "batDefeated");
+
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToSecurityRobot") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("securityRobotDefeated"))
+      runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(50), "hasTalkedToSecurityRobot", "securityRobotDefeated");
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("evilCowboyDefeated")){
         if(LevelManager.getCurrentLevel() == LevelManager.LAB && GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasDroppedCrystalOff")) {

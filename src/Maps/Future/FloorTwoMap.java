@@ -10,8 +10,12 @@ import Level.Map;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.InteractableObject;
+import NPCs.Future.Robot;
+import NPCs.Future.RobotSecurity;
+import Scripts.Future.RobotEnemy;
 import NPCs.Saloon.BarTable;
 import NPCs.Saloon.RoundTable;
+import Scripts.Future.RobotEnemy;
 import Tilesets.FutureIndoorTileset;
 import Tilesets.SaloonTileset;
 import Utils.ImageUtils;
@@ -85,8 +89,13 @@ public class FloorTwoMap extends Map {
     // camera room
     list.add(new InteractableObject(id++, getMapTile(0, 9).getLocation(), new String[] {"Seems to be a camera monitor", "Hopefully I am not caught on camera"}, new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("camera_display.png"), 3))));
         list.add(new InteractableObject(id++, getMapTile(5, 9).getLocation(), new String[] {"Seems to be a camera monitor", "Hopefully I am not caught on camera"}, new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("camera_display.png"), 3))));
+
+    RobotSecurity robotEvil = new RobotSecurity(50, getMapTile(4, 8).getLocation(), 35);
+    robotEvil.setInteractScript(new RobotEnemy());
+    npcs.add(robotEvil);
+
     
-        return list;
+    return list;
   }
 
 }
