@@ -44,7 +44,7 @@ public abstract class MiniGameContainer extends PositioningContainer {
       tutorialTextbox.addText(tutorialStrings);
       // replay tutorials message
       tutorialTextbox.addText(
-          "To view tutorial again press escape click reset tutorials, \nthen run from the fight and initiate the fight again");
+          "To view tutorial again press escape click reset tutorials, \nthen restart fight \n(click run and return then speak to npc again)");
       tutorialTextbox.setIsActive(true);
       tutorialTextbox.setInteractKey(Key.ENTER);
       tutorialTextbox.getSpriteFont().setFontSize(32);
