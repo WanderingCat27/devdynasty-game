@@ -189,7 +189,7 @@ public class PlayLevelScreen extends Screen {
       // System.out.println("ran caveman combat");
     }
 
-    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("cavemanDefeated")){
+    if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("cavemanDefeated")){
         if(LevelManager.getCurrentLevel() == LevelManager.LAB && GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasDroppedMetalOff")) {
           LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelByString("future"));
         }
@@ -210,6 +210,7 @@ public class PlayLevelScreen extends Screen {
       }
       
     }
+
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("win")) {
       playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
