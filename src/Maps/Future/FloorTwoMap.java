@@ -31,10 +31,9 @@ public class FloorTwoMap extends Map {
   @Override
   public ArrayList<Item> loadItems() {
     ArrayList<Item> list = new ArrayList<>();
-    if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotOne") && 
-    GlobalFlagManager.FLAG_MANAGER.isFlagSet("securityRobotDefeated")){
-      BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "floor3");
-      list.add(elevator);
+    if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotOne")){
+      BuildingEntrance elevator1 = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "floor3");
+      list.add(elevator1);
     }
     else{
       BuildingEntrance elevator = new BuildingEntrance(0, getMapTile(37, 2).getLocation(), 160, 32, "reception");
@@ -99,9 +98,9 @@ public class FloorTwoMap extends Map {
     list.add(new InteractableObject(id++, getMapTile(0, 9).getLocation(), new String[] {"Seems to be a camera monitor", "Hopefully I am not caught on camera"}, new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("camera_display.png"), 3))));
         list.add(new InteractableObject(id++, getMapTile(5, 9).getLocation(), new String[] {"Seems to be a camera monitor", "Hopefully I am not caught on camera"}, new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("camera_display.png"), 3))));
 
-    RobotSecurity robotEvil = new RobotSecurity(50, getMapTile(4, 8).getLocation(), 35);
-    robotEvil.setInteractScript(new RobotEnemy());
-    npcs.add(robotEvil);
+    //RobotSecurity robotEvil = new RobotSecurity(50, getMapTile(4, 8).getLocation(), 35);
+    //robotEvil.setInteractScript(new RobotEnemy());
+    //npcs.add(robotEvil);
 
     
     return list;

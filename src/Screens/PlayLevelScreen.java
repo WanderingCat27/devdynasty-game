@@ -101,6 +101,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotOne", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasTalkedToRobotTwo", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("returnedToLab", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("tasksCompleted", false);
     
     this.currentVolume = 100;
     this.currentWalkVolume = 100;
@@ -177,6 +178,10 @@ public class PlayLevelScreen extends Screen {
         runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(9), "hasTalkedToRobotEnemy", "robotEnemyDefeated");
         // System.out.println("ran robot combat");
       }
+
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotOne")) {
+      GlobalFlagManager.FLAG_MANAGER.setFlag("tasksCompleted");
+    }
    
    
       if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("robotEnemyDefeated")){
