@@ -15,15 +15,16 @@ import Engine.Keyboard;
 import Utils.MathUtils;
 
 public class FinalFightGameContainer extends MiniGameContainer {
+  public static boolean HAS_COMPLETED_TUTORIAL = false;
 
   // offset before first collision
-  private static final int START_OFFSET = 1200;
+  private static final int START_OFFSET = 800;
   // gap between blocks
-  private static final int GAP = 400;
+  private static final int GAP = 350;
   // num of blocks to spawn
   private static final int MAX_ROUNDS = 15;
   // speed of blocks incoming
-  private static final float SPEED = 12f;
+  private static final float SPEED = 11f;
   SolidSpriteUI bg;
 
   enum Score {
@@ -42,6 +43,7 @@ public class FinalFightGameContainer extends MiniGameContainer {
   private static SecureRandom random = new SecureRandom();
 
   public FinalFightGameContainer(int height) {
+    super("This game is controlled using a-s-d", "The goal of the game is to press the correct \nkeys when the blocks enter the red zone.", "a is for the top row, \ns is for the middle row, and \nd is for the bottom row.", "Don't worry if you don't understand, you can always \nrestart the fight by clicking run and exiting.");
     bg = new SolidSpriteUI(0, 0, 0, height, Color.GRAY);
     bg.setfillTypeX(FillType.FILL_PARENT);
 
@@ -82,6 +84,10 @@ public class FinalFightGameContainer extends MiniGameContainer {
 
   @Override
   public void update() {
+    super.update();
+    if (!isTutorialOver)
+      return;
+
     int index = getClosestIndex();
     if (prevIndex != index) {
       // if didnt press the key at all and should have -.5f
@@ -142,6 +148,8 @@ public class FinalFightGameContainer extends MiniGameContainer {
   @Override
   public void draw(GraphicsHandler g) {
     super.draw(g);
+    if (!isTutorialOver)
+      return;
 
     for (int i = 0; i < pressBoxes.length; i++) {
       for (int j = 0; j < pressBoxes[i].length; j++)
@@ -194,6 +202,8 @@ public class FinalFightGameContainer extends MiniGameContainer {
 
   @Override
   public void start() {
+    HAS_COMPLETED_TUTORIAL = true;
+
     isStopped = false;
     xPos = 0;
     pressBoxes = new boolean[MAX_ROUNDS][3];
@@ -230,12 +240,22 @@ public class FinalFightGameContainer extends MiniGameContainer {
       }
     }
 
-    return 10*total / max;
+    return 10 * total / max;
   }
 
   @Override
   public boolean isGameOver() {
     return isStopped;
+  }
+
+  @Override
+  public boolean hasCompletedTutorial() {
+    return HAS_COMPLETED_TUTORIAL;
+  }
+
+  @Override
+  public int textboxHeight() {
+    return bg.getHeight();
   }
 
 }

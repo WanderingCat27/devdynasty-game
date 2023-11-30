@@ -145,7 +145,7 @@ public class CombatScreen extends Screen {
     playerTurn = true;
     isInitialized = true;
     usedItems = new boolean[4];
-    playerHealth = 2;
+    playerHealth = 50;
 
     fightContainer = new UIContainer(0, 0) {
 
@@ -286,7 +286,7 @@ public class CombatScreen extends Screen {
             if (healthZero() || screenState == SCREENSTATE.FIGHTGAME || awaitingAttack)
               return;
             screenState = SCREENSTATE.FIGHTGAME;
-            miniGameContainer.start();
+            miniGameContainer.init();
           }
 
         });
