@@ -1,5 +1,7 @@
 package Screens;
 
+import java.awt.Color;
+
 import Engine.Config;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
@@ -16,14 +18,19 @@ import ui.Container.Anchor;
 import ui.Container.CenterContainer;
 import ui.Container.PositioningContainer;
 import ui.Container.UIContainer.FillType;
+import ui.SpriteUI.SolidSpriteUI;
+import ui.SpriteUI.SpriteUI;
 
 // This is the class for the main menu screen
 public class MenuScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected Map background;
+    protected SolidSpriteUI solidBg;
+    protected SpriteUI title;
 
     protected AnimatedSpriteButton playButton, creditButton, controlsButton;
     protected CenterContainer centerContainer;
+    protected PositioningContainer titleContainer;
 
     public MenuScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -34,8 +41,25 @@ public class MenuScreen extends Screen {
 
         background = new TitleScreenMap();
         background.setCenterCamera();
+        solidBg = new SolidSpriteUI(0, 0, 0, 0, new Color(169, 150, 236));
+        solidBg.setfillType(FillType.FILL_SCREEN);
 
-        centerContainer = new CenterContainer();
+        titleContainer = new PositioningContainer(Anchor.TOP_CENTER);
+        titleContainer.setAnchorChildren(true);
+        titleContainer.setfillType(FillType.FILL_SCREEN);
+        title = new SpriteUI(0, 10, ImageLoader.loadAllowTransparent("title.png"), 5);
+        titleContainer.addComponent(title);
+
+        centerContainer = new CenterContainer() {
+          @Override
+          public int getYAbs() {
+            return (int) (title.getHeight()*1.4);
+          }
+          @Override
+          public int getHeight() {
+            return ScreenManager.getScreenHeight() - title.getHeight();
+          }
+        };
         centerContainer.setfillType(FillType.FILL_SCREEN);
         centerContainer.setAnchorChildren(false);
 
@@ -80,19 +104,23 @@ public class MenuScreen extends Screen {
 
     public void update() {
         // update background map (to play tile animations)
-        background.update(null);
+        solidBg.update();
         centerContainer.update();
+        titleContainer.update();
         float scale = getScaleFactor();
         playButton.scale(scale);
         creditButton.scale(scale);
         controlsButton.scale(scale);
+        title.scale(scale);
+
 
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        background.draw(graphicsHandler);
+        solidBg.draw(graphicsHandler);
         // graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 191, 163));
 
         centerContainer.draw(graphicsHandler);
+        titleContainer.draw(graphicsHandler);
     }
 }

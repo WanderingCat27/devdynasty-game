@@ -20,16 +20,18 @@ import ui.Container.PositioningContainer;
 import ui.Container.UIContainer;
 import ui.Container.UIContainer.FillType;
 import ui.SpriteFont.SpriteFont;
+import ui.SpriteUI.SolidSpriteUI;
 import ui.SpriteUI.SpriteUI;
 
 // This class is for the credits screen
 public class CreditsScreen extends Screen {
   protected ScreenCoordinator screenCoordinator;
-  protected Map background;
+  protected SolidSpriteUI background;
   protected SpriteFont creditsLabel;
   protected SpriteFont createdByLabel;
   protected AnimatedSpriteButton exitButton;
   protected PositioningContainer posContainer;
+  private static Color textColor = new Color(255, 118, 118);
 
   public CreditsScreen(ScreenCoordinator screenCoordinator) {
     this.screenCoordinator = screenCoordinator;
@@ -38,16 +40,21 @@ public class CreditsScreen extends Screen {
   @Override
   public void initialize() {
     // setup graphics on screen (background map, spritefont text)
-    background = new TitleScreenMap();
+    background = new SolidSpriteUI(0, 0,0, 0, new Color(169, 150, 236));
+    background.setfillType(FillType.FILL_SCREEN);
     posContainer = new PositioningContainer(Anchor.TOP_CENTER);
     posContainer.setAnchorChildren(true);
     posContainer.setfillType(FillType.FILL_SCREEN);
     
-    posContainer.addComponent(new SpriteUI(0, 0, ImageUtils.createFilledImage(400, 300, new Color(0, 0, 0, 100))));
+    // posContainer.addComponent(new SpriteUI(0, 0, ImageUtils.createFilledImage(400, 300, new Color(0, 0, 0, 100))));
 
-    creditsLabel = new SpriteFont("Credits", 0, 7, new Font("Times New Roman", Font.BOLD, 30), Color.ORANGE);
-    createdByLabel = new SpriteFont("Created by devDynasty", 0, 121, new Font("Times New Roman", Font.BOLD, 20),
-        Color.ORANGE);
+    creditsLabel = new SpriteFont("Credits", 0, 7, new Font("Comic Sans", Font.BOLD, 40), textColor);
+    createdByLabel = new SpriteFont("Created by devDynasty", 0, 121, new Font("Comic Sans", Font.BOLD, 30),
+        textColor);
+    createdByLabel.setOutlineColor(Color.BLACK);
+    createdByLabel.setOutlineThickness(5);
+    creditsLabel.setOutlineColor(Color.BLACK);
+    creditsLabel.setOutlineThickness(5);
     posContainer.addComponent(creditsLabel);
     posContainer.addComponent(createdByLabel);
     this.exitButton = new AnimatedSpriteButton(10, 10, 5,
@@ -58,7 +65,7 @@ public class CreditsScreen extends Screen {
   }
 
   public void update() {
-    background.update(null);
+    background.update();
     exitButton.update();
   }
 
