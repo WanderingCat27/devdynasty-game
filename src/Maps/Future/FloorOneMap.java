@@ -52,7 +52,7 @@ public class FloorOneMap extends Map {
               new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("file_cabinet.png"), 3))));
         else
           list.add(new InteractableObject(id++, getMapTile(26 + col * 2, 9 + row * 3).getLocation(),
-              new String[] { "Nothing here" },
+              new String[] { "No code number here" },
               new Frame(ImageUtils.scaleImage(ImageLoader.loadAllowTransparent("file_cabinet.png"), 3))));
 
     // spawn shelfs

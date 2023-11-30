@@ -180,14 +180,14 @@ public class PlayLevelScreen extends Screen {
           LevelManager.getCurrentLevel().getMap().getNPCById(9).setInteractScript(new CheckDroppedItemScript());
         }
         if(LevelManager.getCurrentLevel() == LevelManager.FUTURE){
-          LevelManager.getCurrentLevel().getMap().getNPCById(9).setIsHidden(false);
+          LevelManager.getCurrentLevel().getMap().getNPCById(2).setIsHidden(false);
           if(GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasPickedUpChip"))
           {
-            LevelManager.getCurrentLevel().getMap().getNPCById(9).setInteractScript(new ChangeLevelScript(LevelManager.LAB));
+            LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new ChangeLevelScript(LevelManager.LAB));
           }
           else
           {
-            LevelManager.getCurrentLevel().getMap().getNPCById(9).setInteractScript(new PickUpItemScript());
+            LevelManager.getCurrentLevel().getMap().getNPCById(2).setInteractScript(new PickUpItemScript());
           }
       }
       
