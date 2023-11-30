@@ -88,6 +88,7 @@ public class PlayLevelScreen extends Screen {
     GlobalFlagManager.FLAG_MANAGER.addFlag("hasChangedCostume", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("swordPickedUp", false);
     GlobalFlagManager.FLAG_MANAGER.addFlag("dinoDefeated", false);
+    GlobalFlagManager.FLAG_MANAGER.addFlag("swordSpawn", false);
 
     
     this.currentVolume = 100;
@@ -160,6 +161,11 @@ public class PlayLevelScreen extends Screen {
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToCaveman") && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("cavemanDefeated")) {
       runCombat(LevelManager.getCurrentLevel().getMap().getNPCById(5), "hasTalkedToCaveman", "cavemanDefeated");
       // System.out.println("ran caveman combat");
+    }
+
+    if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("dinoDefeated") && LevelManager.getCurrentLevel() == LevelManager.PREHISTORIC && !GlobalFlagManager.FLAG_MANAGER.isFlagSet("swordSpawn")) {
+      LevelManager.getCurrentLevel().getMap().getItemById(1).setIsHidden(false);
+      GlobalFlagManager.FLAG_MANAGER.setFlag("swordSpawn");
     }
 
     if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("cavemanDefeated")){

@@ -32,6 +32,7 @@ import NPCs.ScienceLab.MadScientist;
 import Scripts.ChangeLevelByString;
 import Scripts.ChangeLevelScript;
 import Scripts.SimpleTextScript;
+import Scripts.NewMap.SwordScript;
 import Scripts.Prehistoric.BlueDinoScript;
 import Scripts.Prehistoric.Caveman2Script;
 import Scripts.Prehistoric.CavemanScript;
@@ -93,6 +94,7 @@ public class PrehistoricMap extends Map {
       list.add(purplePotion);
       purplePotion.setIsHidden(true);
       Sword sword = new Sword(1, getMapTile(4, 4).getLocation());
+      sword.setIsHidden(true);
       list.add(sword);
 
       
