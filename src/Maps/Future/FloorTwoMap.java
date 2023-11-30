@@ -47,10 +47,6 @@ public class FloorTwoMap extends Map {
   public ArrayList<NPC> loadNPCs() {
     ArrayList<NPC> list = new ArrayList<>();
 
-    RobotSecurity robot = new RobotSecurity(2, getMapTile(0, 8).getLocation(), 35);
-    robot.setInteractScript(new RobotSecurityScript());
-    npcs.add(robot);
-
     int id = 10;
 
     // main room

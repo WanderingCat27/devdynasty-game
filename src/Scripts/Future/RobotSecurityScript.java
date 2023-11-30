@@ -16,18 +16,19 @@ public class RobotSecurityScript extends Script<NPC> {
         lockPlayer();
         entity.facePlayer(player);
 
-           if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("securityRobotDefeated")) {
+           if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToSecurityRobot")) {
+            BuildingEntrance elevator1 = new BuildingEntrance(0, getMapTile(2, 8).getLocation(), 96, 20, "Floor3");
             showTextbox();
             addTextToTextboxQueue( "ROBOT HEALTH AT MINIMUM CAPACITY");
             addTextToTextboxQueue( "FINAL CODE NUMBER IS 9");
             addTextToTextboxQueue( "POWERING DOWN.....");
+            this.map.addItem(elevator1);
         }
-        else if (GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToRobotEnemy")) {
-            BuildingEntrance elevator1 = new BuildingEntrance(0, getMapTile(37, 3).getLocation(), 96, 20, "Floor3");
+        else if (!GlobalFlagManager.FLAG_MANAGER.isFlagSet("hasTalkedToSecurityRobot")) {
             showTextbox();
             addTextToTextboxQueue("ACCESS TO SECURITY ROOM PROHIBITED");
             addTextToTextboxQueue("ATTACK MODE INITIATED");
-            this.map.addItem(elevator1);
+
         }
         entity.facePlayer(player);
     }
@@ -38,7 +39,7 @@ public class RobotSecurityScript extends Script<NPC> {
         hideTextbox();
 
         // set flag so that if walrus is talked to again after the first time, what he says changes
-        GlobalFlagManager.FLAG_MANAGER.setFlag("hasTalkedToRobotSecurity");
+        GlobalFlagManager.FLAG_MANAGER.setFlag("hasTalkedToSecurityRobot");
     }
 
     @Override

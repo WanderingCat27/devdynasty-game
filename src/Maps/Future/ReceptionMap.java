@@ -9,7 +9,9 @@ import Level.NPC;
 import Level.Trigger;
 import NPCs.Future.Robot;
 import NPCs.Future.RobotNPCS;
+import NPCs.Future.RobotSecurity;
 import Scripts.Future.RobotOneScript;
+import Scripts.Future.RobotSecurityScript;
 import NPCs.Saloon.BarTable;
 import NPCs.Saloon.RoundTable;
 import Scripts.Future.RobotEnemy;
@@ -40,6 +42,12 @@ public class ReceptionMap extends Map{
       RobotNPCS robot1 = new RobotNPCS(9, getMapTile(8, 6).getLocation());
       robot1.setInteractScript(new RobotOneScript());
       npcs.add(robot1);
+      
+            
+    RobotSecurity robot = new RobotSecurity(2, getMapTile(0, 8).getLocation(), 3);
+    robot.setInteractScript(new RobotSecurityScript());
+    npcs.add(robot);
+
 
       return npcs;
   }
